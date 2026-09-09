@@ -1,0 +1,518 @@
+<title>Dreamkeepers Legal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg: #FAF8FC;
+    --surface: #FFFFFF;
+    --surface-raised: #FFFFFF;
+    --ink: #241F33;
+    --ink-dim: #6B6280;
+    --ink-faint: #948CA8;
+    --border: #E7E1F1;
+    --border-soft: #F0ECF8;
+    --accent: #6C4FCE;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #F1ECFC;
+    --accent-soft-ink: #4E3AA0;
+    --code-bg: #F4F1FA;
+    --shadow: 0 1px 2px rgba(36, 31, 51, 0.04), 0 8px 24px rgba(36, 31, 51, 0.06);
+    --focus: #6C4FCE;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #120F1E;
+      --surface: #1B1730;
+      --surface-raised: #201C38;
+      --ink: #ECE8F7;
+      --ink-dim: #A79EC4;
+      --ink-faint: #746B92;
+      --border: #322B4E;
+      --border-soft: #241F3B;
+      --accent: #A78BFA;
+      --accent-ink: #1B1730;
+      --accent-soft: #29224A;
+      --accent-soft-ink: #C9B8FA;
+      --code-bg: #241F3B;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.35);
+      --focus: #C9B8FA;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #120F1E;
+    --surface: #1B1730;
+    --surface-raised: #201C38;
+    --ink: #ECE8F7;
+    --ink-dim: #A79EC4;
+    --ink-faint: #746B92;
+    --border: #322B4E;
+    --border-soft: #241F3B;
+    --accent: #A78BFA;
+    --accent-ink: #1B1730;
+    --accent-soft: #29224A;
+    --accent-soft-ink: #C9B8FA;
+    --code-bg: #241F3B;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.35);
+    --focus: #C9B8FA;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  a:hover { text-decoration-color: var(--accent); }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .skyline {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 900px 420px at 12% -8%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
+      radial-gradient(ellipse 700px 380px at 100% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 55%);
+  }
+
+  header.top {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .top-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .wordmark {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .wordmark .glyph {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  .wordmark .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  nav.doc-tabs {
+    display: inline-flex;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+    box-shadow: var(--shadow);
+  }
+  nav.doc-tabs button {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: var(--ink-dim);
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+  }
+  nav.doc-tabs button[aria-selected="true"] {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  nav.doc-tabs button:hover:not([aria-selected="true"]) {
+    background: var(--accent-soft);
+    color: var(--accent-soft-ink);
+  }
+
+  .lang-toggle {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .lang-toggle button {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border: none;
+    background: transparent;
+    color: var(--ink-dim);
+    padding: 8px 13px;
+    cursor: pointer;
+  }
+  .lang-toggle button[aria-pressed="true"] {
+    background: var(--accent-soft);
+    color: var(--accent-soft-ink);
+  }
+
+  main {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 40px 28px 100px;
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  aside.toc {
+    position: sticky;
+    top: 92px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .meta-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+  }
+  .meta-card .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    margin: 0 0 4px;
+  }
+  .meta-card .value {
+    font-variant-numeric: tabular-nums;
+    font-size: 13.5px;
+    color: var(--ink-dim);
+    margin: 0 0 12px;
+  }
+  .meta-card .value:last-child { margin-bottom: 0; }
+  .meta-card a.contact { font-size: 13.5px; font-weight: 600; }
+
+  nav.toc-list {
+    display: none;
+  }
+  nav.toc-list a {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-dim);
+    text-decoration: none;
+    padding: 6px 0 6px 14px;
+    border-left: 2px solid var(--border);
+    line-height: 1.4;
+  }
+  nav.toc-list a:hover { color: var(--ink); border-left-color: var(--ink-faint); }
+  nav.toc-list a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+
+  @media (min-width: 860px) {
+    nav.toc-list { display: block; }
+  }
+
+  article.doc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px clamp(24px, 5vw, 64px);
+    box-shadow: var(--shadow);
+    max-width: 720px;
+  }
+
+  article.doc h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0 0 6px;
+  }
+
+  article.doc > p:first-of-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin: 0 0 28px;
+    line-height: 1.7;
+  }
+  article.doc > p:first-of-type strong { color: var(--ink-dim); font-weight: 700; }
+
+  article.doc h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+    margin: 40px 0 14px;
+    scroll-margin-top: 100px;
+  }
+  article.doc h3 {
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+    margin: 26px 0 10px;
+    scroll-margin-top: 100px;
+  }
+  article.doc p { margin: 0 0 14px; color: var(--ink); }
+  article.doc ul { margin: 0 0 16px; padding-left: 22px; }
+  article.doc li { margin-bottom: 9px; }
+  article.doc li:last-child { margin-bottom: 0; }
+  article.doc strong { font-weight: 700; }
+  article.doc hr {
+    border: none;
+    border-top: 1px solid var(--border-soft);
+    margin: 32px 0;
+  }
+  article.doc a[data-doc] {
+    font-weight: 600;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+
+  .table-wrap { overflow-x: auto; margin: 0 0 18px; border: 1px solid var(--border); border-radius: 10px; }
+  article.doc table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 480px;
+  }
+  article.doc th, article.doc td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-soft);
+    vertical-align: top;
+  }
+  article.doc thead th {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    background: var(--code-bg);
+  }
+  article.doc tbody tr:last-child td { border-bottom: none; }
+
+  footer.page-foot {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+  }
+  footer.page-foot a { color: var(--ink-dim); }
+
+  @media (max-width: 859px) {
+    main { grid-template-columns: 1fr; gap: 28px; }
+    aside.toc { position: static; }
+    article.doc { padding: 32px clamp(20px, 6vw, 40px); border-radius: 16px; }
+  }
+
+  @media print {
+    header.top, aside.toc, footer.page-foot, .skyline { display: none; }
+    body { background: #fff; color: #000; }
+    article.doc { box-shadow: none; border: none; padding: 0; max-width: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+
+<div class="skyline" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="wordmark">
+      <span class="glyph">Dreamkeepers</span>
+      <span class="tag">Legal</span>
+    </div>
+    <div class="controls">
+      <nav class="doc-tabs" id="docTabs" aria-label="Document">
+        <button type="button" data-doc="privacy" aria-selected="true">Privacy Policy</button>
+        <button type="button" data-doc="terms" aria-selected="false">Terms of Service</button>
+        <button type="button" data-doc="eula" aria-selected="false">EULA</button>
+      </nav>
+      <div class="lang-toggle" id="langToggle" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="de" aria-pressed="false">DE</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <aside class="toc">
+    <div class="meta-card">
+      <p class="label">Developer</p>
+      <p class="value">Oguzcan Budak</p>
+      <p class="label">Contact</p>
+      <p class="value"><a class="contact" href="mailto:oguzcanbudak1996@gmail.com">oguzcanbudak1996@gmail.com</a></p>
+      <p class="label">App</p>
+      <p class="value" style="margin-bottom:0;">Dreamkeepers · iOS</p>
+    </div>
+    <nav class="toc-list" id="tocList" aria-label="Sections in this document"></nav>
+  </aside>
+
+  <article class="doc" id="docContent"></article>
+</main>
+
+<footer class="page-foot">
+  <span>&copy; 2026 Oguzcan Budak. All rights reserved.</span>
+  <span id="lastUpdated"></span>
+</footer>
+
+<script type="application/json" id="legal-data">{"privacy_en": "<h1>Privacy Policy for Dreamkeepers</h1>\n<p><strong>Effective Date:</strong> September 5, 2026\n<strong>Last Updated:</strong> September 5, 2026</p>\n<p>Oguzcan Budak (\"we,\" \"our,\" or \"us\") developed Dreamkeepers, a mobile collector role-playing game for iOS. This Privacy Policy explains what information Dreamkeepers collects, how it is used, and your rights regarding it.</p>\n<p>By using Dreamkeepers, you agree to the practices described in this Privacy Policy. If you do not agree, please do not use the app.</p>\n<hr />\n<h2>1. Information We Collect</h2>\n<p>Dreamkeepers does <strong>not</strong> require you to create an account and does not collect your name, email address, or any other directly-identifying information.</p>\n<h3>Information Collected Automatically</h3>\n<ul>\n<li><strong>Advertising identifier (IDFA):</strong> If you grant permission via Apple's App Tracking Transparency (\"ATT\") prompt, Dreamkeepers' advertising partner (Google Mobile Ads / AdMob) accesses your device's advertising identifier to personalize ads and measure ad performance. If you decline, Dreamkeepers still shows ads, but they are not personalized to you.</li>\n<li><strong>Ad interaction data:</strong> Google Mobile Ads collects data such as ad impressions, clicks, and approximate (IP-based) location to serve and measure ads, per <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener\">Google's Privacy Policy</a>.</li>\n<li><strong>Game Center data:</strong> If you sign in to Game Center, Apple's GameKit framework shares your Game Center player identifier, display name, and — where you use the in-app friends/leaderboard features — your Game Center friends' display names and count with the app, in order to show leaderboards, achievements, and social features. This is governed by <a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Apple's Privacy Policy</a>.</li>\n<li><strong>Device and diagnostic information:</strong> Standard technical information (device model, OS version, app version) may be collected automatically by Apple and by our advertising partner for compatibility, fraud-prevention, and debugging purposes.</li>\n</ul>\n<h3>Information We Do NOT Collect</h3>\n<ul>\n<li>We do not collect your name, email address, phone number, or physical address.</li>\n<li>We do not require account creation or sign-in to play.</li>\n<li>We do not access your location (beyond the coarse, IP-based location our advertising partner may use), camera, photo library, contacts, microphone, or health data.</li>\n<li>We do not operate our own backend server that stores your gameplay data — see Section 2.</li>\n</ul>\n<hr />\n<h2>2. Your Game Data: Local Storage and iCloud Sync</h2>\n<p>Your progress (roster, currencies, campaign progress, settings, and purchase history) is stored <strong>locally on your device</strong>. If you are signed in to iCloud and have iCloud Drive enabled for Dreamkeepers, your save data is additionally synced through <strong>your own personal iCloud account</strong> (Apple's iCloud/CloudKit infrastructure) so that it carries across your devices signed into the same Apple ID.</p>\n<p>This sync uses Apple's infrastructure directly — Dreamkeepers does not operate a separate server, and we (the developer) do not have access to your iCloud-stored save data. Apple's handling of this data is governed by <a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Apple's Privacy Policy</a>.</p>\n<p>If you sign out of iCloud or disable iCloud Drive for the app, Dreamkeepers continues to work using only the local copy on your device.</p>\n<hr />\n<h2>3. How We Use Information</h2>\n<p>The limited technical information described in Section 1 is used to:</p>\n<ul>\n<li>Serve and measure the performance of in-app advertising (rewarded and interstitial ads)</li>\n<li>Provide Game Center leaderboards, achievements, and social features</li>\n<li>Diagnose and fix technical issues</li>\n<li>Comply with legal obligations</li>\n</ul>\n<p>We do not sell your information, and we do not use it to build advertising profiles beyond what our advertising partner does on our behalf as described above.</p>\n<hr />\n<h2>4. How We Share Information</h2>\n<p>We do not sell, rent, or trade personal information. Information is shared only:</p>\n<ul>\n<li><strong>With our advertising partner (Google Mobile Ads / AdMob)</strong>, as described in Section 1, to serve and measure ads.</li>\n<li><strong>With Apple</strong>, through Game Center and iCloud, as part of those Apple-operated services.</li>\n<li><strong>If required by law</strong>, in response to valid legal process, or to protect the rights, property, or safety of Oguzcan Budak, our users, or the public.</li>\n<li><strong>In a business transfer</strong>, if Dreamkeepers or its assets are sold or transferred, in which case we will provide notice.</li>\n</ul>\n<hr />\n<h2>5. Third-Party Services</h2>\n<p>Dreamkeepers uses the following third-party services:</p>\n<table>\n<thead>\n<tr>\n<th>Service</th>\n<th>Purpose</th>\n<th>Privacy Policy</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Google Mobile Ads (AdMob)</td>\n<td>Rewarded video ads and interstitial ads</td>\n<td><a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener\">Google Privacy Policy</a></td>\n</tr>\n<tr>\n<td>Google User Messaging Platform (UMP)</td>\n<td>Consent management for advertising (EEA/UK, where applicable)</td>\n<td><a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener\">Google Privacy Policy</a></td>\n</tr>\n<tr>\n<td>Apple Game Center</td>\n<td>Leaderboards, achievements, social features</td>\n<td><a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Apple Privacy Policy</a></td>\n</tr>\n<tr>\n<td>Apple iCloud</td>\n<td>Cross-device save sync</td>\n<td><a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Apple Privacy Policy</a></td>\n</tr>\n<tr>\n<td>Apple In-App Purchase / StoreKit</td>\n<td>Processing of in-app purchases (Dream Gems, Gold, VIP, and character offers)</td>\n<td><a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Apple Privacy Policy</a></td>\n</tr>\n</tbody>\n</table>\n<p>We do not directly receive or store your payment card details for any purchase — these are handled entirely by Apple's In-App Purchase system.</p>\n<hr />\n<h2>6. In-App Purchases and Randomized Items</h2>\n<p>Dreamkeepers offers optional in-app purchases of virtual currency (Dream Gems, Gold), convenience items (e.g. Arena Tickets, a VIP pass), and two named one-time character unlocks. All purchases are processed through Apple's In-App Purchase system; refund requests must be submitted to Apple at <a href=\"https://reportaproblem.apple.com\" target=\"_blank\" rel=\"noopener\">reportaproblem.apple.com</a> — we do not process refunds directly, and we do not see or store your payment details.</p>\n<p>Dreamkeepers also includes a randomized item mechanic (the \"Summoning Shrine\"), through which characters are awarded at random according to published probabilities (\"gacha\" mechanic). This mechanic:</p>\n<ul>\n<li>Can be engaged using virtual currency earned through gameplay, without spending real money.</li>\n<li>Displays the probability of each rarity tier in-app before you choose to summon.</li>\n<li>Awards only virtual, in-app items with no real-world cash value; nothing awarded through the Summoning Shrine can be exchanged, sold, or redeemed for real money.</li>\n</ul>\n<p>Availability of randomized-item purchase mechanics may be restricted or unavailable in certain countries or regions due to local law.</p>\n<hr />\n<h2>7. Data Retention</h2>\n<ul>\n<li><strong>Local and iCloud save data:</strong> Retained until you delete the app, disable iCloud sync, or explicitly reset your progress in-app.</li>\n<li><strong>Advertising data:</strong> Retained by Google according to <a href=\"https://policies.google.com/technologies/retention\" target=\"_blank\" rel=\"noopener\">Google's data retention practices</a>.</li>\n<li><strong>Game Center data:</strong> Retained by Apple according to Apple's own policies.</li>\n</ul>\n<hr />\n<h2>8. Data Security</h2>\n<p>We rely on Apple's platform security (sandboxing, on-device encryption, HTTPS/TLS for all network requests made by the app and its advertising SDK) to protect the limited data described above. No method of transmission or storage is 100% secure, but we take reasonable steps consistent with industry practice.</p>\n<hr />\n<h2>9. Your Rights</h2>\n<p>Because Dreamkeepers does not collect directly-identifying personal information and does not operate a server-side account system, most data subject requests (access, correction, deletion) are best exercised directly:</p>\n<ul>\n<li><strong>For Game Center and iCloud data:</strong> through your Apple ID / iCloud account settings, or Apple's own privacy tools.</li>\n<li><strong>For advertising data:</strong> through your device's ATT setting (Settings → Privacy &amp; Security → Tracking) and Google's <a href=\"https://adssettings.google.com/\" target=\"_blank\" rel=\"noopener\">Ads Settings</a>.</li>\n<li><strong>For local, on-device save data:</strong> by resetting progress in-app or deleting the app.</li>\n</ul>\n<p>For any other questions about this Privacy Policy or our data practices, contact us at oguzcanbudak1996@gmail.com. We will respond within 30 days.</p>\n<h3>For European Union / EEA and UK Residents (GDPR)</h3>\n<ul>\n<li><strong>Data controller:</strong> Oguzcan Budak, oguzcanbudak1996@gmail.com</li>\n<li><strong>Lawful basis for processing:</strong> consent (for ATT-gated advertising identifiers), and legitimate interest (for basic diagnostic/technical data necessary to run the app and its ads).</li>\n<li><strong>International transfers:</strong> Google Mobile Ads may process data outside the EEA/UK under Google's own data transfer safeguards (Standard Contractual Clauses).</li>\n<li><strong>Your rights:</strong> access, rectification, erasure, restriction, objection, and portability, to the extent applicable to the limited data described in this Policy, plus the right to lodge a complaint with your local Data Protection Authority.</li>\n</ul>\n<h3>For California Residents (CCPA/CPRA)</h3>\n<ul>\n<li>We do not sell personal information for money. Our use of advertising identifiers with Google Mobile Ads may be considered a \"share\" for cross-context behavioral advertising under the CCPA/CPRA if you have not opted out via ATT.</li>\n<li>You may exercise your right to know, delete, or opt out by declining App Tracking Transparency and adjusting your device's ad settings, or by contacting us at oguzcanbudak1996@gmail.com.</li>\n</ul>\n<h3>For Indian Residents (DPDP)</h3>\n<ul>\n<li><strong>Data fiduciary:</strong> Oguzcan Budak, oguzcanbudak1996@gmail.com</li>\n<li>Processing is limited to the purposes described above; you may contact us to exercise your rights under the Digital Personal Data Protection Act.</li>\n</ul>\n<hr />\n<h2>10. Children's Privacy</h2>\n<p>Dreamkeepers is not directed to children under 13 (or the equivalent minimum age in your jurisdiction) and we do not knowingly collect personal information from children under that age. Because the app includes purchasable virtual currency and a randomized-item (\"gacha\") mechanic, we recommend parental supervision for any player under the age of majority in their jurisdiction, and recommend enabling Apple's Screen Time / Ask to Buy parental controls for any device used by a minor. If we become aware that we have inadvertently collected personal information from a child under 13, we will delete it promptly. Contact us at oguzcanbudak1996@gmail.com if you believe this has occurred.</p>\n<hr />\n<h2>11. Changes to This Privacy Policy</h2>\n<p>We may update this Privacy Policy from time to time. Material changes will be reflected by an updated \"Last Updated\" date above, and where required by law, we will provide additional notice.</p>\n<hr />\n<h2>12. Contact Us</h2>\n<ul>\n<li><strong>Email:</strong> oguzcanbudak1996@gmail.com</li>\n<li><strong>Developer:</strong> Oguzcan Budak</li>\n</ul>", "privacy_de": "<h1>Datenschutzerklärung für Dreamkeepers</h1>\n<p><strong>Gültig ab:</strong> 5. September 2026\n<strong>Zuletzt aktualisiert:</strong> 5. September 2026</p>\n<p>Oguzcan Budak (\"wir,\" \"uns\") hat Dreamkeepers entwickelt, ein mobiles Sammel-Rollenspiel für iOS. Diese Datenschutzerklärung erklärt, welche Informationen Dreamkeepers erhebt, wie sie verwendet werden und welche Rechte Sie diesbezüglich haben.</p>\n<p>Durch die Nutzung von Dreamkeepers stimmen Sie den in dieser Datenschutzerklärung beschriebenen Praktiken zu. Wenn Sie nicht zustimmen, verwenden Sie die App bitte nicht.</p>\n<hr />\n<h2>1. Welche Informationen wir erheben</h2>\n<p>Dreamkeepers erfordert <strong>kein</strong> Benutzerkonto und erhebt weder Ihren Namen, Ihre E-Mail-Adresse noch andere direkt identifizierende Informationen.</p>\n<h3>Automatisch erhobene Informationen</h3>\n<ul>\n<li><strong>Werbekennung (IDFA):</strong> Wenn Sie über Apples \"App-Tracking-Transparenz\"-Abfrage (ATT) zustimmen, greift unser Werbepartner (Google Mobile Ads / AdMob) auf die Werbekennung Ihres Geräts zu, um Werbung zu personalisieren und deren Leistung zu messen. Lehnen Sie ab, zeigt Dreamkeepers weiterhin Werbung, jedoch nicht personalisiert.</li>\n<li><strong>Werbeinteraktionsdaten:</strong> Google Mobile Ads erhebt Daten wie Werbeeinblendungen, Klicks und ungefähren (IP-basierten) Standort, um Werbung auszuliefern und zu messen, gemäß der <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener\">Datenschutzerklärung von Google</a>.</li>\n<li><strong>Game-Center-Daten:</strong> Bei Anmeldung bei Game Center gibt Apples GameKit-Framework Ihre Game-Center-Spieler-ID, Ihren Anzeigenamen sowie – bei Nutzung der Freundes-/Bestenlisten-Funktionen – die Anzeigenamen und Anzahl Ihrer Game-Center-Freunde an die App weiter, um Bestenlisten, Erfolge und soziale Funktionen anzuzeigen. Dies unterliegt der <a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Datenschutzerklärung von Apple</a>.</li>\n<li><strong>Geräte- und Diagnoseinformationen:</strong> Standardtechnische Informationen (Gerätemodell, Betriebssystemversion, App-Version) können automatisch von Apple und unserem Werbepartner zu Kompatibilitäts-, Betrugspräventions- und Debugging-Zwecken erhoben werden.</li>\n</ul>\n<h3>Informationen, die wir NICHT erheben</h3>\n<ul>\n<li>Wir erheben nicht Ihren Namen, Ihre E-Mail-Adresse, Telefonnummer oder Anschrift.</li>\n<li>Es ist keine Kontoerstellung oder Anmeldung zum Spielen erforderlich.</li>\n<li>Wir greifen nicht auf Ihren Standort (abgesehen vom groben, IP-basierten Standort, den unser Werbepartner nutzen kann), Ihre Kamera, Fotobibliothek, Kontakte, Ihr Mikrofon oder Gesundheitsdaten zu.</li>\n<li>Wir betreiben keinen eigenen Backend-Server, der Ihre Spieldaten speichert — siehe Abschnitt 2.</li>\n</ul>\n<hr />\n<h2>2. Ihre Spieldaten: lokale Speicherung und iCloud-Synchronisation</h2>\n<p>Ihr Fortschritt (Team, Währungen, Kampagnenfortschritt, Einstellungen und Kaufhistorie) wird <strong>lokal auf Ihrem Gerät</strong> gespeichert. Wenn Sie bei iCloud angemeldet sind und iCloud Drive für Dreamkeepers aktiviert haben, werden Ihre Speicherdaten zusätzlich über <strong>Ihr eigenes persönliches iCloud-Konto</strong> (Apples iCloud/CloudKit-Infrastruktur) synchronisiert, sodass sie über alle mit derselben Apple-ID angemeldeten Geräte hinweg verfügbar sind.</p>\n<p>Diese Synchronisation nutzt direkt Apples Infrastruktur — Dreamkeepers betreibt keinen eigenen Server, und wir (der Entwickler) haben keinen Zugriff auf Ihre in iCloud gespeicherten Spielstände. Apples Umgang mit diesen Daten unterliegt der <a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Datenschutzerklärung von Apple</a>.</p>\n<p>Melden Sie sich von iCloud ab oder deaktivieren Sie iCloud Drive für die App, funktioniert Dreamkeepers weiterhin mit der lokalen Kopie auf Ihrem Gerät.</p>\n<hr />\n<h2>3. Wie wir Informationen verwenden</h2>\n<p>Die in Abschnitt 1 beschriebenen, begrenzten technischen Informationen werden verwendet, um:</p>\n<ul>\n<li>In-App-Werbung (Belohnungs- und Interstitial-Anzeigen) auszuliefern und deren Leistung zu messen</li>\n<li>Game-Center-Bestenlisten, Erfolge und soziale Funktionen bereitzustellen</li>\n<li>Technische Probleme zu diagnostizieren und zu beheben</li>\n<li>Rechtlichen Verpflichtungen nachzukommen</li>\n</ul>\n<p>Wir verkaufen Ihre Informationen nicht und nutzen sie nicht, um darüber hinaus Werbeprofile zu erstellen.</p>\n<hr />\n<h2>4. Wie wir Informationen weitergeben</h2>\n<p>Wir verkaufen, vermieten oder tauschen keine personenbezogenen Daten. Informationen werden nur weitergegeben:</p>\n<ul>\n<li><strong>An unseren Werbepartner (Google Mobile Ads / AdMob)</strong>, wie in Abschnitt 1 beschrieben, zur Auslieferung und Messung von Werbung.</li>\n<li><strong>An Apple</strong>, über Game Center und iCloud, im Rahmen dieser von Apple betriebenen Dienste.</li>\n<li><strong>Wenn gesetzlich vorgeschrieben</strong>, als Reaktion auf ein gültiges rechtliches Verfahren oder zum Schutz der Rechte, des Eigentums oder der Sicherheit von Oguzcan Budak, unseren Nutzern oder der Öffentlichkeit.</li>\n<li><strong>Im Rahmen einer Unternehmensübertragung</strong>, falls Dreamkeepers oder seine Vermögenswerte verkauft oder übertragen werden; in diesem Fall werden wir Sie benachrichtigen.</li>\n</ul>\n<hr />\n<h2>5. Drittanbieterdienste</h2>\n<p>Dreamkeepers nutzt folgende Drittanbieterdienste:</p>\n<table>\n<thead>\n<tr>\n<th>Dienst</th>\n<th>Zweck</th>\n<th>Datenschutzerklärung</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Google Mobile Ads (AdMob)</td>\n<td>Belohnungsvideos und Interstitial-Werbung</td>\n<td><a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener\">Google-Datenschutzerklärung</a></td>\n</tr>\n<tr>\n<td>Google User Messaging Platform (UMP)</td>\n<td>Einwilligungsverwaltung für Werbung (EWR/UK, sofern zutreffend)</td>\n<td><a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener\">Google-Datenschutzerklärung</a></td>\n</tr>\n<tr>\n<td>Apple Game Center</td>\n<td>Bestenlisten, Erfolge, soziale Funktionen</td>\n<td><a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Apple-Datenschutzerklärung</a></td>\n</tr>\n<tr>\n<td>Apple iCloud</td>\n<td>Geräteübergreifende Spielstand-Synchronisation</td>\n<td><a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Apple-Datenschutzerklärung</a></td>\n</tr>\n<tr>\n<td>Apple In-App-Kauf / StoreKit</td>\n<td>Abwicklung von In-App-Käufen (Traumjuwelen, Gold, VIP und Charakterangebote)</td>\n<td><a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Apple-Datenschutzerklärung</a></td>\n</tr>\n</tbody>\n</table>\n<p>Wir erhalten oder speichern Ihre Zahlungskartendaten für keinen Kauf direkt — diese werden vollständig über Apples In-App-Kaufsystem abgewickelt.</p>\n<hr />\n<h2>6. In-App-Käufe und Zufallsgegenstände</h2>\n<p>Dreamkeepers bietet optionale In-App-Käufe von virtueller Währung (Traumjuwelen, Gold), Komfortgegenständen (z. B. Arena-Tickets, ein VIP-Pass) sowie zwei namentlich genannten einmaligen Charakter-Freischaltungen an. Alle Käufe werden über Apples In-App-Kaufsystem abgewickelt; Rückerstattungsanfragen müssen bei Apple unter <a href=\"https://reportaproblem.apple.com\" target=\"_blank\" rel=\"noopener\">reportaproblem.apple.com</a> eingereicht werden — wir wickeln Rückerstattungen nicht selbst ab und sehen oder speichern Ihre Zahlungsdaten nicht.</p>\n<p>Dreamkeepers enthält außerdem einen Zufallsmechanismus (den \"Beschwörungsschrein\"), über den Charaktere nach veröffentlichten Wahrscheinlichkeiten zufällig vergeben werden (\"Gacha\"-Mechanik). Dieser Mechanismus:</p>\n<ul>\n<li>Kann mit im Spiel verdienter virtueller Währung genutzt werden, ohne echtes Geld auszugeben.</li>\n<li>Zeigt die Wahrscheinlichkeit jeder Seltenheitsstufe in der App an, bevor Sie sich zur Beschwörung entscheiden.</li>\n<li>Vergibt ausschließlich virtuelle In-App-Gegenstände ohne realen Geldwert; nichts, was über den Beschwörungsschrein vergeben wird, kann gegen echtes Geld eingetauscht, verkauft oder eingelöst werden.</li>\n</ul>\n<p>Die Verfügbarkeit von Zufallsgegenstands-Kaufmechanismen kann in bestimmten Ländern oder Regionen aufgrund lokaler Gesetze eingeschränkt oder nicht verfügbar sein.</p>\n<hr />\n<h2>7. Speicherdauer</h2>\n<ul>\n<li><strong>Lokale und iCloud-Spielstanddaten:</strong> Werden gespeichert, bis Sie die App löschen, die iCloud-Synchronisation deaktivieren oder Ihren Fortschritt in der App ausdrücklich zurücksetzen.</li>\n<li><strong>Werbedaten:</strong> Werden von Google gemäß dessen <a href=\"https://policies.google.com/technologies/retention\" target=\"_blank\" rel=\"noopener\">Datenaufbewahrungspraktiken</a> gespeichert.</li>\n<li><strong>Game-Center-Daten:</strong> Werden von Apple gemäß dessen eigenen Richtlinien gespeichert.</li>\n</ul>\n<hr />\n<h2>8. Datensicherheit</h2>\n<p>Wir verlassen uns auf Apples Plattformsicherheit (Sandboxing, Verschlüsselung auf dem Gerät, HTTPS/TLS für alle Netzwerkanfragen der App und ihres Werbe-SDK), um die oben beschriebenen, begrenzten Daten zu schützen. Keine Übertragungs- oder Speichermethode ist zu 100 % sicher, wir ergreifen jedoch branchenübliche, angemessene Maßnahmen.</p>\n<hr />\n<h2>9. Ihre Rechte</h2>\n<p>Da Dreamkeepers keine direkt identifizierenden personenbezogenen Daten erhebt und kein serverseitiges Kontosystem betreibt, lassen sich die meisten Betroffenenrechte (Auskunft, Berichtigung, Löschung) am besten direkt ausüben:</p>\n<ul>\n<li><strong>Für Game-Center- und iCloud-Daten:</strong> über Ihre Apple-ID-/iCloud-Kontoeinstellungen oder Apples eigene Datenschutz-Tools.</li>\n<li><strong>Für Werbedaten:</strong> über die ATT-Einstellung Ihres Geräts (Einstellungen → Datenschutz &amp; Sicherheit → Tracking) und Googles <a href=\"https://adssettings.google.com/\" target=\"_blank\" rel=\"noopener\">Anzeigeneinstellungen</a>.</li>\n<li><strong>Für lokale, geräteinterne Spielstanddaten:</strong> durch Zurücksetzen des Fortschritts in der App oder Löschen der App.</li>\n</ul>\n<p>Bei weiteren Fragen zu dieser Datenschutzerklärung oder unseren Datenpraktiken kontaktieren Sie uns unter oguzcanbudak1996@gmail.com. Wir antworten innerhalb von 30 Tagen.</p>\n<h3>Für Einwohner der EU/des EWR und des Vereinigten Königreichs (DSGVO)</h3>\n<ul>\n<li><strong>Verantwortlicher:</strong> Oguzcan Budak, oguzcanbudak1996@gmail.com</li>\n<li><strong>Rechtsgrundlage der Verarbeitung:</strong> Einwilligung (für ATT-gesteuerte Werbekennungen) und berechtigtes Interesse (für grundlegende technische Diagnosedaten, die zum Betrieb der App und ihrer Werbung erforderlich sind).</li>\n<li><strong>Internationale Übermittlungen:</strong> Google Mobile Ads kann Daten außerhalb des EWR/UK im Rahmen von Googles eigenen Datenübermittlungsgarantien (Standardvertragsklauseln) verarbeiten.</li>\n<li><strong>Ihre Rechte:</strong> Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch und Datenübertragbarkeit, soweit auf die in dieser Erklärung beschriebenen begrenzten Daten anwendbar, sowie das Recht, sich bei Ihrer zuständigen Datenschutzbehörde zu beschweren.</li>\n</ul>\n<h3>Für Einwohner Kaliforniens (CCPA/CPRA)</h3>\n<ul>\n<li>Wir verkaufen personenbezogene Daten nicht gegen Geld. Unsere Nutzung von Werbekennungen mit Google Mobile Ads kann als \"Weitergabe\" für kontextübergreifende Verhaltenswerbung im Sinne des CCPA/CPRA gelten, sofern Sie nicht über ATT widersprochen haben.</li>\n<li>Sie können Ihr Recht auf Auskunft, Löschung oder Widerspruch ausüben, indem Sie die App-Tracking-Transparenz ablehnen und Ihre Geräte-Werbeeinstellungen anpassen, oder indem Sie uns unter oguzcanbudak1996@gmail.com kontaktieren.</li>\n</ul>\n<h3>Für Einwohner Indiens (DPDP)</h3>\n<ul>\n<li><strong>Datenverantwortlicher (\"Data Fiduciary\"):</strong> Oguzcan Budak, oguzcanbudak1996@gmail.com</li>\n<li>Die Verarbeitung beschränkt sich auf die oben beschriebenen Zwecke; Sie können uns kontaktieren, um Ihre Rechte nach dem Digital Personal Data Protection Act auszuüben.</li>\n</ul>\n<hr />\n<h2>10. Datenschutz für Kinder</h2>\n<p>Dreamkeepers richtet sich nicht gezielt an Kinder unter 13 Jahren (oder das entsprechende Mindestalter in Ihrer Rechtsordnung), und wir erheben nicht wissentlich personenbezogene Daten von Kindern unter diesem Alter. Da die App käufliche virtuelle Währung und einen Zufallsmechanismus (\"Gacha\") enthält, empfehlen wir elterliche Aufsicht für minderjährige Spieler sowie die Aktivierung von Apples Bildschirmzeit-/Kauf-Erlaubnis-Funktionen auf Geräten, die von Minderjährigen genutzt werden. Sollten wir feststellen, dass wir versehentlich personenbezogene Daten eines Kindes unter 13 Jahren erhoben haben, werden wir diese umgehend löschen. Kontaktieren Sie uns unter oguzcanbudak1996@gmail.com, falls Sie einen solchen Fall vermuten.</p>\n<hr />\n<h2>11. Änderungen dieser Datenschutzerklärung</h2>\n<p>Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Wesentliche Änderungen werden durch ein aktualisiertes Datum \"Zuletzt aktualisiert\" oben angezeigt; wo gesetzlich vorgeschrieben, informieren wir Sie zusätzlich.</p>\n<hr />\n<h2>12. Kontakt</h2>\n<ul>\n<li><strong>E-Mail:</strong> oguzcanbudak1996@gmail.com</li>\n<li><strong>Entwickler:</strong> Oguzcan Budak</li>\n</ul>", "terms_en": "<h1>Terms of Service for Dreamkeepers</h1>\n<p><strong>Effective Date:</strong> September 5, 2026\n<strong>Last Updated:</strong> September 5, 2026</p>\n<p>These Terms of Service (\"Terms\") are a legal agreement between you and Oguzcan Budak (\"we,\" \"our,\" \"us\"), the developer of Dreamkeepers (the \"App\"). By downloading, installing, or using the App, you agree to these Terms. If you do not agree, do not use the App.</p>\n<hr />\n<h2>1. The App</h2>\n<p>Dreamkeepers is a single-player collector role-playing game available for iOS. The App is provided \"as is\" and is licensed to you, not sold — see the accompanying <a href=\"#\" data-doc=\"eula\">End User License Agreement</a> for the specific license grant.</p>\n<h2>2. Eligibility</h2>\n<p>You must be able to form a binding contract to use the App. If you are under the age of majority in your jurisdiction, you may only use the App with the involvement of a parent or guardian, particularly with respect to any in-app purchase.</p>\n<h2>3. Accounts</h2>\n<p>Dreamkeepers does not require you to create an account with us. Optional features (Game Center leaderboards/achievements, iCloud save sync) are provided through your own Apple ID and are governed by Apple's own terms.</p>\n<h2>4. In-App Purchases</h2>\n<p>The App offers optional in-app purchases of virtual currency (\"Dream Gems,\" \"Gold\"), convenience items, and one-time character unlocks, processed exclusively through Apple's In-App Purchase system and billed to the payment method on your Apple ID.</p>\n<ul>\n<li>All virtual currency and virtual items have no real-world monetary value, cannot be redeemed for real money, and cannot be transferred outside the App.</li>\n<li>All purchases are final. Refunds are handled solely by Apple according to Apple's own refund policies — request one at <a href=\"https://reportaproblem.apple.com\" target=\"_blank\" rel=\"noopener\">reportaproblem.apple.com</a>. We do not process or guarantee refunds directly.</li>\n<li>Prices are shown in the App and may vary by region and currency due to Apple's own regional pricing and taxes.</li>\n<li>We may change the availability, price, or contents of any purchasable item at any time, effective for future purchases only.</li>\n</ul>\n<h2>5. Randomized Virtual Items (\"Summoning Shrine\")</h2>\n<p>The App includes a randomized-item feature (the \"Summoning Shrine\") through which playable characters are awarded according to disclosed probabilities, colloquially known as a \"gacha\" or \"loot box\" mechanic. By using this feature, you acknowledge and agree that:</p>\n<ul>\n<li><strong>Odds are disclosed in-app.</strong> The probability of receiving each rarity tier, including the rarest \"Exclusive\" tier, is shown on the Summoning Shrine screen before you choose to summon, consistent with Apple App Store Review Guideline 3.1.1.</li>\n<li><strong>The feature can be used without spending real money</strong>, using virtual currency earned through ordinary gameplay, in addition to virtual currency purchased with real money.</li>\n<li><strong>Outcomes are random</strong> within the disclosed probabilities and are not guaranteed to produce any specific character on any given attempt.</li>\n<li><strong>All items awarded are virtual, in-app items with no cash value.</strong> Nothing obtained through the Summoning Shrine may be sold, traded, exchanged for real money, or redeemed outside the App.</li>\n<li><strong>This feature may be restricted, disabled, or unavailable in certain countries or regions</strong> where randomized-item mechanics are separately regulated (for example, South Korea, Belgium, or the Netherlands). We make reasonable efforts to comply with such regional requirements but availability of the feature is not guaranteed in every territory.</li>\n<li>If you believe you have a gambling-related concern, we encourage you to stop using this feature and seek appropriate support; this feature is not gambling, does not pay out real-world value, and is not intended for players who cannot engage with randomized in-app content responsibly.</li>\n</ul>\n<h2>6. User Conduct</h2>\n<p>You agree not to:</p>\n<ul>\n<li>Reverse-engineer, decompile, or tamper with the App, or attempt to bypass its purchase or randomization systems.</li>\n<li>Use cheats, exploits, automation software (bots), or unauthorized third-party software to modify or interfere with the App.</li>\n<li>Use the App for any unlawful purpose.</li>\n</ul>\n<p>We may suspend or terminate your access to the App's online features (e.g., Game Center integration) if you violate these Terms.</p>\n<h2>7. Intellectual Property</h2>\n<p>All content in the App — including characters, artwork, names, music, and code — is owned by Oguzcan Budak or its licensors and is protected by copyright and other intellectual property laws. You are granted only the limited license described in the EULA; no other rights are transferred to you.</p>\n<h2>8. Advertising</h2>\n<p>The App may display advertising served by Google Mobile Ads (AdMob), including rewarded video ads you may choose to watch for in-game rewards. See our <a href=\"#\" data-doc=\"privacy\">Privacy Policy</a> for details on data used for advertising.</p>\n<h2>9. Disclaimers</h2>\n<p>THE APP IS PROVIDED \"AS IS\" AND \"AS AVAILABLE,\" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE APP WILL BE UNINTERRUPTED, ERROR-FREE, OR THAT ANY VIRTUAL PROGRESS OR ITEMS WILL BE PRESERVED INDEFINITELY.</p>\n<h2>10. Limitation of Liability</h2>\n<p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, OGUZCAN BUDAK SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA, VIRTUAL ITEMS, OR VIRTUAL CURRENCY, ARISING FROM YOUR USE OF THE APP. NOTHING IN THESE TERMS LIMITS ANY LIABILITY THAT CANNOT BE EXCLUDED OR LIMITED UNDER APPLICABLE LAW (INCLUDING, FOR EU/EEA CONSUMERS, STATUTORY CONSUMER-PROTECTION RIGHTS THAT CANNOT BE WAIVED).</p>\n<h2>11. Changes to the App and These Terms</h2>\n<p>We may update the App and these Terms from time to time. Continued use of the App after an update to these Terms constitutes acceptance of the revised Terms. Material changes will be reflected by an updated \"Last Updated\" date above.</p>\n<h2>12. Termination</h2>\n<p>You may stop using the App at any time by deleting it. We may suspend or discontinue the App, or any of its online features, at any time.</p>\n<h2>13. Governing Law</h2>\n<p>These Terms are governed by the laws of the developer's country of residence, without regard to conflict-of-law principles, except where mandatory consumer-protection laws of your own country of residence (for EU/EEA/UK consumers) provide otherwise and cannot be waived by contract.</p>\n<h2>14. Apple as a Third-Party Beneficiary</h2>\n<p>You acknowledge that these Terms are between you and Oguzcan Budak only, not with Apple, and Apple has no obligation to provide maintenance or support for the App. In the event of any failure of the App to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price (if any) for the App to you; to the maximum extent permitted by law, Apple has no other warranty obligation with respect to the App. Apple is not responsible for addressing any claims relating to the App. Apple is a third-party beneficiary of these Terms as they relate to your license of the App, and will have the right to enforce these Terms against you as a third-party beneficiary.</p>\n<h2>15. Contact</h2>\n<p>Questions about these Terms: oguzcanbudak1996@gmail.com</p>", "terms_de": "<h1>Nutzungsbedingungen für Dreamkeepers</h1>\n<p><strong>Gültig ab:</strong> 5. September 2026\n<strong>Zuletzt aktualisiert:</strong> 5. September 2026</p>\n<p>Diese Nutzungsbedingungen (\"Bedingungen\") sind eine rechtliche Vereinbarung zwischen Ihnen und Oguzcan Budak (\"wir,\" \"uns\"), dem Entwickler von Dreamkeepers (die \"App\"). Durch das Herunterladen, Installieren oder Nutzen der App stimmen Sie diesen Bedingungen zu. Falls Sie nicht zustimmen, nutzen Sie die App bitte nicht.</p>\n<hr />\n<h2>1. Die App</h2>\n<p>Dreamkeepers ist ein Einzelspieler-Sammel-Rollenspiel für iOS. Die App wird \"wie besehen\" bereitgestellt und Ihnen lizenziert, nicht verkauft — siehe den beigefügten <a href=\"#\" data-doc=\"eula\">Endnutzer-Lizenzvertrag (EULA)</a> für die konkrete Lizenzgewährung.</p>\n<h2>2. Berechtigung</h2>\n<p>Sie müssen in der Lage sein, einen verbindlichen Vertrag abzuschließen, um die App zu nutzen. Sind Sie minderjährig, dürfen Sie die App nur mit Beteiligung eines Elternteils oder Erziehungsberechtigten nutzen, insbesondere im Hinblick auf In-App-Käufe.</p>\n<h2>3. Konten</h2>\n<p>Dreamkeepers erfordert kein Benutzerkonto bei uns. Optionale Funktionen (Game-Center-Bestenlisten/Erfolge, iCloud-Spielstand-Synchronisation) werden über Ihre eigene Apple-ID bereitgestellt und unterliegen Apples eigenen Bedingungen.</p>\n<h2>4. In-App-Käufe</h2>\n<p>Die App bietet optionale In-App-Käufe von virtueller Währung (\"Traumjuwelen,\" \"Gold\"), Komfortgegenständen und einmaligen Charakter-Freischaltungen an, die ausschließlich über Apples In-App-Kaufsystem abgewickelt und über die mit Ihrer Apple-ID verknüpfte Zahlungsmethode abgerechnet werden.</p>\n<ul>\n<li>Alle virtuelle Währung und virtuellen Gegenstände haben keinen realen Geldwert, können nicht gegen echtes Geld eingelöst und nicht außerhalb der App übertragen werden.</li>\n<li>Alle Käufe sind endgültig. Rückerstattungen werden ausschließlich von Apple gemäß dessen eigenen Rückerstattungsrichtlinien abgewickelt — beantragen Sie diese unter <a href=\"https://reportaproblem.apple.com\" target=\"_blank\" rel=\"noopener\">reportaproblem.apple.com</a>. Wir wickeln Rückerstattungen nicht selbst ab und garantieren diese nicht.</li>\n<li>Preise werden in der App angezeigt und können je nach Region und Währung aufgrund von Apples eigener regionaler Preisgestaltung und Steuern variieren.</li>\n<li>Wir können die Verfügbarkeit, den Preis oder den Inhalt jedes käuflichen Gegenstands jederzeit ändern; dies gilt nur für zukünftige Käufe.</li>\n</ul>\n<h2>5. Zufällige virtuelle Gegenstände (\"Beschwörungsschrein\")</h2>\n<p>Die App enthält einen Zufallsmechanismus (den \"Beschwörungsschrein\"), über den spielbare Charaktere nach offengelegten Wahrscheinlichkeiten vergeben werden, umgangssprachlich als \"Gacha\"- oder \"Lootbox\"-Mechanik bekannt. Durch die Nutzung dieser Funktion erkennen Sie an und stimmen zu, dass:</p>\n<ul>\n<li><strong>Die Wahrscheinlichkeiten in der App offengelegt werden.</strong> Die Wahrscheinlichkeit, jede Seltenheitsstufe zu erhalten, einschließlich der seltensten Stufe \"Exklusiv,\" wird auf dem Bildschirm des Beschwörungsschreins angezeigt, bevor Sie sich zur Beschwörung entscheiden, gemäß Apple App Store Review-Richtlinie 3.1.1.</li>\n<li><strong>Die Funktion kann ohne Ausgabe von echtem Geld genutzt werden</strong>, mittels im normalen Spielverlauf verdienter virtueller Währung, zusätzlich zu mit echtem Geld gekaufter virtueller Währung.</li>\n<li><strong>Die Ergebnisse sind zufällig</strong> innerhalb der offengelegten Wahrscheinlichkeiten und garantieren bei keinem Versuch einen bestimmten Charakter.</li>\n<li><strong>Alle vergebenen Gegenstände sind virtuelle In-App-Gegenstände ohne Geldwert.</strong> Nichts, was über den Beschwörungsschrein erlangt wird, darf verkauft, getauscht, gegen echtes Geld eingetauscht oder außerhalb der App eingelöst werden.</li>\n<li><strong>Diese Funktion kann in bestimmten Ländern oder Regionen eingeschränkt, deaktiviert oder nicht verfügbar sein</strong>, in denen Zufallsgegenstands-Mechanismen gesondert reguliert sind (z. B. Südkorea, Belgien oder die Niederlande). Wir bemühen uns angemessen, solche regionalen Anforderungen zu erfüllen, garantieren die Verfügbarkeit der Funktion jedoch nicht in jedem Gebiet.</li>\n<li>Sollten Sie ein Problem im Zusammenhang mit Glücksspiel bei sich vermuten, empfehlen wir Ihnen, die Nutzung dieser Funktion einzustellen und sich entsprechende Unterstützung zu suchen; diese Funktion ist kein Glücksspiel, zahlt keinen realen Wert aus und ist nicht für Spieler gedacht, die nicht verantwortungsvoll mit zufälligen In-App-Inhalten umgehen können.</li>\n</ul>\n<h2>6. Verhalten der Nutzer</h2>\n<p>Sie verpflichten sich, Folgendes zu unterlassen:</p>\n<ul>\n<li>Die App zurückzuentwickeln (Reverse Engineering), zu dekompilieren oder zu manipulieren oder zu versuchen, deren Kauf- oder Zufallssysteme zu umgehen.</li>\n<li>Cheats, Exploits, Automatisierungssoftware (Bots) oder nicht autorisierte Drittsoftware zu verwenden, um die App zu verändern oder zu stören.</li>\n<li>Die App für rechtswidrige Zwecke zu nutzen.</li>\n</ul>\n<p>Wir können Ihren Zugriff auf die Online-Funktionen der App (z. B. Game-Center-Integration) sperren oder beenden, falls Sie gegen diese Bedingungen verstoßen.</p>\n<h2>7. Geistiges Eigentum</h2>\n<p>Sämtliche Inhalte der App — einschließlich Charaktere, Grafiken, Namen, Musik und Code — sind Eigentum von Oguzcan Budak oder dessen Lizenzgebern und durch Urheberrecht sowie sonstiges geistiges Eigentum geschützt. Ihnen wird ausschließlich die im EULA beschriebene, eingeschränkte Lizenz gewährt; keine weiteren Rechte werden an Sie übertragen.</p>\n<h2>8. Werbung</h2>\n<p>Die App kann Werbung anzeigen, die von Google Mobile Ads (AdMob) ausgeliefert wird, einschließlich Belohnungsvideos, die Sie freiwillig für In-Game-Belohnungen ansehen können. Details zu den für Werbung verwendeten Daten finden Sie in unserer <a href=\"#\" data-doc=\"privacy\">Datenschutzerklärung</a>.</p>\n<h2>9. Haftungsausschluss</h2>\n<p>DIE APP WIRD \"WIE BESEHEN\" UND \"WIE VERFÜGBAR\" BEREITGESTELLT, OHNE JEGLICHE GEWÄHRLEISTUNG, WEDER AUSDRÜCKLICH NOCH STILLSCHWEIGEND, EINSCHLIESSLICH GEWÄHRLEISTUNGEN DER MARKTGÄNGIGKEIT, EIGNUNG FÜR EINEN BESTIMMTEN ZWECK ODER NICHTVERLETZUNG. WIR GEWÄHRLEISTEN NICHT, DASS DIE APP UNUNTERBROCHEN ODER FEHLERFREI FUNKTIONIERT ODER DASS VIRTUELLER FORTSCHRITT ODER GEGENSTÄNDE DAUERHAFT ERHALTEN BLEIBEN.</p>\n<h2>10. Haftungsbeschränkung</h2>\n<p>SOWEIT GESETZLICH ZULÄSSIG, HAFTET OGUZCAN BUDAK NICHT FÜR INDIREKTE, ZUFÄLLIGE, BESONDERE, FOLGE- ODER STRAFSCHÄDEN ODER FÜR DEN VERLUST VON DATEN, VIRTUELLEN GEGENSTÄNDEN ODER VIRTUELLER WÄHRUNG, DIE AUS DER NUTZUNG DER APP ENTSTEHEN. NICHTS IN DIESEN BEDINGUNGEN BESCHRÄNKT EINE HAFTUNG, DIE NACH GELTENDEM RECHT NICHT AUSGESCHLOSSEN ODER BESCHRÄNKT WERDEN KANN (EINSCHLIESSLICH GESETZLICHER VERBRAUCHERSCHUTZRECHTE FÜR EU-/EWR-VERBRAUCHER, AUF DIE NICHT VERZICHTET WERDEN KANN).</p>\n<h2>11. Änderungen der App und dieser Bedingungen</h2>\n<p>Wir können die App und diese Bedingungen von Zeit zu Zeit aktualisieren. Die fortgesetzte Nutzung der App nach einer Aktualisierung dieser Bedingungen gilt als Annahme der überarbeiteten Bedingungen. Wesentliche Änderungen werden durch ein aktualisiertes Datum \"Zuletzt aktualisiert\" oben angezeigt.</p>\n<h2>12. Beendigung</h2>\n<p>Sie können die Nutzung der App jederzeit durch Löschen beenden. Wir können die App oder einzelne ihrer Online-Funktionen jederzeit aussetzen oder einstellen.</p>\n<h2>13. Anwendbares Recht</h2>\n<p>Diese Bedingungen unterliegen dem Recht des Wohnsitzlandes des Entwicklers, unter Ausschluss des Kollisionsrechts, außer soweit zwingende Verbraucherschutzgesetze Ihres eigenen Wohnsitzlandes (für Verbraucher in der EU/im EWR/im Vereinigten Königreich) etwas anderes vorsehen und vertraglich nicht abbedungen werden können.</p>\n<h2>14. Apple als begünstigter Dritter</h2>\n<p>Sie erkennen an, dass diese Bedingungen ausschließlich zwischen Ihnen und Oguzcan Budak bestehen, nicht mit Apple, und dass Apple keine Verpflichtung zur Wartung oder zum Support der App hat. Sollte die App nicht einer geltenden Gewährleistung entsprechen, können Sie Apple benachrichtigen; Apple erstattet Ihnen dann den Kaufpreis (falls vorhanden) für die App. Soweit gesetzlich zulässig, hat Apple keine weiteren Gewährleistungspflichten hinsichtlich der App. Apple ist nicht verantwortlich für die Bearbeitung von Ansprüchen im Zusammenhang mit der App. Apple ist begünstigter Dritter dieser Bedingungen, soweit sie Ihre Lizenz zur App betreffen, und hat das Recht, diese Bedingungen als begünstigter Dritter gegen Sie durchzusetzen.</p>\n<h2>15. Kontakt</h2>\n<p>Fragen zu diesen Bedingungen: oguzcanbudak1996@gmail.com</p>", "eula_en": "<h1>End User License Agreement (EULA) for Dreamkeepers</h1>\n<p><strong>Effective Date:</strong> September 5, 2026</p>\n<p>This End User License Agreement (\"Agreement\") is between you and Oguzcan Budak (\"Licensor\") and governs your use of the Dreamkeepers application (\"App\"). This Agreement supplements, and should be read together with, the <a href=\"#\" data-doc=\"terms\">Terms of Service</a>.</p>\n<h2>1. License Grant</h2>\n<p>Subject to your compliance with this Agreement, Licensor grants you a limited, non-exclusive, non-transferable, revocable license to download and use one copy of the App on any Apple-branded device that you own or control, as permitted by Apple's Usage Rules set forth in the App Store Terms of Service.</p>\n<h2>2. Restrictions</h2>\n<p>You may not, and may not permit others to:</p>\n<ul>\n<li>Copy, modify, or create derivative works of the App.</li>\n<li>Reverse-engineer, decompile, or disassemble the App, except as permitted by applicable law.</li>\n<li>Rent, lease, lend, sell, redistribute, or sublicense the App.</li>\n<li>Remove, alter, or obscure any proprietary notices on the App.</li>\n</ul>\n<h2>3. Ownership</h2>\n<p>The App is licensed, not sold, to you. Licensor retains all right, title, and interest in the App, including all intellectual property rights. This license does not grant you any rights to Licensor's trademarks or trade names.</p>\n<h2>4. Virtual Items</h2>\n<p>Virtual currency and virtual items obtainable in the App (including through purchase or the randomized \"Summoning Shrine\" feature) are licensed to you for use within the App only, have no real-world monetary value, are not your property, and may be modified, suspended, or removed by Licensor at any time without compensation, except as required by applicable law.</p>\n<h2>5. Consent to Use of Data</h2>\n<p>You agree that Licensor and its third-party service providers (as described in the <a href=\"#\" data-doc=\"privacy\">Privacy Policy</a>) may collect and use technical, ad-related, and Game-Center-related data as described in the Privacy Policy.</p>\n<h2>6. Termination</h2>\n<p>This license is effective until terminated. It will terminate automatically without notice if you fail to comply with any provision of this Agreement. Upon termination, you must cease all use of the App and delete all copies.</p>\n<h2>7. No Maintenance or Support</h2>\n<p>Licensor is not obligated to provide any maintenance or support for the App, except as may be required by applicable law.</p>\n<h2>8. Third-Party Terms</h2>\n<p>Your use of Apple's App Store, Game Center, and iCloud services in connection with the App is additionally governed by Apple's own terms, including the Licensed Application End User License Agreement in Apple's Media Services Terms and Conditions, which applies as the standard EULA to the extent this Agreement does not include terms that conflict with it or are more restrictive.</p>\n<h2>9. Warranty Disclaimer and Limitation of Liability</h2>\n<p>See Sections 9 and 10 of the <a href=\"#\" data-doc=\"terms\">Terms of Service</a>, which apply equally to this Agreement.</p>\n<h2>10. Apple as a Third-Party Beneficiary</h2>\n<p>See Section 14 of the <a href=\"#\" data-doc=\"terms\">Terms of Service</a>, which applies equally to this Agreement.</p>\n<h2>11. Contact</h2>\n<p>Questions about this Agreement: oguzcanbudak1996@gmail.com</p>", "eula_de": "<h1>Endnutzer-Lizenzvertrag (EULA) für Dreamkeepers</h1>\n<p><strong>Gültig ab:</strong> 5. September 2026</p>\n<p>Dieser Endnutzer-Lizenzvertrag (\"Vertrag\") besteht zwischen Ihnen und Oguzcan Budak (\"Lizenzgeber\") und regelt Ihre Nutzung der Anwendung Dreamkeepers (\"App\"). Dieser Vertrag ergänzt die <a href=\"#\" data-doc=\"terms\">Nutzungsbedingungen</a> und ist zusammen mit diesen zu lesen.</p>\n<h2>1. Lizenzgewährung</h2>\n<p>Vorbehaltlich Ihrer Einhaltung dieses Vertrags gewährt der Lizenzgeber Ihnen eine eingeschränkte, nicht-exklusive, nicht übertragbare, widerrufliche Lizenz, eine Kopie der App auf jedem Apple-Gerät herunterzuladen und zu nutzen, das Ihnen gehört oder das Sie kontrollieren, im Rahmen der von Apple in den App-Store-Nutzungsbedingungen festgelegten Nutzungsregeln.</p>\n<h2>2. Einschränkungen</h2>\n<p>Sie dürfen weder selbst noch durch Dritte:</p>\n<ul>\n<li>Die App kopieren, verändern oder abgeleitete Werke davon erstellen.</li>\n<li>Die App zurückentwickeln (Reverse Engineering), dekompilieren oder disassemblieren, außer soweit gesetzlich zulässig.</li>\n<li>Die App vermieten, verleihen, verkaufen, weiterverbreiten oder unterlizenzieren.</li>\n<li>Eigentumshinweise auf der App entfernen, verändern oder verdecken.</li>\n</ul>\n<h2>3. Eigentum</h2>\n<p>Die App wird Ihnen lizenziert, nicht verkauft. Der Lizenzgeber behält alle Rechte, Titel und Ansprüche an der App, einschließlich sämtlicher Rechte des geistigen Eigentums. Diese Lizenz gewährt Ihnen keine Rechte an den Marken oder Handelsnamen des Lizenzgebers.</p>\n<h2>4. Virtuelle Gegenstände</h2>\n<p>Virtuelle Währung und virtuelle Gegenstände, die in der App erhältlich sind (auch durch Kauf oder über den zufälligen \"Beschwörungsschrein\"), werden Ihnen ausschließlich zur Nutzung innerhalb der App lizenziert, haben keinen realen Geldwert, sind nicht Ihr Eigentum und können vom Lizenzgeber jederzeit ohne Entschädigung geändert, ausgesetzt oder entfernt werden, soweit geltendes Recht nichts anderes vorschreibt.</p>\n<h2>5. Einwilligung zur Datennutzung</h2>\n<p>Sie stimmen zu, dass der Lizenzgeber und dessen Drittanbieter (wie in der <a href=\"#\" data-doc=\"privacy\">Datenschutzerklärung</a> beschrieben) technische, werbebezogene und Game-Center-bezogene Daten gemäß der Datenschutzerklärung erheben und verwenden dürfen.</p>\n<h2>6. Beendigung</h2>\n<p>Diese Lizenz gilt bis zur Beendigung. Sie endet automatisch und ohne Ankündigung, falls Sie gegen eine Bestimmung dieses Vertrags verstoßen. Nach Beendigung müssen Sie jede Nutzung der App einstellen und alle Kopien löschen.</p>\n<h2>7. Keine Wartung oder Support</h2>\n<p>Der Lizenzgeber ist nicht verpflichtet, Wartung oder Support für die App bereitzustellen, außer soweit gesetzlich vorgeschrieben.</p>\n<h2>8. Bedingungen Dritter</h2>\n<p>Ihre Nutzung von Apples App Store, Game Center und iCloud-Diensten im Zusammenhang mit der App unterliegt zusätzlich Apples eigenen Bedingungen, einschließlich des Lizenzierten-Anwendungs-Endnutzer-Lizenzvertrags in Apples Nutzungsbedingungen für Mediendienste, der als Standard-EULA gilt, soweit dieser Vertrag keine damit im Widerspruch stehenden oder restriktiveren Bestimmungen enthält.</p>\n<h2>9. Gewährleistungsausschluss und Haftungsbeschränkung</h2>\n<p>Siehe Abschnitte 9 und 10 der <a href=\"#\" data-doc=\"terms\">Nutzungsbedingungen</a>, die gleichermaßen für diesen Vertrag gelten.</p>\n<h2>10. Apple als begünstigter Dritter</h2>\n<p>Siehe Abschnitt 14 der <a href=\"#\" data-doc=\"terms\">Nutzungsbedingungen</a>, der gleichermaßen für diesen Vertrag gilt.</p>\n<h2>11. Kontakt</h2>\n<p>Fragen zu diesem Vertrag: oguzcanbudak1996@gmail.com</p>"}</script>
+<script>
+(function () {
+  var data = JSON.parse(document.getElementById('legal-data').textContent);
+  var docContent = document.getElementById('docContent');
+  var tocList = document.getElementById('tocList');
+  var docTabs = document.getElementById('docTabs');
+  var langToggle = document.getElementById('langToggle');
+  var lastUpdated = document.getElementById('lastUpdated');
+
+  var state = { doc: 'privacy', lang: 'en' };
+
+  function slugify(text) {
+    return text.toLowerCase().replace(/[^a-z0-9äöüß\s-]/g, '').trim().replace(/\s+/g, '-');
+  }
+
+  function render() {
+    var key = state.doc + '_' + state.lang;
+    var html = data[key] || '';
+    docContent.innerHTML = html;
+
+    // Wrap tables for horizontal scroll on narrow viewports.
+    docContent.querySelectorAll('table').forEach(function (table) {
+      var wrap = document.createElement('div');
+      wrap.className = 'table-wrap';
+      table.parentNode.insertBefore(wrap, table);
+      wrap.appendChild(table);
+    });
+
+    // Build the section TOC from h2 headings, and give each an id.
+    tocList.innerHTML = '';
+    var h2s = docContent.querySelectorAll('h2');
+    h2s.forEach(function (h) {
+      var id = slugify(h.textContent);
+      h.id = id;
+      var a = document.createElement('a');
+      a.href = '#' + id;
+      a.textContent = h.textContent.replace(/^\d+\.\s*/, '');
+      tocList.appendChild(a);
+    });
+
+    // Cross-document links switch tabs instead of navigating away.
+    docContent.querySelectorAll('a[data-doc]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        setDoc(a.getAttribute('data-doc'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    var dateMatch = html.match(/(?:Effective Date|Gültig ab)[^<]*<\/strong>\s*([^<\n]+)/);
+    lastUpdated.textContent = dateMatch ? (state.lang === 'de' ? 'Gültig ab ' : 'Effective ') + dateMatch[1].trim() : '';
+
+    updateActiveTocOnScroll();
+  }
+
+  function setDoc(doc) {
+    state.doc = doc;
+    Array.prototype.forEach.call(docTabs.querySelectorAll('button'), function (b) {
+      b.setAttribute('aria-selected', b.getAttribute('data-doc') === doc ? 'true' : 'false');
+    });
+    render();
+  }
+
+  function setLang(lang) {
+    state.lang = lang;
+    Array.prototype.forEach.call(langToggle.querySelectorAll('button'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
+    });
+    render();
+  }
+
+  docTabs.addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-doc]');
+    if (btn) setDoc(btn.getAttribute('data-doc'));
+  });
+  langToggle.addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-lang]');
+    if (btn) setLang(btn.getAttribute('data-lang'));
+  });
+
+  var ticking = false;
+  function updateActiveTocOnScroll() {
+    var links = tocList.querySelectorAll('a');
+    if (!links.length) return;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var pos = window.scrollY + 120;
+        var current = null;
+        links.forEach(function (link) {
+          var target = document.getElementById(link.getAttribute('href').slice(1));
+          if (target && target.offsetTop <= pos) current = link;
+        });
+        links.forEach(function (link) { link.classList.remove('active'); });
+        if (current) current.classList.add('active');
+        ticking = false;
+      });
+    }
+    window.removeEventListener('scroll', window.__legalScrollHandler || function () {});
+    window.__legalScrollHandler = onScroll;
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  render();
+})();
+</script>

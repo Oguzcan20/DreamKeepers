@@ -1,0 +1,1094 @@
+import SwiftUI
+
+struct BattleView: View {
+    var engine: BattleEngine
+    var gameState: GameState
+    /// Non-nil only for an Arena Tower fight — swaps the banner's world/stage
+    /// text for the floor number instead. `engine.stage` already carries the
+    /// floor being fought here (see `GameState.makeArenaBattleEngine`), but a
+    /// Campaign-shaped "World N · Stage M" label would be meaningless for it.
+    var arenaFloor: Int? = nil
+    var onFinished: (BattleEngine) -> Void
+
+    @State private var timer: Timer?
+    @State private var showOutcomeOverlay = false
+    @State private var shakeAmount: CGFloat = 0
+    @State private var ultimateShowcase: Combatant?
+    @State private var combatantFrames: [UUID: CGRect] = [:]
+    @State private var attackProjectile: AttackProjectile?
+
+    var body: some View {
+        VStack(spacing: 0) {
+            battleBanner
+
+            HStack(alignment: .top, spacing: 0) {
+                Spacer(minLength: 0)
+                VStack(spacing: 12) {
+                    if let enemy = engine.enemyUnits.first {
+                        CombatantBanner(combatant: enemy, lastHit: engine.lastHit, lastMechanicTrigger: engine.lastMechanicTrigger)
+                    }
+                    Spacer(minLength: 0)
+                }
+                .frame(width: 340)
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 10)
+            .frame(maxHeight: .infinity)
+
+            partyRow
+                .padding(.horizontal, 20)
+                .padding(.top, 6)
+                .padding(.bottom, 12)
+        }
+        .coordinateSpace(name: "battlefield")
+        .modifier(ShakeEffect(animatableData: shakeAmount))
+        .overlay {
+            // The one effect that actually spans both combatants involved: a
+            // bolt of the attacker's own element visibly flying from their
+            // portrait to the target's the instant a hit lands. This is the
+            // unambiguous "who is attacking whom" cue — no per-portrait
+            // effect alone can substitute for something that draws the line
+            // between the two.
+            if let attackProjectile {
+                AttackProjectileView(projectile: attackProjectile)
+                    .id(attackProjectile.id)
+                    .allowsHitTesting(false)
+                    .zIndex(1.5)
+            }
+        }
+        .overlay {
+            if let caster = ultimateShowcase {
+                UltimateShowcaseView(combatant: caster)
+                    .transition(.opacity)
+                    .zIndex(2)
+            }
+        }
+        .overlay {
+            if showOutcomeOverlay, let outcome = engine.outcome {
+                OutcomeOverlay(outcome: outcome) {
+                    onFinished(engine)
+                }
+            }
+        }
+        .onPreferenceChange(CombatantFramePreferenceKey.self) { combatantFrames = $0 }
+        .onChange(of: engine.lastUltimate) { _, newValue in
+            gameState.playSound(.ultimate)
+            withAnimation(.linear(duration: 0.4)) { shakeAmount += 1 }
+
+            guard let ultimate = newValue,
+                  let caster = engine.combatants.first(where: { $0.id == ultimate.casterID }) else { return }
+            withAnimation(.easeOut(duration: 0.2)) { ultimateShowcase = caster }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.05) {
+                withAnimation(.easeIn(duration: 0.2)) { ultimateShowcase = nil }
+            }
+        }
+        .onChange(of: engine.lastHit) { _, newValue in
+            // A much smaller shake than the Ultimate's — just enough that
+            // every basic attack lands with a bit of physical weight instead
+            // of only the rare ultimates feeling impactful.
+            guard let hit = newValue else { return }
+            withAnimation(.linear(duration: 0.15)) { shakeAmount += 0.18 }
+
+            if let startFrame = combatantFrames[hit.attackerID], let endFrame = combatantFrames[hit.targetID] {
+                attackProjectile = AttackProjectile(
+                    start: CGPoint(x: startFrame.midX, y: startFrame.midY),
+                    end: CGPoint(x: endFrame.midX, y: endFrame.midY),
+                    color: hit.attackerElement.color,
+                    symbol: hit.attackerElement.symbol,
+                    big: hit.isElementAdvantage
+                )
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.34) {
+                    attackProjectile = nil
+                }
+            }
+        }
+        .onAppear {
+            if engine.isBossStage {
+                gameState.playSound(.bossEncounter)
+            }
+            startTicking()
+        }
+        .onDisappear { timer?.invalidate() }
+    }
+
+    /// Blurred so the concept art's own baked-in HUD text/numbers read as
+    /// abstract texture instead of competing with our real UI drawn below.
+    /// Landscape has almost no vertical room to spare, so this is a thin
+    /// accent strip with the stage title overlaid rather than a full banner.
+    private var battleBanner: some View {
+        Image(engine.isBossStage ? "BossBattleBanner" : "BattleBanner")
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(height: 44)
+            .frame(maxWidth: .infinity)
+            .clipped()
+            .blur(radius: 4)
+            .overlay(
+                LinearGradient(colors: [Theme.deepNavy.opacity(0.3), Theme.deepNavy.opacity(0.85)], startPoint: .top, endPoint: .bottom)
+            )
+            .overlay(alignment: .leading) {
+                stageHeader
+                    .padding(.horizontal, 20)
+            }
+            .ignoresSafeArea(edges: .top)
+    }
+
+    private var stageHeader: some View {
+        HStack {
+            Group {
+                if let arenaFloor {
+                    Text("Arena · Floor \(arenaFloor)")
+                } else {
+                    let world = WorldCatalog.world(forStage: engine.stage)
+                    let stageInWorld = engine.stage - world.firstStage + 1
+                    if engine.isBossStage {
+                        Text("\(world.name) · Boss")
+                    } else {
+                        Text("\(world.name) · \(stageInWorld)/\(World.stagesPerWorld)")
+                    }
+                }
+            }
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(engine.isBossStage ? .red : .white.opacity(0.7))
+            Spacer()
+            battleControls
+        }
+    }
+
+    /// Speed (1x/2x) and Auto-Battle toggles — tucked into the banner's
+    /// trailing side so repeated stages can be blitzed through without
+    /// hunting for a settings screen mid-fight.
+    private var battleControls: some View {
+        HStack(spacing: 8) {
+            Button {
+                gameState.setBattleSpeedMultiplier(gameState.battleSpeedMultiplier >= 2.0 ? 1.0 : 2.0)
+                gameState.playHaptic(.light)
+            } label: {
+                Text(gameState.battleSpeedMultiplier >= 2.0 ? "2x" : "1x")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(gameState.battleSpeedMultiplier >= 2.0 ? .black : .white.opacity(0.8))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(gameState.battleSpeedMultiplier >= 2.0 ? Theme.softBlue : Color.white.opacity(0.1))
+                    .clipShape(Capsule())
+            }
+            .accessibilityLabel(gameState.battleSpeedMultiplier >= 2.0 ? "Battle speed 2x, tap for 1x" : "Battle speed 1x, tap for 2x")
+
+            Button {
+                gameState.setAutoBattleEnabled(!gameState.autoBattleEnabled)
+                gameState.playHaptic(.light)
+            } label: {
+                Image(systemName: "arrow.triangle.2.circlepath")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(gameState.autoBattleEnabled ? .black : .white.opacity(0.8))
+                    .padding(7)
+                    .background(gameState.autoBattleEnabled ? Theme.gold : Color.white.opacity(0.1))
+                    .clipShape(Circle())
+            }
+            .accessibilityLabel(gameState.autoBattleEnabled ? "Auto-Battle on" : "Auto-Battle off")
+        }
+    }
+
+    private var partyRow: some View {
+        HStack(spacing: 12) {
+            ForEach(engine.playerUnits) { combatant in
+                PartyMemberTile(combatant: combatant, lastHit: engine.lastHit, lastSkillUse: engine.lastSkillUse, lastUltimate: engine.lastUltimate, enemyElement: engine.enemyUnits.first?.element) {
+                    if engine.activateUltimate(for: combatant.id) {
+                        gameState.playHaptic(.success)
+                    }
+                } onSkill: {
+                    if engine.activateSkill(for: combatant.id) {
+                        gameState.playHaptic(.light)
+                    }
+                }
+            }
+        }
+    }
+
+    private func startTicking() {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            MainActor.assumeIsolated {
+                engine.tick(dt: 0.1 * gameState.battleSpeedMultiplier)
+
+                // Auto-Battle: fire every ready Dreamkeeper's Active Skill and
+                // Ultimate on its own, the instant each is ready, rather than
+                // waiting on a tap — same calls the buttons make.
+                if gameState.autoBattleEnabled, engine.outcome == nil {
+                    for unit in engine.playerUnits where unit.isAlive {
+                        if unit.ultimateReady { engine.activateUltimate(for: unit.id) }
+                        if unit.skillReady { engine.activateSkill(for: unit.id) }
+                    }
+                }
+
+                if engine.outcome != nil {
+                    timer?.invalidate()
+                    gameState.playHaptic(engine.outcome == .victory ? .success : .warning)
+                    withAnimation(.easeIn(duration: 0.3)) {
+                        showOutcomeOverlay = true
+                    }
+                }
+            }
+        }
+    }
+}
+
+/// Enemy portrait + HP. Every basic attack now plays two clearly distinct,
+/// element-flavored effect sets on this same view depending on the role it
+/// just played in `lastHit`: an "I'm attacking" wind-up/lunge/cast-burst
+/// when `attackerID` matches, and an "I got hit" flash/recoil/impact-burst/
+/// damage-number when `targetID` matches — so which monster did what is
+/// obvious at a glance without any log text.
+private struct CombatantBanner: View {
+    let combatant: Combatant
+    let lastHit: HitEvent?
+    let lastMechanicTrigger: MechanicEvent?
+
+    // Being hit.
+    @State private var flashOpacity: Double = 0
+    @State private var burstColor: Color = .white
+    @State private var burstSymbol: String = "sparkle"
+    @State private var burstRadius: CGFloat = 0
+    @State private var burstOpacity: Double = 0
+    @State private var outerBurstRadius: CGFloat = 0
+    @State private var outerBurstOpacity: Double = 0
+    @State private var shockwaveScale: CGFloat = 0.5
+    @State private var shockwaveOpacity: Double = 0
+    @State private var recoilScale: CGFloat = 1
+    @State private var recoilOffsetY: CGFloat = 0
+    @State private var floatingAmount: Int?
+    @State private var floatingColor: Color = .white
+    @State private var floatingScale: CGFloat = 1
+    @State private var floatingOffsetY: CGFloat = 0
+    @State private var floatingOpacity: Double = 0
+
+    // Attacking.
+    @State private var attackScale: CGFloat = 1
+    @State private var attackOffsetY: CGFloat = 0
+    @State private var attackTilt: Double = 0
+    @State private var attackGlowOpacity: Double = 0
+    @State private var castRadius: CGFloat = 0
+    @State private var castOpacity: Double = 0
+    @State private var cardFlashOpacity: Double = 0
+
+    @State private var mechanicPulseScale: CGFloat = 1
+    @State private var mechanicPulseOpacity: Double = 0
+    @State private var mechanicLabel: MechanicEvent?
+
+    /// Landscape leaves almost no vertical room to spare (see `battleBanner`'s
+    /// own comment), so the portrait grows mainly by staying beside the name
+    ////HP column rather than stacking above it — width is cheap in the
+    /// 300pt-wide sidebar, height is the scarce resource.
+    private var portraitSize: CGFloat { 120 }
+
+    /// Name to use for portrait art lookup — `portraitOverrideName` when set
+    /// (Arena rivals, see its doc comment), otherwise the combatant's own
+    /// display name (campaign monsters/bosses, unchanged behavior).
+    private var portraitLookupName: String { combatant.portraitOverrideName ?? combatant.name }
+    /// Checks both namespaces: an Arena rival's `portraitOverrideName` names
+    /// a real Dreamkeeper, while ordinary enemies only ever have `Monster_`
+    /// art. No name ever exists in both catalogs, so this is unambiguous.
+    private var hasPortraitArt: Bool {
+        DreamkeeperArt.hasArt(for: portraitLookupName) || MonsterArt.hasArt(for: portraitLookupName)
+    }
+    private var portraitAssetName: String {
+        DreamkeeperArt.hasArt(for: portraitLookupName)
+            ? DreamkeeperArt.assetName(for: portraitLookupName)
+            : MonsterArt.assetName(for: portraitLookupName)
+    }
+
+    var body: some View {
+        GlassCard {
+            HStack(spacing: 14) {
+                ZStack {
+                    ZStack {
+                        if hasPortraitArt {
+                            Image(portraitAssetName)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: portraitSize, height: portraitSize)
+                                .clipShape(Circle())
+                                .overlay(
+                                    Circle().strokeBorder(
+                                        combatant.isBoss ? Color.red.opacity(0.7) : combatant.element.color.opacity(0.6),
+                                        lineWidth: combatant.isBoss ? 3 : 2
+                                    )
+                                )
+                                .shadow(color: (combatant.isBoss ? Color.red : combatant.element.color).opacity(0.5), radius: 14)
+                                .overlay(Circle().fill(Color.red.opacity(flashOpacity)))
+                        } else {
+                            Circle()
+                                .fill(combatant.isBoss ? Color.red.opacity(0.35) : combatant.element.color.opacity(0.35))
+                                .frame(width: portraitSize, height: portraitSize)
+                                .overlay(
+                                    Circle().strokeBorder(
+                                        combatant.isBoss ? Color.red.opacity(0.7) : combatant.element.color.opacity(0.6),
+                                        lineWidth: combatant.isBoss ? 3 : 2
+                                    )
+                                )
+                                .overlay(Circle().fill(Color.red.opacity(flashOpacity)))
+                            Image(systemName: combatant.symbol ?? (combatant.isBoss ? "flame.fill" : combatant.element.symbol))
+                                .font(.system(size: portraitSize * 0.38, weight: .semibold))
+                                .foregroundStyle(.white)
+                        }
+                        // Wind-up: a bright ring plus a fast burst of the
+                        // element's own icon punching outward — the clear
+                        // "this one is attacking" cue.
+                        Circle()
+                            .stroke(combatant.element.color, lineWidth: 3.5)
+                            .frame(width: portraitSize, height: portraitSize)
+                            .blur(radius: 2)
+                            .opacity(attackGlowOpacity)
+                        ElementBurst(color: combatant.element.color, symbol: combatant.element.symbol, radius: castRadius, opacity: castOpacity, particleCount: 5, particleSize: 11)
+
+                        // Impact: two staggered rings of the attacker's
+                        // element icon plus an expanding shockwave — the
+                        // clear "this one just got hit" cue.
+                        ElementBurst(color: burstColor, symbol: burstSymbol, radius: burstRadius, opacity: burstOpacity, particleCount: 7, particleSize: 10)
+                        ElementBurst(color: burstColor, symbol: burstSymbol, radius: outerBurstRadius, opacity: outerBurstOpacity, particleCount: 7, particleSize: 7)
+                        Circle()
+                            .stroke(burstColor, lineWidth: 2.5)
+                            .frame(width: portraitSize, height: portraitSize)
+                            .scaleEffect(shockwaveScale)
+                            .opacity(shockwaveOpacity)
+
+                        if let mechanic = mechanicLabel?.mechanic {
+                            Circle()
+                                .stroke(mechanic.triggerColor, lineWidth: 2)
+                                .frame(width: portraitSize, height: portraitSize)
+                                .scaleEffect(mechanicPulseScale)
+                                .opacity(mechanicPulseOpacity)
+                        }
+                    }
+                    .scaleEffect(attackScale * recoilScale)
+                    .offset(y: attackOffsetY + recoilOffsetY)
+                    .rotationEffect(.degrees(attackTilt))
+
+                    if let floatingAmount {
+                        Text("-\(floatingAmount)")
+                            .font(.title2.weight(.heavy))
+                            .foregroundStyle(floatingColor)
+                            .shadow(color: floatingColor.opacity(0.6), radius: 4)
+                            .scaleEffect(floatingScale)
+                            .offset(y: floatingOffsetY - 34)
+                            .opacity(floatingOpacity)
+                    }
+                }
+                .background(
+                    GeometryReader { proxy in
+                        Color.clear.preference(key: CombatantFramePreferenceKey.self, value: [combatant.id: proxy.frame(in: .named("battlefield"))])
+                    }
+                )
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack {
+                        Text(combatant.name)
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                        if combatant.isBoss {
+                            Text("BOSS")
+                                .font(.caption2.weight(.bold))
+                                .padding(.horizontal, 6).padding(.vertical, 2)
+                                .background(Color.red)
+                                .clipShape(Capsule())
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    // Spells out the enemy's element in text, not just the
+                    // portrait ring's tint — the plain-language anchor each
+                    // party member's advantage/disadvantage badge below reads
+                    // against (see `PartyMemberTile.advantageBadge`).
+                    HStack(spacing: 4) {
+                        Image(systemName: combatant.element.symbol)
+                        Text(LocalizedStringKey(combatant.element.displayName))
+                    }
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(combatant.element.color)
+                    HPBar(fraction: combatant.hpFraction, tint: combatant.isBoss ? .red : Theme.softBlue)
+                        .frame(height: 10)
+                }
+                Spacer(minLength: 0)
+            }
+        }
+        .background(
+            RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
+                .fill(combatant.element.color.opacity(cardFlashOpacity * 0.4))
+                .blur(radius: 26)
+        )
+        .onChange(of: lastHit) { _, newValue in
+            guard let hit = newValue else { return }
+
+            if hit.attackerID == combatant.id {
+                attackGlowOpacity = 1
+                castRadius = 0
+                castOpacity = 1
+                cardFlashOpacity = 1
+                withAnimation(.easeOut(duration: 0.18)) {
+                    attackScale = 1.22
+                    attackTilt = -10
+                    attackOffsetY = 13
+                    castRadius = 46
+                    cardFlashOpacity = 0.75
+                }
+                withAnimation(.easeOut(duration: 0.28).delay(0.18)) {
+                    attackScale = 1
+                    attackTilt = 0
+                    attackOffsetY = 0
+                    attackGlowOpacity = 0
+                    castOpacity = 0
+                    cardFlashOpacity = 0
+                }
+            }
+
+            guard hit.targetID == combatant.id else { return }
+            let isBig = hit.isElementAdvantage
+
+            flashOpacity = 0.6
+            withAnimation(.easeOut(duration: 0.35)) { flashOpacity = 0 }
+
+            recoilScale = 0.92
+            recoilOffsetY = -10
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) {
+                recoilScale = 1
+                recoilOffsetY = 0
+            }
+
+            burstColor = hit.attackerElement.color
+            burstSymbol = hit.attackerElement.symbol
+            burstRadius = 0
+            burstOpacity = 1
+            withAnimation(.easeOut(duration: isBig ? 0.55 : 0.4)) {
+                burstRadius = isBig ? 48 : 32
+                burstOpacity = 0
+            }
+            outerBurstRadius = 0
+            outerBurstOpacity = 0
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.09) {
+                outerBurstOpacity = 0.85
+                withAnimation(.easeOut(duration: isBig ? 0.6 : 0.45)) {
+                    outerBurstRadius = isBig ? 66 : 48
+                    outerBurstOpacity = 0
+                }
+            }
+
+            shockwaveScale = 0.5
+            shockwaveOpacity = 0.9
+            withAnimation(.easeOut(duration: isBig ? 0.6 : 0.45)) {
+                shockwaveScale = isBig ? 1.8 : 1.35
+                shockwaveOpacity = 0
+            }
+
+            floatingAmount = hit.amount
+            floatingColor = isBig ? Theme.gold : .white
+            floatingOffsetY = 0
+            floatingOpacity = 1
+            floatingScale = isBig ? 1.5 : 1.2
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.55)) {
+                floatingScale = 1
+            }
+            withAnimation(.easeOut(duration: 0.85)) {
+                floatingOffsetY = -40
+                floatingOpacity = 0
+            }
+        }
+        .onChange(of: lastMechanicTrigger) { _, newValue in
+            guard let event = newValue, event.targetID == combatant.id else { return }
+            mechanicLabel = event
+            mechanicPulseScale = 1
+            mechanicPulseOpacity = 1
+            withAnimation(.easeOut(duration: 0.6)) {
+                mechanicPulseScale = 1.6
+                mechanicPulseOpacity = 0
+            }
+        }
+    }
+}
+
+/// Collects each combatant portrait's on-screen frame (in the shared
+/// "battlefield" coordinate space) so `BattleView` can draw a bolt flying
+/// directly between an attacker and its target, wherever either happens to
+/// be laid out this frame.
+private struct CombatantFramePreferenceKey: PreferenceKey {
+    static let defaultValue: [UUID: CGRect] = [:]
+    static func reduce(value: inout [UUID: CGRect], nextValue: () -> [UUID: CGRect]) {
+        value.merge(nextValue(), uniquingKeysWith: { _, new in new })
+    }
+}
+
+private struct AttackProjectile: Identifiable {
+    let id = UUID()
+    let start: CGPoint
+    let end: CGPoint
+    let color: Color
+    let symbol: String
+    let big: Bool
+}
+
+/// A glowing bolt of the attacker's own element that visibly travels from
+/// the attacker's portrait to the target's the instant a hit lands. Every
+/// other effect in this file lives on one portrait or the other — this is
+/// the only one that spans both, so it's the clearest possible answer to
+/// "who is attacking whom" regardless of how fast the fight moves.
+private struct AttackProjectileView: View {
+    let projectile: AttackProjectile
+
+    @State private var progress: CGFloat = 0
+    @State private var headOpacity: Double = 0
+    @State private var trailOpacity: Double = 0
+
+    var body: some View {
+        let point = CGPoint(
+            x: projectile.start.x + (projectile.end.x - projectile.start.x) * progress,
+            y: projectile.start.y + (projectile.end.y - projectile.start.y) * progress
+        )
+
+        ZStack {
+            Path { path in
+                path.move(to: projectile.start)
+                path.addLine(to: point)
+            }
+            .stroke(
+                LinearGradient(
+                    colors: [projectile.color.opacity(0), projectile.color.opacity(0.95)],
+                    startPoint: .init(x: 0, y: 0.5), endPoint: .init(x: 1, y: 0.5)
+                ),
+                style: StrokeStyle(lineWidth: projectile.big ? 6 : 4, lineCap: .round)
+            )
+            .opacity(trailOpacity)
+
+            Image(systemName: projectile.symbol)
+                .font(.system(size: projectile.big ? 30 : 22, weight: .bold))
+                .foregroundStyle(projectile.color)
+                .shadow(color: projectile.color.opacity(0.9), radius: 10)
+                .scaleEffect(projectile.big ? 1.25 : 1)
+                .position(point)
+                .opacity(headOpacity)
+        }
+        .onAppear {
+            headOpacity = 1
+            trailOpacity = 1
+            withAnimation(.easeIn(duration: 0.22)) {
+                progress = 1
+            }
+            withAnimation(.easeOut(duration: 0.14).delay(0.2)) {
+                headOpacity = 0
+                trailOpacity = 0
+            }
+        }
+    }
+}
+
+/// Small radiating burst tinted and shaped by whichever element is involved
+/// — using that element's own symbol (flame/drop/leaf/moon/sparkles) rather
+/// than a generic spark, so the effect reads as "fitting the monster"
+/// rather than one interchangeable animation for every hit.
+private struct ElementBurst: View {
+    let color: Color
+    var symbol: String = "sparkle"
+    let radius: CGFloat
+    let opacity: Double
+    var particleCount: Int = 6
+    var particleSize: CGFloat = 9
+
+    var body: some View {
+        ForEach(0..<particleCount, id: \.self) { index in
+            let angle = Angle.degrees(Double(index) / Double(particleCount) * 360)
+            Image(systemName: symbol)
+                .font(.system(size: particleSize, weight: .bold))
+                .foregroundStyle(color)
+                .shadow(color: color.opacity(0.7), radius: 3)
+                .offset(x: cos(angle.radians) * radius, y: sin(angle.radians) * radius)
+                .opacity(opacity)
+        }
+    }
+}
+
+private struct PartyMemberTile: View {
+    let combatant: Combatant
+    let lastHit: HitEvent?
+    let lastSkillUse: SkillEvent?
+    let lastUltimate: UltimateEvent?
+    /// The single enemy's element (there's only ever one — see
+    /// `BattleEngine.pickTarget`), used to badge this Dreamkeeper's own
+    /// elemental advantage/disadvantage directly on its portrait instead of
+    /// making the player look it up in the Codex mid-fight.
+    let enemyElement: Element?
+    var onUltimate: () -> Void
+    var onSkill: () -> Void
+
+    // Being hit.
+    @State private var flashOpacity: Double = 0
+    @State private var burstColor: Color = .white
+    @State private var burstSymbol: String = "sparkle"
+    @State private var burstRadius: CGFloat = 0
+    @State private var burstOpacity: Double = 0
+    @State private var outerBurstRadius: CGFloat = 0
+    @State private var outerBurstOpacity: Double = 0
+    @State private var recoilScale: CGFloat = 1
+    @State private var recoilOffsetY: CGFloat = 0
+    @State private var floatingAmount: Int?
+    @State private var floatingColor: Color = .white
+    @State private var floatingScale: CGFloat = 1
+    @State private var floatingOffsetY: CGFloat = 0
+    @State private var floatingOpacity: Double = 0
+
+    // Attacking.
+    @State private var attackScale: CGFloat = 1
+    @State private var attackOffsetY: CGFloat = 0
+    @State private var attackTilt: Double = 0
+    @State private var attackGlowOpacity: Double = 0
+    @State private var castRadius: CGFloat = 0
+    @State private var castOpacity: Double = 0
+    @State private var cardFlashOpacity: Double = 0
+
+    @State private var skillFlashOpacity: Double = 0
+    @State private var ultimatePulseScale: CGFloat = 1
+    @State private var ultimatePulseOpacity: Double = 0
+
+    private let portraitSize: CGFloat = 64
+
+    /// Small badge shown on the portrait corner when this Dreamkeeper is
+    /// strong or weak against the current enemy's element — the same
+    /// triangle multiplier `BattleEngine.resolveDamage` already applies,
+    /// just made visible during the fight instead of only in the Codex.
+    private var advantageBadge: (symbol: String, color: Color)? {
+        guard let enemyElement else { return nil }
+        let multiplier = combatant.element.multiplier(against: enemyElement)
+        if multiplier > 1.0 { return ("arrowtriangle.up.fill", .green) }
+        if multiplier < 1.0 { return ("arrowtriangle.down.fill", .red) }
+        return nil
+    }
+
+    var body: some View {
+        VStack(spacing: 6) {
+            ZStack {
+                ZStack {
+                    if DreamkeeperArt.hasArt(for: combatant.name) {
+                        Image(DreamkeeperArt.assetName(for: combatant.name))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: portraitSize, height: portraitSize)
+                            .clipShape(Circle())
+                            .opacity(combatant.isAlive ? 1 : 0.35)
+                            .overlay(Circle().strokeBorder(combatant.element.color.opacity(0.5), lineWidth: 1.5))
+                            .overlay(Circle().fill(Color.red.opacity(flashOpacity)))
+                            .overlay(Circle().stroke(Theme.softBlue.opacity(skillFlashOpacity), lineWidth: 3))
+                    } else {
+                        Circle()
+                            .fill(combatant.isAlive ? combatant.element.color.opacity(0.35) : Color.white.opacity(0.05))
+                            .frame(width: portraitSize, height: portraitSize)
+                            .overlay(Circle().strokeBorder(combatant.element.color.opacity(0.5), lineWidth: 1.5))
+                            .overlay(Circle().fill(Color.red.opacity(flashOpacity)))
+                            .overlay(Circle().stroke(Theme.softBlue.opacity(skillFlashOpacity), lineWidth: 3))
+                        Image(systemName: combatant.role.symbol)
+                            .font(.system(size: portraitSize * 0.4, weight: .semibold))
+                            .foregroundStyle(combatant.isAlive ? .white : .white.opacity(0.3))
+                    }
+                    // Wind-up glow + fast icon burst when this Dreamkeeper is
+                    // the one attacking — mirrors `CombatantBanner`'s cue.
+                    Circle()
+                        .stroke(combatant.element.color, lineWidth: 3)
+                        .frame(width: portraitSize, height: portraitSize)
+                        .blur(radius: 1.5)
+                        .opacity(attackGlowOpacity)
+                    ElementBurst(color: combatant.element.color, symbol: combatant.element.symbol, radius: castRadius, opacity: castOpacity, particleCount: 5, particleSize: 8)
+
+                    // Two staggered impact rings when this Dreamkeeper is hit.
+                    ElementBurst(color: burstColor, symbol: burstSymbol, radius: burstRadius, opacity: burstOpacity, particleCount: 6, particleSize: 8)
+                    ElementBurst(color: burstColor, symbol: burstSymbol, radius: outerBurstRadius, opacity: outerBurstOpacity, particleCount: 6, particleSize: 6)
+
+                    // Caster's own portrait pops with a gold ring the instant
+                    // their ultimate fires — `UltimateShowcaseView` carries the
+                    // big moment, this just says "it was you" on the tile too.
+                    Circle()
+                        .stroke(Theme.gold, lineWidth: 2)
+                        .frame(width: portraitSize, height: portraitSize)
+                        .scaleEffect(ultimatePulseScale)
+                        .opacity(ultimatePulseOpacity)
+                }
+                .scaleEffect(attackScale * recoilScale)
+                .offset(y: attackOffsetY + recoilOffsetY)
+                .rotationEffect(.degrees(attackTilt))
+
+                if let floatingAmount {
+                    Text("-\(floatingAmount)")
+                        .font(.subheadline.weight(.heavy))
+                        .foregroundStyle(floatingColor)
+                        .shadow(color: floatingColor.opacity(0.6), radius: 3)
+                        .scaleEffect(floatingScale)
+                        .offset(y: floatingOffsetY - 22)
+                        .opacity(floatingOpacity)
+                }
+            }
+            .background(
+                GeometryReader { proxy in
+                    Color.clear.preference(key: CombatantFramePreferenceKey.self, value: [combatant.id: proxy.frame(in: .named("battlefield"))])
+                }
+            )
+            .overlay(alignment: .topTrailing) {
+                if let badge = advantageBadge {
+                    Image(systemName: badge.symbol)
+                        .font(.system(size: 9, weight: .black))
+                        .foregroundStyle(.white)
+                        .padding(3)
+                        .background(badge.color)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Theme.deepNavy.opacity(0.6), lineWidth: 1))
+                        .offset(x: 2, y: -2)
+                }
+            }
+
+            Text(combatant.name)
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(.white.opacity(combatant.isAlive ? 0.85 : 0.4))
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+                .frame(width: portraitSize + 12)
+
+            HPBar(fraction: combatant.hpFraction, tint: combatant.element.color)
+                .frame(width: portraitSize, height: 6)
+
+            HStack(spacing: 8) {
+                Button(action: onSkill) {
+                    Image(systemName: "bolt.fill")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(combatant.skillReady ? .black : .white.opacity(0.4))
+                        .padding(7)
+                        .background(combatant.skillReady ? Theme.softBlue : Color.white.opacity(0.08))
+                        .clipShape(Circle())
+                        .shadow(color: combatant.skillReady ? Theme.softBlue.opacity(0.8) : .clear, radius: 5)
+                }
+                .disabled(combatant.activeSkill == nil || !combatant.skillReady || !combatant.isAlive)
+                .accessibilityLabel("Active Skill")
+
+                Button(action: onUltimate) {
+                    Image(systemName: "sparkles")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(combatant.ultimateReady ? .black : .white.opacity(0.4))
+                        .padding(7)
+                        .background(combatant.ultimateReady ? Theme.gold : Color.white.opacity(0.08))
+                        .clipShape(Circle())
+                        .shadow(color: combatant.ultimateReady ? Theme.gold.opacity(0.8) : .clear, radius: 6)
+                }
+                .disabled(!combatant.ultimateReady || !combatant.isAlive)
+                .accessibilityLabel("Ultimate")
+            }
+        }
+        .padding(.vertical, 10)
+        .frame(maxWidth: .infinity)
+        .background(Color.white.opacity(0.04))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Theme.cardStroke, lineWidth: 1)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(combatant.element.color.opacity(cardFlashOpacity * 0.5))
+                .blur(radius: 18)
+        )
+        .opacity(combatant.isAlive ? 1 : 0.4)
+        .onChange(of: lastHit) { _, newValue in
+            guard let hit = newValue else { return }
+
+            if hit.attackerID == combatant.id {
+                attackGlowOpacity = 1
+                castRadius = 0
+                castOpacity = 1
+                cardFlashOpacity = 1
+                withAnimation(.easeOut(duration: 0.18)) {
+                    attackScale = 1.26
+                    attackTilt = 10
+                    attackOffsetY = -12
+                    castRadius = 34
+                    cardFlashOpacity = 0.8
+                }
+                withAnimation(.easeOut(duration: 0.28).delay(0.18)) {
+                    attackScale = 1
+                    attackTilt = 0
+                    attackOffsetY = 0
+                    attackGlowOpacity = 0
+                    castOpacity = 0
+                    cardFlashOpacity = 0
+                }
+            }
+
+            guard hit.targetID == combatant.id else { return }
+            let isBig = hit.isElementAdvantage
+
+            flashOpacity = 0.6
+            withAnimation(.easeOut(duration: 0.35)) { flashOpacity = 0 }
+
+            recoilScale = 0.9
+            recoilOffsetY = 9
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) {
+                recoilScale = 1
+                recoilOffsetY = 0
+            }
+
+            burstColor = hit.attackerElement.color
+            burstSymbol = hit.attackerElement.symbol
+            burstRadius = 0
+            burstOpacity = 1
+            withAnimation(.easeOut(duration: isBig ? 0.45 : 0.35)) {
+                burstRadius = isBig ? 36 : 24
+                burstOpacity = 0
+            }
+            outerBurstRadius = 0
+            outerBurstOpacity = 0
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
+                outerBurstOpacity = 0.8
+                withAnimation(.easeOut(duration: isBig ? 0.5 : 0.4)) {
+                    outerBurstRadius = isBig ? 48 : 34
+                    outerBurstOpacity = 0
+                }
+            }
+
+            floatingAmount = hit.amount
+            floatingColor = isBig ? Theme.gold : .white
+            floatingOffsetY = 0
+            floatingOpacity = 1
+            floatingScale = isBig ? 1.4 : 1.15
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.55)) {
+                floatingScale = 1
+            }
+            withAnimation(.easeOut(duration: 0.7)) {
+                floatingOffsetY = -28
+                floatingOpacity = 0
+            }
+        }
+        .onChange(of: lastSkillUse) { _, newValue in
+            guard let use = newValue, use.casterID == combatant.id else { return }
+            skillFlashOpacity = 0.9
+            withAnimation(.easeOut(duration: 0.3)) { skillFlashOpacity = 0 }
+        }
+        .onChange(of: lastUltimate) { _, newValue in
+            guard let ultimate = newValue, ultimate.casterID == combatant.id else { return }
+            ultimatePulseScale = 1
+            ultimatePulseOpacity = 1
+            withAnimation(.easeOut(duration: 0.7)) {
+                ultimatePulseScale = 1.5
+                ultimatePulseOpacity = 0
+            }
+        }
+    }
+}
+
+/// Shown once per Ultimate cast: the caster's own portrait scales up big at
+/// the center of the screen, circled by a spinning ring, and throws a
+/// layered elemental attack burst outward — the primary "something big just
+/// happened, and it was them" cue, replacing the old flat screen-tint flash.
+/// Purely visual: the (already-visible) party tile shows who it is, so no
+/// caption is needed here either.
+private struct UltimateShowcaseView: View {
+    let combatant: Combatant
+
+    @State private var portraitScale: CGFloat = 0.3
+    @State private var portraitOpacity: Double = 0
+    @State private var glowOpacity: Double = 0
+    @State private var ringRotation: Double = 0
+    @State private var ringOpacity: Double = 0
+    @State private var innerStrikeProgress: CGFloat = 0
+    @State private var innerStrikeOpacity: Double = 0
+    @State private var strikeProgress: CGFloat = 0
+    @State private var strikeOpacity: Double = 0
+
+    private var portraitSize: CGFloat { 200 }
+    private var hasArt: Bool { DreamkeeperArt.hasArt(for: combatant.name) }
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.45)
+                .ignoresSafeArea()
+                .allowsHitTesting(false)
+
+            Circle()
+                .fill(combatant.element.color.opacity(0.4))
+                .frame(width: 280, height: 280)
+                .blur(radius: 60)
+                .opacity(glowOpacity)
+
+            Circle()
+                .strokeBorder(style: StrokeStyle(lineWidth: 3, dash: [10, 8]))
+                .foregroundStyle(combatant.element.color.opacity(0.8))
+                .frame(width: portraitSize + 34, height: portraitSize + 34)
+                .rotationEffect(.degrees(ringRotation))
+                .opacity(ringOpacity)
+
+            ZStack {
+                if hasArt {
+                    Image(DreamkeeperArt.assetName(for: combatant.name))
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: portraitSize, height: portraitSize)
+                        .clipShape(Circle())
+                } else {
+                    Circle().fill(combatant.element.color.opacity(0.45)).frame(width: portraitSize, height: portraitSize)
+                    Image(systemName: combatant.role.symbol)
+                        .font(.system(size: portraitSize * 0.4, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
+            }
+            .overlay(Circle().strokeBorder(combatant.element.color, lineWidth: 5))
+            .shadow(color: combatant.element.color.opacity(0.85), radius: 34)
+            .scaleEffect(portraitScale)
+            .opacity(portraitOpacity)
+
+            // The "attack": an inner fast ring of small icons, followed by
+            // a bigger, slower outer ring — two layers punching outward.
+            ForEach(0..<8, id: \.self) { index in
+                let angle = Angle.degrees(Double(index) / 8 * 360 + 22)
+                Image(systemName: combatant.element.symbol)
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundStyle(combatant.element.color)
+                    .offset(x: cos(angle.radians) * 90 * innerStrikeProgress, y: sin(angle.radians) * 90 * innerStrikeProgress)
+                    .opacity(innerStrikeOpacity)
+            }
+            ForEach(0..<10, id: \.self) { index in
+                let angle = Angle.degrees(Double(index) / 10 * 360)
+                Image(systemName: combatant.element.symbol)
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundStyle(combatant.element.color)
+                    .shadow(color: combatant.element.color.opacity(0.7), radius: 6)
+                    .offset(x: cos(angle.radians) * 150 * strikeProgress, y: sin(angle.radians) * 150 * strikeProgress)
+                    .opacity(strikeOpacity)
+            }
+        }
+        .allowsHitTesting(false)
+        .onAppear {
+            withAnimation(.interpolatingSpring(stiffness: 220, damping: 14)) {
+                portraitScale = 1
+                portraitOpacity = 1
+                glowOpacity = 1
+                ringOpacity = 1
+            }
+            withAnimation(.linear(duration: 1.4).repeatForever(autoreverses: false)) {
+                ringRotation = 360
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
+                innerStrikeOpacity = 1
+                withAnimation(.easeOut(duration: 0.3)) {
+                    innerStrikeProgress = 1
+                    innerStrikeOpacity = 0
+                }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                strikeOpacity = 1
+                withAnimation(.easeOut(duration: 0.5)) {
+                    strikeProgress = 1
+                    strikeOpacity = 0
+                }
+            }
+        }
+    }
+}
+
+/// Classic sine-wave screen shake, driven by an ever-increasing counter so
+/// each trigger animates a fresh pass regardless of the counter's parity.
+private struct ShakeEffect: GeometryEffect {
+    var amount: CGFloat = 8
+    var shakesPerUnit: CGFloat = 3
+    var animatableData: CGFloat
+
+    func effectValue(size: CGSize) -> ProjectionTransform {
+        let translation = amount * sin(animatableData * .pi * shakesPerUnit)
+        return ProjectionTransform(CGAffineTransform(translationX: translation, y: 0))
+    }
+}
+
+private struct HPBar: View {
+    var fraction: Double
+    var tint: Color
+
+    var body: some View {
+        GeometryReader { geo in
+            ZStack(alignment: .leading) {
+                Capsule().fill(Color.white.opacity(0.12))
+                Capsule().fill(tint)
+                    .frame(width: geo.size.width * fraction)
+                    .animation(.easeOut(duration: 0.2), value: fraction)
+            }
+        }
+        .frame(height: 8)
+    }
+}
+
+private struct OutcomeOverlay: View {
+    let outcome: BattleOutcome
+    var onContinue: () -> Void
+
+    @State private var sparkleFall: CGFloat = 0
+    @State private var sparkleOpacity: Double = 0
+    @State private var vignetteOpacity: Double = 0
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.55).ignoresSafeArea()
+
+            if outcome == .victory {
+                VictorySparkleRain(fall: sparkleFall, opacity: sparkleOpacity)
+                    .allowsHitTesting(false)
+            } else {
+                // A flat tint rather than a full-screen RadialGradient — see
+                // the fix note on `chestArea` in SummoningShrineView.
+                Color.red.opacity(vignetteOpacity * 0.4)
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
+            }
+
+            VStack(spacing: 20) {
+                Group {
+                    if outcome == .victory {
+                        Text("Victory!")
+                    } else {
+                        Text("Defeat...")
+                    }
+                }
+                    .font(.largeTitle.weight(.heavy))
+                    .foregroundStyle(outcome == .victory ? Theme.gold : .red)
+                    .shadow(color: (outcome == .victory ? Theme.gold : .red).opacity(0.6), radius: 12)
+
+                Button("Continue") { onContinue() }
+                    .buttonStyle(PrimaryButtonStyle(tint: outcome == .victory ? Theme.violet : .gray))
+                    .frame(width: 200)
+            }
+            .transition(.scale.combined(with: .opacity))
+        }
+        .onAppear {
+            if outcome == .victory {
+                sparkleOpacity = 1
+                withAnimation(.easeOut(duration: 1.4)) {
+                    sparkleFall = 1
+                }
+            } else {
+                withAnimation(.easeIn(duration: 0.5)) {
+                    vignetteOpacity = 0.5
+                }
+            }
+        }
+    }
+}
+
+/// A handful of gold sparkles drifting down from the top of the screen on
+/// victory — a quick celebratory flourish beyond the plain text fade.
+private struct VictorySparkleRain: View {
+    let fall: CGFloat
+    let opacity: Double
+
+    private let particles: [(x: CGFloat, delay: Double, scale: CGFloat)] = (0..<14).map { index in
+        (x: CGFloat.random(in: 0.05...0.95), delay: Double(index % 5) * 0.08, scale: CGFloat.random(in: 0.6...1.2))
+    }
+
+    var body: some View {
+        GeometryReader { geo in
+            ForEach(particles.indices, id: \.self) { index in
+                let particle = particles[index]
+                Image(systemName: "sparkle")
+                    .font(.system(size: 14 * particle.scale))
+                    .foregroundStyle(Theme.gold)
+                    .position(x: geo.size.width * particle.x, y: geo.size.height * fall * (1 - particle.delay) )
+                    .opacity(opacity)
+            }
+        }
+        .ignoresSafeArea()
+    }
+}

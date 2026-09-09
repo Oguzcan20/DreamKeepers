@@ -1,0 +1,1144 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0372B53F2F3245D71110C3FC /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72E7BB2AF11E689E46ECE78 /* Element.swift */; };
+		05ED4FDB1ECB333645457FDA /* ArenaSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE23087FE8B25FCD0D06BC25 /* ArenaSystem.swift */; };
+		077673C44BA8208F8FEFC17E /* WorldCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A46800400702CF4E64B26F1 /* WorldCatalog.swift */; };
+		09ACD139E3193EF264D41B10 /* AdaptiveScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20FBCA807CD7AA6CA9A0788 /* AdaptiveScale.swift */; };
+		0D4EF63762410D869DDC028A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0DD91A00079556F8F135BF /* OnboardingView.swift */; };
+		06E9C3EC83A64CD58D3CC0C0 /* StarterOlfChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF442B748164AD1B49DD09E /* StarterOlfChoiceView.swift */; };
+		0E7AA6F7CAF62AB593D454DC /* StarFusionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A57010F2EBC53AA1335FC5B /* StarFusionSystem.swift */; };
+		148F836B6CEEA8ECD96290F1 /* TrackingPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB87AA176618C13E58783B23 /* TrackingPermission.swift */; };
+		1823D37E1A252AEC5695F40F /* DreamkeeperCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C655854E4AC3D9442D21494F /* DreamkeeperCatalog.swift */; };
+		183223E24B3B14CF1F509F1C /* Rewards.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFB8C1C57854B9EC0A24C88 /* Rewards.swift */; };
+		19851F55E04431A7A24D2052 /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167ADE3E91813E6C05B8989 /* Skill.swift */; };
+		224C395F916E837A62D89F50 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4D5FC4E06E368383D9DB8D /* SettingsView.swift */; };
+		27313C8CFB80628A18FAAECB /* InterstitialAdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09A1C140DA2688530F46A2F /* InterstitialAdService.swift */; };
+		2FC75553C17CE55A6F8E7024 /* GoldFountainSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D88C344A285A7B1441331A /* GoldFountainSheet.swift */; };
+		304DC200C7EA3F2006C51EF9 /* AdMobRewardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DD4A2BCBBC84EF5B2C013 /* AdMobRewardService.swift */; };
+		32304B1E5242D5F5EC0CF734 /* StarFusionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D74EB214694147E32A3E16 /* StarFusionTests.swift */; };
+		384CB1451D1DA3DA00ADBA79 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E27AFADD8EFDBC41559794 /* MainMenuView.swift */; };
+		38B0340674F1893233282134 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457F918124185EFC12E45D85 /* Team.swift */; };
+		38E89DF36DC1CBF8FBE327F2 /* Combatant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFEA111293D4906A622D930 /* Combatant.swift */; };
+		39F39289260DCAF80B10BD1C /* DreamkeeperCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3715B5111CE531A4B7BCA673 /* DreamkeeperCatalogTests.swift */; };
+		D332A6AAE8B94E798C554430 /* OlfStarterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6271D011DB6B4B7C99C9AEA7 /* OlfStarterTests.swift */; };
+		3AA4425AD452E9AF7E50E301 /* BestiaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A6792E6FCF26A6B9C60FA /* BestiaryTests.swift */; };
+		3EE49D3ED2E9A46E96195853 /* AchievementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBAAE14190760FCF47F33C /* AchievementSystem.swift */; };
+		45B683C4F25BD21554B3EE62 /* DreamkeepersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075CD6F25866B557999DC535 /* DreamkeepersApp.swift */; };
+		47714D47EE9CF0D539DFFDFC /* LoginRewardSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C8673EF18A4F3EF4D6484 /* LoginRewardSystem.swift */; };
+		4FDC0600CD684202183646E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F9BD482C11FBE52D5D180CD /* Assets.xcassets */; };
+		50505E6DF74623232517EC77 /* EquipmentSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281F0FBA0FBF87AE37AAFBA2 /* EquipmentSheet.swift */; };
+		522B0B09CCBE29D5433B62F6 /* EquipmentUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89305C0528B6C9C6360855 /* EquipmentUpgrade.swift */; };
+		553D95AB57D98EC7F8D9C2A3 /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385E9BF67A92AFA8133A34B5 /* PurchaseService.swift */; };
+		5A9FED434EC81C6BC9704989 /* InterstitialAdSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A614278D58E8CA448B1051 /* InterstitialAdSheet.swift */; };
+		5C0A38DF677805A85CFEABCB /* CampaignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0301759EF7B189507CA678D /* CampaignView.swift */; };
+		5C703DDF996B916906EE7557 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F432356B9CB16BA9EF3312B7 /* Localizable.xcstrings */; };
+		5D171AD9648FEEB874678236 /* DreamkeeperCodexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAA88224DCAF0007E49A9 /* DreamkeeperCodexView.swift */; };
+		5E3A99FC16D5E6CF86B56EBC /* EquipmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9F4A79C8394DCF0614BCF6 /* EquipmentTests.swift */; };
+		5EA4114F9A0C5E049A09BF8C /* AccountState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF5E18B4D556779D1C6800 /* AccountState.swift */; };
+		62D0A34BFCCB0A71866379DC /* AchievementsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17B9BF433196993EAB6788F /* AchievementsSheet.swift */; };
+		62F27653724EDB9ED3BEC783 /* ArenaResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B330C5D75ABE803DAB500 /* ArenaResultView.swift */; };
+		6339EBD91985BA9AF24E3AA9 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3535BFA1FC6CC96ED29FDDA /* GameState.swift */; };
+		648A497F661125C119296107 /* LevelSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D783D28799D0AC884BDC8EA /* LevelSystemTests.swift */; };
+		66EFE725EE2F1ACC2600625F /* ItemFusionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C3A3A1F6887B41216F9D21 /* ItemFusionPickerView.swift */; };
+		674F8C576E647E9EECAEB2EE /* TeamSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E66FFD1E55B0B8672A903C8 /* TeamSystemTests.swift */; };
+		6A7020A9C1AA070E5D42BF58 /* TrainingGardenSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E867659C874782C96427F4 /* TrainingGardenSheet.swift */; };
+		6A81DA0CAE584362D5712E31 /* LevelSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07223F3E1BD28062A43C818B /* LevelSystem.swift */; };
+		6C55804C551E095765A9D6B8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E373ADAFFF188B6D6CC24188 /* Theme.swift */; };
+		6E5BF851C9E7159C355BF838 /* MonsterCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1096816146259A300261B260 /* MonsterCatalogTests.swift */; };
+		7088184439F9CA872A70B9AE /* ShopCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B55BDC085FDF1563CD4170 /* ShopCatalog.swift */; };
+		71F51E6BBA122B38D515F0E5 /* BestiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4C207CFCD11B048CE1FF0F /* BestiaryView.swift */; };
+		720973A0BA546300A09A63E1 /* RewardedAdSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22148A5DFEFAB6EFF40015C /* RewardedAdSheet.swift */; };
+		722CFF7184D1A190828C50DC /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D643779840CB19EF195D392 /* World.swift */; };
+		745BD6B5ECB9BB8C05CD853A /* FusionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823D253588676F918F746584 /* FusionPickerView.swift */; };
+		7814ABA08C6536424B85D7EE /* ShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492FAE40C5DEF8D9D17BB0F /* ShopItem.swift */; };
+		7A0C23FDFF3ED60BEA138BC4 /* WeeklyMissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BB6D4E555ED4CAF59D6EEA /* WeeklyMissions.swift */; };
+		7B34403B526478DFD1043AEB /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE87F924D136439C92E98E3F /* ShopView.swift */; };
+		83F03C843AB120AC00026D0E /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FEEBE685DFFA924BAF6992 /* Role.swift */; };
+		86EBF51B2AF29FC57B9A45A3 /* Dreamkeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985B9A161A1370252F4DC463 /* Dreamkeeper.swift */; };
+		8BC2802AC090FD50CABC2E7C /* ArenaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFACE94C1F4B0714B24FF21 /* ArenaView.swift */; };
+		8C0E55F50F224EAD6C889100 /* AccountStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4311140607525F4D7D0816 /* AccountStateTests.swift */; };
+		8D6E8A07063D61FA5DA00507 /* BattleEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEC9A28C73BAEEE2AEE53F6 /* BattleEngine.swift */; };
+		91FA1E6CB9626BDEF99F1F72 /* EquipmentDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102CBD1B557233ED15AAF1F8 /* EquipmentDetailSheet.swift */; };
+		9ADAD3A171CA75C9F5BB93F8 /* DreamkeeperCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA5AF7DB8476492DFBB1310 /* DreamkeeperCard.swift */; };
+		9DDDDD50E8FBE56692935709 /* SummonSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2473E85D4A0973419FE597E /* SummonSystemTests.swift */; };
+		9F5321FC85115E45E466A57A /* TwinBondTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A64E7C464955704F25500A1 /* TwinBondTests.swift */; };
+		A121722B789672EECC24B916 /* GoogleUserMessagingPlatform in Frameworks */ = {isa = PBXBuildFile; productRef = 78582115974DE82994DFDF0D /* GoogleUserMessagingPlatform */; };
+		A22B384DC55AFBA2E5ED7F87 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE38FBBF3E9812A6CDE4418 /* InventoryView.swift */; };
+		A2FDB17457906404FE789FEF /* AdsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D88991EACED658264C4D2A /* AdsTests.swift */; };
+		A5BF8D85E044A6115C9E993D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD17F1F96EAA02ABD5208F7 /* LoadingView.swift */; };
+		AB25B9762CC4BDD6BA58DFDA /* GameCenterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B436AB5A46E3C56EB7DB382 /* GameCenterService.swift */; };
+		ACD99D11B8EE6D4D001BC44B /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D1B3C19147A237790C169F /* SettingsTests.swift */; };
+		AD2F4F2A60739682902C4A8D /* DailyMissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F36DC39C535A1750B487A7 /* DailyMissions.swift */; };
+		AD71F25C6B93AB80D94F0266 /* iOSPlatformService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF42AD3ACB7F022C90755BD6 /* iOSPlatformService.swift */; };
+		ADE8476655CC12FE5253A34B /* LeaderboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3DD16FF697D92EB4DED1A7 /* LeaderboardService.swift */; };
+		AF0EB8D76834FABFC0B934C9 /* EnemyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E30DCF96855740B14E38A3 /* EnemyFactory.swift */; };
+		B10B7DF37DA2DBE9D340EE2E /* ShopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E99C5D38479EB5E05397E6 /* ShopTests.swift */; };
+		B10F88B6964C037ECC2BBC34 /* BattleEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBC9B605C3C312232DCE350 /* BattleEngineTests.swift */; };
+		B31730EA4561E27239292B80 /* BattleResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27861E8E2CB374FF0E3BC1F /* BattleResultView.swift */; };
+		B62682DFCC53248F079D4605 /* SummoningShrineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AE3653F19B60CBE78F9AA5 /* SummoningShrineView.swift */; };
+		B674343869E98282F4B357B2 /* EquipmentUpgradeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E149459F49F08E697AB079 /* EquipmentUpgradeTests.swift */; };
+		B78BC0E7A0933EFD2A95072A /* EquipmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1634FA9347FD76FA6BC583CD /* EquipmentFactory.swift */; };
+		B97AA46AA8EB05C74920FBE6 /* OfflineRewardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AAAECE7E7F822276810983 /* OfflineRewardsTests.swift */; };
+		BB521E86D7E576AB434A26AC /* AccountLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560474C4F5B014C305416FC /* AccountLevelTests.swift */; };
+		BC1695A0403F53A97DAD3412 /* StarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F984AB60A044C4F945C4FDF /* StarRow.swift */; };
+		BDEDE1E775E28C0244C71FC0 /* EquipmentSummonSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0D94A0EA1ED53D55788070 /* EquipmentSummonSystem.swift */; };
+		C00CA3D6F7D1B308D69017A9 /* BattlePassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75412423D1050BFCC23711E /* BattlePassTests.swift */; };
+		C1B1A099E343E496DA58DA32 /* DreamkeeperCodexDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E03140D1CA6E39710CBF33F /* DreamkeeperCodexDetailView.swift */; };
+		C2609E3B3485BB86CA4C7036 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453A3EF81E745E4A8DB05342 /* ProfileView.swift */; };
+		C26F7174BCC332BA77FD64A4 /* DailyMissionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8811FAAE9EAEDA3C1BA79AA /* DailyMissionsTests.swift */; };
+		C40C209E5BDAC0B7C119F360 /* GameSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD8B48A6CB49473416B509 /* GameSave.swift */; };
+		C5B20AFD529AFCB6E2A2B0C7 /* BattlePassSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A17C9A643B688D47CED45 /* BattlePassSystem.swift */; };
+		C5BE67D43473EA5B89034B0B /* CloudSaveStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F3A8E32CC8F37279A2D876 /* CloudSaveStoreTests.swift */; };
+		C7D6DAD3B65F0E4F6E304F0C /* BattleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5B15BC87E5123DCB83FBDF /* BattleView.swift */; };
+		C9E5DE8AA53CDF58EDFF80A5 /* EnergySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52B6EEF79C7486A0B55D9E /* EnergySystem.swift */; };
+		CAB0628553775082A430A763 /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16197D600F44578EB558C8AE /* Equipment.swift */; };
+		CBB3695AED4CA518B73CA3F2 /* DreamkeeperSaleSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F289F50543A237C68CB3BD5B /* DreamkeeperSaleSystem.swift */; };
+		D09DB7D6CB92414B770CBD1C /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7D8A4654A0D9983B1F302 /* Mocks.swift */; };
+		D42DB4A6168CF8DF4040B17E /* OfflineRewards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F01F6911B908A4DBE811F /* OfflineRewards.swift */; };
+		D4F8BA341807DC1466945ACF /* Rarity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572ABD29BE4B90827CC4543B /* Rarity.swift */; };
+		DB329FDA524F5A4F8A0F4591 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 09E56764278A7DCEDE634CA2 /* GoogleMobileAds */; };
+		DD8EA7516E271C9F6A1D94F1 /* LoginRewardSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC01DEA66B8BBCE520D81158 /* LoginRewardSheet.swift */; };
+		DE179FF85073B3EA7D3489E2 /* MissionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B1738675C714F8F3BC2EB6 /* MissionsSheet.swift */; };
+		DF81E80C842128ACB519B58D /* DreamHavenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618C4123176FC2851F608F26 /* DreamHavenView.swift */; };
+		E0DE1C7F838652C3F5861228 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6AB430FD6D7F17D537EED4 /* RootView.swift */; };
+		E17AB744180B01543D7D00B5 /* SummonSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA78B7665FC6D7831E817C8 /* SummonSystem.swift */; };
+		E7BE6DD958E63672F6A0CCA4 /* TwinBond.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F0DFF50DB484290047B234 /* TwinBond.swift */; };
+		E867DDDA57B922044FAFA11F /* AdRewardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4BB271FFB1EAB3E09E2BCB /* AdRewardService.swift */; };
+		E86D245515426943FC912CCC /* SaveSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBDCF9E7E316F633D582D7 /* SaveSystem.swift */; };
+		EA64332F4024F641999A8172 /* PlatformService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144FC1C26232EEBA991C4513 /* PlatformService.swift */; };
+		EF2F5AF012BA6CBC6CF1D767 /* BattlePassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFBAFDA853DF9A67BB4377F /* BattlePassView.swift */; };
+		EF840ECD0E128418F2F329AD /* MonsterCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162FFDEC20E21E44C0AACBEC /* MonsterCatalog.swift */; };
+		F4C76B666A0F8B052BC0BD78 /* CloudSaveStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC28604B13F27183CBE4A03 /* CloudSaveStore.swift */; };
+		F7F05320B68B18B6EBE4365A /* GameCenterOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65930A23402372A9E56DA4D /* GameCenterOverlay.swift */; };
+		FCF65AADC012767CC08334AB /* ConsentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00F449118EF4D039D208E68 /* ConsentManager.swift */; };
+		FF04A2F149F3D06A9972CAE9 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9F5BF87BD2ECD8D7DBCD5D /* Stats.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4FE6FB0260AC7D9DD46DCB6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 798A1A7A7AEB3385C89B21E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AFBB5DD9FD4F1FCEF1F4F3EC;
+			remoteInfo = Dreamkeepers;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		04BCAA88224DCAF0007E49A9 /* DreamkeeperCodexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamkeeperCodexView.swift; sourceTree = "<group>"; };
+		07223F3E1BD28062A43C818B /* LevelSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSystem.swift; sourceTree = "<group>"; };
+		075CD6F25866B557999DC535 /* DreamkeepersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamkeepersApp.swift; sourceTree = "<group>"; };
+		0A89305C0528B6C9C6360855 /* EquipmentUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentUpgrade.swift; sourceTree = "<group>"; };
+		0ABF5E18B4D556779D1C6800 /* AccountState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountState.swift; sourceTree = "<group>"; };
+		0B9F5BF87BD2ECD8D7DBCD5D /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		0CC7D8A4654A0D9983B1F302 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		0D783D28799D0AC884BDC8EA /* LevelSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSystemTests.swift; sourceTree = "<group>"; };
+		0F9BD482C11FBE52D5D180CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		102CBD1B557233ED15AAF1F8 /* EquipmentDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentDetailSheet.swift; sourceTree = "<group>"; };
+		107DD4A2BCBBC84EF5B2C013 /* AdMobRewardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobRewardService.swift; sourceTree = "<group>"; };
+		1096816146259A300261B260 /* MonsterCatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsterCatalogTests.swift; sourceTree = "<group>"; };
+		144FC1C26232EEBA991C4513 /* PlatformService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformService.swift; sourceTree = "<group>"; };
+		16197D600F44578EB558C8AE /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
+		162FFDEC20E21E44C0AACBEC /* MonsterCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsterCatalog.swift; sourceTree = "<group>"; };
+		1634FA9347FD76FA6BC583CD /* EquipmentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentFactory.swift; sourceTree = "<group>"; };
+		19D88C344A285A7B1441331A /* GoldFountainSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoldFountainSheet.swift; sourceTree = "<group>"; };
+		1AFBAFDA853DF9A67BB4377F /* BattlePassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlePassView.swift; sourceTree = "<group>"; };
+		1BFACE94C1F4B0714B24FF21 /* ArenaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArenaView.swift; sourceTree = "<group>"; };
+		1DEC9A28C73BAEEE2AEE53F6 /* BattleEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleEngine.swift; sourceTree = "<group>"; };
+		1F4BB271FFB1EAB3E09E2BCB /* AdRewardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdRewardService.swift; sourceTree = "<group>"; };
+		1FD17F1F96EAA02ABD5208F7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		2560474C4F5B014C305416FC /* AccountLevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLevelTests.swift; sourceTree = "<group>"; };
+		27F3A8E32CC8F37279A2D876 /* CloudSaveStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSaveStoreTests.swift; sourceTree = "<group>"; };
+		281F0FBA0FBF87AE37AAFBA2 /* EquipmentSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentSheet.swift; sourceTree = "<group>"; };
+		2B5B15BC87E5123DCB83FBDF /* BattleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleView.swift; sourceTree = "<group>"; };
+		313A6792E6FCF26A6B9C60FA /* BestiaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestiaryTests.swift; sourceTree = "<group>"; };
+		319A17C9A643B688D47CED45 /* BattlePassSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlePassSystem.swift; sourceTree = "<group>"; };
+		34F36DC39C535A1750B487A7 /* DailyMissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMissions.swift; sourceTree = "<group>"; };
+		3715B5111CE531A4B7BCA673 /* DreamkeeperCatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamkeeperCatalogTests.swift; sourceTree = "<group>"; };
+		6271D011DB6B4B7C99C9AEA7 /* OlfStarterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OlfStarterTests.swift; sourceTree = "<group>"; };
+		3DF442B748164AD1B49DD09E /* StarterOlfChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterOlfChoiceView.swift; sourceTree = "<group>"; };
+		385E9BF67A92AFA8133A34B5 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
+		3987D680B84FE0A923F564AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3A4D5FC4E06E368383D9DB8D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3E03140D1CA6E39710CBF33F /* DreamkeeperCodexDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamkeeperCodexDetailView.swift; sourceTree = "<group>"; };
+		3E66FFD1E55B0B8672A903C8 /* TeamSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamSystemTests.swift; sourceTree = "<group>"; };
+		3ECBAAE14190760FCF47F33C /* AchievementSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementSystem.swift; sourceTree = "<group>"; };
+		41D1B3C19147A237790C169F /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
+		42AAAECE7E7F822276810983 /* OfflineRewardsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineRewardsTests.swift; sourceTree = "<group>"; };
+		453A3EF81E745E4A8DB05342 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		457F918124185EFC12E45D85 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		4732CF6FAFAFFEB817604353 /* Dreamkeepers.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Dreamkeepers.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B8F01F6911B908A4DBE811F /* OfflineRewards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineRewards.swift; sourceTree = "<group>"; };
+		4DBC9B605C3C312232DCE350 /* BattleEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleEngineTests.swift; sourceTree = "<group>"; };
+		4EC28604B13F27183CBE4A03 /* CloudSaveStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSaveStore.swift; sourceTree = "<group>"; };
+		4FFEA111293D4906A622D930 /* Combatant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Combatant.swift; sourceTree = "<group>"; };
+		572ABD29BE4B90827CC4543B /* Rarity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rarity.swift; sourceTree = "<group>"; };
+		59B1738675C714F8F3BC2EB6 /* MissionsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsSheet.swift; sourceTree = "<group>"; };
+		59E149459F49F08E697AB079 /* EquipmentUpgradeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentUpgradeTests.swift; sourceTree = "<group>"; };
+		59FEEBE685DFFA924BAF6992 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
+		5AB94E1BD914D7A98101F808 /* Dreamkeepers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dreamkeepers.entitlements; sourceTree = "<group>"; };
+		5BFD8B48A6CB49473416B509 /* GameSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSave.swift; sourceTree = "<group>"; };
+		5D4311140607525F4D7D0816 /* AccountStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStateTests.swift; sourceTree = "<group>"; };
+		5F3DD16FF697D92EB4DED1A7 /* LeaderboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardService.swift; sourceTree = "<group>"; };
+		618C4123176FC2851F608F26 /* DreamHavenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamHavenView.swift; sourceTree = "<group>"; };
+		61E30DCF96855740B14E38A3 /* EnemyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyFactory.swift; sourceTree = "<group>"; };
+		6C5C8673EF18A4F3EF4D6484 /* LoginRewardSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRewardSystem.swift; sourceTree = "<group>"; };
+		6E4C207CFCD11B048CE1FF0F /* BestiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestiaryView.swift; sourceTree = "<group>"; };
+		70AE3653F19B60CBE78F9AA5 /* SummoningShrineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummoningShrineView.swift; sourceTree = "<group>"; };
+		7D643779840CB19EF195D392 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
+		7DA5AF7DB8476492DFBB1310 /* DreamkeeperCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamkeeperCard.swift; sourceTree = "<group>"; };
+		7F0D94A0EA1ED53D55788070 /* EquipmentSummonSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentSummonSystem.swift; sourceTree = "<group>"; };
+		823D253588676F918F746584 /* FusionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FusionPickerView.swift; sourceTree = "<group>"; };
+		86C3A3A1F6887B41216F9D21 /* ItemFusionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFusionPickerView.swift; sourceTree = "<group>"; };
+		8A57010F2EBC53AA1335FC5B /* StarFusionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarFusionSystem.swift; sourceTree = "<group>"; };
+		8B436AB5A46E3C56EB7DB382 /* GameCenterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterService.swift; sourceTree = "<group>"; };
+		8F984AB60A044C4F945C4FDF /* StarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRow.swift; sourceTree = "<group>"; };
+		9189623A986DA9F2626B04A3 /* DreamkeepersTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DreamkeepersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		985B9A161A1370252F4DC463 /* Dreamkeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dreamkeeper.swift; sourceTree = "<group>"; };
+		99E27AFADD8EFDBC41559794 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		9A46800400702CF4E64B26F1 /* WorldCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldCatalog.swift; sourceTree = "<group>"; };
+		9A64E7C464955704F25500A1 /* TwinBondTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwinBondTests.swift; sourceTree = "<group>"; };
+		A0301759EF7B189507CA678D /* CampaignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampaignView.swift; sourceTree = "<group>"; };
+		A0D74EB214694147E32A3E16 /* StarFusionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarFusionTests.swift; sourceTree = "<group>"; };
+		A22148A5DFEFAB6EFF40015C /* RewardedAdSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedAdSheet.swift; sourceTree = "<group>"; };
+		A3535BFA1FC6CC96ED29FDDA /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		A492FAE40C5DEF8D9D17BB0F /* ShopItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItem.swift; sourceTree = "<group>"; };
+		A7A614278D58E8CA448B1051 /* InterstitialAdSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAdSheet.swift; sourceTree = "<group>"; };
+		A9F0DFF50DB484290047B234 /* TwinBond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwinBond.swift; sourceTree = "<group>"; };
+		AD6AB430FD6D7F17D537EED4 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		AE0DD91A00079556F8F135BF /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		B75412423D1050BFCC23711E /* BattlePassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlePassTests.swift; sourceTree = "<group>"; };
+		BDE38FBBF3E9812A6CDE4418 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
+		BDFB8C1C57854B9EC0A24C88 /* Rewards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rewards.swift; sourceTree = "<group>"; };
+		BE23087FE8B25FCD0D06BC25 /* ArenaSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArenaSystem.swift; sourceTree = "<group>"; };
+		C02B330C5D75ABE803DAB500 /* ArenaResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArenaResultView.swift; sourceTree = "<group>"; };
+		C167ADE3E91813E6C05B8989 /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
+		C2E867659C874782C96427F4 /* TrainingGardenSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingGardenSheet.swift; sourceTree = "<group>"; };
+		C655854E4AC3D9442D21494F /* DreamkeeperCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamkeeperCatalog.swift; sourceTree = "<group>"; };
+		CB52B6EEF79C7486A0B55D9E /* EnergySystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergySystem.swift; sourceTree = "<group>"; };
+		CF42AD3ACB7F022C90755BD6 /* iOSPlatformService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSPlatformService.swift; sourceTree = "<group>"; };
+		D00F449118EF4D039D208E68 /* ConsentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentManager.swift; sourceTree = "<group>"; };
+		D17B9BF433196993EAB6788F /* AchievementsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsSheet.swift; sourceTree = "<group>"; };
+		D20FBCA807CD7AA6CA9A0788 /* AdaptiveScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveScale.swift; sourceTree = "<group>"; };
+		D7BB6D4E555ED4CAF59D6EEA /* WeeklyMissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyMissions.swift; sourceTree = "<group>"; };
+		D8811FAAE9EAEDA3C1BA79AA /* DailyMissionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMissionsTests.swift; sourceTree = "<group>"; };
+		D9E99C5D38479EB5E05397E6 /* ShopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTests.swift; sourceTree = "<group>"; };
+		D9EBDCF9E7E316F633D582D7 /* SaveSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveSystem.swift; sourceTree = "<group>"; };
+		DC01DEA66B8BBCE520D81158 /* LoginRewardSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRewardSheet.swift; sourceTree = "<group>"; };
+		E09A1C140DA2688530F46A2F /* InterstitialAdService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAdService.swift; sourceTree = "<group>"; };
+		E373ADAFFF188B6D6CC24188 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		E65930A23402372A9E56DA4D /* GameCenterOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterOverlay.swift; sourceTree = "<group>"; };
+		EA9F4A79C8394DCF0614BCF6 /* EquipmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentTests.swift; sourceTree = "<group>"; };
+		EE87F924D136439C92E98E3F /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
+		EFA78B7665FC6D7831E817C8 /* SummonSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonSystem.swift; sourceTree = "<group>"; };
+		F1B55BDC085FDF1563CD4170 /* ShopCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCatalog.swift; sourceTree = "<group>"; };
+		F2473E85D4A0973419FE597E /* SummonSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonSystemTests.swift; sourceTree = "<group>"; };
+		F27861E8E2CB374FF0E3BC1F /* BattleResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleResultView.swift; sourceTree = "<group>"; };
+		F289F50543A237C68CB3BD5B /* DreamkeeperSaleSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamkeeperSaleSystem.swift; sourceTree = "<group>"; };
+		F432356B9CB16BA9EF3312B7 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		F72E7BB2AF11E689E46ECE78 /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
+		F7D88991EACED658264C4D2A /* AdsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsTests.swift; sourceTree = "<group>"; };
+		FB87AA176618C13E58783B23 /* TrackingPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingPermission.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		545AC8F6691C086156BCC84A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB329FDA524F5A4F8A0F4591 /* GoogleMobileAds in Frameworks */,
+				A121722B789672EECC24B916 /* GoogleUserMessagingPlatform in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		13AE3092BE5EEC3F55FDF3FE /* Codex */ = {
+			isa = PBXGroup;
+			children = (
+				3E03140D1CA6E39710CBF33F /* DreamkeeperCodexDetailView.swift */,
+				04BCAA88224DCAF0007E49A9 /* DreamkeeperCodexView.swift */,
+			);
+			path = Codex;
+			sourceTree = "<group>";
+		};
+		1A1DFFD750737D3546EB6BD7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				075CD6F25866B557999DC535 /* DreamkeepersApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		20FF4327A39281E622CDF471 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				D17B9BF433196993EAB6788F /* AchievementsSheet.swift */,
+				453A3EF81E745E4A8DB05342 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		2374460B19CD8A04237378E4 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				107DD4A2BCBBC84EF5B2C013 /* AdMobRewardService.swift */,
+				1F4BB271FFB1EAB3E09E2BCB /* AdRewardService.swift */,
+				D00F449118EF4D039D208E68 /* ConsentManager.swift */,
+				E09A1C140DA2688530F46A2F /* InterstitialAdService.swift */,
+				CF42AD3ACB7F022C90755BD6 /* iOSPlatformService.swift */,
+				144FC1C26232EEBA991C4513 /* PlatformService.swift */,
+				385E9BF67A92AFA8133A34B5 /* PurchaseService.swift */,
+				FB87AA176618C13E58783B23 /* TrackingPermission.swift */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		2949FB23CE87AE32C4688C38 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D20FBCA807CD7AA6CA9A0788 /* AdaptiveScale.swift */,
+				7DA5AF7DB8476492DFBB1310 /* DreamkeeperCard.swift */,
+				E65930A23402372A9E56DA4D /* GameCenterOverlay.swift */,
+				8F984AB60A044C4F945C4FDF /* StarRow.swift */,
+				E373ADAFFF188B6D6CC24188 /* Theme.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		2BF251648B27ACFE5E7AC4BB /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				AE0DD91A00079556F8F135BF /* OnboardingView.swift */,
+				3DF442B748164AD1B49DD09E /* StarterOlfChoiceView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		2F4E273EC9A5148F29BA2F9F /* BattleResult */ = {
+			isa = PBXGroup;
+			children = (
+				F27861E8E2CB374FF0E3BC1F /* BattleResultView.swift */,
+			);
+			path = BattleResult;
+			sourceTree = "<group>";
+		};
+		3BB13B6F63934C6E9B76092C = {
+			isa = PBXGroup;
+			children = (
+				D148BF7BE0598C3E7A1657CC /* Dreamkeepers */,
+				832D280DD6580630D9BFE221 /* DreamkeepersTests */,
+				DE68FCABF94DD25BF45DF31E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3D000A86DBDBD4A1E33F984A /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				EE87F924D136439C92E98E3F /* ShopView.swift */,
+			);
+			path = Shop;
+			sourceTree = "<group>";
+		};
+		44A8F9149D727877E4E12478 /* Campaign */ = {
+			isa = PBXGroup;
+			children = (
+				A0301759EF7B189507CA678D /* CampaignView.swift */,
+			);
+			path = Campaign;
+			sourceTree = "<group>";
+		};
+		53F44DF012671FD1A4399DCA /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C655854E4AC3D9442D21494F /* DreamkeeperCatalog.swift */,
+				162FFDEC20E21E44C0AACBEC /* MonsterCatalog.swift */,
+				F1B55BDC085FDF1563CD4170 /* ShopCatalog.swift */,
+				9A46800400702CF4E64B26F1 /* WorldCatalog.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		64FEDC10479CBDD144FA2061 /* Combat */ = {
+			isa = PBXGroup;
+			children = (
+				BE23087FE8B25FCD0D06BC25 /* ArenaSystem.swift */,
+				1DEC9A28C73BAEEE2AEE53F6 /* BattleEngine.swift */,
+				4FFEA111293D4906A622D930 /* Combatant.swift */,
+				61E30DCF96855740B14E38A3 /* EnemyFactory.swift */,
+				A9F0DFF50DB484290047B234 /* TwinBond.swift */,
+			);
+			path = Combat;
+			sourceTree = "<group>";
+		};
+		70AC66E2F99353E82731A290 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				0ABF5E18B4D556779D1C6800 /* AccountState.swift */,
+				8B436AB5A46E3C56EB7DB382 /* GameCenterService.swift */,
+				A3535BFA1FC6CC96ED29FDDA /* GameState.swift */,
+				5F3DD16FF697D92EB4DED1A7 /* LeaderboardService.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		72B6D0ADAF621F88EA0508CD /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				FE04705FDFC3E2BC040B1293 /* Arena */,
+				DE8FF07772F4BC03A2247B25 /* Battle */,
+				7C88A96AE8F579426AF5DA89 /* BattlePass */,
+				2F4E273EC9A5148F29BA2F9F /* BattleResult */,
+				971B93BAD0B9959065E8A4BB /* Bestiary */,
+				D93273FD2C0D7BB6EE35B95B /* Buildings */,
+				44A8F9149D727877E4E12478 /* Campaign */,
+				13AE3092BE5EEC3F55FDF3FE /* Codex */,
+				E24F96CBB999C2E905853DDC /* DreamHaven */,
+				E4A969F0CEBC5D3120F6B906 /* Equipment */,
+				A946E20D1C376C88A26827BD /* MainMenu */,
+				2BF251648B27ACFE5E7AC4BB /* Onboarding */,
+				20FF4327A39281E622CDF471 /* Profile */,
+				EBC7D7B148CD171136102767 /* Root */,
+				74591A2702FE7B7B7D67416C /* Settings */,
+				2949FB23CE87AE32C4688C38 /* Shared */,
+				3D000A86DBDBD4A1E33F984A /* Shop */,
+				77561906F985D70AA7A05B6D /* Summon */,
+				866B21BBC5DB2B2799CFFC55 /* Team */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		74591A2702FE7B7B7D67416C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3A4D5FC4E06E368383D9DB8D /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		75FE078DC27C0FDA25D8FACA /* Progression */ = {
+			isa = PBXGroup;
+			children = (
+				3ECBAAE14190760FCF47F33C /* AchievementSystem.swift */,
+				319A17C9A643B688D47CED45 /* BattlePassSystem.swift */,
+				34F36DC39C535A1750B487A7 /* DailyMissions.swift */,
+				F289F50543A237C68CB3BD5B /* DreamkeeperSaleSystem.swift */,
+				CB52B6EEF79C7486A0B55D9E /* EnergySystem.swift */,
+				1634FA9347FD76FA6BC583CD /* EquipmentFactory.swift */,
+				7F0D94A0EA1ED53D55788070 /* EquipmentSummonSystem.swift */,
+				0A89305C0528B6C9C6360855 /* EquipmentUpgrade.swift */,
+				07223F3E1BD28062A43C818B /* LevelSystem.swift */,
+				6C5C8673EF18A4F3EF4D6484 /* LoginRewardSystem.swift */,
+				4B8F01F6911B908A4DBE811F /* OfflineRewards.swift */,
+				BDFB8C1C57854B9EC0A24C88 /* Rewards.swift */,
+				8A57010F2EBC53AA1335FC5B /* StarFusionSystem.swift */,
+				EFA78B7665FC6D7831E817C8 /* SummonSystem.swift */,
+				D7BB6D4E555ED4CAF59D6EEA /* WeeklyMissions.swift */,
+			);
+			path = Progression;
+			sourceTree = "<group>";
+		};
+		77561906F985D70AA7A05B6D /* Summon */ = {
+			isa = PBXGroup;
+			children = (
+				70AE3653F19B60CBE78F9AA5 /* SummoningShrineView.swift */,
+			);
+			path = Summon;
+			sourceTree = "<group>";
+		};
+		7C88A96AE8F579426AF5DA89 /* BattlePass */ = {
+			isa = PBXGroup;
+			children = (
+				1AFBAFDA853DF9A67BB4377F /* BattlePassView.swift */,
+			);
+			path = BattlePass;
+			sourceTree = "<group>";
+		};
+		832D280DD6580630D9BFE221 /* DreamkeepersTests */ = {
+			isa = PBXGroup;
+			children = (
+				2560474C4F5B014C305416FC /* AccountLevelTests.swift */,
+				5D4311140607525F4D7D0816 /* AccountStateTests.swift */,
+				F7D88991EACED658264C4D2A /* AdsTests.swift */,
+				4DBC9B605C3C312232DCE350 /* BattleEngineTests.swift */,
+				B75412423D1050BFCC23711E /* BattlePassTests.swift */,
+				313A6792E6FCF26A6B9C60FA /* BestiaryTests.swift */,
+				27F3A8E32CC8F37279A2D876 /* CloudSaveStoreTests.swift */,
+				D8811FAAE9EAEDA3C1BA79AA /* DailyMissionsTests.swift */,
+				3715B5111CE531A4B7BCA673 /* DreamkeeperCatalogTests.swift */,
+				6271D011DB6B4B7C99C9AEA7 /* OlfStarterTests.swift */,
+				EA9F4A79C8394DCF0614BCF6 /* EquipmentTests.swift */,
+				59E149459F49F08E697AB079 /* EquipmentUpgradeTests.swift */,
+				0D783D28799D0AC884BDC8EA /* LevelSystemTests.swift */,
+				0CC7D8A4654A0D9983B1F302 /* Mocks.swift */,
+				1096816146259A300261B260 /* MonsterCatalogTests.swift */,
+				42AAAECE7E7F822276810983 /* OfflineRewardsTests.swift */,
+				41D1B3C19147A237790C169F /* SettingsTests.swift */,
+				D9E99C5D38479EB5E05397E6 /* ShopTests.swift */,
+				A0D74EB214694147E32A3E16 /* StarFusionTests.swift */,
+				F2473E85D4A0973419FE597E /* SummonSystemTests.swift */,
+				3E66FFD1E55B0B8672A903C8 /* TeamSystemTests.swift */,
+				9A64E7C464955704F25500A1 /* TwinBondTests.swift */,
+			);
+			path = DreamkeepersTests;
+			sourceTree = "<group>";
+		};
+		866B21BBC5DB2B2799CFFC55 /* Team */ = {
+			isa = PBXGroup;
+			children = (
+				BDE38FBBF3E9812A6CDE4418 /* InventoryView.swift */,
+			);
+			path = Team;
+			sourceTree = "<group>";
+		};
+		88BA0205713F98F85391D890 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0F9BD482C11FBE52D5D180CD /* Assets.xcassets */,
+				5AB94E1BD914D7A98101F808 /* Dreamkeepers.entitlements */,
+				3987D680B84FE0A923F564AE /* Info.plist */,
+				F432356B9CB16BA9EF3312B7 /* Localizable.xcstrings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8E923A68661BFD3D0D73E209 /* GameCore */ = {
+			isa = PBXGroup;
+			children = (
+				64FEDC10479CBDD144FA2061 /* Combat */,
+				C047724DE1C64F79FF24C73D /* Models */,
+				75FE078DC27C0FDA25D8FACA /* Progression */,
+			);
+			path = GameCore;
+			sourceTree = "<group>";
+		};
+		971B93BAD0B9959065E8A4BB /* Bestiary */ = {
+			isa = PBXGroup;
+			children = (
+				6E4C207CFCD11B048CE1FF0F /* BestiaryView.swift */,
+			);
+			path = Bestiary;
+			sourceTree = "<group>";
+		};
+		A946E20D1C376C88A26827BD /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				1FD17F1F96EAA02ABD5208F7 /* LoadingView.swift */,
+				99E27AFADD8EFDBC41559794 /* MainMenuView.swift */,
+			);
+			path = MainMenu;
+			sourceTree = "<group>";
+		};
+		C047724DE1C64F79FF24C73D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				985B9A161A1370252F4DC463 /* Dreamkeeper.swift */,
+				F72E7BB2AF11E689E46ECE78 /* Element.swift */,
+				16197D600F44578EB558C8AE /* Equipment.swift */,
+				572ABD29BE4B90827CC4543B /* Rarity.swift */,
+				59FEEBE685DFFA924BAF6992 /* Role.swift */,
+				A492FAE40C5DEF8D9D17BB0F /* ShopItem.swift */,
+				C167ADE3E91813E6C05B8989 /* Skill.swift */,
+				0B9F5BF87BD2ECD8D7DBCD5D /* Stats.swift */,
+				457F918124185EFC12E45D85 /* Team.swift */,
+				7D643779840CB19EF195D392 /* World.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C0B28469FFE025B2EC80D00C /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				4EC28604B13F27183CBE4A03 /* CloudSaveStore.swift */,
+				5BFD8B48A6CB49473416B509 /* GameSave.swift */,
+				D9EBDCF9E7E316F633D582D7 /* SaveSystem.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		D148BF7BE0598C3E7A1657CC /* Dreamkeepers */ = {
+			isa = PBXGroup;
+			children = (
+				1A1DFFD750737D3546EB6BD7 /* App */,
+				53F44DF012671FD1A4399DCA /* Data */,
+				8E923A68661BFD3D0D73E209 /* GameCore */,
+				C0B28469FFE025B2EC80D00C /* Persistence */,
+				2374460B19CD8A04237378E4 /* Platform */,
+				88BA0205713F98F85391D890 /* Resources */,
+				70AC66E2F99353E82731A290 /* State */,
+				72B6D0ADAF621F88EA0508CD /* UI */,
+			);
+			path = Dreamkeepers;
+			sourceTree = "<group>";
+		};
+		D93273FD2C0D7BB6EE35B95B /* Buildings */ = {
+			isa = PBXGroup;
+			children = (
+				19D88C344A285A7B1441331A /* GoldFountainSheet.swift */,
+				59B1738675C714F8F3BC2EB6 /* MissionsSheet.swift */,
+				C2E867659C874782C96427F4 /* TrainingGardenSheet.swift */,
+			);
+			path = Buildings;
+			sourceTree = "<group>";
+		};
+		DE68FCABF94DD25BF45DF31E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4732CF6FAFAFFEB817604353 /* Dreamkeepers.app */,
+				9189623A986DA9F2626B04A3 /* DreamkeepersTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DE8FF07772F4BC03A2247B25 /* Battle */ = {
+			isa = PBXGroup;
+			children = (
+				2B5B15BC87E5123DCB83FBDF /* BattleView.swift */,
+			);
+			path = Battle;
+			sourceTree = "<group>";
+		};
+		E24F96CBB999C2E905853DDC /* DreamHaven */ = {
+			isa = PBXGroup;
+			children = (
+				618C4123176FC2851F608F26 /* DreamHavenView.swift */,
+				DC01DEA66B8BBCE520D81158 /* LoginRewardSheet.swift */,
+				A22148A5DFEFAB6EFF40015C /* RewardedAdSheet.swift */,
+			);
+			path = DreamHaven;
+			sourceTree = "<group>";
+		};
+		E4A969F0CEBC5D3120F6B906 /* Equipment */ = {
+			isa = PBXGroup;
+			children = (
+				102CBD1B557233ED15AAF1F8 /* EquipmentDetailSheet.swift */,
+				281F0FBA0FBF87AE37AAFBA2 /* EquipmentSheet.swift */,
+				823D253588676F918F746584 /* FusionPickerView.swift */,
+				86C3A3A1F6887B41216F9D21 /* ItemFusionPickerView.swift */,
+			);
+			path = Equipment;
+			sourceTree = "<group>";
+		};
+		EBC7D7B148CD171136102767 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				A7A614278D58E8CA448B1051 /* InterstitialAdSheet.swift */,
+				AD6AB430FD6D7F17D537EED4 /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		FE04705FDFC3E2BC040B1293 /* Arena */ = {
+			isa = PBXGroup;
+			children = (
+				C02B330C5D75ABE803DAB500 /* ArenaResultView.swift */,
+				1BFACE94C1F4B0714B24FF21 /* ArenaView.swift */,
+			);
+			path = Arena;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8295B9E618B8104F7C790DC0 /* DreamkeepersTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4EAAD089D81B88C78CADFC86 /* Build configuration list for PBXNativeTarget "DreamkeepersTests" */;
+			buildPhases = (
+				4117B10A79A48A7AA644BB66 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5CA1C2A7372B4787C2646FBA /* PBXTargetDependency */,
+			);
+			name = DreamkeepersTests;
+			packageProductDependencies = (
+			);
+			productName = DreamkeepersTests;
+			productReference = 9189623A986DA9F2626B04A3 /* DreamkeepersTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AFBB5DD9FD4F1FCEF1F4F3EC /* Dreamkeepers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64872B0ACB32E11AA16229D1 /* Build configuration list for PBXNativeTarget "Dreamkeepers" */;
+			buildPhases = (
+				9DB0278F64118D4B017EE9FA /* Sources */,
+				BDF5B9ED74C808E58D07E6CD /* Resources */,
+				545AC8F6691C086156BCC84A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Dreamkeepers;
+			packageProductDependencies = (
+				09E56764278A7DCEDE634CA2 /* GoogleMobileAds */,
+				78582115974DE82994DFDF0D /* GoogleUserMessagingPlatform */,
+			);
+			productName = Dreamkeepers;
+			productReference = 4732CF6FAFAFFEB817604353 /* Dreamkeepers.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		798A1A7A7AEB3385C89B21E2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					8295B9E618B8104F7C790DC0 = {
+						DevelopmentTeam = 48JBM965SN;
+						ProvisioningStyle = Automatic;
+					};
+					AFBB5DD9FD4F1FCEF1F4F3EC = {
+						DevelopmentTeam = 48JBM965SN;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 286DD8153831EF00B24ADBB7 /* Build configuration list for PBXProject "Dreamkeepers" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				de,
+				en,
+			);
+			mainGroup = 3BB13B6F63934C6E9B76092C;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9FE7E8118D9A7D912229DBD8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				AA357291789D5BD139AEFF70 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = DE68FCABF94DD25BF45DF31E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AFBB5DD9FD4F1FCEF1F4F3EC /* Dreamkeepers */,
+				8295B9E618B8104F7C790DC0 /* DreamkeepersTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BDF5B9ED74C808E58D07E6CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FDC0600CD684202183646E8 /* Assets.xcassets in Resources */,
+				5C703DDF996B916906EE7557 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4117B10A79A48A7AA644BB66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB521E86D7E576AB434A26AC /* AccountLevelTests.swift in Sources */,
+				8C0E55F50F224EAD6C889100 /* AccountStateTests.swift in Sources */,
+				A2FDB17457906404FE789FEF /* AdsTests.swift in Sources */,
+				B10F88B6964C037ECC2BBC34 /* BattleEngineTests.swift in Sources */,
+				C00CA3D6F7D1B308D69017A9 /* BattlePassTests.swift in Sources */,
+				3AA4425AD452E9AF7E50E301 /* BestiaryTests.swift in Sources */,
+				C5BE67D43473EA5B89034B0B /* CloudSaveStoreTests.swift in Sources */,
+				C26F7174BCC332BA77FD64A4 /* DailyMissionsTests.swift in Sources */,
+				39F39289260DCAF80B10BD1C /* DreamkeeperCatalogTests.swift in Sources */,
+				D332A6AAE8B94E798C554430 /* OlfStarterTests.swift in Sources */,
+				5E3A99FC16D5E6CF86B56EBC /* EquipmentTests.swift in Sources */,
+				B674343869E98282F4B357B2 /* EquipmentUpgradeTests.swift in Sources */,
+				648A497F661125C119296107 /* LevelSystemTests.swift in Sources */,
+				D09DB7D6CB92414B770CBD1C /* Mocks.swift in Sources */,
+				6E5BF851C9E7159C355BF838 /* MonsterCatalogTests.swift in Sources */,
+				B97AA46AA8EB05C74920FBE6 /* OfflineRewardsTests.swift in Sources */,
+				ACD99D11B8EE6D4D001BC44B /* SettingsTests.swift in Sources */,
+				B10B7DF37DA2DBE9D340EE2E /* ShopTests.swift in Sources */,
+				32304B1E5242D5F5EC0CF734 /* StarFusionTests.swift in Sources */,
+				9DDDDD50E8FBE56692935709 /* SummonSystemTests.swift in Sources */,
+				674F8C576E647E9EECAEB2EE /* TeamSystemTests.swift in Sources */,
+				9F5321FC85115E45E466A57A /* TwinBondTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DB0278F64118D4B017EE9FA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EA4114F9A0C5E049A09BF8C /* AccountState.swift in Sources */,
+				3EE49D3ED2E9A46E96195853 /* AchievementSystem.swift in Sources */,
+				62D0A34BFCCB0A71866379DC /* AchievementsSheet.swift in Sources */,
+				304DC200C7EA3F2006C51EF9 /* AdMobRewardService.swift in Sources */,
+				E867DDDA57B922044FAFA11F /* AdRewardService.swift in Sources */,
+				09ACD139E3193EF264D41B10 /* AdaptiveScale.swift in Sources */,
+				62F27653724EDB9ED3BEC783 /* ArenaResultView.swift in Sources */,
+				05ED4FDB1ECB333645457FDA /* ArenaSystem.swift in Sources */,
+				8BC2802AC090FD50CABC2E7C /* ArenaView.swift in Sources */,
+				8D6E8A07063D61FA5DA00507 /* BattleEngine.swift in Sources */,
+				C5B20AFD529AFCB6E2A2B0C7 /* BattlePassSystem.swift in Sources */,
+				EF2F5AF012BA6CBC6CF1D767 /* BattlePassView.swift in Sources */,
+				B31730EA4561E27239292B80 /* BattleResultView.swift in Sources */,
+				C7D6DAD3B65F0E4F6E304F0C /* BattleView.swift in Sources */,
+				71F51E6BBA122B38D515F0E5 /* BestiaryView.swift in Sources */,
+				5C0A38DF677805A85CFEABCB /* CampaignView.swift in Sources */,
+				F4C76B666A0F8B052BC0BD78 /* CloudSaveStore.swift in Sources */,
+				38E89DF36DC1CBF8FBE327F2 /* Combatant.swift in Sources */,
+				FCF65AADC012767CC08334AB /* ConsentManager.swift in Sources */,
+				AD2F4F2A60739682902C4A8D /* DailyMissions.swift in Sources */,
+				DF81E80C842128ACB519B58D /* DreamHavenView.swift in Sources */,
+				86EBF51B2AF29FC57B9A45A3 /* Dreamkeeper.swift in Sources */,
+				9ADAD3A171CA75C9F5BB93F8 /* DreamkeeperCard.swift in Sources */,
+				1823D37E1A252AEC5695F40F /* DreamkeeperCatalog.swift in Sources */,
+				C1B1A099E343E496DA58DA32 /* DreamkeeperCodexDetailView.swift in Sources */,
+				5D171AD9648FEEB874678236 /* DreamkeeperCodexView.swift in Sources */,
+				CBB3695AED4CA518B73CA3F2 /* DreamkeeperSaleSystem.swift in Sources */,
+				45B683C4F25BD21554B3EE62 /* DreamkeepersApp.swift in Sources */,
+				0372B53F2F3245D71110C3FC /* Element.swift in Sources */,
+				AF0EB8D76834FABFC0B934C9 /* EnemyFactory.swift in Sources */,
+				C9E5DE8AA53CDF58EDFF80A5 /* EnergySystem.swift in Sources */,
+				CAB0628553775082A430A763 /* Equipment.swift in Sources */,
+				91FA1E6CB9626BDEF99F1F72 /* EquipmentDetailSheet.swift in Sources */,
+				B78BC0E7A0933EFD2A95072A /* EquipmentFactory.swift in Sources */,
+				50505E6DF74623232517EC77 /* EquipmentSheet.swift in Sources */,
+				BDEDE1E775E28C0244C71FC0 /* EquipmentSummonSystem.swift in Sources */,
+				522B0B09CCBE29D5433B62F6 /* EquipmentUpgrade.swift in Sources */,
+				745BD6B5ECB9BB8C05CD853A /* FusionPickerView.swift in Sources */,
+				F7F05320B68B18B6EBE4365A /* GameCenterOverlay.swift in Sources */,
+				AB25B9762CC4BDD6BA58DFDA /* GameCenterService.swift in Sources */,
+				C40C209E5BDAC0B7C119F360 /* GameSave.swift in Sources */,
+				6339EBD91985BA9AF24E3AA9 /* GameState.swift in Sources */,
+				2FC75553C17CE55A6F8E7024 /* GoldFountainSheet.swift in Sources */,
+				27313C8CFB80628A18FAAECB /* InterstitialAdService.swift in Sources */,
+				5A9FED434EC81C6BC9704989 /* InterstitialAdSheet.swift in Sources */,
+				A22B384DC55AFBA2E5ED7F87 /* InventoryView.swift in Sources */,
+				66EFE725EE2F1ACC2600625F /* ItemFusionPickerView.swift in Sources */,
+				ADE8476655CC12FE5253A34B /* LeaderboardService.swift in Sources */,
+				6A81DA0CAE584362D5712E31 /* LevelSystem.swift in Sources */,
+				A5BF8D85E044A6115C9E993D /* LoadingView.swift in Sources */,
+				DD8EA7516E271C9F6A1D94F1 /* LoginRewardSheet.swift in Sources */,
+				47714D47EE9CF0D539DFFDFC /* LoginRewardSystem.swift in Sources */,
+				384CB1451D1DA3DA00ADBA79 /* MainMenuView.swift in Sources */,
+				DE179FF85073B3EA7D3489E2 /* MissionsSheet.swift in Sources */,
+				EF840ECD0E128418F2F329AD /* MonsterCatalog.swift in Sources */,
+				D42DB4A6168CF8DF4040B17E /* OfflineRewards.swift in Sources */,
+				0D4EF63762410D869DDC028A /* OnboardingView.swift in Sources */,
+				06E9C3EC83A64CD58D3CC0C0 /* StarterOlfChoiceView.swift in Sources */,
+				EA64332F4024F641999A8172 /* PlatformService.swift in Sources */,
+				C2609E3B3485BB86CA4C7036 /* ProfileView.swift in Sources */,
+				553D95AB57D98EC7F8D9C2A3 /* PurchaseService.swift in Sources */,
+				D4F8BA341807DC1466945ACF /* Rarity.swift in Sources */,
+				720973A0BA546300A09A63E1 /* RewardedAdSheet.swift in Sources */,
+				183223E24B3B14CF1F509F1C /* Rewards.swift in Sources */,
+				83F03C843AB120AC00026D0E /* Role.swift in Sources */,
+				E0DE1C7F838652C3F5861228 /* RootView.swift in Sources */,
+				E86D245515426943FC912CCC /* SaveSystem.swift in Sources */,
+				224C395F916E837A62D89F50 /* SettingsView.swift in Sources */,
+				7088184439F9CA872A70B9AE /* ShopCatalog.swift in Sources */,
+				7814ABA08C6536424B85D7EE /* ShopItem.swift in Sources */,
+				7B34403B526478DFD1043AEB /* ShopView.swift in Sources */,
+				19851F55E04431A7A24D2052 /* Skill.swift in Sources */,
+				0E7AA6F7CAF62AB593D454DC /* StarFusionSystem.swift in Sources */,
+				BC1695A0403F53A97DAD3412 /* StarRow.swift in Sources */,
+				FF04A2F149F3D06A9972CAE9 /* Stats.swift in Sources */,
+				E17AB744180B01543D7D00B5 /* SummonSystem.swift in Sources */,
+				B62682DFCC53248F079D4605 /* SummoningShrineView.swift in Sources */,
+				38B0340674F1893233282134 /* Team.swift in Sources */,
+				6C55804C551E095765A9D6B8 /* Theme.swift in Sources */,
+				148F836B6CEEA8ECD96290F1 /* TrackingPermission.swift in Sources */,
+				6A7020A9C1AA070E5D42BF58 /* TrainingGardenSheet.swift in Sources */,
+				E7BE6DD958E63672F6A0CCA4 /* TwinBond.swift in Sources */,
+				7A0C23FDFF3ED60BEA138BC4 /* WeeklyMissions.swift in Sources */,
+				722CFF7184D1A190828C50DC /* World.swift in Sources */,
+				077673C44BA8208F8FEFC17E /* WorldCatalog.swift in Sources */,
+				AD71F25C6B93AB80D94F0266 /* iOSPlatformService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5CA1C2A7372B4787C2646FBA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AFBB5DD9FD4F1FCEF1F4F3EC /* Dreamkeepers */;
+			targetProxy = 4FE6FB0260AC7D9DD46DCB6C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0F92784E91EA40B06F9ECAE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Dreamkeepers/Resources/Dreamkeepers.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Dreamkeepers/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dreamhaven.dreamkeepers;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		178ED4E6C9CCFC7111270C67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Dreamkeepers/Resources/Dreamkeepers.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Dreamkeepers/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dreamhaven.dreamkeepers;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4E086155101B770A4B1556BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dreamhaven.DreamkeepersTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dreamkeepers.app/Dreamkeepers";
+			};
+			name = Debug;
+		};
+		92D7C0ECA036E448950FC3C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dreamhaven.DreamkeepersTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dreamkeepers.app/Dreamkeepers";
+			};
+			name = Release;
+		};
+		98EA50EC2B46AB350B7E79D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 48JBM965SN;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		C1C518BF8DD32133C25017F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 48JBM965SN;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		286DD8153831EF00B24ADBB7 /* Build configuration list for PBXProject "Dreamkeepers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1C518BF8DD32133C25017F1 /* Debug */,
+				98EA50EC2B46AB350B7E79D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4EAAD089D81B88C78CADFC86 /* Build configuration list for PBXNativeTarget "DreamkeepersTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E086155101B770A4B1556BA /* Debug */,
+				92D7C0ECA036E448950FC3C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		64872B0ACB32E11AA16229D1 /* Build configuration list for PBXNativeTarget "Dreamkeepers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				178ED4E6C9CCFC7111270C67 /* Debug */,
+				0F92784E91EA40B06F9ECAE1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9FE7E8118D9A7D912229DBD8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
+		AA357291789D5BD139AEFF70 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-user-messaging-platform.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		09E56764278A7DCEDE634CA2 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FE7E8118D9A7D912229DBD8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+		78582115974DE82994DFDF0D /* GoogleUserMessagingPlatform */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA357291789D5BD139AEFF70 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */;
+			productName = GoogleUserMessagingPlatform;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 798A1A7A7AEB3385C89B21E2 /* Project object */;
+}

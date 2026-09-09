@@ -1,0 +1,13 @@
+{
+  "images" : [
+    {
+      "filename" : "Monster_Galaxipaw.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

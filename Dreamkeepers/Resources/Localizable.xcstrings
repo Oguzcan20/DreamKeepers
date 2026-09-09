@@ -1,0 +1,6476 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    " · Rating %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " · Wertung %lld"
+          }
+        }
+      }
+    },
+    "%@ is at max stars": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ hat die maximale Sternezahl erreicht"
+          }
+        }
+      }
+    },
+    "%@ · %lld friends": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %lld Freunde"
+          }
+        }
+      }
+    },
+    "%@ · Boss": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · Boss"
+          }
+        }
+      }
+    },
+    "%@ · Stage %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · Stufe %lld"
+          }
+        }
+      }
+    },
+    "%lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
+          }
+        }
+      }
+    },
+    "%lld / %lld EXP to next level": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / %lld EP bis zum nächsten Level"
+          }
+        }
+      }
+    },
+    "%lld Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Edelsteine"
+          }
+        }
+      }
+    },
+    "%lld Gold": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Gold"
+          }
+        }
+      }
+    },
+    "%lld of %lld stars": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld von %lld Sternen"
+          }
+        }
+      }
+    },
+    "%lld selected": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ausgewählt"
+          }
+        }
+      }
+    },
+    "%lld/%lld Collected": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld gesammelt"
+          }
+        }
+      }
+    },
+    "%lld/%lld Discovered": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld entdeckt"
+          }
+        }
+      }
+    },
+    "%lld/%lld banked · %lld available": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld gesammelt · %lld verfügbar"
+          }
+        }
+      }
+    },
+    "%lld/%lld deployed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld eingesetzt"
+          }
+        }
+      }
+    },
+    "%lld/%lld duplicates owned": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld Duplikate vorhanden"
+          }
+        }
+      }
+    },
+    "%lld/%lld toward next star": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld bis zum nächsten Stern"
+          }
+        }
+      }
+    },
+    "%lld/%lld unlocked": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld freigeschaltet"
+          }
+        }
+      }
+    },
+    "+%lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld"
+          }
+        }
+      }
+    },
+    "+%lld EXP": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld EP"
+          }
+        }
+      }
+    },
+    "+%lld EXP ready": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld EP bereit"
+          }
+        }
+      }
+    },
+    "+%lld Gold": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld Gold"
+          }
+        }
+      }
+    },
+    "+%lld Gold ready": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld Gold bereit"
+          }
+        }
+      }
+    },
+    "+%lld Gold · +%lld EXP": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld Gold · +%lld EP"
+          }
+        }
+      }
+    },
+    "+%lld Gold, +%lld Gems · %lld/%lld today": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld Gold, +%lld Edelsteine · %lld/%lld heute"
+          }
+        }
+      }
+    },
+    "+%lld Tickets": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld Tickets"
+          }
+        }
+      }
+    },
+    "+%lld bonus": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld Bonus"
+          }
+        }
+      }
+    },
+    "10x Summon Results": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10x Beschwörungs-Ergebnisse"
+          }
+        }
+      }
+    },
+    "10x Summon · %lld Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10x Beschwörung · %lld Edelsteine"
+          }
+        }
+      }
+    },
+    "15 extra Arena Tower attempts — better value for a serious climb.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "15 zusätzliche Arena-Turm-Versuche — besseres Preis-Leistungs-Verhältnis für einen ernsthaften Aufstieg."
+          }
+        }
+      }
+    },
+    "20 Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "20 Edelsteine"
+          }
+        }
+      }
+    },
+    "5 extra Arena Tower attempts, on top of your free daily tickets.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 zusätzliche Arena-Turm-Versuche, zusätzlich zu deinen kostenlosen täglichen Tickets."
+          }
+        }
+      }
+    },
+    "80 Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "80 Edelsteine"
+          }
+        }
+      }
+    },
+    "A bite that still carries the heat of falling through the sky.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Biss, der noch die Hitze des Falls durch den Himmel trägt."
+          }
+        }
+      }
+    },
+    "A blazing leap that scorches the target.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein lodernder Sprung, der das Ziel versengt."
+          }
+        }
+      }
+    },
+    "A blazing rebirth that mends every wound in the team.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine lodernde Wiedergeburt, die jede Wunde im Team heilt."
+          }
+        }
+      }
+    },
+    "A blinding dash that leaves a trail of light.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein blendender Sprint, der eine Lichtspur hinterlässt."
+          }
+        }
+      }
+    },
+    "A clumsy but eager charge wreathed in flickering flame.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein tollpatschiger, aber eifriger Ansturm, gehüllt in flackernde Flammen."
+          }
+        }
+      }
+    },
+    "A coat so black it swallows the eclipse's faint light entirely.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Fell so schwarz, dass es das schwache Licht der Finsternis völlig verschluckt."
+          }
+        }
+      }
+    },
+    "A cold ember of moonlight that flickers whenever it's watched.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine kalte Glut aus Mondlicht, die flackert, sobald man sie beobachtet."
+          }
+        }
+      }
+    },
+    "A colossal magical jungle of root tunnels and glowing, oversized flora.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein gewaltiger magischer Dschungel aus Wurzeltunneln und leuchtender, überdimensionaler Flora."
+          }
+        }
+      }
+    },
+    "A cozy fantasy RPG for a few quiet minutes at a time.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein gemütliches Fantasy-RPG für ein paar ruhige Minuten zwischendurch."
+          }
+        }
+      }
+    },
+    "A dark wood lit only by luminous, dreaming flora.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein dunkler Wald, nur erhellt von leuchtender, träumender Flora."
+          }
+        }
+      }
+    },
+    "A dignified, unhurried charge.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein würdevoller, gemächlicher Ansturm."
+          }
+        }
+      }
+    },
+    "A fast snap before the foe can react.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein schneller Biss, bevor der Gegner reagieren kann."
+          }
+        }
+      }
+    },
+    "A fast, low rake across the legs.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein schneller, tiefer Hieb über die Beine."
+          }
+        }
+      }
+    },
+    "A flame that refuses to be the last one out.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Flamme, die sich weigert, als letzte zu erlöschen."
+          }
+        }
+      }
+    },
+    "A flowering tail that opens only when it senses a threat.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein blühender Schwanz, der sich nur bei Bedrohung öffnet."
+          }
+        }
+      }
+    },
+    "A friendly spark that lifts the spirit.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein freundlicher Funke, der die Stimmung hebt."
+          }
+        }
+      }
+    },
+    "A gentle pulse of moonlight for the ally who needs it most.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein sanfter Mondlichtimpuls für den Verbündeten, der ihn am meisten braucht."
+          }
+        }
+      }
+    },
+    "A gentle push in the right direction.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein sanfter Schubs in die richtige Richtung."
+          }
+        }
+      }
+    },
+    "A ground-shaking blow that staggers the foe.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein bodenerschütternder Schlag, der den Gegner taumeln lässt."
+          }
+        }
+      }
+    },
+    "A guaranteed Legendary reward for reaching this floor.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine garantierte legendäre Belohnung für das Erreichen dieser Stufe."
+          }
+        }
+      }
+    },
+    "A heavy but unhurried blow.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein schwerer, aber bedächtiger Schlag."
+          }
+        }
+      }
+    },
+    "A heavy lash from somewhere just out of sight.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein schwerer Schlag aus dem toten Winkel."
+          }
+        }
+      }
+    },
+    "A jabbing strike aimed at the weak points.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein stechender Angriff auf die Schwachstellen."
+          }
+        }
+      }
+    },
+    "A land locked in permanent eclipse beneath a vast, watching moon.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Land in dauerhafter Finsternis unter einem riesigen, wachenden Mond."
+          }
+        }
+      }
+    },
+    "A last echo of the dream this ruined city used to be.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein letztes Echo des Traums, der diese Ruinenstadt einst war."
+          }
+        }
+      }
+    },
+    "A living crystal grown around a dream too heavy to wake from, shielded on every side.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein lebender Kristall, gewachsen um einen Traum, zu schwer, um daraus zu erwachen, von allen Seiten geschützt."
+          }
+        }
+      }
+    },
+    "A loose knot of drifting pollen and static, harmless until it swarms.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein loses Knäuel aus treibendem Pollen und Statik, harmlos, bis es schwärmt."
+          }
+        }
+      }
+    },
+    "A new Dreamkeeper joins you!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein neuer Dreamkeeper schließt sich dir an!"
+          }
+        }
+      }
+    },
+    "A playful nip that's hotter than it looks.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein verspielter Biss, der heißer ist, als er aussieht."
+          }
+        }
+      }
+    },
+    "A precise strike from above.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein präziser Angriff von oben."
+          }
+        }
+      }
+    },
+    "A precise strike laced with dream-thorn poison.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein präziser Stich, durchsetzt mit Traumdorn-Gift."
+          }
+        }
+      }
+    },
+    "A quick flick of a glowing tail.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein schnelles Schwenken eines leuchtenden Schwanzes."
+          }
+        }
+      }
+    },
+    "A quick sidestep into darkness and back.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein schneller Schritt in die Dunkelheit und zurück."
+          }
+        }
+      }
+    },
+    "A quick, fussy grooming pass over an ally.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein schnelles, akribisches Pflegen eines Verbündeten."
+          }
+        }
+      }
+    },
+    "A quick, scorching nip at the nearest foe.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein schneller, versengender Biss gegen den nächsten Gegner."
+          }
+        }
+      }
+    },
+    "A quiet shimmer that deflects the worst of it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein stilles Schimmern, das das Schlimmste abwehrt."
+          }
+        }
+      }
+    },
+    "A quiet, steadying presence.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine stille, stabilisierende Präsenz."
+          }
+        }
+      }
+    },
+    "A quiet, sunlit field where the first dreams take root.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein ruhiges, sonnendurchflutetes Feld, in dem die ersten Träume Wurzeln schlagen."
+          }
+        }
+      }
+    },
+    "A resonant howl that freezes the enemy in place.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein hallendes Heulen, das den Gegner erstarren lässt."
+          }
+        }
+      }
+    },
+    "A ridged spine that glows brighter the angrier it gets.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein gezackter Rücken, der heller glüht, je wütender es wird."
+          }
+        }
+      }
+    },
+    "A rolling wave of encouragement washes over the team.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine rollende Welle der Ermutigung erfasst das Team."
+          }
+        }
+      }
+    },
+    "A root older than the forest itself, slumbering beneath Eternal Bloom since before memory.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Wurzel, älter als der Wald selbst, schlummert seit undenklichen Zeiten unter Eternal Bloom."
+          }
+        }
+      }
+    },
+    "A rush of small fish that steadies the whole team.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Schwarm kleiner Fische, der das ganze Team stabilisiert."
+          }
+        }
+      }
+    },
+    "A scrap of night that broke off before the dream was finished.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Fetzen Nacht, der sich löste, bevor der Traum zu Ende war."
+          }
+        }
+      }
+    },
+    "A screaming dive trailing a burst of starlight.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein schreiender Sturzflug, der eine Spur aus Sternenlicht hinterlässt."
+          }
+        }
+      }
+    },
+    "A seedling dream that decided to grow claws instead of leaves.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Traum-Sprössling, der beschloss, Krallen statt Blätter zu wachsen."
+          }
+        }
+      }
+    },
+    "A shard of an old star given teeth, prowling the meteor fields.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Splitter eines alten Sterns mit Zähnen, streift durch die Meteoritenfelder."
+          }
+        }
+      }
+    },
+    "A sharp turn that clips the target mid-flight.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine scharfe Wendung, die das Ziel im Flug streift."
+          }
+        }
+      }
+    },
+    "A shower of warm sparks lifts the whole team's spirit.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Schauer warmer Funken hebt die Stimmung des ganzen Teams."
+          }
+        }
+      }
+    },
+    "A single, absolute command carved in moonlight.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein einziger, unumstößlicher Befehl, in Mondlicht gemeißelt."
+          }
+        }
+      }
+    },
+    "A slow, commanding push of current.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein langsamer, befehlender Stoß der Strömung."
+          }
+        }
+      }
+    },
+    "A slow, unstoppable punch of liquid rock.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein langsamer, unaufhaltsamer Schlag aus flüssigem Gestein."
+          }
+        }
+      }
+    },
+    "A slow, warm trickle of restorative sap.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein langsames, warmes Rinnsal aus heilendem Saft."
+          }
+        }
+      }
+    },
+    "A soft flutter that eases an ally's pain.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein sanftes Flattern, das den Schmerz eines Verbündeten lindert."
+          }
+        }
+      }
+    },
+    "A soundless dive that leaves the target reeling.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein lautloser Sturzflug, der das Ziel taumeln lässt."
+          }
+        }
+      }
+    },
+    "A spark that never quite burns out, no matter the dark.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Funke, der nie ganz erlischt, egal wie dunkel es ist."
+          }
+        }
+      }
+    },
+    "A spine of interlocking brambles no predator wants to test.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Rücken aus verflochtenen Dornranken, den kein Raubtier testen will."
+          }
+        }
+      }
+    },
+    "A star gone dark, still pulling everything nearby toward it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein erloschener Stern, der immer noch alles in der Nähe zu sich zieht."
+          }
+        }
+      }
+    },
+    "A star that fell from the heavens eons ago, still burning with the light of its old sky.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Stern, der vor Äonen vom Himmel fiel, brennt noch immer mit dem Licht seines alten Himmels."
+          }
+        }
+      }
+    },
+    "A steadying word that stiffens resolve.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein stabilisierendes Wort, das die Entschlossenheit stärkt."
+          }
+        }
+      }
+    },
+    "A strike timed to the one moment no light reaches it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Schlag, getimt auf den einen Moment, in dem kein Licht ihn erreicht."
+          }
+        }
+      }
+    },
+    "A sudden burst of light and teeth from the ash cloud.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein plötzlicher Ausbruch aus Licht und Zähnen aus der Aschewolke."
+          }
+        }
+      }
+    },
+    "A sudden lash of its coiled body.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein plötzlicher Peitschenhieb seines geringelten Körpers."
+          }
+        }
+      }
+    },
+    "A tangle of thorn and muscle native only to Eternal Bloom.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Gewirr aus Dorn und Muskel, das nur in Eternal Bloom vorkommt."
+          }
+        }
+      }
+    },
+    "A tiny fire-spirit born from a stray cinder off Ignivar's own flame.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein winziger Feuergeist, geboren aus einem verirrten Funken von Ignivars eigener Flamme."
+          }
+        }
+      }
+    },
+    "A titan of fire that slept beneath the wastes for a thousand years, now awake and furious.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Feuertitan, der tausend Jahre unter der Ödnis schlief, nun wach und wütend."
+          }
+        }
+      }
+    },
+    "A trickle of a creature that pools into something larger when threatened.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Rinnsal von einem Wesen, das sich bei Bedrohung zu etwas Größerem sammelt."
+          }
+        }
+      }
+    },
+    "A wave of luminous pearls mends the team's wounds.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Welle leuchtender Perlen heilt die Wunden des Teams."
+          }
+        }
+      }
+    },
+    "A whip-crack tail that leaves a line of fire in the ash.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein peitschender Schwanz, der eine Feuerlinie in der Asche hinterlässt."
+          }
+        }
+      }
+    },
+    "Account": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto"
+          }
+        }
+      }
+    },
+    "Account Level Up!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto-Level-Aufstieg!"
+          }
+        }
+      }
+    },
+    "Achievement Unlocked": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erfolg freigeschaltet"
+          }
+        }
+      }
+    },
+    "Achievements": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erfolge"
+          }
+        }
+      }
+    },
+    "Active Skill": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktive Fähigkeit"
+          }
+        }
+      }
+    },
+    "Ad Unavailable": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Werbung nicht verfügbar"
+          }
+        }
+      }
+    },
+    "Added!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hinzugefügt!"
+          }
+        }
+      }
+    },
+    "Again · %lld Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erneut · %lld Edelsteine"
+          }
+        }
+      }
+    },
+    "All": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle"
+          }
+        }
+      }
+    },
+    "All Roles": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Rollen"
+          }
+        }
+      }
+    },
+    "Already owned · sent to your Inventory as fusion fodder": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereits vorhanden · als Fusionsmaterial ins Inventar gelegt"
+          }
+        }
+      }
+    },
+    "Always active": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immer aktiv"
+          }
+        }
+      }
+    },
+    "Always finds a way to stay afloat.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Findet immer einen Weg, über Wasser zu bleiben."
+          }
+        }
+      }
+    },
+    "An Arena fight costs %lld Energy.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Arena-Kampf kostet %lld Energie."
+          }
+        }
+      }
+    },
+    "An ancient thing that feeds on forgotten dreams, growing fatter with every one it swallows.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein uraltes Wesen, das sich von vergessenen Träumen nährt und mit jedem verschlungenen fetter wird."
+          }
+        }
+      }
+    },
+    "An earnest, clumsy charge.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein ernsthafter, tollpatschiger Ansturm."
+          }
+        }
+      }
+    },
+    "Arena": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arena"
+          }
+        }
+      }
+    },
+    "Arena Ticket Bundle": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arena-Ticket-Bundle"
+          }
+        }
+      }
+    },
+    "Arena Ticket Pack": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arena-Ticket-Paket"
+          }
+        }
+      }
+    },
+    "Arena Tickets": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arena-Tickets"
+          }
+        }
+      }
+    },
+    "Arena · Floor %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arena · Stufe %lld"
+          }
+        }
+      }
+    },
+    "Astral": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Astral"
+          }
+        }
+      }
+    },
+    "Attack": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angriff"
+          }
+        }
+      }
+    },
+    "Auto-Equip Best Gear": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beste Ausrüstung automatisch anlegen"
+          }
+        }
+      }
+    },
+    "Back": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurück"
+          }
+        }
+      }
+    },
+    "Back to Dream Haven": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurück zum Traumhafen"
+          }
+        }
+      }
+    },
+    "Balanced against every element — no bonus or penalty either way.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgeglichen gegen jedes Element — weder Vor- noch Nachteil."
+          }
+        }
+      }
+    },
+    "Base Stats": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Basiswerte"
+          }
+        }
+      }
+    },
+    "Bathes the whole team in restorative moonlight.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Badet das ganze Team in heilendem Mondlicht."
+          }
+        }
+      }
+    },
+    "Battle Pass Bonus": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Battle-Pass-Bonus"
+          }
+        }
+      }
+    },
+    "Bench": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank"
+          }
+        }
+      }
+    },
+    "Best Pull: ": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bester Fund: "
+          }
+        }
+      }
+    },
+    "Best Value": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bester Wert"
+          }
+        }
+      }
+    },
+    "Bites clean through cooled rock crust in search of the wastes' heat.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beißt sich glatt durch abgekühlte Gesteinskruste auf der Suche nach der Hitze der Ödnis."
+          }
+        }
+      }
+    },
+    "Bites through the thick canopy vines with practiced ease.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beißt sich mit geübter Leichtigkeit durch die dicken Ranken des Blätterdachs."
+          }
+        }
+      }
+    },
+    "Blends into whatever shadow it's standing in.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verschmilzt mit jedem Schatten, in dem er steht."
+          }
+        }
+      }
+    },
+    "Bloom": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blüte"
+          }
+        }
+      }
+    },
+    "Blooms once at dawn and stands watch over the meadow until dusk.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blüht einmal bei Morgengrauen und wacht über die Wiese bis zur Dämmerung."
+          }
+        }
+      }
+    },
+    "Blots out every light at once, leaving the enemy nowhere to hide.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Löscht jedes Licht auf einmal aus und lässt dem Feind keinen Ort zum Verstecken."
+          }
+        }
+      }
+    },
+    "Born from a candle's last flicker before dawn.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geboren aus dem letzten Flackern einer Kerze vor Sonnenaufgang."
+          }
+        }
+      }
+    },
+    "Boss Defeated!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boss besiegt!"
+          }
+        }
+      }
+    },
+    "Boss Slayer": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boss-Bezwinger"
+          }
+        }
+      }
+    },
+    "Bounds along the sunken temple floor in bursts of current.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Springt in Strömungsstößen über den Boden des versunkenen Tempels."
+          }
+        }
+      }
+    },
+    "Breathes out a thin, glittering cold that clings to whatever it touches.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haucht eine dünne, glitzernde Kälte aus, die an allem haften bleibt, was sie berührt."
+          }
+        }
+      }
+    },
+    "Breathes out the light of a dying galaxy.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atmet das Licht einer sterbenden Galaxie aus."
+          }
+        }
+      }
+    },
+    "Broken buildings and floating ruins lost in a surreal, dense fog.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zerbrochene Gebäude und schwebende Ruinen, verloren in dichtem, surrealem Nebel."
+          }
+        }
+      }
+    },
+    "Bronze": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronze"
+          }
+        }
+      }
+    },
+    "Build a team from your roster in the Inventory screen. Only deployed Dreamkeepers fight in battle and train at the Training Garden — keep your best team on deck.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stelle im Inventar-Bildschirm ein Team aus deinem Kader zusammen. Nur eingesetzte Dreamkeeper kämpfen in Schlachten und trainieren im Trainingsgarten — halte dein bestes Team bereit."
+          }
+        }
+      }
+    },
+    "Burrows in and erupts with banked heat.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gräbt sich ein und bricht mit gestauter Hitze hervor."
+          }
+        }
+      }
+    },
+    "Calls down a wall of starlight to guard the team.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruft eine Wand aus Sternenlicht herab, um das Team zu schützen."
+          }
+        }
+      }
+    },
+    "Calls up a crown of water that crashes down on every foe.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschwört eine Wasserkrone, die auf jeden Feind herabstürzt."
+          }
+        }
+      }
+    },
+    "Campaign": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kampagne"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbrechen"
+          }
+        }
+      }
+    },
+    "Carries the calm of a forest that's stood for ages.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trägt die Ruhe eines Waldes, der seit Ewigkeiten steht."
+          }
+        }
+      }
+    },
+    "Celestial Dream": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Himmlischer Traum"
+          }
+        }
+      }
+    },
+    "Change": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ändern"
+          }
+        }
+      }
+    },
+    "Charges beneath an oversized, brilliantly colored bloom.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stürmt unter einer überdimensionalen, leuchtend bunten Blüte hervor."
+          }
+        }
+      }
+    },
+    "Charges lava lakes head-on without slowing.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rennt ohne zu bremsen direkt in Lavaseen hinein."
+          }
+        }
+      }
+    },
+    "Charges out of the dense fog before its silhouette ever resolves.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stürmt aus dem dichten Nebel, bevor sich seine Silhouette überhaupt abzeichnet."
+          }
+        }
+      }
+    },
+    "Charges the crystal spires of Starfall Peaks head-first.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rammt kopfüber gegen die Kristallspitzen von Starfall Peaks."
+          }
+        }
+      }
+    },
+    "Charm": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amulett"
+          }
+        }
+      }
+    },
+    "Chases the tail of an actual comet through the dream sky and usually wins.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jagt den Schweif eines echten Kometen über den Traumhimmel – und gewinnt meist."
+          }
+        }
+      }
+    },
+    "Chest of Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Truhe Edelsteine"
+          }
+        }
+      }
+    },
+    "Churns the water into a squall wherever it swims.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wühlt das Wasser zu einer Bö auf, wo immer es schwimmt."
+          }
+        }
+      }
+    },
+    "Circles the burning ruins on wings of drifting ember.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umkreist die brennenden Ruinen auf Flügeln aus treibender Glut."
+          }
+        }
+      }
+    },
+    "Circles the star temple ruins on wings woven from old constellations.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umkreist die Ruinen des Sterntempels auf Flügeln aus alten Sternbildern."
+          }
+        }
+      }
+    },
+    "Circles the watching moon on wings that never cast a shadow.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umkreist den wachenden Mond auf Flügeln, die nie einen Schatten werfen."
+          }
+        }
+      }
+    },
+    "Claim": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abholen"
+          }
+        }
+      }
+    },
+    "Claim all 7 days of a Login Streak.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hole dir alle 7 Tage einer Login-Serie ab."
+          }
+        }
+      }
+    },
+    "Claim the gold and gem rewards on every tier you've already reached — no rush, they stay unlocked for the rest of the season.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hol dir die Gold- und Edelstein-Belohnungen jeder bereits erreichten Stufe ab — kein Stress, sie bleiben für den Rest der Saison freigeschaltet."
+          }
+        }
+      }
+    },
+    "Claimed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abgeholt"
+          }
+        }
+      }
+    },
+    "Claimed — Day %lld tomorrow": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abgeholt — Tag %lld morgen"
+          }
+        }
+      }
+    },
+    "Claws curved like the sliver of moon this realm never quite sees.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krallen gekrümmt wie die Mondsichel, die dieses Reich nie ganz zu sehen bekommt."
+          }
+        }
+      }
+    },
+    "Claws grown from a root that never stopped reaching.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krallen, gewachsen aus einer Wurzel, die nie aufhörte zu wachsen."
+          }
+        }
+      }
+    },
+    "Claws still hot from the lava lake it just crawled out of.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krallen noch heiß vom Lavasee, aus dem es gerade gekrochen ist."
+          }
+        }
+      }
+    },
+    "Claws that glow with borrowed light from a galaxy long gone.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krallen, die mit geborgtem Licht einer längst vergangenen Galaxie leuchten."
+          }
+        }
+      }
+    },
+    "Claws that leave no mark, only the memory of having been cut.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krallen, die keine Spur hinterlassen, nur die Erinnerung daran, geschnitten worden zu sein."
+          }
+        }
+      }
+    },
+    "Claws that pull with the force of a rising tide.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krallen, die mit der Kraft einer aufkommenden Flut ziehen."
+          }
+        }
+      }
+    },
+    "Claws wreathed in drifting cosmic haze, silent as vacuum.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krallen umhüllt von treibendem Kosmosdunst, lautlos wie das Vakuum."
+          }
+        }
+      }
+    },
+    "Clear 15 Stages": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließe 15 Stufen ab"
+          }
+        }
+      }
+    },
+    "Clear 3 Stages": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließe 3 Stufen ab"
+          }
+        }
+      }
+    },
+    "Clear a Stage": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließe eine Stufe ab"
+          }
+        }
+      }
+    },
+    "Clear a campaign stage to find equipment for your Dreamkeepers.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließe eine Kampagnen-Stufe ab, um Ausrüstung für deine Dreamkeeper zu finden."
+          }
+        }
+      }
+    },
+    "Cloak": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umhang"
+          }
+        }
+      }
+    },
+    "Close": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließen"
+          }
+        }
+      }
+    },
+    "Coils dragged up from the trench close around the target.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tentakel, aus dem Graben heraufgezogen, schließen sich um das Ziel."
+          }
+        }
+      }
+    },
+    "Coils through brambles that grow only in restless dreams.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Windet sich durch Dornranken, die nur in unruhigen Träumen wachsen."
+          }
+        }
+      }
+    },
+    "Coils through the underground tides, patient and impossibly long.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Windet sich durch die unterirdischen Gezeiten, geduldig und unfassbar lang."
+          }
+        }
+      }
+    },
+    "Collect": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einsammeln"
+          }
+        }
+      }
+    },
+    "Collect from a Building": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sammle von einem Gebäude ein"
+          }
+        }
+      }
+    },
+    "Collect offline rewards from the Gold Fountain and Training Garden.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hole dir Offline-Belohnungen vom Goldbrunnen und Trainingsgarten ab."
+          }
+        }
+      }
+    },
+    "Collected!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eingesammelt!"
+          }
+        }
+      }
+    },
+    "Collects pearls from dreams too calm to ever make waves.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sammelt Perlen aus Träumen, die zu ruhig sind, um je Wellen zu schlagen."
+          }
+        }
+      }
+    },
+    "Common": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Häufig"
+          }
+        }
+      }
+    },
+    "Complete Daily Missions for extra Gold and Gems.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erledige tägliche Missionen für zusätzliches Gold und Edelsteine."
+          }
+        }
+      }
+    },
+    "Continue": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weiter"
+          }
+        }
+      }
+    },
+    "Control": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontrolle"
+          }
+        }
+      }
+    },
+    "Cosmic islands and starlit temples at the very center of the Dream realm.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kosmische Inseln und sternbeschienene Tempel im Herzen des Traumreichs."
+          }
+        }
+      }
+    },
+    "Crawls along the trench floor where no light has ever reached.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kriecht über den Grabenboden, wo noch nie Licht hingelangt ist."
+          }
+        }
+      }
+    },
+    "Create Team": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Team erstellen"
+          }
+        }
+      }
+    },
+    "Creeps through the tall grass, thorns bristling at the first sign of a footstep.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schleicht durchs hohe Gras, Dornen sträuben sich beim ersten Anzeichen eines Schritts."
+          }
+        }
+      }
+    },
+    "Crosses the distance before the sound catches up.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überbrückt die Distanz, bevor der Schall folgen kann."
+          }
+        }
+      }
+    },
+    "Crystal Caverns": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kristallhöhlen"
+          }
+        }
+      }
+    },
+    "Daily Login Bonus": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tägliche Login-Belohnung"
+          }
+        }
+      }
+    },
+    "Daily Missions": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tägliche Missionen"
+          }
+        }
+      }
+    },
+    "Daily resets every day · Weekly resets every Monday": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Täglich setzt sich jeden Tag zurück · Wöchentlich jeden Montag"
+          }
+        }
+      }
+    },
+    "Damage": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schaden"
+          }
+        }
+      }
+    },
+    "Day %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tag %lld"
+          }
+        }
+      }
+    },
+    "Day %lld of %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tag %lld von %lld"
+          }
+        }
+      }
+    },
+    "Dedicated Dreamer": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Treuer Träumer"
+          }
+        }
+      }
+    },
+    "Defeat": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niederlage"
+          }
+        }
+      }
+    },
+    "Defeat 5 Bosses": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besiege 5 Bosse"
+          }
+        }
+      }
+    },
+    "Defeat a Boss": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besiege einen Boss"
+          }
+        }
+      }
+    },
+    "Defeat your first Boss.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besiege deinen ersten Boss."
+          }
+        }
+      }
+    },
+    "Defeat...": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niederlage..."
+          }
+        }
+      }
+    },
+    "Deploy": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einsetzen"
+          }
+        }
+      }
+    },
+    "Deploy a full team of %lld.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stelle ein volles Team von %lld auf."
+          }
+        }
+      }
+    },
+    "Deploy a team before entering the Arena.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setze ein Team ein, bevor du die Arena betrittst."
+          }
+        }
+      }
+    },
+    "Deploy a team to put the garden to work.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setze ein Team ein, damit der Garten arbeitet."
+          }
+        }
+      }
+    },
+    "Deploy up to five Dreamkeepers per team — balance your elements.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setze bis zu fünf Dreamkeeper pro Team ein — achte auf die Elementbalance."
+          }
+        }
+      }
+    },
+    "Diamond": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diamant"
+          }
+        }
+      }
+    },
+    "Digs its den where a hearth-fire dream burned down to embers.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gräbt seinen Bau dort, wo ein Herdfeuer-Traum zu Glut heruntergebrannt ist."
+          }
+        }
+      }
+    },
+    "Discover 10 different monsters.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entdecke 10 verschiedene Monster."
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fertig"
+          }
+        }
+      }
+    },
+    "Drawn to any dream still bright enough to see.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angezogen von jedem Traum, der noch hell genug ist, um gesehen zu werden."
+          }
+        }
+      }
+    },
+    "Draws on a root older than the forest to mend the whole team.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schöpft aus einer Wurzel, älter als der Wald, um das ganze Team zu heilen."
+          }
+        }
+      }
+    },
+    "Dream Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traum-Edelsteine"
+          }
+        }
+      }
+    },
+    "Dream Haven": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traumhafen"
+          }
+        }
+      }
+    },
+    "Dream Observatory": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traum​observatorium"
+          }
+        }
+      }
+    },
+    "Dream Team": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traumteam"
+          }
+        }
+      }
+    },
+    "Dreamkeeper Codex": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dreamkeeper-Kompendium"
+          }
+        }
+      }
+    },
+    "Dreamkeeper Starter Pack": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dreamkeeper-Starterpaket"
+          }
+        }
+      }
+    },
+    "Dreamkeepers": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dreamkeeper"
+          }
+        }
+      }
+    },
+    "Dreamkeepers · v%@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dreamkeepers · v%@"
+          }
+        }
+      }
+    },
+    "Drifts between the starlit temples wrapped in cosmic haze.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Treibt zwischen den sternbeschienenen Tempeln, gehüllt in Kosmosdunst."
+          }
+        }
+      }
+    },
+    "Duplicate pulls join your Inventory — fuse them onto a Dreamkeeper to raise its stars.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doppelte Beschwörungen landen in deinem Inventar — fusioniere sie mit einem Dreamkeeper, um seine Sterne zu erhöhen."
+          }
+        }
+      }
+    },
+    "Each pawprint briefly holds a swirl of tiny stars.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jeder Pfotenabdruck hält kurz einen Wirbel winziger Sterne."
+          }
+        }
+      }
+    },
+    "Element Matchups": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elementvorteile"
+          }
+        }
+      }
+    },
+    "Ember": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feuer"
+          }
+        }
+      }
+    },
+    "Emberheart Wastes": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glutherz-Ödland"
+          }
+        }
+      }
+    },
+    "Empty": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leer"
+          }
+        }
+      }
+    },
+    "Energy %lld of %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Energie %lld von %lld"
+          }
+        }
+      }
+    },
+    "Epic": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Episch"
+          }
+        }
+      }
+    },
+    "Equipment Workshop": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausrüstungswerkstatt"
+          }
+        }
+      }
+    },
+    "Eternal Bloom": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ewige Blüte"
+          }
+        }
+      }
+    },
+    "Every bite sends a ring of current rippling outward.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jeder Biss sendet einen Strömungsring nach außen."
+          }
+        }
+      }
+    },
+    "Every dark corner of the dream answers to her.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jede dunkle Ecke des Traums gehorcht ihr."
+          }
+        }
+      }
+    },
+    "Every floor stays open below for farming gear.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jede Stufe bleibt unten offen, um Ausrüstung zu farmen."
+          }
+        }
+      }
+    },
+    "Exclusive": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exklusiv"
+          }
+        }
+      }
+    },
+    "Fangs that never quite stop stinging.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fänge, die nie ganz aufhören zu brennen."
+          }
+        }
+      }
+    },
+    "Farm": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Farmen"
+          }
+        }
+      }
+    },
+    "Fell to the cosmic islands still burning at the edges.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fiel auf die kosmischen Inseln, an den Rändern noch brennend."
+          }
+        }
+      }
+    },
+    "Field a Full Team": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stelle ein volles Team auf"
+          }
+        }
+      }
+    },
+    "Fight": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kämpfen"
+          }
+        }
+      }
+    },
+    "Fight (%lld Energy)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kämpfen (%lld Energie)"
+          }
+        }
+      }
+    },
+    "Fight Again": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erneut kämpfen"
+          }
+        }
+      }
+    },
+    "Filter by Role": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach Rolle filtern"
+          }
+        }
+      }
+    },
+    "Find this Dreamkeeper at the Summoning Shrine.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diesen Dreamkeeper gibt es bei der Beschwörung."
+          }
+        }
+      }
+    },
+    "First Clear Reward": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Belohnung für Erstabschluss"
+          }
+        }
+      }
+    },
+    "First Summon": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erste Beschwörung"
+          }
+        }
+      }
+    },
+    "Floating mountains and meteor fields around an ancient star temple.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schwebende Berge und Meteoritenfelder um einen uralten Sterntempel."
+          }
+        }
+      }
+    },
+    "Floor %lld/%lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stufe %lld/%lld"
+          }
+        }
+      }
+    },
+    "Flowers burst from its antlers, lifting the whole team.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blüten sprießen aus seinem Geweih und beflügeln das ganze Team."
+          }
+        }
+      }
+    },
+    "Follows dreamers through the fog long after they've woken.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Folgt Träumenden durch den Nebel, lange nachdem sie erwacht sind."
+          }
+        }
+      }
+    },
+    "Follows travelers who fall asleep beneath the open sky.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Folgt Reisenden, die unter freiem Himmel einschlafen."
+          }
+        }
+      }
+    },
+    "Follows whatever light is left in the fight.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Folgt jedem Licht, das im Kampf noch übrig ist."
+          }
+        }
+      }
+    },
+    "Formed where a tidal dream froze mid-wave.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geformt, wo ein Gezeitentraum mitten in der Welle erstarrte."
+          }
+        }
+      }
+    },
+    "Friends": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Freunde"
+          }
+        }
+      }
+    },
+    "Frozen tides given form beneath the waking world.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gefrorene Gezeiten, die unter der wachen Welt Gestalt annehmen."
+          }
+        }
+      }
+    },
+    "Fully Ascended": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vollständig aufgestiegen"
+          }
+        }
+      }
+    },
+    "Fuse": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fusionieren"
+          }
+        }
+      }
+    },
+    "Fuse a Dreamkeeper to raise its stars.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fusioniere einen Dreamkeeper, um seine Sterne zu erhöhen."
+          }
+        }
+      }
+    },
+    "Fuse duplicate Dreamkeepers to raise their star rank.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fusioniere doppelte Dreamkeeper, um ihren Sternerang zu erhöhen."
+          }
+        }
+      }
+    },
+    "Fuse to ★%lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu ★%lld fusionieren"
+          }
+        }
+      }
+    },
+    "Fusing to ★%lld grants": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fusion zu ★%lld gewährt"
+          }
+        }
+      }
+    },
+    "Fusion": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fusion"
+          }
+        }
+      }
+    },
+    "Game Center": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Game Center"
+          }
+        }
+      }
+    },
+    "Gear chance": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausrüstungs-Chance"
+          }
+        }
+      }
+    },
+    "Generates %lld gold/min while you're away · caps after 8h": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erzeugt %lld Gold/Min. während du weg bist · Deckel nach 8 Std."
+          }
+        }
+      }
+    },
+    "Get Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edelsteine holen"
+          }
+        }
+      }
+    },
+    "Get notified when the Gold Fountain or Training Garden is full, about daily missions, and when your Login Bonus is ready.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erhalte eine Benachrichtigung, wenn der Goldbrunnen oder der Trainingsgarten voll ist, zu täglichen Missionen und wenn deine Login-Belohnung bereit ist."
+          }
+        }
+      }
+    },
+    "Get notified when the Gold Fountain or Training Garden is full, and about daily missions.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erhalte eine Benachrichtigung, wenn der Goldbrunnen oder der Trainingsgarten voll ist, und zu täglichen Missionen."
+          }
+        }
+      }
+    },
+    "Gills that chill the water for a body length in every direction.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiemen, die das Wasser eine Körperlänge in jede Richtung abkühlen."
+          }
+        }
+      }
+    },
+    "Go to Campaign": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zur Kampagne"
+          }
+        }
+      }
+    },
+    "Go to Shop to buy more Dream Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zum Shop, um mehr Traum-Edelsteine zu kaufen"
+          }
+        }
+      }
+    },
+    "Gold": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gold"
+          }
+        }
+      }
+    },
+    "Gold Chest": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldtruhe"
+          }
+        }
+      }
+    },
+    "Gold Exchange": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gold-Tausch"
+          }
+        }
+      }
+    },
+    "Gold Fountain": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldbrunnen"
+          }
+        }
+      }
+    },
+    "Gold Hoarder": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldhamsterer"
+          }
+        }
+      }
+    },
+    "Gold Pouch": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldbeutel"
+          }
+        }
+      }
+    },
+    "Gold ready to collect": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gold zum Einsammeln bereit"
+          }
+        }
+      }
+    },
+    "Grants %lld EXP/min to your deployed team while you're away · caps after 8h": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gewährt deinem eingesetzten Team %lld EP/Min. während du weg bist · Deckel nach 8 Std."
+          }
+        }
+      }
+    },
+    "Grew from a reef that only blooms in deep sleep.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gewachsen aus einem Riff, das nur im Tiefschlaf blüht."
+          }
+        }
+      }
+    },
+    "Grew from the very first seed a dreamer ever planted.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wuchs aus dem allerersten Samen, den je ein Träumer gepflanzt hat."
+          }
+        }
+      }
+    },
+    "Grew its fur through a hedge of brambles.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sein Fell wuchs durch eine Hecke aus Dornen."
+          }
+        }
+      }
+    },
+    "Grew tough where the currents are roughest.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wurde zäh, wo die Strömungen am rauesten sind."
+          }
+        }
+      }
+    },
+    "Growing Collection": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wachsende Sammlung"
+          }
+        }
+      }
+    },
+    "Grown from the dream of a forgotten garden.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gewachsen aus dem Traum eines vergessenen Gartens."
+          }
+        }
+      }
+    },
+    "Grows only where Noctyra's permanent eclipse falls darkest.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wächst nur dort, wo Noctyras dauerhafte Finsternis am dunkelsten fällt."
+          }
+        }
+      }
+    },
+    "Guardian": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wächter"
+          }
+        }
+      }
+    },
+    "Guards the center of the Dream realm alongside its sovereign.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewacht das Zentrum des Traumreichs an der Seite seines Herrschers."
+          }
+        }
+      }
+    },
+    "Handful of Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Handvoll Edelsteine"
+          }
+        }
+      }
+    },
+    "Haptics": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haptik"
+          }
+        }
+      }
+    },
+    "Hard to pin down, harder to catch.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schwer zu fassen, noch schwerer zu fangen."
+          }
+        }
+      }
+    },
+    "Hatched from the last spark of a dream that almost went out.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geschlüpft aus dem letzten Funken eines Traums, der fast erloschen wäre."
+          }
+        }
+      }
+    },
+    "Healer": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heiler"
+          }
+        }
+      }
+    },
+    "High Attack. Both the Ultimate and Active Skill strike the enemy for extra damage.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoher Angriffswert. Ultimative und Aktive Fähigkeit treffen den Gegner mit zusätzlichem Schaden."
+          }
+        }
+      }
+    },
+    "High HP and Defense — built to endure. Both the Ultimate and Active Skill strike the enemy directly.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hohe HP und Verteidigung — hält lange durch. Ultimative und Aktive Fähigkeit treffen den Gegner direkt."
+          }
+        }
+      }
+    },
+    "Hits harder the deeper the fight goes.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlägt härter zu, je tiefer der Kampf führt."
+          }
+        }
+      }
+    },
+    "Hold 5,000 Gold at once.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besitze gleichzeitig 5.000 Gold."
+          }
+        }
+      }
+    },
+    "How It Fights": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kampfstil"
+          }
+        }
+      }
+    },
+    "Hunts in the choking ash clouds by scent alone.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jagt in den erstickenden Aschewolken allein nach Geruch."
+          }
+        }
+      }
+    },
+    "Hunts in the space between shadows, never quite where you last saw it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jagt im Raum zwischen den Schatten, nie ganz dort, wo man es zuletzt sah."
+          }
+        }
+      }
+    },
+    "Hunts on the nights the moon forgets to rise at all.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jagt in den Nächten, in denen der Mond ganz vergisst aufzugehen."
+          }
+        }
+      }
+    },
+    "In Your Collection": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In deiner Sammlung"
+          }
+        }
+      }
+    },
+    "In storage": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Im Lager"
+          }
+        }
+      }
+    },
+    "Inventory": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inventar"
+          }
+        }
+      }
+    },
+    "Item": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gegenstand"
+          }
+        }
+      }
+    },
+    "Items": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gegenstände"
+          }
+        }
+      }
+    },
+    "Its bite carries a cold, distant chill from beyond the sky.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sein Biss trägt eine kalte, ferne Kühle von jenseits des Himmels."
+          }
+        }
+      }
+    },
+    "Its bite carries the heat of a coal that never quite cools.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sein Biss trägt die Hitze einer Glut, die nie ganz abkühlt."
+          }
+        }
+      }
+    },
+    "Its jaw glints with a lifetime of swallowed pearls.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sein Kiefer glänzt von einem Leben verschluckter Perlen."
+          }
+        }
+      }
+    },
+    "Its tail lags a full second behind the rest of its body.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sein Schwanz hinkt eine volle Sekunde hinter dem Rest seines Körpers her."
+          }
+        }
+      }
+    },
+    "Ivy grows over its claws between meals, then sheds when it hunts.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Efeu wächst zwischen den Mahlzeiten über seine Krallen und fällt beim Jagen ab."
+          }
+        }
+      }
+    },
+    "Journey So Far": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bisherige Reise"
+          }
+        }
+      }
+    },
+    "Keeper of the forest's deepest gloom, it grows more furious the closer it comes to falling.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hüter der tiefsten Finsternis des Waldes, wird umso wütender, je näher es dem Fall kommt."
+          }
+        }
+      }
+    },
+    "LEGENDARY!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LEGENDÄR!"
+          }
+        }
+      }
+    },
+    "LOADING…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LÄDT …"
+          }
+        }
+      }
+    },
+    "Language": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprache"
+          }
+        }
+      }
+    },
+    "Leaderboard": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bestenliste"
+          }
+        }
+      }
+    },
+    "Leaves a trail of dying light with every leap between floating peaks.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hinterlässt bei jedem Sprung zwischen schwebenden Gipfeln eine Spur aus verlöschendem Licht."
+          }
+        }
+      }
+    },
+    "Leaves scorched pawprints wherever it walks.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hinterlässt versengte Pfotenabdrücke, wo immer es geht."
+          }
+        }
+      }
+    },
+    "Leaves smoldering prints across the black volcanic rock.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hinterlässt schwelende Abdrücke auf dem schwarzen Vulkangestein."
+          }
+        }
+      }
+    },
+    "Leaves the air shimmering just from passing through.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lässt die Luft schimmern, nur weil es hindurchgezogen ist."
+          }
+        }
+      }
+    },
+    "Legend says it once pulled an entire temple beneath the waves.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Legende sagt, es habe einst einen ganzen Tempel unter die Wellen gezogen."
+          }
+        }
+      }
+    },
+    "Legendary": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legendär"
+          }
+        }
+      }
+    },
+    "Legendary Floor!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legendäre Stufe!"
+          }
+        }
+      }
+    },
+    "Legendary!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legendär!"
+          }
+        }
+      }
+    },
+    "Let's Go!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los geht's!"
+          }
+        }
+      }
+    },
+    "Level": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Level"
+          }
+        }
+      }
+    },
+    "Level Up!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Levelaufstieg!"
+          }
+        }
+      }
+    },
+    "Loading Ad…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Werbung wird geladen…"
+          }
+        }
+      }
+    },
+    "Lowers its head and simply pushes through.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senkt den Kopf und drückt sich einfach durch."
+          }
+        }
+      }
+    },
+    "Lunar": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mond"
+          }
+        }
+      }
+    },
+    "Lv %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lv. %lld"
+          }
+        }
+      }
+    },
+    "Lv %lld · ": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lv. %lld · "
+          }
+        }
+      }
+    },
+    "Lv %lld · Floor %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lv. %lld · Stufe %lld"
+          }
+        }
+      }
+    },
+    "Made of the same stuff as the stars it flies among.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemacht aus demselben Stoff wie die Sterne, zwischen denen er fliegt."
+          }
+        }
+      }
+    },
+    "Main Team": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hauptteam"
+          }
+        }
+      }
+    },
+    "Match elements for an advantage against tough enemies.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutze Elementvorteile, um starke Gegner leichter zu besiegen."
+          }
+        }
+      }
+    },
+    "Max": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Max"
+          }
+        }
+      }
+    },
+    "Max Level Reached": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maximales Level erreicht"
+          }
+        }
+      }
+    },
+    "Max Stars Reached": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maximale Sterne erreicht"
+          }
+        }
+      }
+    },
+    "Max Tier Reached": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Höchste Stufe erreicht"
+          }
+        }
+      }
+    },
+    "Max level reached": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maximales Level erreicht"
+          }
+        }
+      }
+    },
+    "Milestone Reward!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meilenstein-Belohnung!"
+          }
+        }
+      }
+    },
+    "Missions": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Missionen"
+          }
+        }
+      }
+    },
+    "Monster Hunter": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monsterjäger"
+          }
+        }
+      }
+    },
+    "Moonlit Forest": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mondlichtwald"
+          }
+        }
+      }
+    },
+    "Mythic": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mythisch"
+          }
+        }
+      }
+    },
+    "Nests at the peak of a mountain that only exists at the top of a dream.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nistet auf dem Gipfel eines Berges, der nur an der Spitze eines Traums existiert."
+          }
+        }
+      }
+    },
+    "Never misses a step in the dark.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verfehlt im Dunkeln nie einen Schritt."
+          }
+        }
+      }
+    },
+    "Never quite cools down enough to be safe to touch.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kühlt nie ganz genug ab, um gefahrlos berührt zu werden."
+          }
+        }
+      }
+    },
+    "Never quite where you expect it to be.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie ganz dort, wo man es erwartet."
+          }
+        }
+      }
+    },
+    "Never surfaces — the trench is the only home it has known.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taucht nie auf — der Graben ist das einzige Zuhause, das es kennt."
+          }
+        }
+      }
+    },
+    "Never truly alone, even when it looks that way.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie wirklich allein, auch wenn es so aussieht."
+          }
+        }
+      }
+    },
+    "New Dreamkeeper!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neuer Dreamkeeper!"
+          }
+        }
+      }
+    },
+    "New Tier!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neue Stufe!"
+          }
+        }
+      }
+    },
+    "Next": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weiter"
+          }
+        }
+      }
+    },
+    "Next Battle": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nächster Kampf"
+          }
+        }
+      }
+    },
+    "Nice!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klasse!"
+          }
+        }
+      }
+    },
+    "No Arena Tickets Left": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Arena-Tickets mehr"
+          }
+        }
+      }
+    },
+    "No Dreamkeepers deployed yet. Tap to build your team.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Dreamkeeper eingesetzt. Tippen, um dein Team aufzubauen."
+          }
+        }
+      }
+    },
+    "No Items Yet": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Items"
+          }
+        }
+      }
+    },
+    "No damage taken · +%lld bonus Gold": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Schaden erlitten · +%lld Bonus-Gold"
+          }
+        }
+      }
+    },
+    "No duplicate %@s yet. Clear more stages to find fusion fodder.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine doppelten %@ vorhanden. Schließe weitere Stufen ab, um Fusionsmaterial zu finden."
+          }
+        }
+      }
+    },
+    "No duplicate %@s yet. Summon more to gather fusion fodder.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine doppelten %@ vorhanden. Beschwöre mehr, um Fusionsmaterial zu sammeln."
+          }
+        }
+      }
+    },
+    "No gear yet. Clear a stage to find equipment to upgrade.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Ausrüstung. Schließe eine Stufe ab, um Ausrüstung zum Verbessern zu finden."
+          }
+        }
+      }
+    },
+    "No items in inventory": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Items im Inventar"
+          }
+        }
+      }
+    },
+    "No team deployed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Team eingesetzt"
+          }
+        }
+      }
+    },
+    "Not Enough Energy": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht genug Energie"
+          }
+        }
+      }
+    },
+    "Not Owned": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht besessen"
+          }
+        }
+      }
+    },
+    "Not Owned Yet": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nicht besessen"
+          }
+        }
+      }
+    },
+    "Not enough Dream Gems.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht genug Traum-Edelsteine."
+          }
+        }
+      }
+    },
+    "Not signed in": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht angemeldet"
+          }
+        }
+      }
+    },
+    "Not yet encountered.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nicht begegnet."
+          }
+        }
+      }
+    },
+    "Notifications": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Benachrichtigungen"
+          }
+        }
+      }
+    },
+    "Older than the abyss itself, or so the coral forest tells it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Älter als der Abgrund selbst, so erzählt es zumindest der Korallenwald."
+          }
+        }
+      }
+    },
+    "Once the meadow's oldest bloom, now unraveling into thorn and flame with every dream it consumes.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einst die älteste Blüte der Wiese, entwirrt sich nun mit jedem verzehrten Traum zu Dorn und Flamme."
+          }
+        }
+      }
+    },
+    "One of Noctyra's own court, given form from the realm's endless dark.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eines aus Noctyras eigenem Hofstaat, geformt aus der endlosen Dunkelheit des Reichs."
+          }
+        }
+      }
+    },
+    "One-time bonus for new Dream Haven builders: gold and gems to get your roster going.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einmaliger Bonus für neue Traumhafen-Erbauer: Gold und Edelsteine, um dein Roster in Schwung zu bringen."
+          }
+        }
+      }
+    },
+    "Open": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnen"
+          }
+        }
+      }
+    },
+    "Own 10 different Dreamkeepers.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besitze 10 verschiedene Dreamkeeper."
+          }
+        }
+      }
+    },
+    "Own 5 different Dreamkeepers.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besitze 5 verschiedene Dreamkeeper."
+          }
+        }
+      }
+    },
+    "Owned ×%lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besitz ×%lld"
+          }
+        }
+      }
+    },
+    "Pads silently through root tunnels wider than any road.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tapst lautlos durch Wurzeltunnel, breiter als jede Straße."
+          }
+        }
+      }
+    },
+    "Passive": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passiv"
+          }
+        }
+      }
+    },
+    "Perfect Clear!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Perfekter Sieg!"
+          }
+        }
+      }
+    },
+    "Plants itself down and simply refuses to move.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verwurzelt sich am Boden und weigert sich schlicht, sich zu bewegen."
+          }
+        }
+      }
+    },
+    "Plants itself firm and strikes back.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stemmt sich fest und schlägt zurück."
+          }
+        }
+      }
+    },
+    "Platinum": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Platin"
+          }
+        }
+      }
+    },
+    "Play": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spielen"
+          }
+        }
+      }
+    },
+    "Player Level %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spieler-Level %lld"
+          }
+        }
+      }
+    },
+    "Player Lv %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spieler-Lv %lld"
+          }
+        }
+      }
+    },
+    "Player Lv %lld → Lv %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spieler-Lv %lld → Lv %lld"
+          }
+        }
+      }
+    },
+    "Popular": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beliebt"
+          }
+        }
+      }
+    },
+    "Pouch of Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beutel Edelsteine"
+          }
+        }
+      }
+    },
+    "Profile": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Profil"
+          }
+        }
+      }
+    },
+    "Progress is stored on this device and, when iCloud is available, synced privately to your other devices. Dreamkeepers doesn't collect or share personal data.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Fortschritt wird auf diesem Gerät gespeichert und, wenn iCloud verfügbar ist, privat mit deinen anderen Geräten synchronisiert. Dreamkeepers sammelt oder teilt keine persönlichen Daten."
+          }
+        }
+      }
+    },
+    "Prowls the ash fields, jaws glowing faintly with banked heat.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Streift durch die Aschefelder, Kiefer schwach glühend von gebändigter Hitze."
+          }
+        }
+      }
+    },
+    "Purchased!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gekauft!"
+          }
+        }
+      }
+    },
+    "Radiates enough heat to make the whole front line flinch.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Strahlt genug Hitze aus, um die ganze Frontlinie zurückweichen zu lassen."
+          }
+        }
+      }
+    },
+    "Raise a Dreamkeeper to max stars.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bringe einen Dreamkeeper auf die maximale Sternezahl."
+          }
+        }
+      }
+    },
+    "Rallies the team with a surge of vitality.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sammelt das Team mit einem Schub Vitalität."
+          }
+        }
+      }
+    },
+    "Rare": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selten"
+          }
+        }
+      }
+    },
+    "Rarity": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rarität"
+          }
+        }
+      }
+    },
+    "Rating %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wertung %lld"
+          }
+        }
+      }
+    },
+    "Rating %lld · %lldW-%lldL": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wertung %lld · %lldS-%lldN"
+          }
+        }
+      }
+    },
+    "Reach Account Level 10.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erreiche Konto-Level 10."
+          }
+        }
+      }
+    },
+    "Reaches deeper than any dream has ever needed.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reicht tiefer, als je ein Traum es gebraucht hätte."
+          }
+        }
+      }
+    },
+    "Ready for your deployed team": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereit für dein eingesetztes Team"
+          }
+        }
+      }
+    },
+    "Realm of Eclipse": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reich der Finsternis"
+          }
+        }
+      }
+    },
+    "Recruit a Legendary Dreamkeeper.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rekrutiere einen legendären Dreamkeeper."
+          }
+        }
+      }
+    },
+    "Refill for %lld Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auffüllen für %lld Edelsteine"
+          }
+        }
+      }
+    },
+    "Refracts a portion of incoming force.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bricht einen Teil der einwirkenden Kraft."
+          }
+        }
+      }
+    },
+    "Refracts every sound in the cavern into a faint, discordant chime.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bricht jeden Klang der Höhle zu einem leisen, schrägen Klingeln."
+          }
+        }
+      }
+    },
+    "Releases a faint cloud of spores whenever it's startled.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setzt bei Schreck eine feine Sporenwolke frei."
+          }
+        }
+      }
+    },
+    "Replay the battle for the same rewards, or skip straight to the payout.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiederhole den Kampf für die gleichen Belohnungen, oder springe direkt zur Belohnung."
+          }
+        }
+      }
+    },
+    "Requires Premium": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erfordert Premium"
+          }
+        }
+      }
+    },
+    "Reset Progress": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fortschritt zurücksetzen"
+          }
+        }
+      }
+    },
+    "Reset all progress?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesamten Fortschritt zurücksetzen?"
+          }
+        }
+      }
+    },
+    "Resets every day · come back tomorrow for a fresh set": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setzt sich jeden Tag zurück · komm morgen für neue Missionen wieder"
+          }
+        }
+      }
+    },
+    "Reward Claimed!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Belohnung abgeholt!"
+          }
+        }
+      }
+    },
+    "Rides currents that only it can feel.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reitet auf Strömungen, die nur er spüren kann."
+          }
+        }
+      }
+    },
+    "Ring": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ring"
+          }
+        }
+      }
+    },
+    "Rises anew each time a dreamer refuses to give up.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ersteht jedes Mal neu, wenn ein Träumender nicht aufgibt."
+          }
+        }
+      }
+    },
+    "Rising Dreamer": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufsteigender Träumer"
+          }
+        }
+      }
+    },
+    "Rose once from a dream so deep even the tide forgot it was there.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stieg einst aus einem Traum auf, so tief, dass selbst die Flut ihn vergaß."
+          }
+        }
+      }
+    },
+    "Ruler of the deepest trench in the Tidal Abyss, its court are things that never see the surface.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herrscher des tiefsten Grabens im Tidal Abyss, sein Hofstaat sind Wesen, die nie die Oberfläche sehen."
+          }
+        }
+      }
+    },
+    "Ruler of the highest dream, and the last, greatest guardian the Dreamkeepers must face.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herrscher des höchsten Traums, der letzte und größte Wächter, dem sich die Dreamkeeper stellen müssen."
+          }
+        }
+      }
+    },
+    "Rules every current in the dream ocean, and every current knows it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herrscht über jede Strömung im Traumozean, und jede Strömung weiß es."
+          }
+        }
+      }
+    },
+    "Rules the space between one dream ending and the next beginning.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herrscht über den Raum zwischen dem Ende eines Traums und dem Beginn des nächsten."
+          }
+        }
+      }
+    },
+    "Runs the paths between falling stars.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Läuft die Pfade zwischen fallenden Sternen."
+          }
+        }
+      }
+    },
+    "Runs warmer the longer a fight drags on.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird wärmer, je länger ein Kampf andauert."
+          }
+        }
+      }
+    },
+    "STAR UP!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "STERN-AUFSTIEG!"
+          }
+        }
+      }
+    },
+    "Scales caught permanently between day and night.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schuppen, dauerhaft gefangen zwischen Tag und Nacht."
+          }
+        }
+      }
+    },
+    "Scales that dim and brighten with a moon phase all their own.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schuppen, die mit einer eigenen Mondphase dunkler und heller werden."
+          }
+        }
+      }
+    },
+    "Scales that scald anything that gets too close.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schuppen, die alles verbrühen, was zu nahe kommt."
+          }
+        }
+      }
+    },
+    "Scales that shed light long after the creature has moved on.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schuppen, die noch lange Licht abgeben, nachdem das Wesen weitergezogen ist."
+          }
+        }
+      }
+    },
+    "Scales that weep a constant, cold trickle of seawater.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schuppen, die ständig einen kalten Rinnsal Meerwasser weinen."
+          }
+        }
+      }
+    },
+    "Season Pass": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saison-Pass"
+          }
+        }
+      }
+    },
+    "Season Pass, Tier %lld of %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saison-Pass, Stufe %lld von %lld"
+          }
+        }
+      }
+    },
+    "Season XP": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saison-EP"
+          }
+        }
+      }
+    },
+    "See You Tomorrow": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bis morgen"
+          }
+        }
+      }
+    },
+    "Sees every opening before it appears.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieht jede Lücke, bevor sie entsteht."
+          }
+        }
+      }
+    },
+    "Select duplicates to fuse": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Duplikate zum Fusionieren auswählen"
+          }
+        }
+      }
+    },
+    "Sell": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verkaufen"
+          }
+        }
+      }
+    },
+    "Sell %lld Dreamkeepers?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Dreamkeeper verkaufen?"
+          }
+        }
+      }
+    },
+    "Sell 1 Dreamkeeper?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 Dreamkeeper verkaufen?"
+          }
+        }
+      }
+    },
+    "Sell Dreamkeepers": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dreamkeeper verkaufen"
+          }
+        }
+      }
+    },
+    "Sell for %lld Gold": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verkaufen für %lld Gold"
+          }
+        }
+      }
+    },
+    "Sell for %lld Gold + %lld Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verkaufen für %lld Gold + %lld Edelsteine"
+          }
+        }
+      }
+    },
+    "Send your team into the Campaign to clear stages, earn gold and EXP, and defeat bosses. Boss victories recruit your next Dreamkeeper automatically.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schicke dein Team in die Kampagne, um Stufen zu schaffen, Gold und EP zu verdienen und Bosse zu besiegen. Bosssiege rekrutieren automatisch deinen nächsten Dreamkeeper."
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einstellungen"
+          }
+        }
+      }
+    },
+    "Sheds a fine, healing dust over the team.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verstreut feinen, heilenden Staub über das Team."
+          }
+        }
+      }
+    },
+    "Sheds a single ember-warm feather over an ally.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lässt eine glutwarme Feder über einem Verbündeten fallen."
+          }
+        }
+      }
+    },
+    "Shop": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shop"
+          }
+        }
+      }
+    },
+    "Sign Out": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abmelden"
+          }
+        }
+      }
+    },
+    "Sign in to keep your account ready for friends and cross-device play.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Melde dich an, damit dein Konto bereit für Freunde und geräteübergreifendes Spielen ist."
+          }
+        }
+      }
+    },
+    "Signed in": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angemeldet"
+          }
+        }
+      }
+    },
+    "Signed in with Apple": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit Apple angemeldet"
+          }
+        }
+      }
+    },
+    "Silent on the forest floor, its spines the only warning it gives.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lautlos auf dem Waldboden, seine Stacheln die einzige Warnung."
+          }
+        }
+      }
+    },
+    "Silver": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Silber"
+          }
+        }
+      }
+    },
+    "Skin as tough and gnarled as the jungle's oldest trees.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haut so zäh und knorrig wie die ältesten Bäume des Dschungels."
+          }
+        }
+      }
+    },
+    "Skip": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überspringen"
+          }
+        }
+      }
+    },
+    "Skip Animation": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Animation überspringen"
+          }
+        }
+      }
+    },
+    "Skitters along cracks in the cavern walls where light doesn't quite reach.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Huscht durch Risse in den Höhlenwänden, wo das Licht kaum hinreicht."
+          }
+        }
+      }
+    },
+    "Slightly bolder in a fight.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etwas mutiger im Kampf."
+          }
+        }
+      }
+    },
+    "Slips a sliver of dark across the enemy's eyes.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legt einen Splitter Dunkelheit über die Augen des Gegners."
+          }
+        }
+      }
+    },
+    "Slips between waves too quick for waking eyes to follow.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gleitet zwischen Wellen, zu schnell für wache Augen."
+          }
+        }
+      }
+    },
+    "Slips through the coral forest wrapped in a veil of cold mist.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gleitet durch den Korallenwald, gehüllt in einen Schleier kalten Nebels."
+          }
+        }
+      }
+    },
+    "Small and glittering, it scatters into motes when startled.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klein und glitzernd, zerstiebt bei Schreck zu funkelnden Stäubchen."
+          }
+        }
+      }
+    },
+    "Small and quick, camouflaged among the oversized canopy.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klein und flink, getarnt im überdimensionalen Blätterdach."
+          }
+        }
+      }
+    },
+    "Small and quick, darting between sunken temple pillars.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klein und flink, huscht zwischen versunkenen Tempelsäulen hindurch."
+          }
+        }
+      }
+    },
+    "Small, but drawn from the same light as Elyndor itself.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klein, doch aus demselben Licht wie Elyndor selbst geschöpft."
+          }
+        }
+      }
+    },
+    "Small, quick, and always a little too close to catching fire.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klein, schnell und immer knapp davor, selbst Feuer zu fangen."
+          }
+        }
+      }
+    },
+    "Small, quick, and fiercely territorial over its patch of clover.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klein, schnell und fanatisch revierbewusst über sein Kleeflecken."
+          }
+        }
+      }
+    },
+    "So thickly covered in moss it looks like part of the jungle floor.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "So dicht mit Moos bedeckt, dass es wie ein Teil des Dschungelbodens wirkt."
+          }
+        }
+      }
+    },
+    "Sort Dreamkeepers": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dreamkeeper sortieren"
+          }
+        }
+      }
+    },
+    "Sound Effects": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soundeffekte"
+          }
+        }
+      }
+    },
+    "Sovereign of the permanent eclipse, she rules the realm equally in shadow and stolen light.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herrscherin der dauerhaften Finsternis, sie regiert das Reich gleichermaßen in Schatten und gestohlenem Licht."
+          }
+        }
+      }
+    },
+    "Spend Dream Gems at the Summoning Shrine to recruit new Dreamkeepers. Odds are shown up front — no hidden mechanics. A 10x Summon always includes a bonus pull for free.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gib Traum-Edelsteine bei der Beschwörung aus, um neue Dreamkeeper zu rekrutieren. Die Chancen werden vorher offen angezeigt — keine versteckten Mechaniken. Eine 10x-Beschwörung enthält immer einen kostenlosen Bonus-Zug."
+          }
+        }
+      }
+    },
+    "Squad Goals": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Team komplett"
+          }
+        }
+      }
+    },
+    "Stage %lld swept": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stufe %lld gefarmt"
+          }
+        }
+      }
+    },
+    "Stage %lld — already cleared": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stufe %lld — bereits abgeschlossen"
+          }
+        }
+      }
+    },
+    "Stages Cleared": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stufen geschafft"
+          }
+        }
+      }
+    },
+    "Stalks the hedgerows of a garden dream no one remembers planting.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schleicht durch die Hecken eines Gartentraums, an dessen Pflanzung sich niemand erinnert."
+          }
+        }
+      }
+    },
+    "Standard Reward": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Standard-Belohnung"
+          }
+        }
+      }
+    },
+    "Stands guard at the border between dream and stars.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Steht Wache an der Grenze zwischen Traum und Sternen."
+          }
+        }
+      }
+    },
+    "Stands where a mountain-sized dream slowly finished melting.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Steht dort, wo ein bergegroßer Traum langsam zu Ende geschmolzen ist."
+          }
+        }
+      }
+    },
+    "Star Power": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sternenkraft"
+          }
+        }
+      }
+    },
+    "Star Up!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stern-Aufstieg!"
+          }
+        }
+      }
+    },
+    "Starfall Peaks": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sternschnuppengipfel"
+          }
+        }
+      }
+    },
+    "Stars": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sterne"
+          }
+        }
+      }
+    },
+    "Steady footing, steady mind.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fester Stand, fester Geist."
+          }
+        }
+      }
+    },
+    "Steps between floating ruin-fragments as if they were solid ground.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schreitet zwischen schwebenden Ruinenfragmenten, als wären sie fester Boden."
+          }
+        }
+      }
+    },
+    "Steps leave no print — the eclipse realm forgets it was ever there.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schritte hinterlassen keine Spur — das Reich der Finsternis vergisst, dass es je da war."
+          }
+        }
+      }
+    },
+    "Strong Against": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stark gegen"
+          }
+        }
+      }
+    },
+    "Summon 10x?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10x beschwören?"
+          }
+        }
+      }
+    },
+    "Summon 3 Dreamkeepers": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschwöre 3 Dreamkeeper"
+          }
+        }
+      }
+    },
+    "Summon 5 Dreamkeepers": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschwöre 5 Dreamkeeper"
+          }
+        }
+      }
+    },
+    "Summon Odds": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschwörungs-Chancen"
+          }
+        }
+      }
+    },
+    "Summon a Dreamkeeper": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschwöre einen Dreamkeeper"
+          }
+        }
+      }
+    },
+    "Summon your first Dreamkeeper.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschwöre deinen ersten Dreamkeeper."
+          }
+        }
+      }
+    },
+    "Summon · %lld Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschwören · %lld Edelsteine"
+          }
+        }
+      }
+    },
+    "Summoned gear joins your Inventory, sized to your current stage.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschworene Ausrüstung landet in deinem Inventar, passend zu deiner aktuellen Stufe."
+          }
+        }
+      }
+    },
+    "Summoning Shrine": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschwörung"
+          }
+        }
+      }
+    },
+    "Summoning a Dreamkeeper you already own doesn't waste it — the duplicate goes straight to your Inventory. Fuse duplicates onto that Dreamkeeper there to raise its star tier and make it stronger.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wenn du einen Dreamkeeper beschwörst, den du schon besitzt, geht nichts verloren — das Duplikat landet direkt in deinem Inventar. Fusioniere Duplikate dort mit dem Dreamkeeper, um seine Sternestufe zu erhöhen und ihn stärker zu machen."
+          }
+        }
+      }
+    },
+    "Sunken temples and coral forests deep in a trench no light reaches.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versunkene Tempel und Korallenwälder tief in einem Graben, den kein Licht erreicht."
+          }
+        }
+      }
+    },
+    "Support": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unterstützung"
+          }
+        }
+      }
+    },
+    "Sweep — Instant Clear (%lld Energy)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Farmen — Sofort abschließen (%lld Energie)"
+          }
+        }
+      }
+    },
+    "Swims in the shallow end of dreams too small for anything bigger.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schwimmt im seichten Teil von Träumen, die für Größeres zu klein sind."
+          }
+        }
+      }
+    },
+    "TIP: ": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TIPP: "
+          }
+        }
+      }
+    },
+    "Tank": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tank"
+          }
+        }
+      }
+    },
+    "Tap a Dreamkeeper to deploy or bench them.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe einen Dreamkeeper an, um ihn einzusetzen oder auf die Bank zu setzen."
+          }
+        }
+      }
+    },
+    "Tap a Dreamkeeper to view stats and fusion.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe einen Dreamkeeper an, um Werte und Fusion zu sehen."
+          }
+        }
+      }
+    },
+    "Tap the chest to reveal your Dreamkeeper": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe auf die Truhe, um deinen Dreamkeeper zu enthüllen"
+          }
+        }
+      }
+    },
+    "Tap the chest to reveal your item": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe auf die Truhe, um dein Item zu enthüllen"
+          }
+        }
+      }
+    },
+    "Tap to collect": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zum Abholen tippen"
+          }
+        }
+      }
+    },
+    "Team": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Team"
+          }
+        }
+      }
+    },
+    "Team Power %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teamstärke %lld"
+          }
+        }
+      }
+    },
+    "Twin Bond": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwillingsbund"
+          }
+        }
+      }
+    },
+    "The Dream Tree hums quietly, waiting for your next journey.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Traumbaum summt leise und wartet auf deine nächste Reise."
+          }
+        }
+      }
+    },
+    "The Forgotten Dream": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der vergessene Traum"
+          }
+        }
+      }
+    },
+    "The Ultimate boosts the whole team's Attack for the rest of the battle; the Active Skill boosts its own Attack.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ultimative Fähigkeit stärkt den Angriff des ganzen Teams für den Rest des Kampfes; die Aktive Fähigkeit stärkt den eigenen Angriff."
+          }
+        }
+      }
+    },
+    "The Ultimate heals the whole team at once; the Active Skill heals whichever ally is lowest on HP.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ultimative Fähigkeit heilt das gesamte Team auf einmal; die Aktive Fähigkeit heilt gezielt den verwundetsten Verbündeten."
+          }
+        }
+      }
+    },
+    "The Ultimate shields the whole team; the Active Skill strikes the enemy and slows it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ultimative Fähigkeit beschützt das gesamte Team mit einem Schild; die Aktive Fähigkeit trifft den Gegner und verlangsamt ihn."
+          }
+        }
+      }
+    },
+    "The Ultimate strikes the enemy and briefly stuns it; the Active Skill is a quick strike.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ultimative Fähigkeit trifft den Gegner und betäubt ihn kurz; die Aktive Fähigkeit ist ein schneller Treffer."
+          }
+        }
+      }
+    },
+    "The deepest-dwelling of Thalassor's countless subjects.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der am tiefsten lebende unter Thalassors zahllosen Untertanen."
+          }
+        }
+      }
+    },
+    "The jungle's oldest bloom given claws, close kin to Verdantor.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die älteste Blüte des Dschungels, der Krallen verliehen wurden, nah verwandt mit Verdantor."
+          }
+        }
+      }
+    },
+    "The last dream every dreamer has, if they dream long enough.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Traum, den jeder Träumer hat, wenn er nur lange genug träumt."
+          }
+        }
+      }
+    },
+    "The ocean itself seems to defer to her.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selbst der Ozean scheint sich ihr zu beugen."
+          }
+        }
+      }
+    },
+    "The team regroups at the Dream Tree to try again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Team sammelt sich am Traumbaum, um es erneut zu versuchen."
+          }
+        }
+      }
+    },
+    "This can't be undone. Equipped gear is unequipped, not sold.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das kann nicht rückgängig gemacht werden. Ausgerüstete Gegenstände werden abgelegt, nicht verkauft."
+          }
+        }
+      }
+    },
+    "This deletes your Dreamkeepers, gold, gems, and campaign progress. This can't be undone.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dies löscht deine Dreamkeeper, Gold, Edelsteine und den Kampagnenfortschritt. Das kann nicht rückgängig gemacht werden."
+          }
+        }
+      }
+    },
+    "This spends %lld Dream Gems for %lld Dreamkeepers.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dies kostet %lld Traum-Edelsteine für %lld Dreamkeeper."
+          }
+        }
+      }
+    },
+    "This spends %lld Dream Gems for %lld items.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das kostet %lld Traum-Edelsteine für %lld Items."
+          }
+        }
+      }
+    },
+    "This stage costs %lld Energy. You have %lld/%lld.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Stufe kostet %lld Energie. Du hast %lld/%lld."
+          }
+        }
+      }
+    },
+    "Tidal Abyss": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gezeitenabgrund"
+          }
+        }
+      }
+    },
+    "Tide": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flut"
+          }
+        }
+      }
+    },
+    "Tier %lld/%lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stufe %lld/%lld"
+          }
+        }
+      }
+    },
+    "Too excitable to ever stay still for long.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu aufgeregt, um je lange stillzuhalten."
+          }
+        }
+      }
+    },
+    "Tower Cleared!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turm bezwungen!"
+          }
+        }
+      }
+    },
+    "Trails living vine behind it as it moves through the undergrowth.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zieht lebende Ranken hinter sich her, während es durchs Unterholz zieht."
+          }
+        }
+      }
+    },
+    "Training Garden": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trainingsgarten"
+          }
+        }
+      }
+    },
+    "Ultimate": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ultimative Fähigkeit"
+          }
+        }
+      }
+    },
+    "Uncommon": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ungewöhnlich"
+          }
+        }
+      }
+    },
+    "Unequip": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ablegen"
+          }
+        }
+      }
+    },
+    "Unlock Battle Pass Premium to access harder weekly challenges with bigger rewards.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schalte Battle-Pass-Premium frei, um schwerere wöchentliche Herausforderungen mit größeren Belohnungen freizuschalten."
+          }
+        }
+      }
+    },
+    "Unlock Premium Track": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Premium-Spur freischalten"
+          }
+        }
+      }
+    },
+    "Unlocked": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Freigeschaltet"
+          }
+        }
+      }
+    },
+    "Untouchable": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unberührbar"
+          }
+        }
+      }
+    },
+    "Upgrade": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verbessern"
+          }
+        }
+      }
+    },
+    "Upgrade Gear 8 Times": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verbessere Ausrüstung 8-mal"
+          }
+        }
+      }
+    },
+    "Upgrade Items in the Workshop": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Items in der Werkstatt verbessern"
+          }
+        }
+      }
+    },
+    "Upgrade a Piece of Gear": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verbessere ein Ausrüstungsteil"
+          }
+        }
+      }
+    },
+    "Upgrade equipment at the Workshop to boost your team's stats.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verbessere Ausrüstung in der Werkstatt, um die Werte deines Teams zu steigern."
+          }
+        }
+      }
+    },
+    "Upgrade equipment from the Inventory to boost your team's stats.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verbessere Ausrüstung im Inventar, um die Werte deines Teams zu steigern."
+          }
+        }
+      }
+    },
+    "Upgraded!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verbessert!"
+          }
+        }
+      }
+    },
+    "VIP Pass": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VIP-Pass"
+          }
+        }
+      }
+    },
+    "Vanishes into brush and strikes from an angle no one expects.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verschwindet im Gestrüpp und schlägt aus einem Winkel zu, den niemand erwartet."
+          }
+        }
+      }
+    },
+    "Vast volcanoes and lakes of lava beneath a sky choked with ash.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gewaltige Vulkane und Lavaseen unter einem von Asche erstickten Himmel."
+          }
+        }
+      }
+    },
+    "Vault of Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tresor voller Edelsteine"
+          }
+        }
+      }
+    },
+    "Victory!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieg!"
+          }
+        }
+      }
+    },
+    "View %@ details": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-Details ansehen"
+          }
+        }
+      }
+    },
+    "Visit the Shop": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besuche den Shop"
+          }
+        }
+      }
+    },
+    "Visit the Shop 3 Times": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besuche den Shop 3-mal"
+          }
+        }
+      }
+    },
+    "Waits beneath the tunnel floor for something to walk overhead.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wartet unter dem Tunnelboden, bis etwas darüber läuft."
+          }
+        }
+      }
+    },
+    "Wanders the broken buildings, howling at a moon no one else remembers.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wandert durch die zerbrochenen Gebäude und heult einen Mond an, an den sich sonst niemand erinnert."
+          }
+        }
+      }
+    },
+    "Watch Ad": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Werbung ansehen"
+          }
+        }
+      }
+    },
+    "Watches from branches that exist only under a full moon.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wacht von Ästen, die nur bei Vollmond existieren."
+          }
+        }
+      }
+    },
+    "Weak Against": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schwach gegen"
+          }
+        }
+      }
+    },
+    "Weapon": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waffe"
+          }
+        }
+      }
+    },
+    "Wears a coat of drifting ash over skin still smoldering beneath.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trägt einen Mantel aus treibender Asche über Haut, die darunter noch schwelt."
+          }
+        }
+      }
+    },
+    "Wears a crown grown from a forest's oldest, gentlest dream.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trägt eine Krone, gewachsen aus dem ältesten, sanftesten Traum eines Waldes."
+          }
+        }
+      }
+    },
+    "Wears the shape of a forgotten dream, hollow at the center.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trägt die Form eines vergessenen Traums, hohl in der Mitte."
+          }
+        }
+      }
+    },
+    "Weekly Challenge": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wöchentliche Herausforderung"
+          }
+        }
+      }
+    },
+    "Whispering Meadow": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flüsternde Wiese"
+          }
+        }
+      }
+    },
+    "Win a battle without taking damage.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gewinne einen Kampf ohne Schaden zu nehmen."
+          }
+        }
+      }
+    },
+    "Win battles to earn Season XP — bosses grant more. Each tier unlocks a Free reward automatically; tap the arrow on a tier to claim it, or claim the matching Premium reward too once unlocked.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gewinne Kämpfe, um Saison-EP zu verdienen — Bosse geben mehr. Jede Stufe schaltet automatisch eine kostenlose Belohnung frei; tippe auf den Pfeil, um sie abzuholen, oder hol dir bei freigeschaltetem Premium auch die passende Premium-Belohnung."
+          }
+        }
+      }
+    },
+    "Worn by %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Getragen von %@"
+          }
+        }
+      }
+    },
+    "Wraps itself in hardy brambles, growing bolder.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hüllt sich in zähe Dornranken und wird mutiger."
+          }
+        }
+      }
+    },
+    "Wraps the foe in a crushing spiral of water.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umschlingt den Gegner in einer erdrückenden Wasserspirale."
+          }
+        }
+      }
+    },
+    "You've cleared every known dream. More worlds are on the way.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du hast jeden bekannten Traum bezwungen. Weitere Welten sind unterwegs."
+          }
+        }
+      }
+    },
+    "You've conquered all 100 floors of the Arena Tower.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du hast alle 100 Stufen des Arena-Turms bezwungen."
+          }
+        }
+      }
+    },
+    "You've used all your Arena attempts for today. Come back tomorrow!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du hast alle deine heutigen Arena-Versuche aufgebraucht. Komm morgen wieder!"
+          }
+        }
+      }
+    },
+    "Young and playful, riding the abyss's slow deep currents.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jung und verspielt, reitet auf den langsamen Tiefenströmungen des Abgrunds."
+          }
+        }
+      }
+    },
+    "Young, but already larger than most fully grown Bloom creatures.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jung, aber bereits größer als die meisten ausgewachsenen Bloom-Wesen."
+          }
+        }
+      }
+    },
+    "Young, but already tougher than it looks.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jung, aber schon zäher, als es aussieht."
+          }
+        }
+      }
+    },
+    "Your Data": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Daten"
+          }
+        }
+      }
+    },
+    "Your Dreamkeepers": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Dreamkeeper"
+          }
+        }
+      }
+    },
+    "Your Team": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Team"
+          }
+        }
+      }
+    },
+    "vs. %@ · Rating %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vs. %@ · Wertung %lld"
+          }
+        }
+      }
+    },
+    "Not enough Gems for 10x.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht genug Edelsteine für 10x."
+          }
+        }
+      }
+    },
+    "Echoing Meadow": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widerhallende Wiese"
+          }
+        }
+      }
+    },
+    "The Whispering Meadow dreams itself again — the same creatures returned, grown feral and strong.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Flüsternde Wiese träumt sich erneut — dieselben Kreaturen sind zurückgekehrt, wild und stark geworden."
+          }
+        }
+      }
+    },
+    "Shadowed Forest": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verschatteter Wald"
+          }
+        }
+      }
+    },
+    "A darker echo of the Moonlit Forest, where old nightmares have grown teeth.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein dunkleres Echo des Mondlichtwaldes, in dem alte Albträume Zähne bekommen haben."
+          }
+        }
+      }
+    },
+    "Deep Crystal Caverns": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiefe Kristallhöhlen"
+          }
+        }
+      }
+    },
+    "The Crystal Caverns run deeper now, and the cold within has sharpened.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kristallhöhlen reichen jetzt tiefer, und die Kälte darin ist schärfer geworden."
+          }
+        }
+      }
+    },
+    "Starfall Reignited": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sternenfall Entfacht"
+          }
+        }
+      }
+    },
+    "The meteor fields of Starfall Peaks blaze again, brighter and far more dangerous.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Meteorfelder der Sternenfallgipfel lodern erneut, heller und weit gefährlicher."
+          }
+        }
+      }
+    },
+    "Dream Beyond Forgetting": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traum jenseits des Vergessens"
+          }
+        }
+      }
+    },
+    "The Forgotten Dream loops back on itself, its fog thicker than before.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Vergessene Traum schließt sich zu einer Schleife, sein Nebel dichter als zuvor."
+          }
+        }
+      }
+    },
+    "Emberheart Inferno": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glutherz-Inferno"
+          }
+        }
+      }
+    },
+    "The wastes burn hotter still, and the ash titans return renewed.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ödnis brennt noch heißer, und die Aschetitanen kehren erneuert zurück."
+          }
+        }
+      }
+    },
+    "The Abyss Unbound": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Ungebundene Abgrund"
+          }
+        }
+      }
+    },
+    "The Tidal Abyss opens wider, and its oldest depths stir once more.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Gezeitenabgrund öffnet sich weiter, und seine ältesten Tiefen rühren sich erneut."
+          }
+        }
+      }
+    },
+    "Bloom Everlasting": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ewige Blüte"
+          }
+        }
+      }
+    },
+    "Eternal Bloom grows without end, its roots stronger than any dreamer remembers.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ewige Blüte wächst ohne Ende, ihre Wurzeln stärker, als sich ein Träumer erinnert."
+          }
+        }
+      }
+    },
+    "Eclipse Undying": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unsterbliche Finsternis"
+          }
+        }
+      }
+    },
+    "The Realm of Eclipse falls dark again, and its court has grown far more fierce.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Reich der Finsternis verdunkelt sich erneut, und sein Hof ist weit erbitterter geworden."
+          }
+        }
+      }
+    },
+    "Celestial Requiem": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Himmlisches Requiem"
+          }
+        }
+      }
+    },
+    "The Celestial Dream sings once more, its cosmic guardians returned in greater strength.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Himmlische Traum erklingt erneut, seine kosmischen Wächter in größerer Stärke zurückgekehrt."
+          }
+        }
+      }
+    },
+    "Meadow's Final Dream": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Traum der Wiese"
+          }
+        }
+      }
+    },
+    "A third dreaming of the meadow, wilder and far harder to wake from.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein drittes Träumen der Wiese, wilder und weit schwerer zu erwachen."
+          }
+        }
+      }
+    },
+    "The Last Moonlit Forest": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Mondlichtwald"
+          }
+        }
+      }
+    },
+    "The forest dreams a final time, its shadows deeper than any before.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Wald träumt ein letztes Mal, seine Schatten tiefer als je zuvor."
+          }
+        }
+      }
+    },
+    "Caverns of Endless Crystal": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Höhlen des endlosen Kristalls"
+          }
+        }
+      }
+    },
+    "The caverns crystallize further still, hardening into something almost eternal.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Höhlen kristallisieren weiter, härten zu etwas beinahe Ewigem."
+          }
+        }
+      }
+    },
+    "Starfall's End": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sternenfalls Ende"
+          }
+        }
+      }
+    },
+    "The star temple's final fall, brighter and more violent than the sky can hold.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Fall des Sternentempels, heller und gewaltsamer, als der Himmel tragen kann."
+          }
+        }
+      }
+    },
+    "The Dream That Never Wakes": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Traum, der nie erwacht"
+          }
+        }
+      }
+    },
+    "The Forgotten Dream folds in on itself one last time, and nothing wakes from it easily.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Vergessene Traum faltet sich ein letztes Mal in sich selbst, und nichts erwacht leicht daraus."
+          }
+        }
+      }
+    },
+    "Emberheart's Last Fire": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glutherz' letztes Feuer"
+          }
+        }
+      }
+    },
+    "The wastes' final blaze, hot enough to reshape the ash fields entirely.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die letzte Feuersbrunst der Ödnis, heiß genug, um die Aschefelder völlig neu zu formen."
+          }
+        }
+      }
+    },
+    "The Abyss Eternal": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der ewige Abgrund"
+          }
+        }
+      }
+    },
+    "The trench has no bottom left to find, and what lives there has waited a long time.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Graben hat keinen Boden mehr zu finden, und was dort lebt, hat lange gewartet."
+          }
+        }
+      }
+    },
+    "The Bloom That Never Fades": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Blüte, die niemals welkt"
+          }
+        }
+      }
+    },
+    "Eternal Bloom reaches its final, endless growth.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ewige Blüte erreicht ihr letztes, endloses Wachstum."
+          }
+        }
+      }
+    },
+    "The Eclipse Absolute": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die absolute Finsternis"
+          }
+        }
+      }
+    },
+    "Darkness reaches its final form, and its ruler has never been stronger.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Dunkelheit erreicht ihre letzte Form, und ihre Herrscherin war nie stärker."
+          }
+        }
+      }
+    },
+    "The Final Dream": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Traum"
+          }
+        }
+      }
+    },
+    "The last dream the Dreamkeepers will ever need to wake from.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Traum, den die Dreamkeeper je erwachen müssen."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

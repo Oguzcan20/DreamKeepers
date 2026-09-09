@@ -1,0 +1,216 @@
+{
+  "identifier" : "DREAMKEEPERS0000LOCALTEST00",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "DK0001GEMSSMALL0000000001",
+      "localizations" : [
+        {
+          "description" : "A small top-up.",
+          "displayName" : "Handful of Gems",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.dreamhaven.dreamkeepers.gems_small",
+      "referenceName" : "Handful of Gems",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "DK0002GEMSMEDIUM000000002",
+      "localizations" : [
+        {
+          "description" : "Good value for regular summoning.",
+          "displayName" : "Pouch of Gems",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.dreamhaven.dreamkeepers.gems_medium",
+      "referenceName" : "Pouch of Gems",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "9.99",
+      "familyShareable" : false,
+      "internalID" : "DK0003GEMSLARGE0000000003",
+      "localizations" : [
+        {
+          "description" : "Best value per gem.",
+          "displayName" : "Chest of Gems",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.dreamhaven.dreamkeepers.gems_large",
+      "referenceName" : "Chest of Gems",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "19.99",
+      "familyShareable" : false,
+      "internalID" : "DK0004GEMSMEGA00000000004",
+      "localizations" : [
+        {
+          "description" : "For serious Dream Haven builders.",
+          "displayName" : "Vault of Gems",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.dreamhaven.dreamkeepers.gems_mega",
+      "referenceName" : "Vault of Gems",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "DK0005ARENASMALL000000005",
+      "localizations" : [
+        {
+          "description" : "5 extra Arena Tower attempts, on top of your free daily tickets.",
+          "displayName" : "Arena Ticket Pack",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.dreamhaven.dreamkeepers.arena_tickets_small",
+      "referenceName" : "Arena Ticket Pack",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "DK0006ARENALARGE000000006",
+      "localizations" : [
+        {
+          "description" : "15 extra Arena Tower attempts — better value for a serious climb.",
+          "displayName" : "Arena Ticket Bundle",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.dreamhaven.dreamkeepers.arena_tickets_large",
+      "referenceName" : "Arena Ticket Bundle",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "2.99",
+      "familyShareable" : false,
+      "internalID" : "DK0007STARTERPACK00000007",
+      "localizations" : [
+        {
+          "description" : "One-time bonus for new Dream Haven builders: gold and gems to get your roster going.",
+          "displayName" : "Dreamkeeper Starter Pack",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.dreamhaven.dreamkeepers.starter_pack",
+      "referenceName" : "Dreamkeeper Starter Pack",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "DK0008VIPPASS000000000008",
+      "localizations" : [
+        {
+          "description" : "Removes rewarded-ad prompts for good — a permanent, one-time thank-you for supporting Dream Haven.",
+          "displayName" : "VIP Pass",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.dreamhaven.dreamkeepers.vip_pass",
+      "referenceName" : "VIP Pass",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "99.99",
+      "familyShareable" : false,
+      "internalID" : "DK0009EXCLUSIVEIGO00000009",
+      "localizations" : [
+        {
+          "description" : "The tide's own guardian — permanently joins your roster at max level and max stars.",
+          "displayName" : "Igo",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.dreamhaven.dreamkeepers.exclusive_igo",
+      "referenceName" : "Igo",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "99.99",
+      "familyShareable" : false,
+      "internalID" : "DK0010EXCLUSIVEAMES0000010",
+      "localizations" : [
+        {
+          "description" : "Ember given human form — permanently joins your roster at max level and max stars.",
+          "displayName" : "Ames",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.dreamhaven.dreamkeepers.exclusive_ames",
+      "referenceName" : "Ames",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "0",
+    "_developerTeamID" : "48JBM965SN",
+    "_failTransactionsEnabled" : false,
+    "_lockedSubscriptionsEnabled" : true,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

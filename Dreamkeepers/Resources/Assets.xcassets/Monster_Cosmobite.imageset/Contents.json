@@ -1,0 +1,13 @@
+{
+  "images" : [
+    {
+      "filename" : "Monster_Cosmobite.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
