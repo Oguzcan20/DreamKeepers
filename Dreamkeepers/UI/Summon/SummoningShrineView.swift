@@ -308,7 +308,12 @@ struct SummoningShrineView: View {
             // phones that fixed layout would run out of vertical room and
             // clip at the edges, so scale the whole thing down uniformly to
             // fit whatever screen it lands on instead.
-            .adaptiveScale()
+            //
+            // `maxScale` is held below 1 so the layout also reads a touch
+            // more compact (with real margin to the screen edges) even on
+            // large phones where it would otherwise sit at full size and
+            // feel slightly oversized.
+            .adaptiveScale(maxScale: 0.85)
 
             // A quick full-bleed color wash timed to the chest bursting
             // open, on every pull. A plain solid fill animated by opacity —
