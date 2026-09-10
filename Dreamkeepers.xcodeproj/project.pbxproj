@@ -31,6 +31,7 @@
 		39F39289260DCAF80B10BD1C /* DreamkeeperCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3715B5111CE531A4B7BCA673 /* DreamkeeperCatalogTests.swift */; };
 		3AA4425AD452E9AF7E50E301 /* BestiaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A6792E6FCF26A6B9C60FA /* BestiaryTests.swift */; };
 		3EE49D3ED2E9A46E96195853 /* AchievementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBAAE14190760FCF47F33C /* AchievementSystem.swift */; };
+		446B5E95F23D431B2A4B51AE /* attack.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2E879C929206B1F521B5917E /* attack.wav */; };
 		45B683C4F25BD21554B3EE62 /* DreamkeepersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075CD6F25866B557999DC535 /* DreamkeepersApp.swift */; };
 		47714D47EE9CF0D539DFFDFC /* LoginRewardSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C8673EF18A4F3EF4D6484 /* LoginRewardSystem.swift */; };
 		4FDC0600CD684202183646E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F9BD482C11FBE52D5D180CD /* Assets.xcassets */; };
@@ -164,6 +165,7 @@
 		27F3A8E32CC8F37279A2D876 /* CloudSaveStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSaveStoreTests.swift; sourceTree = "<group>"; };
 		281F0FBA0FBF87AE37AAFBA2 /* EquipmentSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentSheet.swift; sourceTree = "<group>"; };
 		2B5B15BC87E5123DCB83FBDF /* BattleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleView.swift; sourceTree = "<group>"; };
+		2E879C929206B1F521B5917E /* attack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = attack.wav; sourceTree = "<group>"; };
 		313A6792E6FCF26A6B9C60FA /* BestiaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestiaryTests.swift; sourceTree = "<group>"; };
 		319A17C9A643B688D47CED45 /* BattlePassSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlePassSystem.swift; sourceTree = "<group>"; };
 		34F36DC39C535A1750B487A7 /* DailyMissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMissions.swift; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 		6ABC93082BB55255767ABAFA /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				2E879C929206B1F521B5917E /* attack.wav */,
 				79047CA3FC3DF534691B4614 /* boss_encounter.wav */,
 				D062087761E17AA805995291 /* boss_victory.wav */,
 				9D489A94D25CBB95FB5CD847 /* skill.wav */,
@@ -764,6 +767,7 @@
 			files = (
 				4FDC0600CD684202183646E8 /* Assets.xcassets in Resources */,
 				5C703DDF996B916906EE7557 /* Localizable.xcstrings in Resources */,
+				446B5E95F23D431B2A4B51AE /* attack.wav in Resources */,
 				DFCA5C37C9FC753AAA866576 /* boss_encounter.wav in Resources */,
 				B5DBB6CBAF832AD1C2AD777E /* boss_victory.wav in Resources */,
 				2011672C172929062B19085F /* skill.wav in Resources */,

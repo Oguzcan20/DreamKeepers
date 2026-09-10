@@ -83,11 +83,18 @@ struct BattleView: View {
                 withAnimation(.easeIn(duration: 0.2)) { ultimateShowcase = nil }
             }
         }
+        .onChange(of: engine.lastSkillUse) { _, newValue in
+            // Fires for both manual taps and Auto-Battle, same as the
+            // Ultimate sound above — a short, quiet cast blip.
+            guard newValue != nil else { return }
+            gameState.playSound(.skill)
+        }
         .onChange(of: engine.lastHit) { _, newValue in
             // A much smaller shake than the Ultimate's — just enough that
             // every basic attack lands with a bit of physical weight instead
             // of only the rare ultimates feeling impactful.
             guard let hit = newValue else { return }
+            gameState.playSound(.attack)
             withAnimation(.linear(duration: 0.15)) { shakeAmount += 0.18 }
 
             if let startFrame = combatantFrames[hit.attackerID], let endFrame = combatantFrames[hit.targetID] {

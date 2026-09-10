@@ -125,6 +125,7 @@ private extension SoundEffect {
         case .levelUp: return 1025     // Anticipate — bright ascending chime
         case .loot: return 1057        // Tink — light positive blip
         case .summon: return 1016      // Received-message swoosh
+        case .attack: return 1104      // Tock — dry, unobtrusive hit
         case .skill: return 1103       // Tock (variant) — quick blip
         case .ultimate: return 1013    // Fuller chime for a bigger moment
         case .bossEncounter: return 1073 // Lower, more ominous tone
@@ -164,16 +165,18 @@ final class BattleSoundBank: @unchecked Sendable {
         .bossVictory: "boss_victory",
         .ultimate: "ultimate",
         .skill: "skill",
+        .attack: "attack",
     ]
 
-    /// Per-cue mix levels — the fanfare is a touch hotter than the rest so
-    /// it's pulled back; `skill` fires often so it sits well under the hits.
+    /// Per-cue mix levels — the boss cues carry the drama; `attack` and
+    /// `skill` fire constantly so they sit well under everything else.
     private static func volume(for effect: SoundEffect) -> Float {
         switch effect {
         case .bossEncounter: return 1.0
         case .bossVictory: return 0.85
         case .ultimate: return 0.9
-        case .skill: return 0.55
+        case .skill: return 0.5
+        case .attack: return 0.32
         default: return 0.8
         }
     }

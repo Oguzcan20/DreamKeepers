@@ -5,11 +5,16 @@ Renders short cinematic battle cues as 16-bit mono 44.1 kHz WAV files.
 Replaces the jarring iOS system-sound placeholders -- the boss "encounter"
 beep in particular sounded like an ambulance siren.
 
+Design intent (per user): the epic cues must be SHORT stings, not
+cinematic build-ups -- a quick hit of drama, then out of the way. Basic
+attacks and skills fire constantly, so their cues are tiny and quiet.
+
 Cues produced:
-    boss_encounter.wav  ~3.8s  dark D-minor impact + brass crescendo + riser
-    boss_victory.wav    ~2.6s  triumphant D-major brass fanfare + timpani
-    ultimate.wav        ~1.4s  heavy layered impact + power-down sweep
-    skill.wav           ~0.4s  quick whoosh + blip (plays often -> kept subtle)
+    boss_encounter.wav  ~1.5s  dark D-minor stab: crash + sub drop + brass
+    boss_victory.wav    ~1.6s  D-major fanfare chord + timpani pickup + sparkle
+    ultimate.wav        ~1.0s  heavy layered impact + power-down sweep
+    skill.wav           ~0.33s quick whoosh + blip (fires often -> subtle)
+    attack.wav          ~0.12s dry percussive thwack (every basic hit -> quiet)
 
 Requires numpy. Usage:
     ./synth_battle_audio.py [output_dir]
@@ -197,110 +202,100 @@ D4, Fs4, A4, D5 = 293.66, 369.99, 440.00, 587.33
 # ---------------------------------------------------------------- compositions
 
 def boss_encounter():
-    d = zeros(3.8)
+    """Short dark sting: one big D-minor hit, a quick drone, done (~1.5s)."""
+    d = zeros(1.5)
 
-    # downbeat: crash + sub drop + low boom
-    add(d, 0.0, cymbal(1.9, 0.9, 2600), 0.42)
-    sub = expenv(sine(96.0, 1.5, glide_to=D1) + sine(D1, 1.5), 0.55)
-    add(d, 0.0, sub, 0.55)
-    add(d, 0.0, expenv(lowpass(noise(0.45), 150), 0.32), 0.5)
+    # downbeat: crash + sub drop + boom, all fast-decaying
+    add(d, 0.0, cymbal(1.2, 0.45, 2600), 0.4)
+    add(d, 0.0, expenv(sine(96.0, 1.1, glide_to=D1) + sine(D1, 1.1), 0.38), 0.6)
+    add(d, 0.0, expenv(lowpass(noise(0.4), 150), 0.26), 0.5)
 
-    # timpani triplet into the bar
-    for t in (0.00, 0.30, 0.60):
-        add(d, t, timpani(D2, 0.55), 0.5)
+    # brass stab (D minor) + accent timpani -- the drama, kept to one hit
+    add(d, 0.0, ar(brass_chord([D2, A2, D3, F3, A3], 0.75), 0.006, 0.35), 0.55)
+    add(d, 0.0, timpani(A1, 0.7), 0.7)
+    add(d, 0.15, timpani(D2, 0.45), 0.38)
 
-    # brass stab, then the long crescendo swell
-    add(d, 0.0, ar(brass_chord([D2, A2, D3, F3, A3], 0.55), 0.012, 0.15), 0.5)
-
-    swell = brass_chord([D2, A2, D3, F3, A3], 1.65, detune=0.01)
-    n = len(swell)
-    swell *= (np.arange(n) / n) ** 1.6
-    swell *= 1.0 + 0.06 * np.sin(2 * np.pi * 5.2 * tvec(n / SR)[:n])
-    add(d, 0.55, swell, 0.62)
-
-    # riser: swept-noise + sine glissando
-    add(d, 0.55, riseenv(lowpass_swept(noise(1.7), 500, 6500), 2.2), 0.3)
-    add(d, 0.55, riseenv(sine(D3, 1.7, glide_to=D4 * 2), 2.5), 0.12)
-
-    # the hit at 2.20: accent crash + low sforzando chord + big timpani
-    add(d, 2.20, cymbal(1.6, 1.5, 4200), 0.4)
-    add(d, 2.20, timpani(A1, 0.9), 0.8)
-    low = brass_chord([A1, D2, A2, D3], 1.6, detune=0.012, cutoff=1800)
-    low *= 1.0 + 0.14 * np.sin(2 * np.pi * 3.0 * tvec(len(low) / SR)[: len(low)])
-    add(d, 2.20, ar(low, 0.015, 0.5), 0.5)
-
-    # ominous tail drone
-    drone = sine(D2, 1.5) + sine(A2, 1.5)
+    # brief ominous tail drone, then silence
+    drone = sine(D2, 0.95) + sine(A2, 0.95)
     drone *= 1.0 + 0.16 * np.sin(2 * np.pi * 3.2 * tvec(len(drone) / SR)[: len(drone)])
-    add(d, 2.30, ar(drone, 0.12, 0.9), 0.26)
+    add(d, 0.4, ar(drone, 0.04, 0.6), 0.24)
 
-    return finalize(reverb(d, 0.22))
+    return finalize(reverb(d, 0.18))
 
 
 def boss_victory():
-    d = zeros(2.6)
+    """Short triumphant sting: fanfare chord up front, quick sparkle (~1.6s)."""
+    d = zeros(1.6)
 
-    # accelerating timpani roll into the fanfare
-    t, gap = 0.0, 0.13
-    for _ in range(10):
-        add(d, t, timpani(D2, 0.4), 0.4)
+    # tight timpani pickup (5 hits, accelerating) under the downbeat
+    t, gap = 0.0, 0.10
+    for _ in range(5):
+        add(d, t, timpani(D2, 0.32), 0.4)
         t += gap
-        gap *= 0.8
+        gap *= 0.82
 
-    # dotted brass fanfare: D - D - (E) - big Dmaj
-    add(d, 0.00, ar(brass_chord([D3, Fs3, A3], 0.34), 0.01, 0.08), 0.5)
-    add(d, 0.28, ar(brass_chord([D3, Fs3, A3], 0.26), 0.01, 0.06), 0.48)
-    add(d, 0.50, ar(brass_chord([E3, G3, Bb3], 0.20), 0.01, 0.05), 0.4)
-
-    big = brass_chord([D3, Fs3, A3, D4], 1.7, detune=0.011)
+    # D-major fanfare chord immediately -- no dotted lead-in
+    big = brass_chord([D3, Fs3, A3, D4], 1.2, detune=0.011)
     nb = len(big)
     big *= 1.0 + 0.05 * np.sin(2 * np.pi * 5.6 * tvec(nb / SR)[:nb])
-    big *= np.minimum(1.0, 0.55 + 0.9 * (np.arange(nb) / nb) ** 0.5)
-    add(d, 0.78, ar(big, 0.014, 0.55), 0.6)
+    add(d, 0.0, ar(big, 0.01, 0.5), 0.6)
 
-    # crash + sub punch under the big chord
-    add(d, 0.78, cymbal(1.5, 1.3, 2800), 0.4)
-    add(d, 0.78, expenv(sine(A2, 1.6, glide_to=D2), 1.1), 0.55)
+    # crash + sub punch under the chord
+    add(d, 0.0, cymbal(1.2, 0.85, 2800), 0.4)
+    add(d, 0.0, expenv(sine(A2, 1.2, glide_to=D2), 0.75), 0.5)
 
     # sparkle bell arpeggio on top
-    for k, bf in enumerate((D4 * 2, Fs4 * 2, A4 * 2, D4 * 4)):
-        add(d, 0.95 + 0.10 * k, expenv(sine(bf, 0.6), 0.32), 0.07)
+    for k, bf in enumerate((D4 * 2, Fs4 * 2, A4 * 2, D5 * 2)):
+        add(d, 0.10 + 0.08 * k, expenv(sine(bf, 0.45), 0.26), 0.07)
 
-    # sustained major tail
-    tail = sine(D2, 1.3) + sine(A2, 1.3) + sine(D3, 1.3) + sine(Fs3, 1.3) + sine(A3, 1.3)
-    add(d, 1.30, ar(tail, 0.1, 0.8), 0.22)
+    # short sustained major tail
+    tail = sine(D2, 0.85) + sine(A2, 0.85) + sine(Fs3, 0.85) + sine(A3, 0.85)
+    add(d, 0.7, ar(tail, 0.05, 0.55), 0.2)
 
-    return finalize(reverb(d, 0.25))
+    return finalize(reverb(d, 0.2))
 
 
 def ultimate():
-    d = zeros(1.4)
+    d = zeros(1.0)
 
-    add(d, 0.00, riseenv(highpass(noise(0.12), 1400), 2.0), 0.24)
+    add(d, 0.00, riseenv(highpass(noise(0.10), 1400), 2.0), 0.22)
 
-    add(d, 0.10, expenv(sine(120.0, 1.1, glide_to=33.0), 0.42), 0.9)
-    add(d, 0.10, expenv(lowpass(noise(0.3), 170), 0.26), 0.5)
+    add(d, 0.08, expenv(sine(120.0, 0.8, glide_to=33.0), 0.32), 0.9)
+    add(d, 0.08, expenv(lowpass(noise(0.24), 170), 0.2), 0.5)
 
-    rm = sine(1210.0, 0.3) * sine(1210.0 * 1.4703, 0.3) + 0.6 * sine(2417.0, 0.3)
-    add(d, 0.10, expenv(rm, 0.2), 0.22)
+    rm = sine(1210.0, 0.25) * sine(1210.0 * 1.4703, 0.25) + 0.6 * sine(2417.0, 0.25)
+    add(d, 0.08, expenv(rm, 0.16), 0.2)
 
-    pd = saw(430.0, 0.55, glide_to=68.0) + saw(430.0 * 1.006, 0.55, glide_to=68.0)
+    pd = saw(430.0, 0.42, glide_to=68.0) + saw(430.0 * 1.006, 0.42, glide_to=68.0)
     pd = np.tanh(1.6 * lowpass(pd, 3000))
-    add(d, 0.10, expenv(pd, 0.4), 0.3)
+    add(d, 0.08, expenv(pd, 0.3), 0.28)
 
     for sf in (1976.0, 2637.0, 3136.0):
-        add(d, 0.12, expenv(sine(sf, 0.9), 0.6), 0.045)
+        add(d, 0.10, expenv(sine(sf, 0.7), 0.45), 0.04)
 
-    return finalize(reverb(d, 0.15), peak=0.92)
+    return finalize(reverb(d, 0.12), peak=0.92)
 
 
 def skill():
-    d = zeros(0.42)
-    add(d, 0.0, ar(lowpass_swept(noise(0.28), 4200, 700), 0.008, 0.14), 0.28)
-    add(d, 0.02, expenv(sine(523.0, 0.2, glide_to=784.0), 0.06), 0.16)
-    click = highpass(noise(0.012), 2200)
-    add(d, 0.0, click, 0.13)
-    return finalize(d, peak=0.8, drive=1.0)
+    d = zeros(0.34)
+    add(d, 0.0, ar(lowpass_swept(noise(0.24), 4200, 700), 0.006, 0.11), 0.26)
+    add(d, 0.02, expenv(sine(523.0, 0.18, glide_to=784.0), 0.05), 0.15)
+    click = highpass(noise(0.010), 2200)
+    add(d, 0.0, click, 0.12)
+    return finalize(d, peak=0.72, drive=1.0)
+
+
+def attack():
+    """Dry percussive thwack for every basic hit -- tiny and quiet so a
+    fast auto-battle doesn't turn into a machine gun."""
+    d = zeros(0.12)
+    # low thump body
+    add(d, 0.0, expenv(sine(180.0, 0.10, glide_to=90.0), 0.028), 0.6)
+    # midrange smack
+    add(d, 0.0, expenv(lowpass(noise(0.08), 2600), 0.016), 0.5)
+    # tiny transient click
+    add(d, 0.0, highpass(noise(0.004), 3500), 0.22)
+    return finalize(d, peak=0.55, drive=1.0)
 
 
 CUES = {
@@ -308,6 +303,7 @@ CUES = {
     "boss_victory": boss_victory,
     "ultimate": ultimate,
     "skill": skill,
+    "attack": attack,
 }
 
 

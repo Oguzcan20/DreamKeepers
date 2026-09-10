@@ -5,15 +5,17 @@ enum HapticStyle {
 }
 
 /// UI/gameplay sound cues (spec: Button Click, Level Up, Loot, Summon, Skill,
-/// Ultimate, Boss, Reward). The cinematic battle cues (`bossEncounter`,
-/// `bossVictory`, `ultimate`, `skill`) are backed by real composed audio
-/// files bundled in `Resources/Audio/` (see `synth_battle_audio.py` — a
-/// procedural cinematic synth, no third-party samples); everything else
-/// still renders via built-in iOS system sound IDs. A missing/undecodable
-/// audio file transparently falls back to the system-sound path, so call
-/// sites never need to care which backend played.
+/// Ultimate, Boss, Reward). The battle cues (`attack`, `skill`, `ultimate`,
+/// `bossEncounter`, `bossVictory`) are backed by real composed audio files
+/// bundled in `Resources/Audio/` (see `synth_battle_audio.py` — a procedural
+/// synth, no third-party samples): `attack`/`skill` are deliberately tiny
+/// and quiet (they fire on every hit / skill tap), the boss cues are short
+/// dramatic stings. Everything else still renders via built-in iOS system
+/// sound IDs. A missing/undecodable audio file transparently falls back to
+/// the system-sound path, so call sites never need to care which backend
+/// played.
 enum SoundEffect {
-    case buttonTap, levelUp, loot, summon, skill, ultimate, bossEncounter, bossVictory, reward
+    case buttonTap, levelUp, loot, summon, attack, skill, ultimate, bossEncounter, bossVictory, reward
 }
 
 extension HapticStyle {
