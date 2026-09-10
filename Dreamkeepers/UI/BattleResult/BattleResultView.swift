@@ -12,6 +12,7 @@ struct BattleResultView: View {
     @State private var appeared = false
     @State private var goldCount = 0
     @State private var expCount = 0
+    @State private var gemsCount = 0
 
     /// Staggers each reward card's entrance by 90ms per slot so the whole
     /// screen reads as loot dropping in one piece after another, not
@@ -27,6 +28,11 @@ struct BattleResultView: View {
                     VStack(spacing: 12) {
                         if summary.isPerfectClear {
                             perfectClearBanner
+                                .modifier(entrance(0))
+                        }
+
+                        if let worldNumber = summary.completedWorldNumber {
+                            worldCompletedBanner(worldNumber)
                                 .modifier(entrance(0))
                         }
 
@@ -96,6 +102,7 @@ struct BattleResultView: View {
                 withAnimation(.easeOut(duration: 0.9).delay(0.2)) {
                     goldCount = summary.goldGained
                     expCount = summary.expGained
+                    gemsCount = summary.gemsGained
                 }
             }
         }
@@ -162,9 +169,44 @@ struct BattleResultView: View {
             HStack(spacing: 24) {
                 RewardTile(systemImage: "circle.hexagongrid.fill", value: "+\(goldCount)", tint: Theme.gold)
                 RewardTile(systemImage: "star.fill", value: "+\(expCount) EXP", tint: Theme.softBlue)
+                if summary.gemsGained > 0 {
+                    RewardTile(systemImage: "sparkles", value: "+\(gemsCount)", tint: Theme.violet)
+                }
             }
             .frame(maxWidth: .infinity)
         }
+    }
+
+    /// Called out the same way `perfectClearBanner` is — a whole World just
+    /// got cleared for the first time, which is rarer and more significant
+    /// than a single stage win, so it gets its own banner above the reward
+    /// tiles rather than blending into the gem count alone.
+    private func worldCompletedBanner(_ worldNumber: Int) -> some View {
+        GlassCard {
+            HStack(spacing: 14) {
+                ZStack {
+                    Circle().fill(Theme.violet.opacity(0.35)).frame(width: 48, height: 48)
+                        .shadow(color: Theme.violet.opacity(0.7), radius: 12)
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(Theme.violet)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("World \(worldNumber) Completed!")
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(Theme.violet)
+                    Text("+\(summary.gemsGained) Dream Gems")
+                        .font(.caption)
+                        .foregroundStyle(.white.opacity(0.65))
+                }
+                Spacer()
+            }
+        }
+        .overlay(
+            RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
+                .stroke(Theme.violet.opacity(0.6), lineWidth: 1.5)
+        )
+        .shadow(color: Theme.violet.opacity(0.3), radius: 14, y: 4)
     }
 
     private var levelUpsCard: some View {

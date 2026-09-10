@@ -87,6 +87,7 @@
 		B78BC0E7A0933EFD2A95072A /* EquipmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1634FA9347FD76FA6BC583CD /* EquipmentFactory.swift */; };
 		B97AA46AA8EB05C74920FBE6 /* OfflineRewardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AAAECE7E7F822276810983 /* OfflineRewardsTests.swift */; };
 		BB521E86D7E576AB434A26AC /* AccountLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560474C4F5B014C305416FC /* AccountLevelTests.swift */; };
+		7B06EA7BDDF046BDFBFFD787 /* WorldClearRewardSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0210F6B9F04811AA18A927 /* WorldClearRewardSystemTests.swift */; };
 		BC1695A0403F53A97DAD3412 /* StarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F984AB60A044C4F945C4FDF /* StarRow.swift */; };
 		BDEDE1E775E28C0244C71FC0 /* EquipmentSummonSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0D94A0EA1ED53D55788070 /* EquipmentSummonSystem.swift */; };
 		C00CA3D6F7D1B308D69017A9 /* BattlePassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75412423D1050BFCC23711E /* BattlePassTests.swift */; };
@@ -155,6 +156,7 @@
 		1F4BB271FFB1EAB3E09E2BCB /* AdRewardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdRewardService.swift; sourceTree = "<group>"; };
 		1FD17F1F96EAA02ABD5208F7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		2560474C4F5B014C305416FC /* AccountLevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLevelTests.swift; sourceTree = "<group>"; };
+		2E0210F6B9F04811AA18A927 /* WorldClearRewardSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldClearRewardSystemTests.swift; sourceTree = "<group>"; };
 		27F3A8E32CC8F37279A2D876 /* CloudSaveStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSaveStoreTests.swift; sourceTree = "<group>"; };
 		281F0FBA0FBF87AE37AAFBA2 /* EquipmentSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentSheet.swift; sourceTree = "<group>"; };
 		2B5B15BC87E5123DCB83FBDF /* BattleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleView.swift; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 				F2473E85D4A0973419FE597E /* SummonSystemTests.swift */,
 				3E66FFD1E55B0B8672A903C8 /* TeamSystemTests.swift */,
 				9A64E7C464955704F25500A1 /* TwinBondTests.swift */,
+				2E0210F6B9F04811AA18A927 /* WorldClearRewardSystemTests.swift */,
 			);
 			path = DreamkeepersTests;
 			sourceTree = "<group>";
@@ -770,6 +773,7 @@
 				9DDDDD50E8FBE56692935709 /* SummonSystemTests.swift in Sources */,
 				674F8C576E647E9EECAEB2EE /* TeamSystemTests.swift in Sources */,
 				9F5321FC85115E45E466A57A /* TwinBondTests.swift in Sources */,
+				7B06EA7BDDF046BDFBFFD787 /* WorldClearRewardSystemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

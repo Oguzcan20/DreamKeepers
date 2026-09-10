@@ -48,6 +48,10 @@ struct BattleResultSummary: Equatable {
     var wasBoss: Bool
     var goldGained: Int
     var expGained: Int
+    /// Dream Gems from `WorldClearRewardSystem` — non-zero only the instant
+    /// a World's boss is cleared for the first time (see
+    /// `completedWorldNumber`); 0 on every other stage clear, boss or not.
+    var gemsGained: Int = 0
     var levelUps: [LevelUpSummary]
     var newRecruit: DreamkeeperDefinition?
     var droppedEquipment: EquipmentItem?
@@ -57,6 +61,10 @@ struct BattleResultSummary: Equatable {
     /// win indistinguishable from a scraped-through one.
     var isPerfectClear: Bool = false
     var perfectClearBonusGold: Int = 0
+    /// Non-nil exactly when `gemsGained` was just paid out — the World
+    /// number that was completed, so the result screen can call it out by
+    /// name ("World 5 completed!") rather than just showing a gem count.
+    var completedWorldNumber: Int?
 }
 
 /// App-wide root state: the single source of truth the UI reads and mutates.
@@ -560,6 +568,8 @@ final class GameState {
         var levelUps: [LevelUpSummary] = []
         var goldGained = 0
         var expGained = 0
+        var gemsGained = 0
+        var completedWorldNumber: Int?
         var newRecruit: DreamkeeperDefinition?
         var droppedEquipment: EquipmentItem?
         var accountLevelUp: AccountLevelUp?
@@ -637,6 +647,15 @@ final class GameState {
 
                 if isBoss {
                     newRecruit = grantNextRecruitIfAvailable()
+
+                    // A whole World's worth of stages just got cleared for
+                    // the first time — pay out the Dream Gems bonus on top
+                    // of the recruit. Every 5th completed World pays the
+                    // bigger milestone amount instead of the standard one.
+                    let worldNumber = WorldCatalog.world(forStage: stage).id
+                    gemsGained = WorldClearRewardSystem.gems(forCompletedWorld: worldNumber)
+                    save.dreamGems += gemsGained
+                    completedWorldNumber = worldNumber
                 }
             }
         }
@@ -645,10 +664,11 @@ final class GameState {
         checkAchievements(context: AchievementContext(isPerfectClear: isPerfectClear))
         return BattleResultSummary(
             outcome: outcome, stage: stage, wasBoss: isBoss,
-            goldGained: goldGained, expGained: expGained,
+            goldGained: goldGained, expGained: expGained, gemsGained: gemsGained,
             levelUps: levelUps, newRecruit: newRecruit, droppedEquipment: droppedEquipment,
             accountLevelUp: accountLevelUp,
-            isPerfectClear: isPerfectClear, perfectClearBonusGold: perfectClearBonusGold
+            isPerfectClear: isPerfectClear, perfectClearBonusGold: perfectClearBonusGold,
+            completedWorldNumber: completedWorldNumber
         )
     }
 

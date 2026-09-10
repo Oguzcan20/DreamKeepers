@@ -191,6 +191,16 @@
         }
       }
     },
+    "+%lld Dream Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld Traum-Edelsteine"
+          }
+        }
+      }
+    },
     "+%lld EXP": {
       "localizations": {
         "de": {
@@ -427,6 +437,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ein dunkler Wald, nur erhellt von leuchtender, träumender Flora."
+          }
+        }
+      }
+    },
+    "A darker echo of the Moonlit Forest, where old nightmares have grown teeth.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein dunkleres Echo des Mondlichtwaldes, in dem alte Albträume Zähne bekommen haben."
           }
         }
       }
@@ -971,6 +991,16 @@
         }
       }
     },
+    "A third dreaming of the meadow, wilder and far harder to wake from.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein drittes Träumen der Wiese, wilder und weit schwerer zu erwachen."
+          }
+        }
+      }
+    },
     "A tiny fire-spirit born from a stray cinder off Ignivar's own flame.": {
       "localizations": {
         "de": {
@@ -1391,6 +1421,16 @@
         }
       }
     },
+    "Bloom Everlasting": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ewige Blüte"
+          }
+        }
+      }
+    },
     "Blooms once at dawn and stands watch over the meadow until dusk.": {
       "localizations": {
         "de": {
@@ -1561,12 +1601,32 @@
         }
       }
     },
+    "Caverns of Endless Crystal": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Höhlen des endlosen Kristalls"
+          }
+        }
+      }
+    },
     "Celestial Dream": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Himmlischer Traum"
+          }
+        }
+      }
+    },
+    "Celestial Requiem": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Himmlisches Requiem"
           }
         }
       }
@@ -2091,6 +2151,16 @@
         }
       }
     },
+    "Darkness reaches its final form, and its ruler has never been stronger.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Dunkelheit erreicht ihre letzte Form, und ihre Herrscherin war nie stärker."
+          }
+        }
+      }
+    },
     "Day %lld": {
       "localizations": {
         "de": {
@@ -2117,6 +2187,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Treuer Träumer"
+          }
+        }
+      }
+    },
+    "Deep Crystal Caverns": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiefe Kristallhöhlen"
           }
         }
       }
@@ -2281,6 +2361,16 @@
         }
       }
     },
+    "Dream Beyond Forgetting": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traum jenseits des Vergessens"
+          }
+        }
+      }
+    },
     "Dream Gems": {
       "localizations": {
         "de": {
@@ -2391,6 +2481,26 @@
         }
       }
     },
+    "Echoing Meadow": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widerhallende Wiese"
+          }
+        }
+      }
+    },
+    "Eclipse Undying": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unsterbliche Finsternis"
+          }
+        }
+      }
+    },
     "Element Matchups": {
       "localizations": {
         "de": {
@@ -2411,12 +2521,32 @@
         }
       }
     },
+    "Emberheart Inferno": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glutherz-Inferno"
+          }
+        }
+      }
+    },
     "Emberheart Wastes": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Glutherz-Ödland"
+          }
+        }
+      }
+    },
+    "Emberheart's Last Fire": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glutherz' letztes Feuer"
           }
         }
       }
@@ -2467,6 +2597,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ewige Blüte"
+          }
+        }
+      }
+    },
+    "Eternal Bloom grows without end, its roots stronger than any dreamer remembers.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ewige Blüte wächst ohne Ende, ihre Wurzeln stärker, als sich ein Träumer erinnert."
+          }
+        }
+      }
+    },
+    "Eternal Bloom reaches its final, endless growth.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ewige Blüte erreicht ihr letztes, endloses Wachstum."
+          }
+        }
+      }
+    },
+    "Every Dreamkeeper bonds with a dreamwalker sooner or later — but Olf came to you unclaimed, before Dream Haven even opened its gates. The element you choose now will shape him for as long as he walks beside you.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jeder Traumhüter verbindet sich früher oder später mit einem Traumwandler — doch Olf kam zu dir, unverbunden, noch bevor sich die Tore von Dream Haven überhaupt öffneten. Das Element, das du jetzt wählst, wird ihn prägen, solange er an deiner Seite geht."
           }
         }
       }
@@ -3581,6 +3741,16 @@
         }
       }
     },
+    "Meadow's Final Dream": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Traum der Wiese"
+          }
+        }
+      }
+    },
     "Milestone Reward!": {
       "localizations": {
         "de": {
@@ -3871,6 +4041,16 @@
         }
       }
     },
+    "Not enough Gems for 10x.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht genug Edelsteine für 10x."
+          }
+        }
+      }
+    },
     "Not signed in": {
       "localizations": {
         "de": {
@@ -3907,6 +4087,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Älter als der Abgrund selbst, so erzählt es zumindest der Korallenwald."
+          }
+        }
+      }
+    },
+    "Olf Has Chosen You": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Olf Hat Dich Gewählt"
           }
         }
       }
@@ -3977,6 +4167,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Besitz ×%lld"
+          }
+        }
+      }
+    },
+    "PICK HIS ELEMENT": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WÄHLE SEIN ELEMENT"
           }
         }
       }
@@ -4671,6 +4871,16 @@
         }
       }
     },
+    "Shadowed Forest": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verschatteter Wald"
+          }
+        }
+      }
+    },
     "Sheds a fine, healing dust over the team.": {
       "localizations": {
         "de": {
@@ -5061,6 +5271,26 @@
         }
       }
     },
+    "Starfall Reignited": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sternenfall Entfacht"
+          }
+        }
+      }
+    },
+    "Starfall's End": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sternenfalls Ende"
+          }
+        }
+      }
+    },
     "Stars": {
       "localizations": {
         "de": {
@@ -5251,6 +5481,16 @@
         }
       }
     },
+    "THE FIRST BOND": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DIE ERSTE BINDUNG"
+          }
+        }
+      }
+    },
     "TIP: ": {
       "localizations": {
         "de": {
@@ -5341,12 +5581,62 @@
         }
       }
     },
-    "Twin Bond": {
+    "The Abyss Eternal": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zwillingsbund"
+            "value": "Der ewige Abgrund"
+          }
+        }
+      }
+    },
+    "The Abyss Unbound": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Ungebundene Abgrund"
+          }
+        }
+      }
+    },
+    "The Bloom That Never Fades": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Blüte, die niemals welkt"
+          }
+        }
+      }
+    },
+    "The Celestial Dream sings once more, its cosmic guardians returned in greater strength.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Himmlische Traum erklingt erneut, seine kosmischen Wächter in größerer Stärke zurückgekehrt."
+          }
+        }
+      }
+    },
+    "The Crystal Caverns run deeper now, and the cold within has sharpened.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kristallhöhlen reichen jetzt tiefer, und die Kälte darin ist schärfer geworden."
+          }
+        }
+      }
+    },
+    "The Dream That Never Wakes": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Traum, der nie erwacht"
           }
         }
       }
@@ -5361,12 +5651,82 @@
         }
       }
     },
+    "The Eclipse Absolute": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die absolute Finsternis"
+          }
+        }
+      }
+    },
+    "The Final Dream": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Traum"
+          }
+        }
+      }
+    },
     "The Forgotten Dream": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Der vergessene Traum"
+          }
+        }
+      }
+    },
+    "The Forgotten Dream folds in on itself one last time, and nothing wakes from it easily.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Vergessene Traum faltet sich ein letztes Mal in sich selbst, und nichts erwacht leicht daraus."
+          }
+        }
+      }
+    },
+    "The Forgotten Dream loops back on itself, its fog thicker than before.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Vergessene Traum schließt sich zu einer Schleife, sein Nebel dichter als zuvor."
+          }
+        }
+      }
+    },
+    "The Last Moonlit Forest": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Mondlichtwald"
+          }
+        }
+      }
+    },
+    "The Realm of Eclipse falls dark again, and its court has grown far more fierce.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Reich der Finsternis verdunkelt sich erneut, und sein Hof ist weit erbitterter geworden."
+          }
+        }
+      }
+    },
+    "The Tidal Abyss opens wider, and its oldest depths stir once more.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Gezeitenabgrund öffnet sich weiter, und seine ältesten Tiefen rühren sich erneut."
           }
         }
       }
@@ -5411,12 +5771,42 @@
         }
       }
     },
+    "The Whispering Meadow dreams itself again — the same creatures returned, grown feral and strong.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Flüsternde Wiese träumt sich erneut — dieselben Kreaturen sind zurückgekehrt, wild und stark geworden."
+          }
+        }
+      }
+    },
+    "The caverns crystallize further still, hardening into something almost eternal.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Höhlen kristallisieren weiter, härten zu etwas beinahe Ewigem."
+          }
+        }
+      }
+    },
     "The deepest-dwelling of Thalassor's countless subjects.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Der am tiefsten lebende unter Thalassors zahllosen Untertanen."
+          }
+        }
+      }
+    },
+    "The forest dreams a final time, its shadows deeper than any before.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Wald träumt ein letztes Mal, seine Schatten tiefer als je zuvor."
           }
         }
       }
@@ -5441,12 +5831,42 @@
         }
       }
     },
+    "The last dream the Dreamkeepers will ever need to wake from.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Traum, den die Dreamkeeper je erwachen müssen."
+          }
+        }
+      }
+    },
+    "The meteor fields of Starfall Peaks blaze again, brighter and far more dangerous.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Meteorfelder der Sternenfallgipfel lodern erneut, heller und weit gefährlicher."
+          }
+        }
+      }
+    },
     "The ocean itself seems to defer to her.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Selbst der Ozean scheint sich ihr zu beugen."
+          }
+        }
+      }
+    },
+    "The star temple's final fall, brighter and more violent than the sky can hold.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Fall des Sternentempels, heller und gewaltsamer, als der Himmel tragen kann."
           }
         }
       }
@@ -5461,12 +5881,52 @@
         }
       }
     },
+    "The trench has no bottom left to find, and what lives there has waited a long time.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Graben hat keinen Boden mehr zu finden, und was dort lebt, hat lange gewartet."
+          }
+        }
+      }
+    },
+    "The wastes burn hotter still, and the ash titans return renewed.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ödnis brennt noch heißer, und die Aschetitanen kehren erneuert zurück."
+          }
+        }
+      }
+    },
+    "The wastes' final blaze, hot enough to reshape the ash fields entirely.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die letzte Feuersbrunst der Ödnis, heiß genug, um die Aschefelder völlig neu zu formen."
+          }
+        }
+      }
+    },
     "This can't be undone. Equipped gear is unequipped, not sold.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Das kann nicht rückgängig gemacht werden. Ausgerüstete Gegenstände werden abgelegt, nicht verkauft."
+          }
+        }
+      }
+    },
+    "This choice is permanent.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Wahl ist endgültig."
           }
         }
       }
@@ -5577,6 +6037,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trainingsgarten"
+          }
+        }
+      }
+    },
+    "Twin Bond": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwillingsbund"
           }
         }
       }
@@ -5931,6 +6401,16 @@
         }
       }
     },
+    "World %lld Completed!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Welt %lld abgeschlossen!"
+          }
+        }
+      }
+    },
     "Worn by %@": {
       "localizations": {
         "de": {
@@ -6061,412 +6541,52 @@
         }
       }
     },
-    "Not enough Gems for 10x.": {
+    "BOND SEALED": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nicht genug Edelsteine für 10x."
+            "value": "BUND BESIEGELT"
           }
         }
       }
     },
-    "Echoing Meadow": {
+    "SECRET UNLOCKED": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Widerhallende Wiese"
+            "value": "GEHEIMNIS FREIGESCHALTET"
           }
         }
       }
     },
-    "The Whispering Meadow dreams itself again — the same creatures returned, grown feral and strong.": {
+    "Olf Has Joined You!": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die Flüsternde Wiese träumt sich erneut — dieselben Kreaturen sind zurückgekehrt, wild und stark geworden."
+            "value": "Olf schließt sich dir an!"
           }
         }
       }
     },
-    "Shadowed Forest": {
+    "A Different Kind of Olf...": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Verschatteter Wald"
+            "value": "Ein anderer Olf..."
           }
         }
       }
     },
-    "A darker echo of the Moonlit Forest, where old nightmares have grown teeth.": {
+    "Tap anywhere to continue": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ein dunkleres Echo des Mondlichtwaldes, in dem alte Albträume Zähne bekommen haben."
-          }
-        }
-      }
-    },
-    "Deep Crystal Caverns": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tiefe Kristallhöhlen"
-          }
-        }
-      }
-    },
-    "The Crystal Caverns run deeper now, and the cold within has sharpened.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Kristallhöhlen reichen jetzt tiefer, und die Kälte darin ist schärfer geworden."
-          }
-        }
-      }
-    },
-    "Starfall Reignited": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sternenfall Entfacht"
-          }
-        }
-      }
-    },
-    "The meteor fields of Starfall Peaks blaze again, brighter and far more dangerous.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Meteorfelder der Sternenfallgipfel lodern erneut, heller und weit gefährlicher."
-          }
-        }
-      }
-    },
-    "Dream Beyond Forgetting": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Traum jenseits des Vergessens"
-          }
-        }
-      }
-    },
-    "The Forgotten Dream loops back on itself, its fog thicker than before.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Vergessene Traum schließt sich zu einer Schleife, sein Nebel dichter als zuvor."
-          }
-        }
-      }
-    },
-    "Emberheart Inferno": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Glutherz-Inferno"
-          }
-        }
-      }
-    },
-    "The wastes burn hotter still, and the ash titans return renewed.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Ödnis brennt noch heißer, und die Aschetitanen kehren erneuert zurück."
-          }
-        }
-      }
-    },
-    "The Abyss Unbound": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Ungebundene Abgrund"
-          }
-        }
-      }
-    },
-    "The Tidal Abyss opens wider, and its oldest depths stir once more.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Gezeitenabgrund öffnet sich weiter, und seine ältesten Tiefen rühren sich erneut."
-          }
-        }
-      }
-    },
-    "Bloom Everlasting": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ewige Blüte"
-          }
-        }
-      }
-    },
-    "Eternal Bloom grows without end, its roots stronger than any dreamer remembers.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Ewige Blüte wächst ohne Ende, ihre Wurzeln stärker, als sich ein Träumer erinnert."
-          }
-        }
-      }
-    },
-    "Eclipse Undying": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unsterbliche Finsternis"
-          }
-        }
-      }
-    },
-    "The Realm of Eclipse falls dark again, and its court has grown far more fierce.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Das Reich der Finsternis verdunkelt sich erneut, und sein Hof ist weit erbitterter geworden."
-          }
-        }
-      }
-    },
-    "Celestial Requiem": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Himmlisches Requiem"
-          }
-        }
-      }
-    },
-    "The Celestial Dream sings once more, its cosmic guardians returned in greater strength.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Himmlische Traum erklingt erneut, seine kosmischen Wächter in größerer Stärke zurückgekehrt."
-          }
-        }
-      }
-    },
-    "Meadow's Final Dream": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der letzte Traum der Wiese"
-          }
-        }
-      }
-    },
-    "A third dreaming of the meadow, wilder and far harder to wake from.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ein drittes Träumen der Wiese, wilder und weit schwerer zu erwachen."
-          }
-        }
-      }
-    },
-    "The Last Moonlit Forest": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der letzte Mondlichtwald"
-          }
-        }
-      }
-    },
-    "The forest dreams a final time, its shadows deeper than any before.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Wald träumt ein letztes Mal, seine Schatten tiefer als je zuvor."
-          }
-        }
-      }
-    },
-    "Caverns of Endless Crystal": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Höhlen des endlosen Kristalls"
-          }
-        }
-      }
-    },
-    "The caverns crystallize further still, hardening into something almost eternal.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Höhlen kristallisieren weiter, härten zu etwas beinahe Ewigem."
-          }
-        }
-      }
-    },
-    "Starfall's End": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sternenfalls Ende"
-          }
-        }
-      }
-    },
-    "The star temple's final fall, brighter and more violent than the sky can hold.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der letzte Fall des Sternentempels, heller und gewaltsamer, als der Himmel tragen kann."
-          }
-        }
-      }
-    },
-    "The Dream That Never Wakes": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Traum, der nie erwacht"
-          }
-        }
-      }
-    },
-    "The Forgotten Dream folds in on itself one last time, and nothing wakes from it easily.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Vergessene Traum faltet sich ein letztes Mal in sich selbst, und nichts erwacht leicht daraus."
-          }
-        }
-      }
-    },
-    "Emberheart's Last Fire": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Glutherz' letztes Feuer"
-          }
-        }
-      }
-    },
-    "The wastes' final blaze, hot enough to reshape the ash fields entirely.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die letzte Feuersbrunst der Ödnis, heiß genug, um die Aschefelder völlig neu zu formen."
-          }
-        }
-      }
-    },
-    "The Abyss Eternal": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der ewige Abgrund"
-          }
-        }
-      }
-    },
-    "The trench has no bottom left to find, and what lives there has waited a long time.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Graben hat keinen Boden mehr zu finden, und was dort lebt, hat lange gewartet."
-          }
-        }
-      }
-    },
-    "The Bloom That Never Fades": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Blüte, die niemals welkt"
-          }
-        }
-      }
-    },
-    "Eternal Bloom reaches its final, endless growth.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Ewige Blüte erreicht ihr letztes, endloses Wachstum."
-          }
-        }
-      }
-    },
-    "The Eclipse Absolute": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die absolute Finsternis"
-          }
-        }
-      }
-    },
-    "Darkness reaches its final form, and its ruler has never been stronger.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Dunkelheit erreicht ihre letzte Form, und ihre Herrscherin war nie stärker."
-          }
-        }
-      }
-    },
-    "The Final Dream": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der letzte Traum"
-          }
-        }
-      }
-    },
-    "The last dream the Dreamkeepers will ever need to wake from.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der letzte Traum, den die Dreamkeeper je erwachen müssen."
+            "value": "Zum Fortfahren tippen"
           }
         }
       }
