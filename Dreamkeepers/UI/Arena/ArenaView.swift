@@ -90,15 +90,15 @@ struct ArenaView: View {
         .onAppear {
             withAnimation(.easeOut(duration: 0.5)) { appeared = true }
         }
-        .alert("No Arena Tickets Left", isPresented: $showNoTicketsAlert) {
+        .alert("No Trial Tickets Left", isPresented: $showNoTicketsAlert) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("You've used all your Arena attempts for today. Come back tomorrow!")
+            Text("You've used all your Endless Trial attempts for today. Come back tomorrow!")
         }
         .alert("No team deployed", isPresented: $showNoTeamAlert) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("Deploy a team before entering the Arena.")
+            Text("Deploy a team before entering the Endless Trial.")
         }
     }
 
@@ -127,7 +127,7 @@ struct ArenaView: View {
             }
             .accessibilityLabel("Back")
             Spacer()
-            Text("Arena")
+            Text("The Endless Trial")
                 .font(.title3.weight(.bold))
                 .foregroundStyle(.white)
             Spacer()

@@ -400,7 +400,7 @@ struct DreamHavenView: View {
                     navigate(.observatory)
                 }
                 BuildingCard(
-                    icon: gameState.arenaTier.symbol, name: "Arena",
+                    icon: gameState.arenaTier.symbol, name: "The Endless Trial",
                     status: "Floor \(gameState.arenaFloor)/\(gameState.arenaMaxFloor)",
                     isActive: true, isReady: false, delay: 0.18,
                     accent: Theme.gold

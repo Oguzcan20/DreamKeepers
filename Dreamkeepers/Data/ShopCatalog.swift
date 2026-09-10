@@ -52,13 +52,13 @@ enum ShopCatalog {
     /// tickets stack on top of the free daily allotment via
     /// `GameSave.arenaBonusTickets` and never expire.
     static let arenaTicketPacks: [ShopItem] = [
-        ShopItem(id: "arena_tickets_small", kind: .arenaTicketPack, name: "Arena Ticket Pack",
-                  description: "5 extra Arena Tower attempts, on top of your free daily tickets.",
+        ShopItem(id: "arena_tickets_small", kind: .arenaTicketPack, name: "Trial Ticket Pack",
+                  description: "5 extra Endless Trial attempts, on top of your free daily tickets.",
                   priceLabel: "$1.99", icon: "ticket.fill",
                   gemCost: 0, goldGranted: 0, gemsGranted: 0, ticketsGranted: 5,
                   productID: "\(productIDPrefix).arena_tickets_small"),
-        ShopItem(id: "arena_tickets_large", kind: .arenaTicketPack, name: "Arena Ticket Bundle",
-                  description: "15 extra Arena Tower attempts — better value for a serious climb.",
+        ShopItem(id: "arena_tickets_large", kind: .arenaTicketPack, name: "Trial Ticket Bundle",
+                  description: "15 extra Endless Trial attempts — better value for a serious climb.",
                   priceLabel: "$4.99", icon: "ticket.fill",
                   gemCost: 0, goldGranted: 0, gemsGranted: 0, ticketsGranted: 15,
                   productID: "\(productIDPrefix).arena_tickets_large")

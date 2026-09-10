@@ -138,7 +138,7 @@ struct BattleView: View {
         HStack {
             Group {
                 if let arenaFloor {
-                    Text("Arena · Floor \(arenaFloor)")
+                    Text("Endless Trial · Floor \(arenaFloor)")
                 } else {
                     let world = WorldCatalog.world(forStage: engine.stage)
                     let stageInWorld = engine.stage - world.firstStage + 1

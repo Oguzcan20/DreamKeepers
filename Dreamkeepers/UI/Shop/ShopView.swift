@@ -197,7 +197,7 @@ struct ShopView: View {
     /// deliberately no in-game currency price shown or accepted here.
     private var arenaTicketSection: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Arena Tickets")
+            Text("Trial Tickets")
                 .font(.headline)
                 .foregroundStyle(.white)
 

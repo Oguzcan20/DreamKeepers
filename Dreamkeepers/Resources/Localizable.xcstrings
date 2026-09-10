@@ -301,12 +301,12 @@
         }
       }
     },
-    "15 extra Arena Tower attempts — better value for a serious climb.": {
+    "15 extra Endless Trial attempts — better value for a serious climb.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "15 zusätzliche Arena-Turm-Versuche — besseres Preis-Leistungs-Verhältnis für einen ernsthaften Aufstieg."
+            "value": "15 zusätzliche Turm-Versuche — besseres Preis-Leistungs-Verhältnis für einen ernsthaften Aufstieg."
           }
         }
       }
@@ -321,12 +321,12 @@
         }
       }
     },
-    "5 extra Arena Tower attempts, on top of your free daily tickets.": {
+    "5 extra Endless Trial attempts, on top of your free daily tickets.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "5 zusätzliche Arena-Turm-Versuche, zusätzlich zu deinen kostenlosen täglichen Tickets."
+            "value": "5 zusätzliche Turm-Versuche, zusätzlich zu deinen kostenlosen täglichen Tickets."
           }
         }
       }
@@ -1181,12 +1181,12 @@
         }
       }
     },
-    "An Arena fight costs %lld Energy.": {
+    "An Endless Trial fight costs %lld Energy.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ein Arena-Kampf kostet %lld Energie."
+            "value": "Ein Turm-Kampf kostet %lld Energie."
           }
         }
       }
@@ -1211,52 +1211,52 @@
         }
       }
     },
-    "Arena": {
+    "The Endless Trial": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Arena"
+            "value": "Turm der Unendlichkeit"
           }
         }
       }
     },
-    "Arena Ticket Bundle": {
+    "Trial Ticket Bundle": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Arena-Ticket-Bundle"
+            "value": "Turm-Ticket-Bündel"
           }
         }
       }
     },
-    "Arena Ticket Pack": {
+    "Trial Ticket Pack": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Arena-Ticket-Paket"
+            "value": "Turm-Ticket-Paket"
           }
         }
       }
     },
-    "Arena Tickets": {
+    "Trial Tickets": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Arena-Tickets"
+            "value": "Turm-Tickets"
           }
         }
       }
     },
-    "Arena · Floor %lld": {
+    "Endless Trial · Floor %lld": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Arena · Stufe %lld"
+            "value": "Turm der Unendlichkeit · Stufe %lld"
           }
         }
       }
@@ -2281,12 +2281,12 @@
         }
       }
     },
-    "Deploy a team before entering the Arena.": {
+    "Deploy a team before entering the Endless Trial.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Setze ein Team ein, bevor du die Arena betrittst."
+            "value": "Setze ein Team ein, bevor du den Turm der Unendlichkeit betrittst."
           }
         }
       }
@@ -3921,12 +3921,12 @@
         }
       }
     },
-    "No Arena Tickets Left": {
+    "No Trial Tickets Left": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Arena-Tickets mehr"
+            "value": "Keine Turm-Tickets mehr"
           }
         }
       }
@@ -6461,22 +6461,22 @@
         }
       }
     },
-    "You've conquered all 100 floors of the Arena Tower.": {
+    "You've conquered all 100 floors of the Endless Trial.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Du hast alle 100 Stufen des Arena-Turms bezwungen."
+            "value": "Du hast alle 100 Stufen des Turms der Unendlichkeit bezwungen."
           }
         }
       }
     },
-    "You've used all your Arena attempts for today. Come back tomorrow!": {
+    "You've used all your Endless Trial attempts for today. Come back tomorrow!": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Du hast alle deine heutigen Arena-Versuche aufgebraucht. Komm morgen wieder!"
+            "value": "Du hast alle deine heutigen Turm-Versuche aufgebraucht. Komm morgen wieder!"
           }
         }
       }

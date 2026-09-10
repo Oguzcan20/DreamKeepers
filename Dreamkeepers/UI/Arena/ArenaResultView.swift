@@ -98,7 +98,7 @@ struct ArenaResultView: View {
                     Text("Tower Cleared!")
                         .font(.subheadline.weight(.bold))
                         .foregroundStyle(Theme.gold)
-                    Text("You've conquered all 100 floors of the Arena Tower.")
+                    Text("You've conquered all 100 floors of the Endless Trial.")
                         .font(.caption)
                         .foregroundStyle(.white.opacity(0.65))
                 }
