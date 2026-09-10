@@ -5,6 +5,9 @@ import UIKit
 #if canImport(AudioToolbox)
 import AudioToolbox
 #endif
+#if canImport(AVFoundation)
+import AVFoundation
+#endif
 #if canImport(UserNotifications)
 import UserNotifications
 #endif
@@ -35,6 +38,9 @@ final class iOSPlatformService: PlatformService {
     }
 
     func playSound(_ effect: SoundEffect) {
+        #if canImport(AVFoundation)
+        if BattleSoundBank.shared.play(effect) { return }
+        #endif
         #if canImport(AudioToolbox)
         AudioServicesPlaySystemSound(effect.systemSoundID)
         #endif
@@ -108,10 +114,11 @@ final class iOSPlatformService: PlatformService {
 
 #if canImport(AudioToolbox)
 private extension SoundEffect {
-    /// Built-in iOS system sound IDs, chosen only for a rough tonal fit
-    /// (chime vs. tap vs. swoosh) — placeholders until real composed SFX
-    /// ship. Values below 1200 are the long-stable "UI sound" range Apple
-    /// has shipped with every iOS release.
+    /// Built-in iOS system sound IDs — the fallback path when a bundled
+    /// composed cue (see `BattleSoundBank`) is missing or won't decode.
+    /// Chosen only for a rough tonal fit (chime vs. tap vs. swoosh). Values
+    /// below 1200 are the long-stable "UI sound" range Apple has shipped
+    /// with every iOS release.
     var systemSoundID: SystemSoundID {
         switch self {
         case .buttonTap: return 1104   // Tock — short, unobtrusive tap
@@ -121,8 +128,103 @@ private extension SoundEffect {
         case .skill: return 1103       // Tock (variant) — quick blip
         case .ultimate: return 1013    // Fuller chime for a bigger moment
         case .bossEncounter: return 1073 // Lower, more ominous tone
+        case .bossVictory: return 1025 // Anticipate — bright, celebratory
         case .reward: return 1057      // Tink — same positive blip as loot
         }
+    }
+}
+#endif
+
+#if canImport(AVFoundation)
+/// Plays the composed cinematic battle cues bundled in `Resources/Audio/`
+/// via `AVAudioPlayer`. Everything is main-thread (every `playSound` call
+/// site already is — the battle tick runs on the main actor), so no locking.
+///
+/// Design notes:
+/// - The session is `.playback` + `.mixWithOthers` so a boss sting is
+///   audible even with the ring switch silenced (the player explicitly
+///   wants to *hear* this), while never interrupting the user's own music
+///   or a podcast.
+/// - Each cue keeps a tiny pool of players so rapid re-triggers (two
+///   Ultimates back to back) overlap instead of cutting each other off.
+/// - `play` returns `false` when it has no file for the effect, so
+///   `iOSPlatformService.playSound` falls through to the system-sound path
+///   for the non-battle cues (button tap, loot, …).
+///
+/// `@unchecked Sendable`: every `playSound` call site is already on the main
+/// thread (the battle tick runs on the main actor; UI callbacks likewise),
+/// same single-thread contract the rest of `iOSPlatformService` relies on —
+/// there is no real shared mutable state to protect.
+final class BattleSoundBank: @unchecked Sendable {
+    static let shared = BattleSoundBank()
+
+    /// SoundEffect → bundled file basename (`.wav` in the main bundle).
+    private static let fileName: [SoundEffect: String] = [
+        .bossEncounter: "boss_encounter",
+        .bossVictory: "boss_victory",
+        .ultimate: "ultimate",
+        .skill: "skill",
+    ]
+
+    /// Per-cue mix levels — the fanfare is a touch hotter than the rest so
+    /// it's pulled back; `skill` fires often so it sits well under the hits.
+    private static func volume(for effect: SoundEffect) -> Float {
+        switch effect {
+        case .bossEncounter: return 1.0
+        case .bossVictory: return 0.85
+        case .ultimate: return 0.9
+        case .skill: return 0.55
+        default: return 0.8
+        }
+    }
+
+    private var pools: [SoundEffect: [AVAudioPlayer]] = [:]
+    private var sessionReady = false
+
+    private func activateSessionIfNeeded() {
+        guard !sessionReady else { return }
+        sessionReady = true
+        #if canImport(AVFAudio) && !os(macOS)
+        do {
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playback, mode: .default, options: [.mixWithOthers])
+            try session.setActive(true)
+        } catch {
+            NSLog("[Audio] session activation failed: %@", error.localizedDescription)
+        }
+        #endif
+    }
+
+    /// Returns `true` if it owns playback for this cue (played it, or
+    /// deliberately dropped an over-eager re-trigger); `false` if the caller
+    /// should use the system-sound fallback.
+    func play(_ effect: SoundEffect) -> Bool {
+        guard let name = Self.fileName[effect],
+              let url = Bundle.main.url(forResource: name, withExtension: "wav") else {
+            return false
+        }
+        activateSessionIfNeeded()
+
+        var pool = pools[effect] ?? []
+        let volume = Self.volume(for: effect)
+
+        if let idle = pool.first(where: { !$0.isPlaying }) {
+            idle.volume = volume
+            idle.currentTime = 0
+            idle.play()
+            return true
+        }
+        // All players busy — grow the pool up to a small cap, otherwise just
+        // let the in-flight copies ride (better than a jarring restart).
+        guard pool.count < 3, let player = try? AVAudioPlayer(contentsOf: url) else {
+            return true
+        }
+        player.volume = volume
+        player.prepareToPlay()
+        player.play()
+        pool.append(player)
+        pools[effect] = pool
+        return true
     }
 }
 #endif

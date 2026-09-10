@@ -224,6 +224,9 @@ struct BattleView: View {
                 if engine.outcome != nil {
                     timer?.invalidate()
                     gameState.playHaptic(engine.outcome == .victory ? .success : .warning)
+                    if engine.outcome == .victory, engine.isBossStage {
+                        gameState.playSound(.bossVictory)
+                    }
                     withAnimation(.easeIn(duration: 0.3)) {
                         showOutcomeOverlay = true
                     }
