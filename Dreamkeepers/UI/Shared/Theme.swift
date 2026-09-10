@@ -281,3 +281,45 @@ struct CollectConfirmation: View {
         .transition(.scale(scale: 0.85).combined(with: .opacity))
     }
 }
+
+/// The slowly-rotating dashed halo that sits *concentrically behind* a
+/// character portrait during a reveal or an Ultimate cast (Summoning Shrine,
+/// the starter-Olf reveal, the in-battle Ultimate showcase).
+///
+/// Always attach it as a `.background` of the portrait itself — never as a
+/// sibling centered on the whole screen — so it can't drift out of alignment
+/// with the portrait when the surrounding layout puts the portrait off-centre
+/// (a title below it, a two-column split, etc.):
+/// ```
+/// portrait.background { RevealRing(diameter: size + 30, color: accent,
+///                                  opacity: ringOpacity, rotation: ringRotation) }
+/// ```
+/// The dash length is derived from the exact circumference so the pattern
+/// closes with no seam — an uneven seam rotating past is what used to read as
+/// a lopsided, "crooked" ring.
+struct RevealRing: View {
+    var diameter: CGFloat
+    var color: Color
+    var lineWidth: CGFloat = 3
+    /// 0…1 fade-in, driven by the caller's reveal animation.
+    var opacity: Double
+    /// Current rotation in degrees, driven by the caller's `repeatForever` spin.
+    var rotation: Double
+    /// Approximate number of dashes around the ring; the real dash/gap sizes
+    /// are solved from this so the ring divides evenly.
+    var dashCount: Int = 32
+
+    private var dash: [CGFloat] {
+        let period = .pi * diameter / CGFloat(max(dashCount, 1))
+        return [period * 0.55, period * 0.45]
+    }
+
+    var body: some View {
+        Circle()
+            .strokeBorder(color.opacity(0.85), style: StrokeStyle(lineWidth: lineWidth, dash: dash))
+            .frame(width: diameter, height: diameter)
+            .rotationEffect(.degrees(rotation))
+            .opacity(opacity)
+            .allowsHitTesting(false)
+    }
+}

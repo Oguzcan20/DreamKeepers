@@ -1288,12 +1288,12 @@ private struct SummonRevealShowcase: View {
     private var portraitSize: CGFloat { 190 }
     private var hasArt: Bool { DreamkeeperArt.hasArt(for: result.definition.name) }
 
-    var body: some View {
+    /// Glow, light rays, rotating halo and shockwave — all sized and centered
+    /// on the portrait and attached to it as a `.background`, so they stay
+    /// concentric with it even though the surrounding `VStack` pushes the
+    /// portrait above centre to make room for the title beneath.
+    private var portraitFX: some View {
         ZStack {
-            Color.black.opacity(0.6)
-                .ignoresSafeArea()
-                .allowsHitTesting(false)
-
             Circle()
                 .fill(rarity.primaryColor.opacity(0.45))
                 .frame(width: 300, height: 300)
@@ -1311,12 +1311,8 @@ private struct SummonRevealShowcase: View {
                     .opacity(rayOpacity)
             }
 
-            Circle()
-                .strokeBorder(style: StrokeStyle(lineWidth: 3, dash: [10, 8]))
-                .foregroundStyle(rarity.primaryColor.opacity(0.85))
-                .frame(width: portraitSize + 30, height: portraitSize + 30)
-                .rotationEffect(.degrees(ringRotation))
-                .opacity(ringOpacity)
+            RevealRing(diameter: portraitSize + 30, color: rarity.primaryColor, lineWidth: 3,
+                       opacity: ringOpacity, rotation: ringRotation, dashCount: 30)
 
             // The shockwave burst — one plain stroked circle, expanding and
             // fading right as the takeover starts.
@@ -1324,6 +1320,16 @@ private struct SummonRevealShowcase: View {
                 .stroke(rarity.primaryColor.opacity(shockRingOpacity), lineWidth: isTopTier ? 6 : 4)
                 .frame(width: 260, height: 260)
                 .scaleEffect(shockRingScale)
+        }
+        .frame(width: 340, height: 340)
+        .allowsHitTesting(false)
+    }
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.6)
+                .ignoresSafeArea()
+                .allowsHitTesting(false)
 
             Color.white
                 .opacity(flashOpacity)
@@ -1357,6 +1363,7 @@ private struct SummonRevealShowcase: View {
                 .shadow(color: rarity.primaryColor.opacity(0.85), radius: isTopTier ? 42 : 34)
                 .scaleEffect(portraitScale)
                 .opacity(portraitOpacity)
+                .background(portraitFX)
                 .contentShape(Circle())
                 .onTapGesture { onInfoTap?() }
 

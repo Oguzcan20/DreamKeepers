@@ -907,12 +907,8 @@ private struct UltimateShowcaseView: View {
                 .blur(radius: 60)
                 .opacity(glowOpacity)
 
-            Circle()
-                .strokeBorder(style: StrokeStyle(lineWidth: 3, dash: [10, 8]))
-                .foregroundStyle(combatant.element.color.opacity(0.8))
-                .frame(width: portraitSize + 34, height: portraitSize + 34)
-                .rotationEffect(.degrees(ringRotation))
-                .opacity(ringOpacity)
+            RevealRing(diameter: portraitSize + 34, color: combatant.element.color, lineWidth: 3,
+                       opacity: ringOpacity, rotation: ringRotation, dashCount: 30)
 
             ZStack {
                 if hasArt {

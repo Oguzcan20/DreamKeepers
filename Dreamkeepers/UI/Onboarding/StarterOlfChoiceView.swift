@@ -562,25 +562,13 @@ private struct OlfRecruitRevealView: View {
         ZStack {
             Color.black.opacity(0.95).ignoresSafeArea()
 
-            RadialGradient(colors: [accentColor.opacity(0.55), .clear], center: .center, startRadius: 20, endRadius: 460)
+            // A soft screen-wide wash from the portrait's side of the layout —
+            // the concentric glow/rays/rings that actually frame Olf are
+            // attached to the portrait itself (see `portraitFX`), so they can
+            // never drift away from it.
+            RadialGradient(colors: [accentColor.opacity(0.28), .clear], center: .center, startRadius: 20, endRadius: 520)
                 .opacity(glowOpacity)
                 .ignoresSafeArea()
-                .allowsHitTesting(false)
-
-            burstRays
-
-            Circle()
-                .strokeBorder(style: StrokeStyle(lineWidth: 3, dash: [12, 9]))
-                .foregroundStyle(accentColor.opacity(0.85))
-                .frame(width: 250, height: 250)
-                .rotationEffect(.degrees(ringRotation))
-                .opacity(ringOpacity)
-                .allowsHitTesting(false)
-
-            Circle()
-                .stroke(accentColor.opacity(shockRingOpacity), lineWidth: 6)
-                .frame(width: 280, height: 280)
-                .scaleEffect(shockRingScale)
                 .allowsHitTesting(false)
 
             Color.white.opacity(flashOpacity).ignoresSafeArea().allowsHitTesting(false)
@@ -596,6 +584,35 @@ private struct OlfRecruitRevealView: View {
         .onTapGesture { onContinue() }
         .accessibilityAddTraits(.isModal)
         .onAppear { runSequence() }
+    }
+
+    /// Everything that frames the portrait, sized and centered on the portrait
+    /// itself so it stays glued to it regardless of where the surrounding
+    /// two-column layout places the portrait.
+    private var portraitFX: some View {
+        ZStack {
+            RadialGradient(colors: [accentColor.opacity(0.55), .clear], center: .center, startRadius: 10, endRadius: 190)
+                .opacity(glowOpacity)
+
+            ForEach(0..<18, id: \.self) { index in
+                Capsule()
+                    .fill(accentColor.opacity(0.75))
+                    .frame(width: 4, height: 200 * rayProgress)
+                    .offset(y: -100 * rayProgress)
+                    .rotationEffect(.degrees(Double(index) / 18 * 360))
+                    .opacity(rayOpacity)
+            }
+
+            RevealRing(diameter: 250, color: accentColor, lineWidth: 3,
+                       opacity: ringOpacity, rotation: ringRotation, dashCount: 34)
+
+            Circle()
+                .stroke(accentColor.opacity(shockRingOpacity), lineWidth: 6)
+                .frame(width: 280, height: 280)
+                .scaleEffect(shockRingScale)
+        }
+        .frame(width: 320, height: 320)
+        .allowsHitTesting(false)
     }
 
     // MARK: - Left: portrait + headline
@@ -627,6 +644,7 @@ private struct OlfRecruitRevealView: View {
             .shadow(color: accentColor.opacity(0.8), radius: 36)
             .scaleEffect(portraitScale)
             .opacity(portraitOpacity)
+            .background(portraitFX)
 
             Text(isUltimate ? "A Different Kind of Olf..." : "Olf Has Joined You!")
                 .font(.title2.weight(.heavy))
@@ -653,18 +671,6 @@ private struct OlfRecruitRevealView: View {
         }
         .frame(maxWidth: .infinity)
         .animation(.easeOut(duration: 0.4), value: infoStage)
-    }
-
-    private var burstRays: some View {
-        ForEach(0..<18, id: \.self) { index in
-            Capsule()
-                .fill(accentColor.opacity(0.75))
-                .frame(width: 4, height: 200 * rayProgress)
-                .offset(y: -100 * rayProgress)
-                .rotationEffect(.degrees(Double(index) / 18 * 360))
-                .opacity(rayOpacity)
-        }
-        .allowsHitTesting(false)
     }
 
     // MARK: - Right: who this Olf actually is
