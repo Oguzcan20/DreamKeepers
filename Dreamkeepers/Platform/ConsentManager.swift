@@ -23,18 +23,33 @@ enum ConsentManager {
         let parameters = RequestParameters()
         parameters.isTaggedForUnderAgeOfConsent = false
 
+        AdLog.logRequestReadiness(context: "before consent update")
+
         await withCheckedContinuation { continuation in
-            ConsentInformation.shared.requestConsentInfoUpdate(with: parameters) { _ in
+            ConsentInformation.shared.requestConsentInfoUpdate(with: parameters) { error in
+                if let error {
+                    AdLog.log("consent info update FAILED: \(error.localizedDescription)")
+                }
                 continuation.resume()
             }
         }
 
-        guard let rootViewController = UIApplication.dk_rootViewController else { return }
+        AdLog.logRequestReadiness(context: "after consent update")
+
+        guard let rootViewController = UIApplication.dk_rootViewController else {
+            AdLog.log("no root view controller — cannot present consent form")
+            return
+        }
 
         await withCheckedContinuation { continuation in
-            ConsentForm.loadAndPresentIfRequired(from: rootViewController) { _ in
+            ConsentForm.loadAndPresentIfRequired(from: rootViewController) { error in
+                if let error {
+                    AdLog.log("consent form load/present FAILED: \(error.localizedDescription)")
+                }
                 continuation.resume()
             }
         }
+
+        AdLog.logRequestReadiness(context: "after consent form")
     }
 }

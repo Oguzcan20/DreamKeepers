@@ -22,8 +22,23 @@ import UIKit
 /// repeated hands-on testing is needed.
 final class AdMobRewardService: AdRewardService {
     /// Real Rewarded ad unit ID for "DreamKeepers", created in the AdMob
-    /// console 2026-09-03 — see the type-level doc comment above.
-    private let adUnitID = "ca-app-pub-6011422497566268/5562733659"
+    /// console 2026-09-03. **Not used yet** — a brand-new ad unit on a
+    /// brand-new AdMob app serves no fill until the app is live on the App
+    /// Store with a matching store listing (and, for EEA users, a GDPR
+    /// message configured for this app in the AdMob Privacy & messaging
+    /// tab). Running it against the developer's own device before then is
+    /// also invalid traffic. Swap `adUnitID` to this once the app ships —
+    /// see the checklist in COMPLIANCE_CHECKLIST.md.
+    static let realAdUnitID = "ca-app-pub-6011422497566268/5562733659"
+
+    /// Google's publicly published iOS rewarded-ad **test unit**
+    /// (https://developers.google.com/admob/ios/test-ads) — always 100%
+    /// fill, never billable, not real traffic. This is what the Android
+    /// (Flutter) port already uses, which is the whole reason ads work
+    /// there and not here: the fix for "no ads on iPhone" is to test
+    /// against the same test unit until launch, then flip to
+    /// `realAdUnitID`.
+    private let adUnitID = "ca-app-pub-3940256099942544/1712485313"
 
     /// `RewardedAd.fullScreenContentDelegate` is `weak` — nothing else keeps
     /// the delegate alive between "present" and "dismissed" (seconds later,
@@ -38,14 +53,18 @@ final class AdMobRewardService: AdRewardService {
     func showRewardedAd() async -> Bool {
         guard let rootViewController = UIApplication.dk_rootViewController else { return false }
 
+        AdLog.logRequestReadiness(context: "rewarded load")
+
         let ad: RewardedAd
         do {
             ad = try await RewardedAd.load(with: adUnitID, request: Request())
         } catch {
             // No fill / network error / misconfigured ad unit — reported
             // the same as a declined ad rather than crashing the flow.
+            AdLog.log("rewarded load FAILED: \((error as NSError).domain)#\((error as NSError).code) \(error.localizedDescription)")
             return false
         }
+        AdLog.log("rewarded load OK — presenting")
 
         return await withCheckedContinuation { continuation in
             var didResume = false

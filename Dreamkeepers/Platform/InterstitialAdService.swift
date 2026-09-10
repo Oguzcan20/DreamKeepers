@@ -35,7 +35,16 @@ struct MockInterstitialAdService: InterstitialAdService {
 /// for the same real-ad-unit safety note (don't script/automate triggering
 /// this against a real unit — it's billable, non-test inventory now).
 final class AdMobInterstitialAdService: InterstitialAdService {
-    private let adUnitID = "ca-app-pub-6011422497566268/4756154109"
+    /// Real "Interstitial_AutoAd" unit (AdMob console, 2026-09-05). Same
+    /// story as `AdMobRewardService.realAdUnitID` — a new unit on a new app
+    /// won't fill before the app is live on the App Store. Swap `adUnitID`
+    /// to this at launch.
+    static let realAdUnitID = "ca-app-pub-6011422497566268/4756154109"
+
+    /// Google's published iOS interstitial **test unit** — always fills,
+    /// never billable. Matches the Android (Flutter) port, so interstitials
+    /// actually appear on device during development.
+    private let adUnitID = "ca-app-pub-3940256099942544/4411468910"
 
     /// Same reasoning as `AdMobRewardService.activeDelegate`:
     /// `fullScreenContentDelegate` is `weak`, so this is the only thing
@@ -46,12 +55,16 @@ final class AdMobInterstitialAdService: InterstitialAdService {
     func showInterstitialAd() async {
         guard let rootViewController = UIApplication.dk_rootViewController else { return }
 
+        AdLog.logRequestReadiness(context: "interstitial load")
+
         let ad: InterstitialAd
         do {
             ad = try await InterstitialAd.load(with: adUnitID, request: Request())
         } catch {
+            AdLog.log("interstitial load FAILED: \((error as NSError).domain)#\((error as NSError).code) \(error.localizedDescription)")
             return
         }
+        AdLog.log("interstitial load OK — presenting")
 
         await withCheckedContinuation { continuation in
             var didResume = false

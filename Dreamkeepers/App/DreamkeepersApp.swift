@@ -19,7 +19,13 @@ struct DreamkeepersApp: App {
         // background. `AdMobRewardService.showRewardedAd` degrades to "no
         // fill" (treated as a declined ad) rather than crashing if a load
         // is attempted before this finishes.
-        MobileAds.shared.start()
+        MobileAds.shared.start { status in
+            let adapters = status.adapterStatusesByClassName
+                .map { "\($0.key)=\($0.value.state == .ready ? "ready" : "notReady")" }
+                .sorted()
+                .joined(separator: ", ")
+            AdLog.log("MobileAds.start complete — adapters: [\(adapters)]")
+        }
     }
 
     var body: some Scene {
