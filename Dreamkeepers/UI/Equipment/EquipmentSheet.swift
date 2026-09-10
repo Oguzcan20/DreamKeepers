@@ -31,6 +31,7 @@ struct EquipmentSheet: View {
                         VStack(spacing: 12) {
                             skillsSection(definition: definition)
                             autoEquipButton(instance: instance)
+                            autoUnequipButton(instance: instance)
                             ForEach(EquipmentSlot.allCases) { slot in
                                 SlotRow(slot: slot, instance: instance, gameState: gameState)
                             }
@@ -129,6 +130,21 @@ struct EquipmentSheet: View {
         }
         .buttonStyle(PrimaryButtonStyle(tint: Theme.gold))
         .disabled(!gameState.canAutoEquip(instance))
+    }
+
+    /// Mirror of `autoEquipButton` — one tap clears every slot instead of
+    /// opening four "Change" menus to unequip each by hand. Gear returns to
+    /// storage untouched. Disabled when nothing is equipped.
+    private func autoUnequipButton(instance: DreamkeeperInstance) -> some View {
+        Button {
+            gameState.unequipAll(for: instance)
+            gameState.playHaptic(.light)
+        } label: {
+            Label("Unequip All Gear", systemImage: "xmark.circle")
+                .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(PrimaryButtonStyle(tint: .gray))
+        .disabled(!gameState.canUnequipAll(instance))
     }
 
     private func statsGrid(instance: DreamkeeperInstance) -> some View {

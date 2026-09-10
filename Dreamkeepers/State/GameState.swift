@@ -957,6 +957,26 @@ final class GameState {
         return changed
     }
 
+    /// Whether `unequipAll` would actually change anything — drives the
+    /// button's disabled state, same as `canAutoEquip`.
+    func canUnequipAll(_ instance: DreamkeeperInstance) -> Bool {
+        guard let idx = save.roster.firstIndex(where: { $0.id == instance.id }) else { return false }
+        return !save.roster[idx].equipped.isEmpty
+    }
+
+    /// Strips every equipped item off `instance` in one tap — the mirror of
+    /// `autoEquipBest`. Items are never destroyed (only their ids are cleared
+    /// from `equipped`; the items stay in `save.inventory`), so this just
+    /// empties the slot map and they become available again for anyone.
+    @discardableResult
+    func unequipAll(for instance: DreamkeeperInstance) -> Bool {
+        guard let idx = save.roster.firstIndex(where: { $0.id == instance.id }),
+              !save.roster[idx].equipped.isEmpty else { return false }
+        save.roster[idx].equipped.removeAll()
+        persist()
+        return true
+    }
+
     /// Which Dreamkeeper (if any) currently has this item equipped — shown
     /// in the item detail sheet so upgrading gear reads as improving a teammate.
     func wearer(of item: EquipmentItem) -> DreamkeeperInstance? {
