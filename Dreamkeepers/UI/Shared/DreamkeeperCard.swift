@@ -35,6 +35,14 @@ struct DreamkeeperCard: View {
                         .font(.system(size: 26, weight: .semibold))
                         .foregroundStyle(.white)
                 }
+
+                // Rarity ring around the portrait — same visual language as
+                // the equipment items in `InventoryView` (colored ring =
+                // rarity), so the roster grid reads at a glance without
+                // opening each Dreamkeeper.
+                Circle()
+                    .strokeBorder(definition.rarity.gradient, lineWidth: 2.5)
+                    .frame(width: 64, height: 64)
             }
             .overlay(alignment: .bottomTrailing) {
                 Image(systemName: definition.element.symbol)
@@ -58,6 +66,14 @@ struct DreamkeeperCard: View {
                 .lineLimit(2)
                 .minimumScaleFactor(0.75)
                 .fixedSize(horizontal: false, vertical: true)
+
+            Text(LocalizedStringKey(definition.rarity.displayName))
+                .font(.system(size: 9, weight: .heavy))
+                .textCase(.uppercase)
+                .tracking(0.5)
+                .foregroundStyle(definition.rarity.primaryColor)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
 
             Text("Lv \(instance.level)")
                 .font(.caption2)
