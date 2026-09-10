@@ -1,4 +1,32 @@
 import SwiftUI
+import UIKit
+
+extension UIScreen {
+    /// The screen's bounds minus the current key window's safe-area insets —
+    /// the region a full-screen view can actually fill without being clipped
+    /// by the notch / Dynamic Island or the home indicator.
+    ///
+    /// This app is landscape-locked and several fixed screens historically
+    /// force-fit themselves to `UIScreen.main.bounds.size` to sidestep a
+    /// SwiftUI layout-proposal bug — but raw bounds is *larger* than the
+    /// visible content area, so that force-fit clipped the header (and its
+    /// back button) a few points off the top/bottom edges. Forcing to this
+    /// value instead keeps the "don't trust the proposed size" behaviour
+    /// while landing inside the actually-visible region. Falls back to raw
+    /// bounds when no window is available yet.
+    static var dk_safeContentSize: CGSize {
+        let bounds = main.bounds
+        let insets = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }?
+            .safeAreaInsets ?? .zero
+        return CGSize(
+            width: max(0, bounds.width - insets.left - insets.right),
+            height: max(0, bounds.height - insets.top - insets.bottom)
+        )
+    }
+}
 
 /// Uniformly shrinks a fixed (non-scrolling) landscape layout to fit
 /// whatever screen it actually ends up on, instead of letting content
@@ -30,11 +58,24 @@ struct AdaptiveScale: ViewModifier {
 
     func body(content: Content) -> some View {
         GeometryReader { geo in
-            let scale = min(maxScale, min(geo.size.width / referenceSize.width, geo.size.height / referenceSize.height))
+            // Defends against a recurring quirk on this landscape-locked app
+            // where a view sharing a ZStack with an `.ignoresSafeArea()`
+            // sibling is occasionally proposed the full screen height rather
+            // than the safe-area height: clamp the size the scale is solved
+            // against to the real visible content region, so the layout is
+            // never measured against — or scaled to fill — a box taller than
+            // the screen (which is exactly what pushed headers off the top
+            // edge before).
+            let safe = UIScreen.dk_safeContentSize
+            let available = CGSize(
+                width: min(geo.size.width, safe.width > 0 ? safe.width : geo.size.width),
+                height: min(geo.size.height, safe.height > 0 ? safe.height : geo.size.height)
+            )
+            let scale = min(maxScale, min(available.width / referenceSize.width, available.height / referenceSize.height))
             content
                 .frame(width: referenceSize.width, height: referenceSize.height)
                 .scaleEffect(scale)
-                .frame(width: geo.size.width, height: geo.size.height)
+                .frame(width: available.width, height: available.height)
         }
     }
 }

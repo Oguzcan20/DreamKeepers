@@ -19,7 +19,13 @@ struct DreamkeeperCodexDetailView: View {
     @State private var appeared = false
 
     private var hasArt: Bool { DreamkeeperArt.hasArt(for: definition.name) }
-    private var screenSize: CGSize { UIScreen.main.bounds.size }
+    /// The real visible content region (screen bounds minus safe-area
+    /// insets). Force-fitting to raw `UIScreen.main.bounds` here — which
+    /// includes the notch / Dynamic Island and home-indicator strips — made
+    /// this overlay taller than its slot, so SwiftUI centred it and clipped
+    /// the close button off the top edge. `dk_safeContentSize` keeps the
+    /// "don't trust the proposed size" behaviour while staying on-screen.
+    private var screenSize: CGSize { UIScreen.dk_safeContentSize }
 
     /// Reference ranges pulled from the whole catalog so every stat bar reads
     /// relative to the strongest Dreamkeeper in the game, not some arbitrary

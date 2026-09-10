@@ -49,11 +49,17 @@ struct DreamkeeperCodexView: View {
         gameState.roster.filter { $0.definitionID == definition.id }.map(\.stars).max() ?? 0
     }
 
-    /// `UIScreen.main.bounds`, matching the same forced-sizing pattern used
-    /// elsewhere in this app (`SummoningShrineView`, `MultiSummonResultView`)
-    /// to sidestep a recurring SwiftUI layout-proposal bug on this landscape-
-    /// locked app.
-    private var screenSize: CGSize { UIScreen.main.bounds.size }
+    /// The real visible content region (screen bounds minus safe-area
+    /// insets), matching the same forced-sizing pattern used elsewhere in
+    /// this app (`SummoningShrineView`, `MultiSummonResultView`) to sidestep
+    /// a recurring SwiftUI layout-proposal bug on this landscape-locked app.
+    ///
+    /// Uses `dk_safeContentSize` rather than raw `UIScreen.main.bounds`:
+    /// raw bounds includes the notch / Dynamic Island and home-indicator
+    /// strips, so force-fitting to it made this view taller than the slot
+    /// `RootView` gives it — SwiftUI then centred it and clipped the header
+    /// (and its back button) a few points off the top edge.
+    private var screenSize: CGSize { UIScreen.dk_safeContentSize }
 
     var body: some View {
         ZStack {

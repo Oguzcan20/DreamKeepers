@@ -224,13 +224,21 @@ struct SummoningShrineView: View {
     private var equipmentBurstRadius: CGFloat { equipmentIsTopTierPull ? 105 : 58 }
     private var equipmentBurstDuration: Double { equipmentIsTopTierPull ? 1.1 : 0.65 }
 
-    /// `UIScreen.main.bounds`, not an implicit ZStack proposal, for the same
-    /// reason as `MultiSummonResultView`: this screen was intermittently
-    /// getting proposed a height taller than the true visible screen,
-    /// silently pushing the header (and its back button) off the top edge
-    /// with no consistent trigger ever pinned down. Forcing the real device
-    /// size here too closes off that whole class of bug for this screen.
-    private var screenSize: CGSize { UIScreen.main.bounds.size }
+    /// The real visible content region (screen bounds minus safe-area
+    /// insets), not an implicit ZStack proposal, for the same reason as
+    /// `MultiSummonResultView`: this screen was intermittently getting
+    /// proposed a height taller than the true visible screen, silently
+    /// pushing the header (and its back button) off the top edge with no
+    /// consistent trigger ever pinned down. Force-fitting a known-good size
+    /// here closes off that whole class of bug for this screen.
+    ///
+    /// Uses `dk_safeContentSize` rather than raw `UIScreen.main.bounds`:
+    /// raw bounds is the *full* panel including the notch / Dynamic Island
+    /// and home-indicator strips, so forcing content to it made the layout
+    /// taller than the slot `RootView` actually gives this screen — SwiftUI
+    /// then centred it and clipped ~10pt off both the top and bottom edges,
+    /// which is exactly what cut the back chevron off the top.
+    private var screenSize: CGSize { UIScreen.dk_safeContentSize }
 
     private func isOwned(_ definition: DreamkeeperDefinition) -> Bool {
         gameState.roster.contains { $0.definitionID == definition.id }
@@ -294,6 +302,13 @@ struct SummoningShrineView: View {
             // actually sells "something big just happened" instead of one
             // more animation confined to a 130pt image.
             .offset(x: shakeOffsetX)
+            // This row has no ScrollView on purpose (everything is meant to
+            // read in one glance), and its cards are tuned against a
+            // landscape iPhone-17-Pro-class safe area. On physically smaller
+            // phones that fixed layout would run out of vertical room and
+            // clip at the edges, so scale the whole thing down uniformly to
+            // fit whatever screen it lands on instead.
+            .adaptiveScale()
 
             // A quick full-bleed color wash timed to the chest bursting
             // open, on every pull. A plain solid fill animated by opacity —
