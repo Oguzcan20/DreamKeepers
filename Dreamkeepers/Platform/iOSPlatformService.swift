@@ -137,9 +137,11 @@ private extension SoundEffect {
 #endif
 
 #if canImport(AVFoundation)
-/// Plays the composed cinematic battle cues bundled in `Resources/Audio/`
-/// via `AVAudioPlayer`. Everything is main-thread (every `playSound` call
-/// site already is — the battle tick runs on the main actor), so no locking.
+/// Plays the composed cues bundled in `Resources/Audio/` via `AVAudioPlayer`
+/// — the cinematic battle sounds plus the general UI cues (`summon`,
+/// `levelUp`, `reward`, `buttonTap`) that used to be bare iOS system beeps.
+/// Everything is main-thread (every `playSound` call site already is — the
+/// battle tick runs on the main actor), so no locking.
 ///
 /// Design notes:
 /// - The session is `.playback` + `.mixWithOthers` so a boss sting is
@@ -166,17 +168,26 @@ final class BattleSoundBank: @unchecked Sendable {
         .ultimate: "ultimate",
         .skill: "skill",
         .attack: "attack",
+        .summon: "summon",
+        .levelUp: "level_up",
+        .reward: "reward",
+        .buttonTap: "button_tap",
     ]
 
-    /// Per-cue mix levels — the boss cues carry the drama; `attack` and
-    /// `skill` fire constantly so they sit well under everything else.
+    /// Per-cue mix levels — the boss cues carry the drama; `attack`, `skill`
+    /// and especially `buttonTap` fire constantly so they sit well under
+    /// everything else.
     private static func volume(for effect: SoundEffect) -> Float {
         switch effect {
         case .bossEncounter: return 1.0
         case .bossVictory: return 0.85
         case .ultimate: return 0.9
+        case .levelUp: return 0.8
+        case .summon: return 0.7
+        case .reward: return 0.6
         case .skill: return 0.5
         case .attack: return 0.32
+        case .buttonTap: return 0.25
         default: return 0.8
         }
     }

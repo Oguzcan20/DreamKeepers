@@ -15,6 +15,10 @@ Cues produced:
     ultimate.wav        ~1.0s  heavy layered impact + power-down sweep
     skill.wav           ~0.33s quick whoosh + blip (fires often -> subtle)
     attack.wav          ~0.12s dry percussive thwack (every basic hit -> quiet)
+    summon.wav          ~0.9s  rising magical shimmer + bell arpeggio
+    level_up.wav        ~1.0s  bright ascending major triad + brass pad
+    reward.wav          ~0.5s  warm confirming major chord + sparkle
+    button_tap.wav      ~0.04s soft muted UI click (nearly every tap -> tiny)
 
 Requires numpy. Usage:
     ./synth_battle_audio.py [output_dir]
@@ -197,6 +201,7 @@ D2, F2, A2, C3 = 73.42, 87.31, 110.00, 130.81
 D3, F3, Fs3, A3 = 146.83, 174.61, 185.00, 220.00
 E3, G3, Bb3 = 164.81, 196.00, 233.08
 D4, Fs4, A4, D5 = 293.66, 369.99, 440.00, 587.33
+C4, E4, G4, B4, C5 = 261.63, 329.63, 392.00, 493.88, 523.25
 
 
 # ---------------------------------------------------------------- compositions
@@ -298,12 +303,58 @@ def attack():
     return finalize(d, peak=0.55, drive=1.0)
 
 
+def summon():
+    """Rising magical shimmer -- anticipation before a gacha reveal (~0.9s)."""
+    d = zeros(0.9)
+    add(d, 0.0, riseenv(lowpass_swept(noise(0.7), 600, 5000), 1.8), 0.15)
+    for k, bf in enumerate((D4, Fs4, A4, D5, Fs4 * 2)):
+        add(d, 0.04 + 0.09 * k, expenv(sine(bf, 0.5), 0.3), 0.14)
+    for k, bf in enumerate((D5 * 2, A4 * 2, Fs4 * 3)):
+        add(d, 0.45 + 0.07 * k, expenv(sine(bf, 0.4), 0.18), 0.05)
+    return finalize(reverb(d, 0.2), peak=0.8)
+
+
+def level_up():
+    """Bright ascending major triad run + soft brass pad (~1.0s)."""
+    d = zeros(1.0)
+    for k, nf in enumerate((D4, Fs4, A4, D5)):
+        add(d, 0.08 * k, expenv(sine(nf, 0.6) + 0.4 * sine(nf * 2, 0.6), 0.28), 0.16)
+    add(d, 0.0, ar(brass_chord([D3, Fs3, A3, D4], 0.7, detune=0.01), 0.02, 0.3), 0.2)
+    for k, bf in enumerate((D5 * 2, Fs4 * 4, A4 * 4)):
+        add(d, 0.30 + 0.06 * k, expenv(sine(bf, 0.4), 0.2), 0.05)
+    add(d, 0.0, cymbal(0.5, 0.22, 5000), 0.09)
+    return finalize(reverb(d, 0.18), peak=0.85)
+
+
+def reward():
+    """Warm confirming major chord pluck + gentle sparkle (~0.5s)."""
+    d = zeros(0.5)
+    chord = sine(D3, 0.45) + sine(Fs3, 0.45) + sine(A3, 0.45) + sine(D4, 0.45)
+    add(d, 0.0, expenv(chord, 0.16), 0.2)
+    add(d, 0.0, ar(brass_chord([D3, Fs3, A3], 0.3, detune=0.008), 0.01, 0.12), 0.15)
+    for k, bf in enumerate((A4, D5, Fs4 * 2)):
+        add(d, 0.06 + 0.05 * k, expenv(sine(bf, 0.3), 0.14), 0.06)
+    return finalize(reverb(d, 0.15), peak=0.72)
+
+
+def button_tap():
+    """Soft muted UI click -- fires on nearly every tap, so tiny (~0.04s)."""
+    d = zeros(0.05)
+    add(d, 0.0, expenv(lowpass(noise(0.03), 1800), 0.006), 0.3)
+    add(d, 0.0, expenv(sine(660.0, 0.03), 0.008), 0.12)
+    return finalize(d, peak=0.4, drive=1.0)
+
+
 CUES = {
     "boss_encounter": boss_encounter,
     "boss_victory": boss_victory,
     "ultimate": ultimate,
     "skill": skill,
     "attack": attack,
+    "summon": summon,
+    "level_up": level_up,
+    "reward": reward,
+    "button_tap": button_tap,
 }
 
 
