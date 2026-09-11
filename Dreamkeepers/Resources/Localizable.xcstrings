@@ -51,6 +51,16 @@
         }
       }
     },
+    "%@ · Wave %lld/%lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · Welle %lld/%lld"
+          }
+        }
+      }
+    },
     "%lld": {
       "localizations": {
         "de": {
@@ -91,6 +101,26 @@
         }
       }
     },
+    "%lld SP": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld SP"
+          }
+        }
+      }
+    },
+    "%lld Soul Points": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Seelenpunkte"
+          }
+        }
+      }
+    },
     "%lld of %lld stars": {
       "localizations": {
         "de": {
@@ -107,6 +137,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld ausgewählt"
+          }
+        }
+      }
+    },
+    "%lld/%lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld"
           }
         }
       }
@@ -221,6 +261,16 @@
         }
       }
     },
+    "+%lld Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld Edelsteine"
+          }
+        }
+      }
+    },
     "+%lld Gold": {
       "localizations": {
         "de": {
@@ -257,6 +307,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "+%lld Gold, +%lld Edelsteine · %lld/%lld heute"
+          }
+        }
+      }
+    },
+    "+%lld Soul Points": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld Seelenpunkte"
           }
         }
       }
@@ -337,6 +397,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "80 Edelsteine"
+          }
+        }
+      }
+    },
+    "A Different Kind of Olf...": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein anderer Olf..."
           }
         }
       }
@@ -547,6 +617,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Eine garantierte legendäre Belohnung für das Erreichen dieser Stufe."
+          }
+        }
+      }
+    },
+    "A guaranteed rare reward for clearing this Schlund for the first time.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine garantierte seltene Belohnung für den ersten Durchlauf dieses Schlunds."
           }
         }
       }
@@ -1211,56 +1291,6 @@
         }
       }
     },
-    "The Endless Trial": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Turm der Unendlichkeit"
-          }
-        }
-      }
-    },
-    "Trial Ticket Bundle": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Turm-Ticket-Bündel"
-          }
-        }
-      }
-    },
-    "Trial Ticket Pack": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Turm-Ticket-Paket"
-          }
-        }
-      }
-    },
-    "Trial Tickets": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Turm-Tickets"
-          }
-        }
-      }
-    },
-    "Endless Trial · Floor %lld": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Turm der Unendlichkeit · Stufe %lld"
-          }
-        }
-      }
-    },
     "Astral": {
       "localizations": {
         "de": {
@@ -1291,12 +1321,12 @@
         }
       }
     },
-    "Unequip All Gear": {
+    "BOND SEALED": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gesamte Ausrüstung ablegen"
+            "value": "BUND BESIEGELT"
           }
         }
       }
@@ -1317,6 +1347,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zurück zum Traumhafen"
+          }
+        }
+      }
+    },
+    "Back to Dungeons": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurück zu den Schlünden"
           }
         }
       }
@@ -2281,6 +2321,16 @@
         }
       }
     },
+    "Deploy a team before entering a dungeon.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setze ein Team ein, bevor du einen Schlund betrittst."
+          }
+        }
+      }
+    },
     "Deploy a team before entering the Endless Trial.": {
       "localizations": {
         "de": {
@@ -2471,6 +2521,26 @@
         }
       }
     },
+    "Dungeon Keys": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlund-Schlüssel"
+          }
+        }
+      }
+    },
+    "Dungeons": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlünde"
+          }
+        }
+      }
+    },
     "Duplicate pulls join your Inventory — fuse them onto a Dreamkeeper to raise its stars.": {
       "localizations": {
         "de": {
@@ -2571,12 +2641,32 @@
         }
       }
     },
+    "Endless Trial · Floor %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turm der Unendlichkeit · Stufe %lld"
+          }
+        }
+      }
+    },
     "Energy %lld of %lld": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Energie %lld von %lld"
+          }
+        }
+      }
+    },
+    "Enter": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betreten"
           }
         }
       }
@@ -2777,6 +2867,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Belohnung für Erstabschluss"
+          }
+        }
+      }
+    },
+    "First Clear!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erster Durchlauf!"
           }
         }
       }
@@ -3921,16 +4021,6 @@
         }
       }
     },
-    "No Trial Tickets Left": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keine Turm-Tickets mehr"
-          }
-        }
-      }
-    },
     "No Dreamkeepers deployed yet. Tap to build your team.": {
       "localizations": {
         "de": {
@@ -3947,6 +4037,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Noch keine Items"
+          }
+        }
+      }
+    },
+    "No Keys Left": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Schlüssel mehr"
+          }
+        }
+      }
+    },
+    "No Trial Tickets Left": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Turm-Tickets mehr"
           }
         }
       }
@@ -4107,6 +4217,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Olf Hat Dich Gewählt"
+          }
+        }
+      }
+    },
+    "Olf Has Joined You!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Olf schließt sich dir an!"
           }
         }
       }
@@ -4381,6 +4501,16 @@
         }
       }
     },
+    "Rank %lld/%lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rang %lld/%lld"
+          }
+        }
+      }
+    },
     "Rare": {
       "localizations": {
         "de": {
@@ -4431,6 +4561,16 @@
         }
       }
     },
+    "Reach floor %lld of the Endless Trial to rebirth.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erreiche Stufe %lld der Endlosprüfung, um wiedergeboren zu werden."
+          }
+        }
+      }
+    },
     "Reaches deeper than any dream has ever needed.": {
       "localizations": {
         "de": {
@@ -4461,6 +4601,46 @@
         }
       }
     },
+    "Rebirth": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiedergeburt"
+          }
+        }
+      }
+    },
+    "Rebirth?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiedergeburt?"
+          }
+        }
+      }
+    },
+    "Rebirths: %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiedergeburten: %lld"
+          }
+        }
+      }
+    },
+    "Recommended Lv %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empfohlene Stufe %lld"
+          }
+        }
+      }
+    },
     "Recruit a Legendary Dreamkeeper.": {
       "localizations": {
         "de": {
@@ -4477,6 +4657,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Auffüllen für %lld Edelsteine"
+          }
+        }
+      }
+    },
+    "Refills daily": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Füllt sich täglich auf"
           }
         }
       }
@@ -4677,6 +4867,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wird wärmer, je länger ein Kampf andauert."
+          }
+        }
+      }
+    },
+    "SECRET UNLOCKED": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GEHEIMNIS FREIGESCHALTET"
           }
         }
       }
@@ -5541,6 +5741,16 @@
         }
       }
     },
+    "Tap anywhere to continue": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zum Fortfahren tippen"
+          }
+        }
+      }
+    },
     "Tap the chest to reveal your Dreamkeeper": {
       "localizations": {
         "de": {
@@ -5667,6 +5877,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Die absolute Finsternis"
+          }
+        }
+      }
+    },
+    "The Endless Trial": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turm der Unendlichkeit"
           }
         }
       }
@@ -6051,6 +6271,36 @@
         }
       }
     },
+    "Trial Ticket Bundle": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turm-Ticket-Bündel"
+          }
+        }
+      }
+    },
+    "Trial Ticket Pack": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turm-Ticket-Paket"
+          }
+        }
+      }
+    },
+    "Trial Tickets": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turm-Tickets"
+          }
+        }
+      }
+    },
     "Twin Bond": {
       "localizations": {
         "de": {
@@ -6087,6 +6337,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ablegen"
+          }
+        }
+      }
+    },
+    "Unequip All Gear": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesamte Ausrüstung ablegen"
           }
         }
       }
@@ -6481,6 +6741,16 @@
         }
       }
     },
+    "You've used all your dungeon keys for today. Come back tomorrow!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du hast alle deine Schlüssel für heute aufgebraucht. Komm morgen wieder!"
+          }
+        }
+      }
+    },
     "Young and playful, riding the abyss's slow deep currents.": {
       "localizations": {
         "de": {
@@ -6531,6 +6801,16 @@
         }
       }
     },
+    "Your Endless Trial floor resets to 1 in exchange for %lld Soul Points. Your roster, gear, and gold are untouched.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Stufe in der Endlosprüfung wird gegen %lld Seelenpunkte auf 1 zurückgesetzt. Dein Roster, deine Ausrüstung und dein Gold bleiben unverändert."
+          }
+        }
+      }
+    },
     "Your Team": {
       "localizations": {
         "de": {
@@ -6547,56 +6827,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "vs. %@ · Wertung %lld"
-          }
-        }
-      }
-    },
-    "BOND SEALED": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "BUND BESIEGELT"
-          }
-        }
-      }
-    },
-    "SECRET UNLOCKED": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "GEHEIMNIS FREIGESCHALTET"
-          }
-        }
-      }
-    },
-    "Olf Has Joined You!": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Olf schließt sich dir an!"
-          }
-        }
-      }
-    },
-    "A Different Kind of Olf...": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ein anderer Olf..."
-          }
-        }
-      }
-    },
-    "Tap anywhere to continue": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zum Fortfahren tippen"
           }
         }
       }

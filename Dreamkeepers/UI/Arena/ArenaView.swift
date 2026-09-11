@@ -17,6 +17,7 @@ struct ArenaView: View {
     @State private var appeared = false
     @State private var showNoTicketsAlert = false
     @State private var showNoTeamAlert = false
+    @State private var showRebirth = false
 
     var body: some View {
         ZStack {
@@ -30,6 +31,11 @@ struct ArenaView: View {
                 progressCard
                     .padding(.horizontal, 20)
                     .padding(.top, 6)
+                    .opacity(appeared ? 1 : 0)
+
+                rebirthCard
+                    .padding(.horizontal, 20)
+                    .padding(.top, 8)
                     .opacity(appeared ? 1 : 0)
 
                 if gameState.isArenaTowerCleared {
@@ -99,6 +105,9 @@ struct ArenaView: View {
             Button("OK", role: .cancel) {}
         } message: {
             Text("Deploy a team before entering the Endless Trial.")
+        }
+        .sheet(isPresented: $showRebirth) {
+            RebirthSheet(gameState: gameState)
         }
     }
 
@@ -172,6 +181,42 @@ struct ArenaView: View {
                 }
             }
         }
+    }
+
+    /// Compact entry point into `RebirthSheet` — glows gold once floor 50 is
+    /// reached so a player scanning the hub notices rebirth became available.
+    private var rebirthCard: some View {
+        Button {
+            showRebirth = true
+        } label: {
+            GlassCard {
+                HStack(spacing: 14) {
+                    ZStack {
+                        Circle().fill(Theme.violet.opacity(0.3)).frame(width: 40, height: 40)
+                        Image(systemName: "sparkle")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundStyle(Theme.violet)
+                    }
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Rebirth")
+                            .font(.subheadline.weight(.bold))
+                            .foregroundStyle(.white)
+                        Text("\(gameState.soulPoints) Soul Points")
+                            .font(.caption)
+                            .foregroundStyle(.white.opacity(0.6))
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.white.opacity(0.35))
+                }
+            }
+            .overlay(
+                RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
+                    .stroke(gameState.canRebirth ? Theme.gold.opacity(0.55) : .clear, lineWidth: 1.5)
+            )
+        }
+        .buttonStyle(.plain)
     }
 
     private var towerClearedBanner: some View {

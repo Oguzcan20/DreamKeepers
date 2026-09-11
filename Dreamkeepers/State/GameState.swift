@@ -42,6 +42,20 @@ struct ArenaBattleResultSummary: Equatable {
     var towerCleared: Bool
 }
 
+/// Result of one Dungeon run — mirrors `ArenaBattleResultSummary`'s shape.
+/// A Flutter-originated feature (`DungeonBattleResultSummary` in
+/// `lib/state/game_state.dart`) ported here to bring iOS to parity.
+struct DungeonBattleResultSummary: Equatable {
+    var outcome: BattleOutcome
+    var dungeon: DungeonID
+    var goldGained: Int
+    var gemsGained: Int
+    var droppedEquipment: EquipmentItem?
+    /// True when this win was `dungeon`'s very first clear (bigger, fixed
+    /// reward plus a guaranteed high-rarity item) rather than a repeat farm run.
+    var isFirstClear: Bool
+}
+
 struct BattleResultSummary: Equatable {
     var outcome: BattleOutcome
     var stage: Int
@@ -556,7 +570,10 @@ final class GameState {
         guard !playerCombatants.isEmpty else { return nil }
         let isBoss = selectedStage % World.stagesPerWorld == 0
         let enemy = EnemyFactory.enemy(forStage: selectedStage)
-        return BattleEngine(playerUnits: playerCombatants, enemy: enemy, stage: selectedStage, isBossStage: isBoss)
+        return BattleEngine(
+            playerUnits: playerCombatants, enemy: enemy, stage: selectedStage, isBossStage: isBoss,
+            playerDamageMultiplier: soulDamageMult
+        )
     }
 
     // MARK: - Resolving a finished battle
@@ -591,21 +608,21 @@ final class GameState {
                 incrementWeeklyMission(.defeatBosses)
             }
             let rewards = RewardTable.rewards(forStage: stage, isBoss: isBoss)
-            goldGained = rewards.gold
-            expGained = rewards.expPerSurvivor
-            save.gold += rewards.gold
+            goldGained = soulGold(rewards.gold)
+            expGained = soulExp(rewards.expPerSurvivor)
+            save.gold += goldGained
             save.battlePassXP += BattlePassSystem.xpGained(isBoss: isBoss)
 
             // A flat-out reward for not taking a single hit — worth more
             // than a quieter "you won" on the result screen.
             if isPerfectClear {
-                perfectClearBonusGold = max(1, Int(Double(rewards.gold) * 0.25))
+                perfectClearBonusGold = max(1, Int(Double(goldGained) * 0.25))
                 goldGained += perfectClearBonusGold
                 save.gold += perfectClearBonusGold
             }
 
             let accountBefore = save.playerLevel
-            let accountResult = LevelSystem.applyExp(rewards.accountExp, level: save.playerLevel, exp: save.playerExp)
+            let accountResult = LevelSystem.applyExp(soulExp(rewards.accountExp), level: save.playerLevel, exp: save.playerExp)
             save.playerLevel = accountResult.finalLevel
             save.playerExp = accountResult.finalExp
             if accountResult.levelsGained > 0 {
@@ -618,7 +635,7 @@ final class GameState {
                 let before = save.roster[i]
                 let statsBefore = before.currentStats(in: catalog, inventory: save.inventory)
 
-                let result = LevelSystem.applyExp(rewards.expPerSurvivor, level: before.level, exp: before.exp)
+                let result = LevelSystem.applyExp(expGained, level: before.level, exp: before.exp)
                 save.roster[i].level = result.finalLevel
                 save.roster[i].exp = result.finalExp
 
@@ -753,7 +770,10 @@ final class GameState {
             save.arenaBonusTickets -= 1
         }
         persist()
-        return BattleEngine(playerUnits: playerCombatants, enemy: rival, stage: floor, isBossStage: false)
+        return BattleEngine(
+            playerUnits: playerCombatants, enemy: rival, stage: floor, isBossStage: false,
+            playerDamageMultiplier: soulDamageMult
+        )
     }
 
     /// Applies reward changes for a finished Arena Tower fight. A win on the
@@ -780,7 +800,7 @@ final class GameState {
             incrementMission(.winBattle)
 
             if isFirstClear {
-                goldGained = ArenaSystem.firstClearGoldReward(floor: floor)
+                goldGained = soulGold(ArenaSystem.firstClearGoldReward(floor: floor))
                 save.gold += goldGained
                 let item = ArenaSystem.firstClearEquipment(forFloor: floor)
                 save.inventory.append(item)
@@ -788,7 +808,7 @@ final class GameState {
                 save.arenaFloor = floor + 1
                 towerCleared = save.arenaFloor > ArenaSystem.maxFloor
             } else {
-                goldGained = ArenaSystem.standardGoldReward(floor: floor)
+                goldGained = soulGold(ArenaSystem.standardGoldReward(floor: floor))
                 save.gold += goldGained
                 if let item = ArenaSystem.standardEquipmentDrop(forFloor: floor) {
                     save.inventory.append(item)
@@ -805,6 +825,155 @@ final class GameState {
             newTier: newTier, tierChanged: newTier != oldTier,
             droppedEquipment: droppedEquipment, isFirstClear: isFirstClear,
             isMilestoneFloor: isFirstClear && isMilestone, towerCleared: towerCleared
+        )
+    }
+
+    // MARK: - Rebirth ("Wiedergeburt")
+
+    var soulPoints: Int { save.soulPoints }
+    var rebirthCount: Int { save.rebirthCount }
+
+    func soulUpgradeRank(_ upgrade: SoulUpgrade) -> Int {
+        save.soulUpgradeRanks[upgrade.rawValue] ?? 0
+    }
+
+    private var soulGoldMult: Double { RebirthSystem.effectMultiplier(.goldFind, soulUpgradeRank(.goldFind)) }
+    private var soulExpMult: Double { RebirthSystem.effectMultiplier(.expBoost, soulUpgradeRank(.expBoost)) }
+    /// Folded into every `BattleEngine` built for the player — see
+    /// `makeBattleEngine()`/`makeArenaBattleEngine(floor:)`/`makeDungeonBattleEngine(_:)`.
+    var soulDamageMult: Double { RebirthSystem.effectMultiplier(.damage, soulUpgradeRank(.damage)) }
+    private var soulOfflineMult: Double { RebirthSystem.effectMultiplier(.offlineRewards, soulUpgradeRank(.offlineRewards)) }
+
+    private func soulGold(_ base: Int) -> Int { Int((Double(base) * soulGoldMult).rounded()) }
+    private func soulExp(_ base: Int) -> Int { Int((Double(base) * soulExpMult).rounded()) }
+
+    /// Reaching `RebirthSystem.rebirthFloorRequirement` on the Endless Trial
+    /// unlocks Rebirth.
+    var canRebirth: Bool { save.arenaFloor >= RebirthSystem.rebirthFloorRequirement }
+
+    /// Soul Points a Rebirth performed right now would bank.
+    var pendingRebirthSoulPoints: Int { RebirthSystem.soulPointsForFloor(save.arenaFloor) }
+
+    /// Resets the Endless Trial tower to floor 1 and banks
+    /// `pendingRebirthSoulPoints`. Roster, gold, gems, and gear are all
+    /// untouched. Returns `false` (no-op) when `canRebirth` is false.
+    @discardableResult
+    func performRebirth() -> Bool {
+        guard canRebirth else { return false }
+        save.soulPoints += pendingRebirthSoulPoints
+        save.rebirthCount += 1
+        save.arenaFloor = 1
+        persist()
+        checkAchievements()
+        return true
+    }
+
+    /// Buys the next rank of `upgrade`. Returns `false` when already maxed
+    /// or too expensive to leave `save` untouched either way.
+    @discardableResult
+    func buySoulUpgrade(_ upgrade: SoulUpgrade) -> Bool {
+        let rank = soulUpgradeRank(upgrade)
+        guard rank < RebirthSystem.maxRank(upgrade) else { return false }
+        let cost = RebirthSystem.costForRank(upgrade, rank + 1)
+        guard save.soulPoints >= cost else { return false }
+        save.soulPoints -= cost
+        save.soulUpgradeRanks[upgrade.rawValue] = rank + 1
+        persist()
+        return true
+    }
+
+    // MARK: - Dungeons ("Schlünde")
+
+    var dungeons: [DungeonID] { DungeonSystem.all }
+
+    /// Calendar-day-scoped key counter, same reset pattern as
+    /// `ensureArenaTicketDayCurrent`.
+    private func ensureDungeonKeyDayCurrent() {
+        let today = Calendar.current.startOfDay(for: Date())
+        guard !Calendar.current.isDate(save.dungeonKeyDay, inSameDayAs: today) else { return }
+        save.dungeonKeyDay = today
+        save.dungeonKeys = DungeonSystem.maxKeysPerDay
+    }
+
+    var dungeonKeysRemainingToday: Int {
+        ensureDungeonKeyDayCurrent()
+        return save.dungeonKeys
+    }
+
+    var maxDungeonKeysPerDay: Int { DungeonSystem.maxKeysPerDay }
+
+    /// True once `id` has already been cleared at least once — its first-
+    /// clear reward was already claimed, so clearing it again only pays the
+    /// smaller repeat farm reward.
+    func isDungeonCleared(_ id: DungeonID) -> Bool {
+        save.clearedDungeonIDs.contains(id.storageKey)
+    }
+
+    func canEnterDungeon(_ id: DungeonID) -> Bool {
+        !deployedTeam.isEmpty && dungeonKeysRemainingToday > 0
+    }
+
+    /// Spends one Dungeon Key and builds the run's `BattleEngine` — the
+    /// first wave is the `enemy`, the remaining waves (ending in the boss)
+    /// ride along as `reinforcements` and enter one at a time as each prior
+    /// wave is cleared, with no heal in between (see `BattleEngine`'s
+    /// wave-queue support). `nil` only when `canEnterDungeon` is false.
+    func makeDungeonBattleEngine(_ id: DungeonID) -> BattleEngine? {
+        ensureDungeonKeyDayCurrent()
+        guard canEnterDungeon(id) else { return nil }
+        let playerCombatants = makePlayerCombatants(from: deployedTeam)
+        let waves = DungeonSystem.waves(id)
+        guard !playerCombatants.isEmpty, let firstWave = waves.first else { return nil }
+        save.dungeonKeys -= 1
+        persist()
+        return BattleEngine(
+            playerUnits: playerCombatants, enemy: firstWave, stage: DungeonSystem.lootStage(id), isBossStage: false,
+            reinforcements: Array(waves.dropFirst()), playerDamageMultiplier: soulDamageMult
+        )
+    }
+
+    /// Applies reward changes for a finished Dungeon run — a win on a
+    /// not-yet-cleared dungeon (first clear) pays the big, fixed reward
+    /// (gold, Dream Gems, a guaranteed high-rarity item) and marks it
+    /// cleared; a win replaying an already-cleared dungeon pays the smaller,
+    /// RNG-based farm reward. A loss costs nothing further than the key
+    /// already spent in `makeDungeonBattleEngine`.
+    func applyDungeonBattleResult(from engine: BattleEngine, dungeon: DungeonID) -> DungeonBattleResultSummary {
+        let outcome = engine.outcome ?? .defeat
+        let won = outcome == .victory
+        let isFirstClear = won && !isDungeonCleared(dungeon)
+
+        var goldGained = 0
+        var gemsGained = 0
+        var droppedEquipment: EquipmentItem?
+
+        if won {
+            incrementMission(.winBattle)
+            if isFirstClear {
+                goldGained = soulGold(DungeonSystem.firstClearGold(dungeon))
+                gemsGained = DungeonSystem.firstClearGems(dungeon)
+                save.gold += goldGained
+                save.dreamGems += gemsGained
+                let item = EquipmentFactory.item(forStage: DungeonSystem.lootStage(dungeon), rarity: DungeonSystem.firstClearRarity(dungeon))
+                save.inventory.append(item)
+                droppedEquipment = item
+                save.clearedDungeonIDs.insert(dungeon.storageKey)
+            } else {
+                goldGained = soulGold(DungeonSystem.repeatGold(dungeon))
+                save.gold += goldGained
+                if EquipmentFactory.shouldDrop(isBoss: false) {
+                    let item = EquipmentFactory.randomItem(forStage: DungeonSystem.lootStage(dungeon), isBoss: false)
+                    save.inventory.append(item)
+                    droppedEquipment = item
+                }
+            }
+        }
+
+        persist()
+        checkAchievements()
+        return DungeonBattleResultSummary(
+            outcome: outcome, dungeon: dungeon, goldGained: goldGained, gemsGained: gemsGained,
+            droppedEquipment: droppedEquipment, isFirstClear: isFirstClear
         )
     }
 
@@ -830,11 +999,13 @@ final class GameState {
         // Sweep is a shortcut past the animation, not past the stamina gate.
         guard spendEnergy(EnergySystem.stageCost(isBoss: isBoss)) else { return nil }
         let rewards = RewardTable.rewards(forStage: stage, isBoss: isBoss)
+        let goldGained = soulGold(rewards.gold)
+        let expGained = soulExp(rewards.expPerSurvivor)
 
-        save.gold += rewards.gold
+        save.gold += goldGained
 
         let accountBefore = save.playerLevel
-        let accountResult = LevelSystem.applyExp(rewards.accountExp, level: save.playerLevel, exp: save.playerExp)
+        let accountResult = LevelSystem.applyExp(soulExp(rewards.accountExp), level: save.playerLevel, exp: save.playerExp)
         save.playerLevel = accountResult.finalLevel
         save.playerExp = accountResult.finalExp
         let accountLevelUp = accountResult.levelsGained > 0
@@ -846,7 +1017,7 @@ final class GameState {
             let before = save.roster[i]
             let statsBefore = before.currentStats(in: catalog, inventory: save.inventory)
 
-            let result = LevelSystem.applyExp(rewards.expPerSurvivor, level: before.level, exp: before.exp)
+            let result = LevelSystem.applyExp(expGained, level: before.level, exp: before.exp)
             save.roster[i].level = result.finalLevel
             save.roster[i].exp = result.finalExp
 
@@ -870,7 +1041,7 @@ final class GameState {
         checkAchievements()
         return BattleResultSummary(
             outcome: .victory, stage: stage, wasBoss: isBoss,
-            goldGained: rewards.gold, expGained: rewards.expPerSurvivor,
+            goldGained: goldGained, expGained: expGained,
             levelUps: levelUps, newRecruit: nil, droppedEquipment: droppedEquipment,
             accountLevelUp: accountLevelUp, isPerfectClear: false, perfectClearBonusGold: 0
         )
@@ -1215,11 +1386,13 @@ final class GameState {
     // MARK: - Offline buildings
 
     var pendingGoldFountainReward: Int {
-        OfflineRewards.pendingGold(since: save.lastGoldCollectedAt)
+        let base = OfflineRewards.pendingGold(since: save.lastGoldCollectedAt)
+        return Int((Double(base) * soulGoldMult * soulOfflineMult).rounded())
     }
 
     var pendingTrainingGardenReward: Int {
-        OfflineRewards.pendingExp(since: save.lastTrainingCollectedAt)
+        let base = OfflineRewards.pendingExp(since: save.lastTrainingCollectedAt)
+        return Int((Double(base) * soulExpMult * soulOfflineMult).rounded())
     }
 
     @discardableResult

@@ -136,6 +136,25 @@ struct GameSave: Codable, Equatable {
     /// separate from `arenaTickets` so a day rollover never silently wastes
     /// a purchase.
     var arenaBonusTickets: Int
+    /// Prestige/Rebirth ("Wiedergeburt") currency — banked when the player
+    /// resets the Arena Tower via `GameState.performRebirth()`, spent on
+    /// permanent `SoulUpgrade` ranks. See `RebirthSystem`.
+    var soulPoints: Int
+    /// Rank (0...`RebirthSystem.maxRank(_:)`) bought so far per `SoulUpgrade`,
+    /// keyed by `SoulUpgrade.rawValue`. A track absent from the dictionary is
+    /// rank 0.
+    var soulUpgradeRanks: [String: Int]
+    /// Number of times the player has performed a Rebirth — display-only.
+    var rebirthCount: Int
+    /// Dungeon Keys left today — refilled to `DungeonSystem.maxKeysPerDay` at
+    /// local midnight, same pattern as `arenaTickets`.
+    var dungeonKeys: Int
+    /// Calendar day `dungeonKeys` was last refilled — resets it once the
+    /// stored day no longer matches today, same pattern as `arenaTicketDay`.
+    var dungeonKeyDay: Date
+    /// `DungeonID.storageKey`s the player has cleared at least once — gates
+    /// the first-clear reward vs. the smaller repeat farm reward.
+    var clearedDungeonIDs: Set<String>
 
     init(playerLevel: Int, playerExp: Int, gold: Int, dreamGems: Int,
          roster: [DreamkeeperInstance], teams: [Team], activeTeamID: UUID, inventory: [EquipmentItem],
@@ -159,7 +178,9 @@ struct GameSave: Codable, Equatable {
          energy: Int = EnergySystem.maxEnergy, lastEnergyUpdateAt: Date = Date(),
          energyRefillDay: Date = .distantPast, energyRefillCount: Int = 0,
          arenaFloor: Int = 1, arenaTickets: Int = ArenaSystem.maxTicketsPerDay, arenaTicketDay: Date = .distantPast,
-         arenaBonusTickets: Int = 0) {
+         arenaBonusTickets: Int = 0, soulPoints: Int = 0, soulUpgradeRanks: [String: Int] = [:],
+         rebirthCount: Int = 0, dungeonKeys: Int = DungeonSystem.maxKeysPerDay, dungeonKeyDay: Date = .distantPast,
+         clearedDungeonIDs: Set<String> = []) {
         self.playerLevel = playerLevel
         self.playerExp = playerExp
         self.gold = gold
@@ -211,6 +232,12 @@ struct GameSave: Codable, Equatable {
         self.arenaTickets = arenaTickets
         self.arenaTicketDay = arenaTicketDay
         self.arenaBonusTickets = arenaBonusTickets
+        self.soulPoints = soulPoints
+        self.soulUpgradeRanks = soulUpgradeRanks
+        self.rebirthCount = rebirthCount
+        self.dungeonKeys = dungeonKeys
+        self.dungeonKeyDay = dungeonKeyDay
+        self.clearedDungeonIDs = clearedDungeonIDs
     }
 
     /// Custom decode so saves written before the offline-building timestamps
@@ -296,6 +323,14 @@ struct GameSave: Codable, Equatable {
         arenaTickets = try container.decodeIfPresent(Int.self, forKey: .arenaTickets) ?? ArenaSystem.maxTicketsPerDay
         arenaTicketDay = try container.decodeIfPresent(Date.self, forKey: .arenaTicketDay) ?? .distantPast
         arenaBonusTickets = try container.decodeIfPresent(Int.self, forKey: .arenaBonusTickets) ?? 0
+        // Missing keys mean this save predates Rebirth/Dungeons — start
+        // existing players with a clean slate, same as a fresh save.
+        soulPoints = try container.decodeIfPresent(Int.self, forKey: .soulPoints) ?? 0
+        soulUpgradeRanks = try container.decodeIfPresent([String: Int].self, forKey: .soulUpgradeRanks) ?? [:]
+        rebirthCount = try container.decodeIfPresent(Int.self, forKey: .rebirthCount) ?? 0
+        dungeonKeys = try container.decodeIfPresent(Int.self, forKey: .dungeonKeys) ?? DungeonSystem.maxKeysPerDay
+        dungeonKeyDay = try container.decodeIfPresent(Date.self, forKey: .dungeonKeyDay) ?? .distantPast
+        clearedDungeonIDs = try container.decodeIfPresent(Set<String>.self, forKey: .clearedDungeonIDs) ?? []
     }
 
     func encode(to encoder: Encoder) throws {
@@ -351,6 +386,12 @@ struct GameSave: Codable, Equatable {
         try container.encode(arenaTickets, forKey: .arenaTickets)
         try container.encode(arenaTicketDay, forKey: .arenaTicketDay)
         try container.encode(arenaBonusTickets, forKey: .arenaBonusTickets)
+        try container.encode(soulPoints, forKey: .soulPoints)
+        try container.encode(soulUpgradeRanks, forKey: .soulUpgradeRanks)
+        try container.encode(rebirthCount, forKey: .rebirthCount)
+        try container.encode(dungeonKeys, forKey: .dungeonKeys)
+        try container.encode(dungeonKeyDay, forKey: .dungeonKeyDay)
+        try container.encode(clearedDungeonIDs, forKey: .clearedDungeonIDs)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -369,6 +410,7 @@ struct GameSave: Codable, Equatable {
         case battleSpeedMultiplier, autoBattleEnabled
         case energy, lastEnergyUpdateAt, energyRefillDay, energyRefillCount
         case arenaFloor, arenaTickets, arenaTicketDay, arenaBonusTickets
+        case soulPoints, soulUpgradeRanks, rebirthCount, dungeonKeys, dungeonKeyDay, clearedDungeonIDs
         case team // legacy key, migration-only
         case lastOfflineTimestamp // legacy key, migration-only
     }

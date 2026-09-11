@@ -71,6 +71,21 @@ final class BattleEngine {
     let stage: Int
     let isBossStage: Bool
 
+    /// Multiplies every point of damage a player unit deals — folds in
+    /// Rebirth's `SoulUpgrade.damage` track (see `GameState.soulDamageMult`).
+    /// `1.0` for a battle with no Soul upgrades bought.
+    let playerDamageMultiplier: Double
+
+    /// Enemies still waiting to enter the fight after the current one(s) die
+    /// — a Dungeon run's remaining waves. Empty for an ordinary single-enemy
+    /// battle (Campaign/Arena).
+    private var pendingWaves: [Combatant]
+    /// 1-indexed wave currently being fought. `1` for an ordinary battle.
+    private(set) var currentWave: Int = 1
+    /// Total waves this run will fight — fixed at construction. `1` for an
+    /// ordinary battle.
+    let totalWaves: Int
+
     /// Injected so tests can make damage deterministic; defaults to a small
     /// +/-10% swing for UI "liveliness".
     var varianceProvider: () -> Double = { Double.random(in: 0.9...1.1) }
@@ -79,14 +94,27 @@ final class BattleEngine {
     /// attacks roughly once per second.
     private let attackRateScale: Double = 1.0 / 100.0
 
-    init(playerUnits: [Combatant], enemy: Combatant, stage: Int, isBossStage: Bool) {
+    init(
+        playerUnits: [Combatant], enemy: Combatant, stage: Int, isBossStage: Bool,
+        reinforcements: [Combatant] = [], playerDamageMultiplier: Double = 1.0
+    ) {
         self.combatants = playerUnits + [enemy]
         self.stage = stage
         self.isBossStage = isBossStage
+        self.pendingWaves = reinforcements
+        self.totalWaves = 1 + reinforcements.count
+        self.playerDamageMultiplier = playerDamageMultiplier
     }
 
     var playerUnits: [Combatant] { combatants.filter(\.isPlayer) }
     var enemyUnits: [Combatant] { combatants.filter { !$0.isPlayer } }
+
+    /// The enemy currently being fought — the first still-alive one, or the
+    /// last enemy if none remain (so the UI has something to show while the
+    /// outcome/next-wave transition is being resolved).
+    var activeEnemy: Combatant? {
+        enemyUnits.first(where: \.isAlive) ?? enemyUnits.last
+    }
 
     func tick(dt: TimeInterval) {
         guard outcome == nil else { return }
@@ -141,7 +169,8 @@ final class BattleEngine {
 
     private func resolveDamage(attacker: Combatant, defender: Combatant, multiplier: Double = 1.0) -> Double {
         let elementMultiplier = attacker.element.multiplier(against: defender.element)
-        let raw = effectiveAttack(attacker) * elementMultiplier * multiplier - defender.defense * 0.5
+        let soulMultiplier = attacker.isPlayer ? playerDamageMultiplier : 1.0
+        let raw = effectiveAttack(attacker) * elementMultiplier * multiplier * soulMultiplier - defender.defense * 0.5
         let variance = varianceProvider()
         return max(1, raw * variance)
     }
@@ -378,7 +407,16 @@ final class BattleEngine {
     // MARK: - Outcome
 
     private func resolveOutcomeIfNeeded() {
+        guard outcome == nil else { return }
+
         if enemyUnits.allSatisfy({ !$0.isAlive }) {
+            if !pendingWaves.isEmpty {
+                let next = pendingWaves.removeFirst()
+                combatants.append(next)
+                currentWave += 1
+                appendLog("A new foe advances: \(next.name)!")
+                return
+            }
             outcome = .victory
             appendLog("Victory!")
         } else if playerUnits.allSatisfy({ !$0.isAlive }) {

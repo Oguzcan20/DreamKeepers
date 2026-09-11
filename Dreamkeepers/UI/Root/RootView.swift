@@ -17,6 +17,9 @@ enum AppRoute: Equatable {
     case arena
     case arenaBattle
     case arenaResult(ArenaBattleResultSummary)
+    case dungeon
+    case dungeonBattle(DungeonID)
+    case dungeonResult(DungeonBattleResultSummary)
 }
 
 struct RootView: View {
@@ -27,6 +30,8 @@ struct RootView: View {
     @State private var route: AppRoute
     @State private var activeEngine: BattleEngine?
     @State private var activeArenaEngine: BattleEngine?
+    @State private var activeDungeonEngine: BattleEngine?
+    @State private var activeDungeon: DungeonID?
     @State private var isLoading: Bool
     @State private var activeAchievementPopup: Achievement?
     @State private var showLoginReward = false
@@ -91,6 +96,7 @@ struct RootView: View {
         case "codex": _route = State(initialValue: .codex)
         case "battle": _route = State(initialValue: .battle)
         case "arena": _route = State(initialValue: .arena)
+        case "dungeon": _route = State(initialValue: .dungeon)
         default: _route = State(initialValue: .mainMenu)
         }
     }
@@ -121,7 +127,9 @@ struct RootView: View {
     /// needed this redundant floating one anyway.
     private var showsGlobalHomeButton: Bool {
         switch route {
-        case .mainMenu, .battle, .result, .dreamHaven, .summon, .arenaBattle, .arenaResult, .codex: return false
+        case .mainMenu, .battle, .result, .dreamHaven, .summon, .arenaBattle, .arenaResult, .codex,
+             .dungeonBattle, .dungeonResult:
+            return false
         default: return true
         }
     }
@@ -419,6 +427,32 @@ struct RootView: View {
                 navigate(to: .arena)
             } onDreamHaven: {
                 activeArenaEngine = nil
+                navigate(to: .dreamHaven)
+            }
+        case .dungeon:
+            DungeonView(gameState: gameState) { destination in
+                navigate(to: destination)
+            } onFight: { dungeon in
+                guard let engine = gameState.makeDungeonBattleEngine(dungeon) else { return }
+                activeDungeonEngine = engine
+                activeDungeon = dungeon
+                navigate(to: .dungeonBattle(dungeon))
+            }
+        case .dungeonBattle(let dungeon):
+            if let engine = activeDungeonEngine {
+                BattleView(engine: engine, gameState: gameState, dungeonName: DungeonSystem.displayName(dungeon)) { finishedEngine in
+                    let summary = gameState.applyDungeonBattleResult(from: finishedEngine, dungeon: dungeon)
+                    navigate(to: .dungeonResult(summary))
+                }
+            }
+        case .dungeonResult(let summary):
+            DungeonResultView(summary: summary) {
+                activeDungeonEngine = nil
+                activeDungeon = nil
+                navigate(to: .dungeon)
+            } onDreamHaven: {
+                activeDungeonEngine = nil
+                activeDungeon = nil
                 navigate(to: .dreamHaven)
             }
         }

@@ -8,6 +8,10 @@ struct BattleView: View {
     /// floor being fought here (see `GameState.makeArenaBattleEngine`), but a
     /// Campaign-shaped "World N · Stage M" label would be meaningless for it.
     var arenaFloor: Int? = nil
+    /// Non-nil only for a Dungeon run — swaps the banner for the dungeon's
+    /// name plus a live wave counter (`engine.currentWave`/`totalWaves`)
+    /// instead of a stage or floor number.
+    var dungeonName: String? = nil
     var onFinished: (BattleEngine) -> Void
 
     @State private var timer: Timer?
@@ -144,7 +148,13 @@ struct BattleView: View {
     private var stageHeader: some View {
         HStack {
             Group {
-                if let arenaFloor {
+                if let dungeonName {
+                    if engine.currentWave == engine.totalWaves {
+                        Text("\(dungeonName) · Boss")
+                    } else {
+                        Text("\(dungeonName) · Wave \(engine.currentWave)/\(engine.totalWaves)")
+                    }
+                } else if let arenaFloor {
                     Text("Endless Trial · Floor \(arenaFloor)")
                 } else {
                     let world = WorldCatalog.world(forStage: engine.stage)
@@ -157,7 +167,7 @@ struct BattleView: View {
                 }
             }
             .font(.subheadline.weight(.semibold))
-            .foregroundStyle(engine.isBossStage ? .red : .white.opacity(0.7))
+            .foregroundStyle((engine.isBossStage || engine.currentWave == engine.totalWaves) ? .red : .white.opacity(0.7))
             Spacer()
             battleControls
         }

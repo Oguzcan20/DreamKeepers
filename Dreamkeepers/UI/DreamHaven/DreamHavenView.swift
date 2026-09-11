@@ -407,6 +407,14 @@ struct DreamHavenView: View {
                 ) {
                     navigate(.arena)
                 }
+                BuildingCard(
+                    icon: "square.grid.3x3.fill", name: "Dungeons",
+                    status: "\(gameState.dungeonKeysRemainingToday)/\(gameState.maxDungeonKeysPerDay) Keys",
+                    isActive: true, isReady: gameState.dungeonKeysRemainingToday > 0, delay: 0.19,
+                    accent: Theme.violet
+                ) {
+                    navigate(.dungeon)
+                }
                 if gameState.isRewardedAdAvailable {
                     BuildingCard(
                         icon: "play.rectangle.fill", name: "Watch Ad",
