@@ -25,6 +25,11 @@ struct HitEvent: Equatable {
     let targetID: UUID
     let amount: Int
     let attackerElement: Element
+    /// The attacker's own per-monster icon (`Combatant.symbol`), when it has
+    /// one, so the impact effect on the *target* shows which specific
+    /// monster landed the hit instead of falling back to the shared
+    /// per-element icon every attacker of that element would otherwise show.
+    var attackerSymbol: String? = nil
     let isElementAdvantage: Bool
     /// True if the defender had `Guard` active for this hit (see
     /// `BattleEngine.activateGuard`) — damage was already reduced before
@@ -421,7 +426,9 @@ final class BattleEngine {
             combatants[index].currentHP = max(0, newHP)
         }
         let isAdvantage = attackerElement.multiplier(against: combatants[index].element) > 1.0
+        let attackerSymbol = combatants.first(where: { $0.id == attackerID })?.symbol
         lastHit = HitEvent(attackerID: attackerID, targetID: combatants[index].id, amount: amount, attackerElement: attackerElement,
+                            attackerSymbol: attackerSymbol,
                             isElementAdvantage: isAdvantage, wasGuarded: wasGuarded, wasPerfectGuard: wasPerfectGuard)
         appendLog("\(attackerName) hits \(combatants[index].name) for \(amount).")
         if !combatants[index].isAlive {

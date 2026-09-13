@@ -159,11 +159,16 @@ struct BattleView: View {
             }
 
             if let startFrame = combatantFrames[hit.attackerID], let endFrame = combatantFrames[hit.targetID] {
+                // Prefer the attacker's own per-monster icon over the shared
+                // per-element one, same reasoning as `ElementBurst` above —
+                // the bolt itself should read as "this monster's attack",
+                // not one of five interchangeable element bolts.
+                let symbol = hit.attackerSymbol ?? hit.attackerElement.symbol
                 attackProjectile = AttackProjectile(
                     start: CGPoint(x: startFrame.midX, y: startFrame.midY),
                     end: CGPoint(x: endFrame.midX, y: endFrame.midY),
                     color: hit.attackerElement.color,
-                    symbol: hit.attackerElement.symbol,
+                    symbol: symbol,
                     big: isBig,
                     role: attackerRole,
                     isBoss: isBossHit
@@ -174,7 +179,7 @@ struct BattleView: View {
                     impactBurst = ImpactBurst(
                         point: CGPoint(x: endFrame.midX, y: endFrame.midY),
                         color: hit.attackerElement.color,
-                        symbol: hit.attackerElement.symbol,
+                        symbol: symbol,
                         big: isBig
                     )
                     let impactLife = isBossHit ? 0.5 : 0.34
@@ -390,8 +395,8 @@ private struct CombatantBanner: View {
 
     // Being hit.
     @State private var flashOpacity: Double = 0
-    @State private var burstColor: Color = .white
-    @State private var burstSymbol: String = "sparkle"
+    @State private var burstElement: Element = .ember
+    @State private var burstSymbolOverride: String? = nil
     @State private var burstRadius: CGFloat = 0
     @State private var burstOpacity: Double = 0
     @State private var outerBurstRadius: CGFloat = 0
@@ -491,15 +496,15 @@ private struct CombatantBanner: View {
                             .frame(width: portraitSize, height: portraitSize)
                             .blur(radius: 2)
                             .opacity(attackGlowOpacity)
-                        ElementBurst(color: combatant.element.color, symbol: combatant.element.symbol, radius: castRadius, opacity: castOpacity, particleCount: 5, particleSize: 11)
+                        ElementBurst(element: combatant.element, symbolOverride: combatant.symbol, radius: castRadius, opacity: castOpacity, particleCount: 5, particleSize: 11)
 
                         // Impact: two staggered rings of the attacker's
                         // element icon plus an expanding shockwave — the
                         // clear "this one just got hit" cue.
-                        ElementBurst(color: burstColor, symbol: burstSymbol, radius: burstRadius, opacity: burstOpacity, particleCount: 7, particleSize: 10)
-                        ElementBurst(color: burstColor, symbol: burstSymbol, radius: outerBurstRadius, opacity: outerBurstOpacity, particleCount: 7, particleSize: 7)
+                        ElementBurst(element: burstElement, symbolOverride: burstSymbolOverride, radius: burstRadius, opacity: burstOpacity, particleCount: 7, particleSize: 10)
+                        ElementBurst(element: burstElement, symbolOverride: burstSymbolOverride, radius: outerBurstRadius, opacity: outerBurstOpacity, particleCount: 7, particleSize: 7)
                         Circle()
-                            .stroke(burstColor, lineWidth: 2.5)
+                            .stroke(burstElement.color, lineWidth: 2.5)
                             .frame(width: portraitSize, height: portraitSize)
                             .scaleEffect(shockwaveScale)
                             .opacity(shockwaveOpacity)
@@ -596,38 +601,74 @@ private struct CombatantBanner: View {
             guard let hit = newValue else { return }
 
             if hit.attackerID == combatant.id {
-                // A boss winds up bigger, tilts further, and holds the pose
-                // longer than a regular attacker — it should read as a much
-                // heavier creature landing a much heavier blow, not the same
-                // generic tap every other combatant plays. A Healer/Support
-                // is never seen swinging in its own kit (only heals/buffs),
-                // so its basic attack reads as a cast — a pulsing glow with
-                // no lunge — rather than borrowing the melee combatants' hop.
-                let isCaster = combatant.role == .healer || combatant.role == .support
-                let scale: CGFloat = combatant.isBoss ? 1.38 : (isCaster ? 1.08 : 1.22)
-                let tilt: Double = isCaster ? 0 : (combatant.isBoss ? -18 : -10)
-                let lift: CGFloat = isCaster ? 0 : (combatant.isBoss ? 20 : 13)
-                let windUp: CGFloat = combatant.isBoss ? 62 : (isCaster ? 40 : 46)
-                let windUpDuration = combatant.isBoss ? 0.26 : 0.18
-
                 attackGlowOpacity = 1
                 castRadius = 0
                 castOpacity = 1
                 cardFlashOpacity = 1
-                withAnimation(.easeOut(duration: windUpDuration)) {
-                    attackScale = scale
-                    attackTilt = tilt
-                    attackOffsetY = lift
-                    castRadius = windUp
-                    cardFlashOpacity = combatant.isBoss ? 0.9 : 0.75
-                }
-                withAnimation(.easeOut(duration: 0.28).delay(windUpDuration)) {
+
+                if combatant.isBoss {
+                    // A boss doesn't just scale up in place — it visibly
+                    // rears back (anticipation) then slams forward toward
+                    // the party (strike), a real two-phase attack motion
+                    // instead of one smooth interpolation, so it reads as a
+                    // heavy creature deliberately landing a blow rather than
+                    // the same generic tap every combatant plays, just
+                    // bigger. `attackOffsetY` moves it toward the party row
+                    // below, not just up/down in place.
                     attackScale = 1
-                    attackTilt = 0
-                    attackOffsetY = 0
-                    attackGlowOpacity = 0
-                    castOpacity = 0
-                    cardFlashOpacity = 0
+                    attackTilt = 8
+                    attackOffsetY = -18
+                    withAnimation(.easeOut(duration: 0.14)) {
+                        attackScale = 0.9
+                        attackTilt = 16
+                        attackOffsetY = -26
+                        castRadius = 30
+                        cardFlashOpacity = 0.55
+                    }
+                    withAnimation(.easeIn(duration: 0.15).delay(0.14)) {
+                        attackScale = 1.55
+                        attackTilt = -26
+                        attackOffsetY = 56
+                        castRadius = 78
+                        cardFlashOpacity = 0.95
+                    }
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.5).delay(0.14 + 0.15)) {
+                        attackScale = 1
+                        attackTilt = 0
+                        attackOffsetY = 0
+                    }
+                    withAnimation(.easeOut(duration: 0.3).delay(0.14 + 0.15)) {
+                        attackGlowOpacity = 0
+                        castOpacity = 0
+                        cardFlashOpacity = 0
+                    }
+                } else {
+                    // A Healer/Support is never seen swinging in its own kit
+                    // (only heals/buffs), so its basic attack reads as a
+                    // cast — a pulsing glow with no lunge — rather than
+                    // borrowing the melee combatants' hop.
+                    let isCaster = combatant.role == .healer || combatant.role == .support
+                    let scale: CGFloat = isCaster ? 1.08 : 1.22
+                    let tilt: Double = isCaster ? 0 : -10
+                    let lift: CGFloat = isCaster ? 0 : 13
+                    let windUp: CGFloat = isCaster ? 40 : 46
+                    let windUpDuration = 0.18
+
+                    withAnimation(.easeOut(duration: windUpDuration)) {
+                        attackScale = scale
+                        attackTilt = tilt
+                        attackOffsetY = lift
+                        castRadius = windUp
+                        cardFlashOpacity = 0.75
+                    }
+                    withAnimation(.easeOut(duration: 0.28).delay(windUpDuration)) {
+                        attackScale = 1
+                        attackTilt = 0
+                        attackOffsetY = 0
+                        attackGlowOpacity = 0
+                        castOpacity = 0
+                        cardFlashOpacity = 0
+                    }
                 }
             }
 
@@ -644,8 +685,8 @@ private struct CombatantBanner: View {
                 recoilOffsetY = 0
             }
 
-            burstColor = hit.attackerElement.color
-            burstSymbol = hit.attackerElement.symbol
+            burstElement = hit.attackerElement
+            burstSymbolOverride = hit.attackerSymbol
             burstRadius = 0
             burstOpacity = 1
             withAnimation(.easeOut(duration: isBig ? 0.55 : 0.4)) {
@@ -911,26 +952,77 @@ private struct ImpactBurstView: View {
     }
 }
 
-/// Small radiating burst tinted and shaped by whichever element is involved
-/// — using that element's own symbol (flame/drop/leaf/moon/sparkles) rather
-/// than a generic spark, so the effect reads as "fitting the monster"
-/// rather than one interchangeable animation for every hit.
+/// Radiating burst tinted and shaped by whichever element is involved, and
+/// iconed with the specific monster's own icon when it has one
+/// (`symbolOverride`) rather than always falling back to the shared
+/// per-element icon — so a hit reads as "this monster attacked" rather than
+/// one of only five interchangeable animations for the whole roster.
+///
+/// Each element also gets a genuinely different particle *geometry*, not
+/// just a different color/icon, so the same shared shape doesn't stand in
+/// for every type either: Ember erupts in an upward fan, Tide stays an even
+/// ripple, Bloom spirals outward like a growing vine, Lunar sweeps along a
+/// rotating crescent arc, and Astral splits into two counter-spinning arms.
+/// All of this is derived purely from `radius` (which the caller already
+/// animates from 0 up to its target) rather than a separate time value, so
+/// no call site needs to change how it drives this view.
 private struct ElementBurst: View {
-    let color: Color
-    var symbol: String = "sparkle"
+    let element: Element
+    var symbolOverride: String? = nil
     let radius: CGFloat
     let opacity: Double
     var particleCount: Int = 6
     var particleSize: CGFloat = 9
 
+    private var color: Color { element.color }
+    private var symbol: String { symbolOverride ?? element.symbol }
+
+    private func offset(for index: Int) -> CGPoint {
+        let n = Double(max(particleCount, 1))
+        let i = Double(index)
+        let r = Double(radius)
+        let angle: Angle
+        switch element {
+        case .ember:
+            // Upward fan around straight up, reading as an eruption rather
+            // than an even ring.
+            let spread = 140.0
+            angle = .degrees(-90 + (particleCount > 1 ? i / (n - 1) : 0.5) * spread - spread / 2)
+        case .tide:
+            angle = .degrees(i / n * 360)
+        case .bloom:
+            // Spiral: the angle winds an extra turn as the burst expands.
+            angle = .degrees(i / n * 360 + r * 2.4)
+        case .lunar:
+            // Crescent: particles confined to an arc that itself rotates
+            // outward, reading as a slash sweep rather than a full ring.
+            let arc = 130.0
+            let sweep = r * 1.6
+            angle = .degrees(sweep + (particleCount > 1 ? i / (n - 1) : 0.5) * arc - arc / 2)
+        case .astral:
+            // Two counter-rotating arms converging/diverging around the
+            // center, distinct from every other element's single ring.
+            let armSign: Double = index % 2 == 0 ? 1 : -1
+            angle = .degrees(i / n * 720 + armSign * r * 3)
+        }
+        return CGPoint(x: cos(angle.radians) * radius, y: sin(angle.radians) * radius)
+    }
+
+    private var iconRotation: Angle {
+        // Lunar particles spin in place as they sweep, selling the
+        // "crescent slash" read; every other element stays upright.
+        element == .lunar ? .degrees(Double(radius) * 1.6) : .zero
+    }
+
     var body: some View {
         ForEach(0..<particleCount, id: \.self) { index in
-            let angle = Angle.degrees(Double(index) / Double(particleCount) * 360)
+            let point = offset(for: index)
             Image(systemName: symbol)
                 .font(.system(size: particleSize, weight: .bold))
                 .foregroundStyle(color)
                 .shadow(color: color.opacity(0.7), radius: 3)
-                .offset(x: cos(angle.radians) * radius, y: sin(angle.radians) * radius)
+                .rotationEffect(iconRotation)
+                .offset(x: point.x, y: point.y)
                 .opacity(opacity)
         }
     }
@@ -969,8 +1061,8 @@ private struct PartyMemberTile: View {
 
     // Being hit.
     @State private var flashOpacity: Double = 0
-    @State private var burstColor: Color = .white
-    @State private var burstSymbol: String = "sparkle"
+    @State private var burstElement: Element = .ember
+    @State private var burstSymbolOverride: String? = nil
     @State private var burstRadius: CGFloat = 0
     @State private var burstOpacity: Double = 0
     @State private var outerBurstRadius: CGFloat = 0
@@ -1072,11 +1164,11 @@ private struct PartyMemberTile: View {
                         .frame(width: portraitSize, height: portraitSize)
                         .blur(radius: 1.5)
                         .opacity(attackGlowOpacity)
-                    ElementBurst(color: combatant.element.color, symbol: combatant.element.symbol, radius: castRadius, opacity: castOpacity, particleCount: 5, particleSize: 8)
+                    ElementBurst(element: combatant.element, symbolOverride: combatant.symbol, radius: castRadius, opacity: castOpacity, particleCount: 5, particleSize: 8)
 
                     // Two staggered impact rings when this Dreamkeeper is hit.
-                    ElementBurst(color: burstColor, symbol: burstSymbol, radius: burstRadius, opacity: burstOpacity, particleCount: 6, particleSize: 8)
-                    ElementBurst(color: burstColor, symbol: burstSymbol, radius: outerBurstRadius, opacity: outerBurstOpacity, particleCount: 6, particleSize: 6)
+                    ElementBurst(element: burstElement, symbolOverride: burstSymbolOverride, radius: burstRadius, opacity: burstOpacity, particleCount: 6, particleSize: 8)
+                    ElementBurst(element: burstElement, symbolOverride: burstSymbolOverride, radius: outerBurstRadius, opacity: outerBurstOpacity, particleCount: 6, particleSize: 6)
 
                     // Caster's own portrait pops with a gold ring the instant
                     // their ultimate fires — `UltimateShowcaseView` carries the
@@ -1282,8 +1374,8 @@ private struct PartyMemberTile: View {
                 recoilOffsetY = 0
             }
 
-            burstColor = hit.attackerElement.color
-            burstSymbol = hit.attackerElement.symbol
+            burstElement = hit.attackerElement
+            burstSymbolOverride = hit.attackerSymbol
             burstRadius = 0
             burstOpacity = 1
             withAnimation(.easeOut(duration: isBig ? 0.45 : 0.35)) {
