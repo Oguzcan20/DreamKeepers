@@ -322,6 +322,8 @@ final class GameState {
         save.gold += reward.gold
         save.dreamGems += reward.gems
         grantEnergy(reward.energy)
+        save.monsterSummonTickets += reward.monsterTickets
+        save.equipmentSummonTickets += reward.equipmentTickets
         save.loginStreakDay = reward.day
         save.lastLoginRewardClaimDate = Date()
         persist()
@@ -1253,7 +1255,11 @@ final class GameState {
 
     // MARK: - Summoning
 
-    var canAffordSummon: Bool { save.dreamGems >= SummonSystem.cost }
+    /// A single pull is free whenever a ticket is banked — see
+    /// `GameSave.monsterSummonTickets`. Multi-pulls always cost gems; a
+    /// ticket only ever substitutes for one `SummonSystem.cost`.
+    var hasMonsterSummonTicket: Bool { save.monsterSummonTickets > 0 }
+    var canAffordSummon: Bool { hasMonsterSummonTicket || save.dreamGems >= SummonSystem.cost }
     var canAffordMultiSummon: Bool { save.dreamGems >= SummonSystem.multiPullCost }
 
     /// Rolls one pull and lands it in the roster — including duplicates,
@@ -1299,7 +1305,11 @@ final class GameState {
     @discardableResult
     func performSummon() -> SummonResult? {
         guard canAffordSummon else { return nil }
-        save.dreamGems -= SummonSystem.cost
+        if hasMonsterSummonTicket {
+            save.monsterSummonTickets -= 1
+        } else {
+            save.dreamGems -= SummonSystem.cost
+        }
         let result = rollAndAddSummon()
         incrementMission(.performSummon)
         incrementMission(.premiumBonusSummons)
@@ -1334,7 +1344,10 @@ final class GameState {
 
     // MARK: - Equipment Summoning
 
-    var canAffordEquipmentSummon: Bool { save.dreamGems >= EquipmentSummonSystem.cost }
+    /// Mirrors `hasMonsterSummonTicket`/`canAffordSummon` for Equipment
+    /// Summoning's own separate ticket counter.
+    var hasEquipmentSummonTicket: Bool { save.equipmentSummonTickets > 0 }
+    var canAffordEquipmentSummon: Bool { hasEquipmentSummonTicket || save.dreamGems >= EquipmentSummonSystem.cost }
     var canAffordEquipmentMultiSummon: Bool { save.dreamGems >= EquipmentSummonSystem.multiPullCost }
 
     /// Rolls one item at the player's current stage and drops it straight
@@ -1357,7 +1370,11 @@ final class GameState {
     @discardableResult
     func performEquipmentSummon() -> EquipmentItem? {
         guard canAffordEquipmentSummon else { return nil }
-        save.dreamGems -= EquipmentSummonSystem.cost
+        if hasEquipmentSummonTicket {
+            save.equipmentSummonTickets -= 1
+        } else {
+            save.dreamGems -= EquipmentSummonSystem.cost
+        }
         let result = rollAndAddEquipmentSummon()
         persist()
         checkAchievements()
@@ -1496,6 +1513,8 @@ final class GameState {
         save.gold += def.goldReward
         save.dreamGems += def.gemReward
         grantEnergy(def.energyReward)
+        save.monsterSummonTickets += def.monsterTicketReward
+        save.equipmentSummonTickets += def.equipmentTicketReward
         save.claimedMissionIDs.insert(id.rawValue)
         persist()
         return true

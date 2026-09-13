@@ -98,6 +98,23 @@ final class DailyMissionsTests: XCTestCase {
         XCTAssertEqual(mission.progress, mission.definition.target)
     }
 
+    func testClaimingTicketMissionsGrantsSummonTickets() {
+        let saveSystem = InMemorySaveSystem()
+        var seed = GameSave.newGame(starterDefinitionID: DreamkeeperCatalog.unlockOrder[0])
+        seedAllMissionsActive(&seed)
+        seed.monsterSummonTickets = 0
+        seed.equipmentSummonTickets = 0
+        try? saveSystem.save(seed)
+        let state = GameState(platform: MockPlatformService(), saveSystem: saveSystem)
+        state.debugCompleteAllMissions()
+
+        XCTAssertTrue(state.claimMission(.defeatBoss))
+        XCTAssertEqual(state.save.monsterSummonTickets, DailyMissions.definitions.first { $0.id == .defeatBoss }!.monsterTicketReward)
+
+        XCTAssertTrue(state.claimMission(.upgradeEquipment))
+        XCTAssertEqual(state.save.equipmentSummonTickets, DailyMissions.definitions.first { $0.id == .upgradeEquipment }!.equipmentTicketReward)
+    }
+
     func testDefeatingABossProgressesTheDefeatBossMission() {
         let saveSystem = InMemorySaveSystem()
         var seed = GameSave.newGame(starterDefinitionID: DreamkeeperCatalog.unlockOrder[0])

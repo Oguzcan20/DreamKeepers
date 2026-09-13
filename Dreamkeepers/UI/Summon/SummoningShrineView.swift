@@ -458,6 +458,11 @@ struct SummoningShrineView: View {
                 .font(.title3.weight(.bold))
                 .foregroundStyle(.white)
             Spacer()
+            if summonKind == .dreamkeeper, gameState.save.monsterSummonTickets > 0 {
+                TicketPill(amount: gameState.save.monsterSummonTickets, label: "Monster Tickets")
+            } else if summonKind == .equipment, gameState.save.equipmentSummonTickets > 0 {
+                TicketPill(amount: gameState.save.equipmentSummonTickets, label: "Equipment Tickets")
+            }
             RollingGemsPill(amount: gameState.save.dreamGems)
         }
         .padding(.horizontal, 20)
@@ -494,7 +499,11 @@ struct SummoningShrineView: View {
                         Button {
                             summon()
                         } label: {
-                            Label("Summon · \(SummonSystem.cost) Gems", systemImage: "sparkle")
+                            if gameState.hasMonsterSummonTicket {
+                                Label("Summon · 1 Ticket", systemImage: "ticket.fill")
+                            } else {
+                                Label("Summon · \(SummonSystem.cost) Gems", systemImage: "sparkle")
+                            }
                         }
                         .buttonStyle(PrimaryButtonStyle(tint: Theme.gold))
                         .disabled(!gameState.canAffordSummon)
@@ -554,7 +563,11 @@ struct SummoningShrineView: View {
                         Button {
                             equipmentSummon()
                         } label: {
-                            Label("Summon · \(EquipmentSummonSystem.cost) Gems", systemImage: "shield.fill")
+                            if gameState.hasEquipmentSummonTicket {
+                                Label("Summon · 1 Ticket", systemImage: "ticket.fill")
+                            } else {
+                                Label("Summon · \(EquipmentSummonSystem.cost) Gems", systemImage: "shield.fill")
+                            }
                         }
                         .buttonStyle(PrimaryButtonStyle(tint: Theme.gold))
                         .disabled(!gameState.canAffordEquipmentSummon)
@@ -1483,6 +1496,37 @@ private struct RollingGemsPill: View {
         )
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(amount) Dream Gems")
+    }
+}
+
+/// Shown only while its ticket count is above 0 — a free single pull is
+/// waiting to be spent, distinct enough from the gem pill that a player
+/// with a ticket banked notices it before tapping "Summon".
+private struct TicketPill: View {
+    var amount: Int
+    var label: String
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "ticket.fill")
+                .foregroundStyle(Theme.gold)
+                .accessibilityHidden(true)
+            Text("\(amount)")
+                .font(.subheadline.monospacedDigit().weight(.semibold))
+                .foregroundStyle(.white)
+                .contentTransition(.numericText(value: Double(amount)))
+                .animation(.snappy(duration: 0.5), value: amount)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+        .background(.ultraThinMaterial)
+        .background(Theme.gold.opacity(0.12))
+        .clipShape(Capsule())
+        .overlay(
+            Capsule().stroke(Theme.gold.opacity(0.5), lineWidth: 1)
+        )
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(amount) \(label)")
     }
 }
 

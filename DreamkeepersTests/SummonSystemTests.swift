@@ -18,7 +18,14 @@ final class SummonSystemTests: XCTestCase {
     }
 
     func testPerformSummonDeductsGemsAndBlocksWhenPoor() {
-        let state = GameState(platform: MockPlatformService(), saveSystem: InMemorySaveSystem())
+        let saveSystem = InMemorySaveSystem()
+        var seed = GameSave.newGame(starterDefinitionID: DreamkeeperCatalog.unlockOrder[0])
+        // A fresh save starts with a free ticket (see `GameSave.newGame`) —
+        // zero it so this test isolates the gem-spending path; ticket
+        // spending itself is covered by `testPerformSummonSpendsTicketBeforeGems`.
+        seed.monsterSummonTickets = 0
+        try? saveSystem.save(seed)
+        let state = GameState(platform: MockPlatformService(), saveSystem: saveSystem)
         let startingGems = state.save.dreamGems
         XCTAssertTrue(state.canAffordSummon)
 
@@ -31,6 +38,34 @@ final class SummonSystemTests: XCTestCase {
             state.performSummon()
         }
         XCTAssertNil(state.performSummon())
+    }
+
+    func testPerformSummonSpendsTicketBeforeGems() {
+        let state = GameState(platform: MockPlatformService(), saveSystem: InMemorySaveSystem())
+        // `GameSave.newGame` grants exactly one free ticket.
+        XCTAssertEqual(state.save.monsterSummonTickets, 1)
+        let startingGems = state.save.dreamGems
+
+        XCTAssertNotNil(state.performSummon())
+        XCTAssertEqual(state.save.monsterSummonTickets, 0, "The banked ticket should be spent first")
+        XCTAssertEqual(state.save.dreamGems, startingGems, "Gems must be untouched while a ticket covers the pull")
+
+        // Next pull has no ticket left, so it falls back to gems.
+        XCTAssertNotNil(state.performSummon())
+        XCTAssertEqual(state.save.dreamGems, startingGems - SummonSystem.cost)
+    }
+
+    func testEquipmentSummonSpendsTicketBeforeGems() {
+        let state = GameState(platform: MockPlatformService(), saveSystem: InMemorySaveSystem())
+        XCTAssertEqual(state.save.equipmentSummonTickets, 1)
+        let startingGems = state.save.dreamGems
+
+        XCTAssertNotNil(state.performEquipmentSummon())
+        XCTAssertEqual(state.save.equipmentSummonTickets, 0)
+        XCTAssertEqual(state.save.dreamGems, startingGems)
+
+        XCTAssertNotNil(state.performEquipmentSummon())
+        XCTAssertEqual(state.save.dreamGems, startingGems - EquipmentSummonSystem.cost)
     }
 
     func testDuplicateSummonBecomesItsOwnRosterEntry() {

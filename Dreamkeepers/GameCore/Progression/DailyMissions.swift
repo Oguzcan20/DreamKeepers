@@ -26,6 +26,13 @@ struct MissionDefinition: Identifiable {
     /// daily mission, but only claimable (and only shown as available,
     /// rather than locked) once Premium is unlocked.
     var isPremiumOnly: Bool = false
+    /// Free Dreamkeeper Summoning ticket granted on claim — see
+    /// `GameSave.monsterSummonTickets`. Only `.defeatBoss` grants one today.
+    var monsterTicketReward: Int = 0
+    /// Free Equipment Summoning ticket granted on claim — see
+    /// `GameSave.equipmentSummonTickets`. Only `.upgradeEquipment` grants
+    /// one today.
+    var equipmentTicketReward: Int = 0
 }
 
 /// Quest pool. Progress and claims live on `GameSave`, keyed by
@@ -47,11 +54,11 @@ enum DailyMissions {
         MissionDefinition(id: .collectBuilding, title: "Collect from a Building", icon: "hand.tap.fill",
                            target: 1, goldReward: 30, gemReward: 0),
         MissionDefinition(id: .upgradeEquipment, title: "Upgrade a Piece of Gear", icon: "hammer.fill",
-                           target: 1, goldReward: 0, gemReward: 6),
+                           target: 1, goldReward: 0, gemReward: 6, equipmentTicketReward: 1),
         MissionDefinition(id: .spendInShop, title: "Visit the Shop", icon: "cart.fill",
                            target: 1, goldReward: 25, gemReward: 0),
         MissionDefinition(id: .defeatBoss, title: "Defeat a Boss", icon: "flame.fill",
-                           target: 1, goldReward: 0, gemReward: 10, energyReward: 15),
+                           target: 1, goldReward: 0, gemReward: 10, energyReward: 15, monsterTicketReward: 1),
         MissionDefinition(id: .deployFullTeam, title: "Field a Full Team", icon: "person.3.fill",
                            target: 1, goldReward: 20, gemReward: 0),
         MissionDefinition(id: .premiumBonusStages, title: "Clear 3 Stages", icon: "flag.2.crossed.fill",

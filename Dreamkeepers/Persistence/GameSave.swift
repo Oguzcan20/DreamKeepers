@@ -155,6 +155,19 @@ struct GameSave: Codable, Equatable {
     /// `DungeonID.storageKey`s the player has cleared at least once — gates
     /// the first-clear reward vs. the smaller repeat farm reward.
     var clearedDungeonIDs: Set<String>
+    /// Free single-pull tickets for Dreamkeeper Summoning — spent instead of
+    /// `dreamGems` by `GameState.performSummon()` whenever the balance is
+    /// above 0, so an early or gem-poor player still gets the occasional
+    /// summon. Earned from `LoginRewardSystem` days and select
+    /// `DailyMissions`/`WeeklyMissions` (never purchasable — see
+    /// `ShopItemKind`). Multi-pulls always spend gems; tickets only ever
+    /// cover a single pull.
+    var monsterSummonTickets: Int
+    /// Same idea as `monsterSummonTickets`, but for Equipment Summoning
+    /// (`GameState.performEquipmentSummon()`) — kept as its own counter
+    /// rather than one shared pool so earning one never silently spends on
+    /// the other kind of pull.
+    var equipmentSummonTickets: Int
 
     init(playerLevel: Int, playerExp: Int, gold: Int, dreamGems: Int,
          roster: [DreamkeeperInstance], teams: [Team], activeTeamID: UUID, inventory: [EquipmentItem],
@@ -180,7 +193,7 @@ struct GameSave: Codable, Equatable {
          arenaFloor: Int = 1, arenaTickets: Int = ArenaSystem.maxTicketsPerDay, arenaTicketDay: Date = .distantPast,
          arenaBonusTickets: Int = 0, soulPoints: Int = 0, soulUpgradeRanks: [String: Int] = [:],
          rebirthCount: Int = 0, dungeonKeys: Int = DungeonSystem.maxKeysPerDay, dungeonKeyDay: Date = .distantPast,
-         clearedDungeonIDs: Set<String> = []) {
+         clearedDungeonIDs: Set<String> = [], monsterSummonTickets: Int = 0, equipmentSummonTickets: Int = 0) {
         self.playerLevel = playerLevel
         self.playerExp = playerExp
         self.gold = gold
@@ -238,6 +251,8 @@ struct GameSave: Codable, Equatable {
         self.dungeonKeys = dungeonKeys
         self.dungeonKeyDay = dungeonKeyDay
         self.clearedDungeonIDs = clearedDungeonIDs
+        self.monsterSummonTickets = monsterSummonTickets
+        self.equipmentSummonTickets = equipmentSummonTickets
     }
 
     /// Custom decode so saves written before the offline-building timestamps
@@ -331,6 +346,11 @@ struct GameSave: Codable, Equatable {
         dungeonKeys = try container.decodeIfPresent(Int.self, forKey: .dungeonKeys) ?? DungeonSystem.maxKeysPerDay
         dungeonKeyDay = try container.decodeIfPresent(Date.self, forKey: .dungeonKeyDay) ?? .distantPast
         clearedDungeonIDs = try container.decodeIfPresent(Set<String>.self, forKey: .clearedDungeonIDs) ?? []
+        // Missing keys mean this save predates summon tickets — start
+        // existing players at 0, same as a fresh save that hasn't earned any
+        // yet (never a paid currency, so there's nothing to backfill).
+        monsterSummonTickets = try container.decodeIfPresent(Int.self, forKey: .monsterSummonTickets) ?? 0
+        equipmentSummonTickets = try container.decodeIfPresent(Int.self, forKey: .equipmentSummonTickets) ?? 0
     }
 
     func encode(to encoder: Encoder) throws {
@@ -392,6 +412,8 @@ struct GameSave: Codable, Equatable {
         try container.encode(dungeonKeys, forKey: .dungeonKeys)
         try container.encode(dungeonKeyDay, forKey: .dungeonKeyDay)
         try container.encode(clearedDungeonIDs, forKey: .clearedDungeonIDs)
+        try container.encode(monsterSummonTickets, forKey: .monsterSummonTickets)
+        try container.encode(equipmentSummonTickets, forKey: .equipmentSummonTickets)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -411,6 +433,7 @@ struct GameSave: Codable, Equatable {
         case energy, lastEnergyUpdateAt, energyRefillDay, energyRefillCount
         case arenaFloor, arenaTickets, arenaTicketDay, arenaBonusTickets
         case soulPoints, soulUpgradeRanks, rebirthCount, dungeonKeys, dungeonKeyDay, clearedDungeonIDs
+        case monsterSummonTickets, equipmentSummonTickets
         case team // legacy key, migration-only
         case lastOfflineTimestamp // legacy key, migration-only
     }
@@ -436,7 +459,12 @@ struct GameSave: Codable, Equatable {
             claimedMissionIDs: [],
             purchasedOneTimeOfferIDs: [],
             hasSeenOnboarding: false,
-            hasChosenStarterElement: false
+            hasChosenStarterElement: false,
+            // A free ticket of each kind from the very first launch — a
+            // brand new player can summon once before ever earning or
+            // spending a single extra Dream Gem.
+            monsterSummonTickets: 1,
+            equipmentSummonTickets: 1
         )
     }
 }

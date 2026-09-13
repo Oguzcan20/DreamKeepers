@@ -2681,6 +2681,16 @@
         }
       }
     },
+    "Equipment Tickets": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausrüstungs-Tickets"
+          }
+        }
+      }
+    },
     "Equipment Workshop": {
       "localizations": {
         "de": {
@@ -3887,6 +3897,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Monsterjäger"
+          }
+        }
+      }
+    },
+    "Monster Tickets": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monster-Tickets"
           }
         }
       }
@@ -5617,6 +5637,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Beschwören · %lld Edelsteine"
+          }
+        }
+      }
+    },
+    "Summon · 1 Ticket": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschwören · 1 Ticket"
           }
         }
       }
