@@ -621,12 +621,12 @@
         }
       }
     },
-    "A guaranteed rare reward for clearing this Schlund for the first time.": {
+    "A guaranteed rare reward for clearing this Dungeon for the first time.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eine garantierte seltene Belohnung für den ersten Durchlauf dieses Schlunds."
+            "value": "Eine garantierte seltene Belohnung für den ersten Durchlauf dieses Dungeons."
           }
         }
       }
@@ -1356,7 +1356,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zurück zu den Schlünden"
+            "value": "Zurück zu den Dungeons"
           }
         }
       }
@@ -2326,7 +2326,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Setze ein Team ein, bevor du einen Schlund betrittst."
+            "value": "Setze ein Team ein, bevor du einen Dungeon betrittst."
           }
         }
       }
@@ -2526,7 +2526,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schlund-Schlüssel"
+            "value": "Dungeon-Schlüssel"
           }
         }
       }
@@ -2536,7 +2536,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schlünde"
+            "value": "Dungeons"
           }
         }
       }

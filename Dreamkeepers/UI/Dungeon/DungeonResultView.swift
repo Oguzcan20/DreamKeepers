@@ -85,7 +85,7 @@ struct DungeonResultView: View {
                     Text("First Clear!")
                         .font(.subheadline.weight(.bold))
                         .foregroundStyle(Theme.gold)
-                    Text("A guaranteed rare reward for clearing this Schlund for the first time.")
+                    Text("A guaranteed rare reward for clearing this Dungeon for the first time.")
                         .font(.caption)
                         .foregroundStyle(.white.opacity(0.65))
                 }
