@@ -340,7 +340,13 @@ struct BattleView: View {
     }
 
     private func startTicking() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+        // `Timer.scheduledTimer` alone registers on the run loop's `.default`
+        // mode, which UIKit/SwiftUI's touch-tracking suspends while a finger
+        // is down — with Active Combat's tap-to-attack and Guard taps, that
+        // stalled ticks mid-touch and made the whole fight look choppy,
+        // catching up in a burst once the touch ended. Adding `.common`
+        // keeps it firing on schedule regardless of any tracking gesture.
+        let newTimer = Timer(timeInterval: 0.1, repeats: true) { _ in
             MainActor.assumeIsolated {
                 engine.tick(dt: 0.1 * gameState.battleSpeedMultiplier)
 
@@ -366,6 +372,8 @@ struct BattleView: View {
                 }
             }
         }
+        RunLoop.main.add(newTimer, forMode: .common)
+        timer = newTimer
     }
 }
 
@@ -1088,6 +1096,7 @@ private struct PartyMemberTile: View {
                             .stroke(readinessRingColor, style: StrokeStyle(lineWidth: 3, lineCap: .round))
                             .frame(width: portraitSize + 10, height: portraitSize + 10)
                             .rotationEffect(.degrees(-90))
+                            .animation(.linear(duration: 0.1), value: combatant.attackProgress)
                     }
 
                     if let threatFraction {
