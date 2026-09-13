@@ -28,7 +28,7 @@ struct BattleView: View {
             HStack(alignment: .top, spacing: 0) {
                 Spacer(minLength: 0)
                 VStack(spacing: 12) {
-                    if let enemy = engine.enemyUnits.first {
+                    if let enemy = engine.activeEnemy {
                         CombatantBanner(combatant: enemy, lastHit: engine.lastHit, lastMechanicTrigger: engine.lastMechanicTrigger)
                     }
                     Spacer(minLength: 0)
@@ -96,10 +96,13 @@ struct BattleView: View {
         .onChange(of: engine.lastHit) { _, newValue in
             // A much smaller shake than the Ultimate's — just enough that
             // every basic attack lands with a bit of physical weight instead
-            // of only the rare ultimates feeling impactful.
+            // of only the rare ultimates feeling impactful. A boss's own hit
+            // gets a visibly heavier jolt, so it reads as a bigger creature
+            // landing a bigger blow instead of the same generic tap.
             guard let hit = newValue else { return }
             gameState.playSound(.attack)
-            withAnimation(.linear(duration: 0.15)) { shakeAmount += 0.18 }
+            let isBossHit = engine.combatants.first(where: { $0.id == hit.attackerID })?.isBoss ?? false
+            withAnimation(.linear(duration: isBossHit ? 0.24 : 0.15)) { shakeAmount += isBossHit ? 0.4 : 0.18 }
 
             if let startFrame = combatantFrames[hit.attackerID], let endFrame = combatantFrames[hit.targetID] {
                 attackProjectile = AttackProjectile(
@@ -107,7 +110,7 @@ struct BattleView: View {
                     end: CGPoint(x: endFrame.midX, y: endFrame.midY),
                     color: hit.attackerElement.color,
                     symbol: hit.attackerElement.symbol,
-                    big: hit.isElementAdvantage
+                    big: hit.isElementAdvantage || isBossHit
                 )
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.34) {
                     attackProjectile = nil
@@ -210,7 +213,7 @@ struct BattleView: View {
     private var partyRow: some View {
         HStack(spacing: 12) {
             ForEach(engine.playerUnits) { combatant in
-                PartyMemberTile(combatant: combatant, lastHit: engine.lastHit, lastSkillUse: engine.lastSkillUse, lastUltimate: engine.lastUltimate, enemyElement: engine.enemyUnits.first?.element) {
+                PartyMemberTile(combatant: combatant, lastHit: engine.lastHit, lastSkillUse: engine.lastSkillUse, lastUltimate: engine.lastUltimate, enemyElement: engine.activeEnemy?.element) {
                     if engine.activateUltimate(for: combatant.id) {
                         gameState.playHaptic(.success)
                     }
@@ -438,18 +441,32 @@ private struct CombatantBanner: View {
             guard let hit = newValue else { return }
 
             if hit.attackerID == combatant.id {
+                // A boss winds up bigger, tilts further, and holds the pose
+                // longer than a regular attacker — it should read as a much
+                // heavier creature landing a much heavier blow, not the same
+                // generic tap every other combatant plays. A Healer/Support
+                // is never seen swinging in its own kit (only heals/buffs),
+                // so its basic attack reads as a cast — a pulsing glow with
+                // no lunge — rather than borrowing the melee combatants' hop.
+                let isCaster = combatant.role == .healer || combatant.role == .support
+                let scale: CGFloat = combatant.isBoss ? 1.38 : (isCaster ? 1.08 : 1.22)
+                let tilt: Double = isCaster ? 0 : (combatant.isBoss ? -18 : -10)
+                let lift: CGFloat = isCaster ? 0 : (combatant.isBoss ? 20 : 13)
+                let windUp: CGFloat = combatant.isBoss ? 62 : (isCaster ? 40 : 46)
+                let windUpDuration = combatant.isBoss ? 0.26 : 0.18
+
                 attackGlowOpacity = 1
                 castRadius = 0
                 castOpacity = 1
                 cardFlashOpacity = 1
-                withAnimation(.easeOut(duration: 0.18)) {
-                    attackScale = 1.22
-                    attackTilt = -10
-                    attackOffsetY = 13
-                    castRadius = 46
-                    cardFlashOpacity = 0.75
+                withAnimation(.easeOut(duration: windUpDuration)) {
+                    attackScale = scale
+                    attackTilt = tilt
+                    attackOffsetY = lift
+                    castRadius = windUp
+                    cardFlashOpacity = combatant.isBoss ? 0.9 : 0.75
                 }
-                withAnimation(.easeOut(duration: 0.28).delay(0.18)) {
+                withAnimation(.easeOut(duration: 0.28).delay(windUpDuration)) {
                     attackScale = 1
                     attackTilt = 0
                     attackOffsetY = 0
@@ -811,14 +828,23 @@ private struct PartyMemberTile: View {
             guard let hit = newValue else { return }
 
             if hit.attackerID == combatant.id {
+                // Same "not every attacker plays the same animation" idea as
+                // `CombatantBanner`'s enemy side: a Healer/Support never
+                // actually swings in its own kit (only heals/buffs), so its
+                // basic attack reads as a cast pulse rather than a lunge.
+                let isCaster = combatant.role == .healer || combatant.role == .support
+                let scale: CGFloat = isCaster ? 1.1 : 1.26
+                let tilt: Double = isCaster ? 0 : 10
+                let lift: CGFloat = isCaster ? 0 : -12
+
                 attackGlowOpacity = 1
                 castRadius = 0
                 castOpacity = 1
                 cardFlashOpacity = 1
                 withAnimation(.easeOut(duration: 0.18)) {
-                    attackScale = 1.26
-                    attackTilt = 10
-                    attackOffsetY = -12
+                    attackScale = scale
+                    attackTilt = tilt
+                    attackOffsetY = lift
                     castRadius = 34
                     cardFlashOpacity = 0.8
                 }
