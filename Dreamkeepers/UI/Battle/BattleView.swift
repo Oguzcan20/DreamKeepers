@@ -1,5 +1,13 @@
 import SwiftUI
 
+/// Bundles the Ultimate showcase's caster with whether this cast was a
+/// Combo Finisher — kept as one `@State` value so the showcase's Finisher
+/// treatment can't drift out of sync with which cast triggered it.
+private struct UltimateShowcaseData {
+    let combatant: Combatant
+    let isFinisher: Bool
+}
+
 struct BattleView: View {
     var engine: BattleEngine
     var gameState: GameState
@@ -17,12 +25,13 @@ struct BattleView: View {
     @State private var timer: Timer?
     @State private var showOutcomeOverlay = false
     @State private var shakeAmount: CGFloat = 0
-    @State private var ultimateShowcase: Combatant?
+    @State private var ultimateShowcase: UltimateShowcaseData?
     @State private var combatantFrames: [UUID: CGRect] = [:]
     @State private var attackProjectile: AttackProjectile?
     @State private var impactBurst: ImpactBurst?
     @State private var bossFlashColor: Color = .clear
     @State private var bossFlashOpacity: Double = 0
+    @State private var comboPulseScale: CGFloat = 1
 
     var body: some View {
         VStack(spacing: 0) {
@@ -33,6 +42,9 @@ struct BattleView: View {
                 VStack(spacing: 12) {
                     if let enemy = engine.activeEnemy {
                         CombatantBanner(combatant: enemy, lastHit: engine.lastHit, lastMechanicTrigger: engine.lastMechanicTrigger)
+                    }
+                    if engine.comboCount >= 2 {
+                        comboCounterView
                     }
                     Spacer(minLength: 0)
                 }
@@ -87,8 +99,8 @@ struct BattleView: View {
                 .zIndex(1.3)
         }
         .overlay {
-            if let caster = ultimateShowcase {
-                UltimateShowcaseView(combatant: caster)
+            if let showcase = ultimateShowcase {
+                UltimateShowcaseView(combatant: showcase.combatant, isFinisher: showcase.isFinisher)
                     .transition(.opacity)
                     .zIndex(2)
             }
@@ -107,10 +119,17 @@ struct BattleView: View {
 
             guard let ultimate = newValue,
                   let caster = engine.combatants.first(where: { $0.id == ultimate.casterID }) else { return }
-            withAnimation(.easeOut(duration: 0.2)) { ultimateShowcase = caster }
+            withAnimation(.easeOut(duration: 0.2)) {
+                ultimateShowcase = UltimateShowcaseData(combatant: caster, isFinisher: ultimate.isFinisher)
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.05) {
                 withAnimation(.easeIn(duration: 0.2)) { ultimateShowcase = nil }
             }
+        }
+        .onChange(of: engine.comboCount) { oldValue, newValue in
+            guard newValue > oldValue else { return }
+            comboPulseScale = 1.35
+            withAnimation(.spring(response: 0.25, dampingFraction: 0.45)) { comboPulseScale = 1 }
         }
         .onChange(of: engine.lastSkillUse) { _, newValue in
             // Fires for both manual taps and Auto-Battle, same as the
@@ -258,16 +277,62 @@ struct BattleView: View {
         }
     }
 
+    /// "×N COMBO" pill shown above the enemy once the player has landed at
+    /// least 2 hits in a row — momentum made visible, not just a number
+    /// tucked in a corner. Turns gold at the Ultimate Finisher threshold so
+    /// the player can see exactly when the next Ultimate will hit harder.
+    private var comboCounterView: some View {
+        HStack(spacing: 4) {
+            Image(systemName: "flame.fill")
+            Text("×\(engine.comboCount) COMBO")
+        }
+        .font(.caption.weight(.heavy))
+        .foregroundStyle(engine.comboCount >= BattleEngine.comboFinisherThreshold ? Theme.gold : .white)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 5)
+        .background(Capsule().fill(Color.black.opacity(0.45)))
+        .overlay(
+            Capsule().stroke(engine.comboCount >= BattleEngine.comboFinisherThreshold ? Theme.gold : Color.white.opacity(0.3), lineWidth: 1)
+        )
+        .scaleEffect(comboPulseScale)
+    }
+
     private var partyRow: some View {
         HStack(spacing: 12) {
             ForEach(engine.playerUnits) { combatant in
-                PartyMemberTile(combatant: combatant, lastHit: engine.lastHit, lastSkillUse: engine.lastSkillUse, lastUltimate: engine.lastUltimate, enemyElement: engine.activeEnemy?.element) {
+                // A threatened ally's window to Guard: non-nil only while the
+                // enemy is winding up *against this specific ally* — see
+                // `Combatant.isTelegraphing`/`.telegraphTargetID`. Counts down
+                // from 1 (wind-up just began) to 0 (about to land) so the UI
+                // can shrink a ring instead of just showing a flat icon.
+                let threatFraction: Double? = {
+                    guard let enemy = engine.activeEnemy, enemy.isTelegraphing, enemy.telegraphTargetID == combatant.id else { return nil }
+                    return max(0, min(1, enemy.telegraphRemaining / BattleEngine.telegraphDuration))
+                }()
+                PartyMemberTile(
+                    combatant: combatant, lastHit: engine.lastHit, lastSkillUse: engine.lastSkillUse,
+                    lastUltimate: engine.lastUltimate, lastTapFeedback: engine.lastTapFeedback,
+                    lastChainBurst: engine.lastChainBurst, enemyElement: engine.activeEnemy?.element,
+                    threatFraction: threatFraction
+                ) {
                     if engine.activateUltimate(for: combatant.id) {
                         gameState.playHaptic(.success)
                     }
                 } onSkill: {
                     if engine.activateSkill(for: combatant.id) {
                         gameState.playHaptic(.light)
+                    }
+                } onPortraitTap: {
+                    if threatFraction != nil {
+                        if engine.activateGuard(for: combatant.id) {
+                            gameState.playHaptic(.light)
+                        }
+                    } else {
+                        switch engine.tapAttack(for: combatant.id) {
+                        case .perfect: gameState.playHaptic(.success)
+                        case .good: gameState.playHaptic(.light)
+                        case .tooEarly, nil: break
+                        }
                     }
                 }
             }
@@ -439,6 +504,28 @@ private struct CombatantBanner: View {
 
                         if combatant.isBoss {
                             RevealRing(diameter: portraitSize + 14, color: .red, lineWidth: 2, opacity: 0.5, rotation: bossAuraRotation, dashCount: 20)
+                        }
+
+                        // Wind-up telegraph: a shrinking orange ring that
+                        // empties as the real-time countdown to impact runs
+                        // out, plus a warning icon — the player's whole cue
+                        // that a hit is coming and there's still time to tap
+                        // Guard on the threatened ally. Distinct from the
+                        // (instant, momentary) "just landed a hit" cue above.
+                        if combatant.isTelegraphing {
+                            let fraction = max(0, min(1, combatant.telegraphRemaining / BattleEngine.telegraphDuration))
+                            Circle()
+                                .trim(from: 0, to: fraction)
+                                .stroke(Color.orange, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                                .frame(width: portraitSize + 22, height: portraitSize + 22)
+                                .rotationEffect(.degrees(-90))
+                                .shadow(color: .orange.opacity(0.7), radius: 6)
+                                .animation(.linear(duration: 0.1), value: combatant.telegraphRemaining)
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundStyle(.orange)
+                                .shadow(color: .black.opacity(0.5), radius: 3)
+                                .offset(y: -(portraitSize / 2) - 18)
                         }
                     }
                     .scaleEffect(attackScale * recoilScale * (combatant.isBoss ? bossBreathe : 1))
@@ -844,13 +931,31 @@ private struct PartyMemberTile: View {
     let lastHit: HitEvent?
     let lastSkillUse: SkillEvent?
     let lastUltimate: UltimateEvent?
+    /// Drives the floating "Perfect!"/"Good"/"Too Early" feedback text after
+    /// a tap on this tile's own portrait — see `BattleEngine.tapAttack`.
+    let lastTapFeedback: TapFeedbackEvent?
+    /// Drives a bonus-hit flourish on this tile when it's the (randomly
+    /// chosen) ally a Chain Burst fires from — see
+    /// `BattleEngine.triggerChainBurst`.
+    let lastChainBurst: ChainBurstEvent?
     /// The single enemy's element (there's only ever one — see
     /// `BattleEngine.pickTarget`), used to badge this Dreamkeeper's own
     /// elemental advantage/disadvantage directly on its portrait instead of
     /// making the player look it up in the Codex mid-fight.
     let enemyElement: Element?
+    /// Non-nil only while the enemy is winding up its next attack *against
+    /// this specific ally* — counts down from 1 (wind-up just began) to 0
+    /// (about to land). Non-nil both gates the shrinking threat ring and
+    /// switches what a portrait tap does (Guard instead of tap-attack).
+    let threatFraction: Double?
     var onUltimate: () -> Void
     var onSkill: () -> Void
+    /// Tapping this ally's own portrait: fires an early basic attack
+    /// (`BattleEngine.tapAttack`) normally, or raises Guard
+    /// (`BattleEngine.activateGuard`) while `threatFraction` is non-nil —
+    /// the dispatch itself lives in `BattleView.partyRow`, this just relays
+    /// the tap.
+    var onPortraitTap: () -> Void
 
     // Being hit.
     @State private var flashOpacity: Double = 0
@@ -881,7 +986,29 @@ private struct PartyMemberTile: View {
     @State private var ultimatePulseScale: CGFloat = 1
     @State private var ultimatePulseOpacity: Double = 0
 
+    // Tap-to-attack feedback ("Perfect!"/"Good"/"Too Early").
+    @State private var tapFeedbackText: String?
+    @State private var tapFeedbackColor: Color = .white
+    @State private var tapFeedbackScale: CGFloat = 1
+    @State private var tapFeedbackOffsetY: CGFloat = 0
+    @State private var tapFeedbackOpacity: Double = 0
+
+    // Chain Burst — a lighter, orange echo of the Ultimate pulse above.
+    @State private var chainBurstPulseScale: CGFloat = 1
+    @State private var chainBurstPulseOpacity: Double = 0
+
     private let portraitSize: CGFloat = 64
+
+    /// Below `BattleEngine.manualTapThreshold`, tapping does nothing but a
+    /// "not yet" shake — the ring reads gray. From there to
+    /// `perfectTapThreshold` a tap fires a Good early hit — blue. Above that,
+    /// a Perfect — gold. Mirrors the tap-quality zones `tapAttack` itself
+    /// uses, so the ring is a truthful preview of what a tap right now does.
+    private var readinessRingColor: Color {
+        if combatant.attackProgress >= BattleEngine.perfectTapThreshold { return Theme.gold }
+        if combatant.attackProgress >= BattleEngine.manualTapThreshold { return Theme.softBlue }
+        return .white.opacity(0.25)
+    }
 
     /// Small badge shown on the portrait corner when this Dreamkeeper is
     /// strong or weak against the current enemy's element — the same
@@ -941,10 +1068,52 @@ private struct PartyMemberTile: View {
                         .frame(width: portraitSize, height: portraitSize)
                         .scaleEffect(ultimatePulseScale)
                         .opacity(ultimatePulseOpacity)
+
+                    // Same shape, orange, for a Chain Burst bonus hit —
+                    // visually "a smaller cousin of the Ultimate pop".
+                    Circle()
+                        .stroke(Color.orange, lineWidth: 2)
+                        .frame(width: portraitSize, height: portraitSize)
+                        .scaleEffect(chainBurstPulseScale)
+                        .opacity(chainBurstPulseOpacity)
+
+                    if combatant.isAlive, threatFraction == nil {
+                        // Attack-readiness ring: color tells the player what
+                        // tapping right now would do (see
+                        // `readinessRingColor`'s doc comment). Hidden while
+                        // threatened — the orange Guard ring below takes over
+                        // that space so the two never compete for attention.
+                        Circle()
+                            .trim(from: 0, to: max(0, min(1, combatant.attackProgress)))
+                            .stroke(readinessRingColor, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                            .frame(width: portraitSize + 10, height: portraitSize + 10)
+                            .rotationEffect(.degrees(-90))
+                    }
+
+                    if let threatFraction {
+                        // This ally is the enemy's committed target: a
+                        // shrinking orange ring is the countdown to impact,
+                        // and tapping the portrait now raises Guard instead
+                        // of attacking (see `BattleView.partyRow`).
+                        Circle()
+                            .trim(from: 0, to: threatFraction)
+                            .stroke(Color.orange, style: StrokeStyle(lineWidth: 3.5, lineCap: .round))
+                            .frame(width: portraitSize + 10, height: portraitSize + 10)
+                            .rotationEffect(.degrees(-90))
+                            .shadow(color: .orange.opacity(0.7), radius: 5)
+                            .animation(.linear(duration: 0.1), value: threatFraction)
+                        Image(systemName: "shield.lefthalf.filled")
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundStyle(.orange)
+                            .padding(4)
+                            .background(Circle().fill(Theme.deepNavy.opacity(0.85)))
+                            .offset(y: -(portraitSize / 2) - 10)
+                    }
                 }
                 .scaleEffect(attackScale * recoilScale)
                 .offset(y: attackOffsetY + recoilOffsetY)
                 .rotationEffect(.degrees(attackTilt))
+                .onTapGesture { onPortraitTap() }
 
                 if let floatingAmount {
                     Text("-\(floatingAmount)")
@@ -954,6 +1123,16 @@ private struct PartyMemberTile: View {
                         .scaleEffect(floatingScale)
                         .offset(y: floatingOffsetY - 22)
                         .opacity(floatingOpacity)
+                }
+
+                if let tapFeedbackText {
+                    Text(tapFeedbackText)
+                        .font(.caption.weight(.heavy))
+                        .foregroundStyle(tapFeedbackColor)
+                        .shadow(color: tapFeedbackColor.opacity(0.6), radius: 3)
+                        .scaleEffect(tapFeedbackScale)
+                        .offset(y: tapFeedbackOffsetY - 22)
+                        .opacity(tapFeedbackOpacity)
                 }
             }
             .background(
@@ -1101,6 +1280,22 @@ private struct PartyMemberTile: View {
                 floatingOffsetY = -28
                 floatingOpacity = 0
             }
+
+            // A guarded hit gets its own callout above the damage number —
+            // the number alone (already reduced) wouldn't tell the player
+            // *why* it was small, or that their timing mattered.
+            if hit.wasGuarded {
+                tapFeedbackText = hit.wasPerfectGuard ? "Parried!" : "Blocked!"
+                tapFeedbackColor = hit.wasPerfectGuard ? Theme.gold : Theme.softBlue
+                tapFeedbackScale = 1.3
+                tapFeedbackOffsetY = 0
+                tapFeedbackOpacity = 1
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.55)) { tapFeedbackScale = 1 }
+                withAnimation(.easeOut(duration: 0.8)) {
+                    tapFeedbackOffsetY = -34
+                    tapFeedbackOpacity = 0
+                }
+            }
         }
         .onChange(of: lastSkillUse) { _, newValue in
             guard let use = newValue, use.casterID == combatant.id else { return }
@@ -1116,6 +1311,31 @@ private struct PartyMemberTile: View {
                 ultimatePulseOpacity = 0
             }
         }
+        .onChange(of: lastTapFeedback) { _, newValue in
+            guard let feedback = newValue, feedback.combatantID == combatant.id else { return }
+            switch feedback.quality {
+            case .perfect: (tapFeedbackText, tapFeedbackColor) = ("Perfect!", Theme.gold)
+            case .good: (tapFeedbackText, tapFeedbackColor) = ("Good!", Theme.softBlue)
+            case .tooEarly: (tapFeedbackText, tapFeedbackColor) = ("Too Early", .white.opacity(0.6))
+            }
+            tapFeedbackScale = 1.25
+            tapFeedbackOffsetY = 0
+            tapFeedbackOpacity = 1
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.55)) { tapFeedbackScale = 1 }
+            withAnimation(.easeOut(duration: 0.6)) {
+                tapFeedbackOffsetY = -30
+                tapFeedbackOpacity = 0
+            }
+        }
+        .onChange(of: lastChainBurst) { _, newValue in
+            guard let burst = newValue, burst.casterID == combatant.id else { return }
+            chainBurstPulseScale = 1
+            chainBurstPulseOpacity = 1
+            withAnimation(.easeOut(duration: 0.5)) {
+                chainBurstPulseScale = 1.4
+                chainBurstPulseOpacity = 0
+            }
+        }
     }
 }
 
@@ -1127,6 +1347,11 @@ private struct PartyMemberTile: View {
 /// caption is needed here either.
 private struct UltimateShowcaseView: View {
     let combatant: Combatant
+    /// True when this cast landed at combo x10+ (`BattleEngine.
+    /// comboFinisherThreshold`) and got the damage bonus — shown as a bold
+    /// gold "FINISHER!" label plus a heavier ring/glow, so the payoff of
+    /// building a combo reads as clearly here as the damage number does.
+    var isFinisher: Bool = false
 
     @State private var portraitScale: CGFloat = 0.3
     @State private var portraitOpacity: Double = 0
@@ -1148,13 +1373,22 @@ private struct UltimateShowcaseView: View {
                 .allowsHitTesting(false)
 
             Circle()
-                .fill(combatant.element.color.opacity(0.4))
-                .frame(width: 280, height: 280)
+                .fill((isFinisher ? Theme.gold : combatant.element.color).opacity(isFinisher ? 0.55 : 0.4))
+                .frame(width: isFinisher ? 320 : 280, height: isFinisher ? 320 : 280)
                 .blur(radius: 60)
                 .opacity(glowOpacity)
 
-            RevealRing(diameter: portraitSize + 34, color: combatant.element.color, lineWidth: 3,
-                       opacity: ringOpacity, rotation: ringRotation, dashCount: 30)
+            RevealRing(diameter: portraitSize + 34, color: isFinisher ? Theme.gold : combatant.element.color,
+                       lineWidth: isFinisher ? 4 : 3, opacity: ringOpacity, rotation: ringRotation, dashCount: 30)
+
+            if isFinisher {
+                Text("FINISHER!")
+                    .font(.title2.weight(.black))
+                    .foregroundStyle(Theme.gold)
+                    .shadow(color: Theme.gold.opacity(0.8), radius: 8)
+                    .offset(y: -(portraitSize / 2) - 46)
+                    .opacity(portraitOpacity)
+            }
 
             ZStack {
                 if hasArt {

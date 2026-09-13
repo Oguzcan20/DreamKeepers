@@ -130,6 +130,27 @@ struct Combatant: Identifiable, Equatable {
     /// Seconds remaining before the Active Skill can be used again.
     var skillCooldownRemaining: Double = 0
 
+    /// True while this (always non-player) combatant is winding up its next
+    /// basic attack instead of firing it instantly — see
+    /// `BattleEngine.beginTelegraph`/`resolveTelegraphedAttack`. Gives the UI
+    /// a clear "it's about to strike" window instead of damage simply
+    /// appearing, and gives the player a chance to tap Guard.
+    var isTelegraphing: Bool = false
+    /// Seconds left in the current wind-up — counts down from
+    /// `BattleEngine.telegraphDuration` to 0, when the attack actually lands.
+    var telegraphRemaining: TimeInterval = 0
+    /// The ally this wind-up is aimed at, fixed the instant the telegraph
+    /// begins so the threat indicator doesn't jump targets mid-wind-up.
+    var telegraphTargetID: UUID? = nil
+    /// Player units only: set by `BattleEngine.activateGuard` while they are
+    /// the target of an active telegraph. Halves (or, if `guardIsPerfect`,
+    /// reduces to a fifth) the incoming hit, then clears.
+    var guardActive: Bool = false
+    /// True when Guard was tapped inside the telegraph's last
+    /// `BattleEngine.justGuardWindow` seconds — a near-full block that also
+    /// staggers the attacker.
+    var guardIsPerfect: Bool = false
+
     var isAlive: Bool { currentHP > 0 }
 
     var ultimateReady: Bool {

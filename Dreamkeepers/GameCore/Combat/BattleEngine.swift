@@ -26,6 +26,43 @@ struct HitEvent: Equatable {
     let amount: Int
     let attackerElement: Element
     let isElementAdvantage: Bool
+    /// True if the defender had `Guard` active for this hit (see
+    /// `BattleEngine.activateGuard`) — damage was already reduced before
+    /// this event fired; the UI uses this only to show a "Blocked!" cue.
+    var wasGuarded: Bool = false
+    /// True if Guard was tapped inside the telegraph's last
+    /// `BattleEngine.justGuardWindow` seconds — a near-full block, shown
+    /// distinctly from a plain Guard.
+    var wasPerfectGuard: Bool = false
+}
+
+/// Fired the instant an enemy commits to its next basic attack instead of
+/// firing it right away — the player's window to tap Guard on the threatened
+/// ally. See `BattleEngine.beginTelegraph`.
+struct TelegraphEvent: Equatable {
+    let id = UUID()
+    let attackerID: UUID
+    let targetID: UUID
+}
+
+/// Fired when a tap on a player unit's own portrait resolves — lets the UI
+/// show "Perfect!"/"Good"/"Too Early" floating feedback on that exact tile.
+enum TapQuality: Equatable {
+    case perfect
+    case good
+    case tooEarly
+}
+struct TapFeedbackEvent: Equatable {
+    let id = UUID()
+    let combatantID: UUID
+    let quality: TapQuality
+}
+
+/// Fired when the combo meter hits a multiple of 5 and a free bonus hit
+/// fires from a random living ally — see `BattleEngine.triggerChainBurst`.
+struct ChainBurstEvent: Equatable {
+    let id = UUID()
+    let casterID: UUID
 }
 
 /// Fired whenever a boss mechanic actually triggers, so the UI can flash a
@@ -44,6 +81,9 @@ struct MechanicEvent: Equatable {
 struct UltimateEvent: Equatable {
     let id = UUID()
     let casterID: UUID
+    /// True when this Ultimate was cast at combo x10+ — see
+    /// `BattleEngine.comboFinisherThreshold` — and got the damage bonus.
+    var isFinisher: Bool = false
 }
 
 /// Fired whenever an Active Skill is cast, so the UI can give the caster's
@@ -67,6 +107,17 @@ final class BattleEngine {
     private(set) var lastUltimate: UltimateEvent?
     private(set) var lastSkillUse: SkillEvent?
     private(set) var lastMechanicTrigger: MechanicEvent?
+    private(set) var lastTelegraph: TelegraphEvent?
+    private(set) var lastTapFeedback: TapFeedbackEvent?
+    private(set) var lastChainBurst: ChainBurstEvent?
+
+    /// Hits (by a player, or a player-caused Chain Burst) landed back to back
+    /// within `comboWindow` of one another. Resets to 1 whenever the gap is
+    /// larger — see `applyDamage`. Drives Chain Bursts and the Ultimate's
+    /// Finisher bonus, and is shown live in the UI as momentum, not just a
+    /// tally.
+    private(set) var comboCount: Int = 0
+    private var lastComboHitTime: TimeInterval = -.greatestFiniteMagnitude
 
     let stage: Int
     let isBossStage: Bool
@@ -93,6 +144,46 @@ final class BattleEngine {
     /// Base rate at which attack meters fill, tuned so a 1.0 speed unit
     /// attacks roughly once per second.
     private let attackRateScale: Double = 1.0 / 100.0
+
+    // MARK: - Active Combat tuning
+
+    /// Gauge fraction at which an enemy commits to its wind-up instead of
+    /// continuing to fill toward 1.0 — enemies always telegraph, never
+    /// insta-fire, however large a single `tick(dt:)` step is.
+    static let telegraphTriggerProgress: Double = 0.85
+    /// Real seconds a wind-up holds before the attack actually lands.
+    static let telegraphDuration: TimeInterval = 0.9
+    /// The last slice of `telegraphDuration` in which tapping Guard counts as
+    /// a Just Guard (bigger block, staggers the attacker) rather than a
+    /// plain one.
+    private static let justGuardWindow: TimeInterval = 0.3
+    /// Gauge fraction at which tapping a player's own portrait fires its
+    /// attack early instead of doing nothing.
+    static let manualTapThreshold: Double = 0.7
+    /// Gauge fraction at which an early tap counts as Perfect instead of Good.
+    static let perfectTapThreshold: Double = 0.9
+    /// Damage multiplier for a Perfect / Good early tap.
+    private static let perfectTapMultiplier: Double = 1.5
+    private static let goodTapMultiplier: Double = 1.2
+    /// Consecutive player-caused hits within this many seconds of one another
+    /// keep the combo alive; a bigger gap resets it.
+    private static let comboWindow: TimeInterval = 1.5
+
+    /// Tolerance for floating-point drift in accumulated `Double` gauges and
+    /// timers (`attackProgress`, `elapsedTime`, `telegraphRemaining`): many
+    /// small `dt` ticks summing to an intended boundary like `1.0` can land
+    /// at e.g. `0.9999999999999999` instead, which would otherwise flip a
+    /// `>=`/`<=` threshold comparison the wrong way for exactly one extra
+    /// tick. Every such comparison below is nudged by this amount rather
+    /// than compared exactly.
+    private static let timingEpsilon: Double = 1e-6
+    /// Combo count at which the Ultimate deals bonus Finisher damage. Not
+    /// `private`: the UI colors the combo counter gold once it's reached.
+    static let comboFinisherThreshold: Int = 10
+    private static let finisherMultiplier: Double = 1.3
+    /// Chain Burst fires every time the combo crosses a multiple of this.
+    private static let chainBurstInterval: Int = 5
+    private static let chainBurstMultiplier: Double = 0.5
 
     init(
         playerUnits: [Combatant], enemy: Combatant, stage: Int, isBossStage: Bool,
@@ -132,8 +223,29 @@ final class BattleEngine {
                 continue
             }
 
+            if combatants[index].isTelegraphing {
+                combatants[index].telegraphRemaining -= dt
+                if combatants[index].telegraphRemaining <= Self.timingEpsilon {
+                    resolveTelegraphedAttack(at: index)
+                    if outcome != nil { return }
+                }
+                continue
+            }
+
             combatants[index].attackProgress += dt * combatants[index].speed * attackRateScale
-            guard combatants[index].attackProgress >= 1.0 else { continue }
+
+            if !combatants[index].isPlayer {
+                // Enemies never insta-fire: as soon as the gauge crosses the
+                // trigger threshold (even if a single large `dt` jumped it
+                // straight past 1.0) they commit to a visible wind-up instead
+                // — see `beginTelegraph`.
+                if combatants[index].attackProgress >= Self.telegraphTriggerProgress - Self.timingEpsilon {
+                    beginTelegraph(at: index)
+                }
+                continue
+            }
+
+            guard combatants[index].attackProgress >= 1.0 - Self.timingEpsilon else { continue }
             combatants[index].attackProgress = 0
 
             performBasicAttack(from: index)
@@ -143,12 +255,114 @@ final class BattleEngine {
 
     // MARK: - Basic attacks
 
-    private func performBasicAttack(from attackerIndex: Int) {
+    private func performBasicAttack(from attackerIndex: Int, damageMultiplier: Double = 1.0) {
         let attacker = combatants[attackerIndex]
         guard let targetIndex = pickTarget(for: attacker) else { return }
 
-        let damage = resolveDamage(attacker: attacker, defender: combatants[targetIndex])
+        let damage = resolveDamage(attacker: attacker, defender: combatants[targetIndex], multiplier: damageMultiplier)
         applyDamage(damage, to: targetIndex, attackerID: attacker.id, attackerName: attacker.name, attackerElement: attacker.element)
+
+        if let ultimate = attacker.ultimate {
+            combatants[attackerIndex].energy = min(ultimate.attacksToCharge, combatants[attackerIndex].energy + 1)
+        }
+
+        resolveOutcomeIfNeeded()
+    }
+
+    // MARK: - Active input: tap-to-attack
+
+    /// Called when the player taps a party member's own portrait. Below
+    /// `manualTapThreshold` it's just a "not yet" shake; from there to
+    /// `perfectTapThreshold` it fires the attack early at a Good bonus;
+    /// above that, at a bigger Perfect bonus. Ignoring the gauge entirely
+    /// still works exactly as before — it auto-fires at 1.0 for normal
+    /// damage — so idle/AFK play is untouched by this.
+    @discardableResult
+    func tapAttack(for id: UUID) -> TapQuality? {
+        guard outcome == nil,
+              let index = combatants.firstIndex(where: { $0.id == id }),
+              combatants[index].isPlayer,
+              combatants[index].isAlive,
+              combatants[index].stunTicks == 0 else { return nil }
+
+        let progress = combatants[index].attackProgress
+        guard progress >= Self.manualTapThreshold - Self.timingEpsilon else {
+            lastTapFeedback = TapFeedbackEvent(combatantID: id, quality: .tooEarly)
+            return .tooEarly
+        }
+
+        let quality: TapQuality = progress >= Self.perfectTapThreshold - Self.timingEpsilon ? .perfect : .good
+        let multiplier = quality == .perfect ? Self.perfectTapMultiplier : Self.goodTapMultiplier
+        combatants[index].attackProgress = 0
+        performBasicAttack(from: index, damageMultiplier: multiplier)
+        lastTapFeedback = TapFeedbackEvent(combatantID: id, quality: quality)
+        return quality
+    }
+
+    // MARK: - Enemy telegraph & Guard
+
+    /// An enemy has committed to its next basic attack: freezes the target
+    /// (so the threat indicator doesn't jump mid-wind-up) and starts the
+    /// real-time countdown to impact.
+    private func beginTelegraph(at index: Int) {
+        guard let targetIndex = pickTarget(for: combatants[index]) else { return }
+        combatants[index].isTelegraphing = true
+        combatants[index].telegraphRemaining = Self.telegraphDuration
+        combatants[index].telegraphTargetID = combatants[targetIndex].id
+        lastTelegraph = TelegraphEvent(attackerID: combatants[index].id, targetID: combatants[targetIndex].id)
+    }
+
+    /// Tapping Guard while an ally is threatened. Anytime during the
+    /// wind-up halves the hit; tapping inside the last `justGuardWindow`
+    /// seconds nearly nullifies it and staggers the attacker instead.
+    @discardableResult
+    func activateGuard(for defenderID: UUID) -> Bool {
+        guard outcome == nil,
+              let enemyIndex = combatants.firstIndex(where: { $0.isTelegraphing && $0.telegraphTargetID == defenderID }),
+              let defenderIndex = combatants.firstIndex(where: { $0.id == defenderID }),
+              combatants[defenderIndex].isAlive,
+              !combatants[defenderIndex].guardActive else { return false }
+
+        combatants[defenderIndex].guardActive = true
+        combatants[defenderIndex].guardIsPerfect = combatants[enemyIndex].telegraphRemaining <= Self.justGuardWindow + Self.timingEpsilon
+        return true
+    }
+
+    private func resolveTelegraphedAttack(at attackerIndex: Int) {
+        let attacker = combatants[attackerIndex]
+        combatants[attackerIndex].isTelegraphing = false
+        combatants[attackerIndex].telegraphRemaining = 0
+
+        var targetIndex: Int?
+        if let targetID = attacker.telegraphTargetID,
+           let index = combatants.firstIndex(where: { $0.id == targetID }), combatants[index].isAlive {
+            targetIndex = index
+        } else {
+            targetIndex = pickTarget(for: attacker)
+        }
+        combatants[attackerIndex].telegraphTargetID = nil
+        combatants[attackerIndex].attackProgress = 0
+        guard let targetIndex else { return }
+
+        var damage = resolveDamage(attacker: attacker, defender: combatants[targetIndex])
+        var wasGuarded = false
+        var wasPerfectGuard = false
+        if combatants[targetIndex].guardActive {
+            wasGuarded = true
+            wasPerfectGuard = combatants[targetIndex].guardIsPerfect
+            damage *= wasPerfectGuard ? 0.2 : 0.5
+            combatants[targetIndex].guardActive = false
+            combatants[targetIndex].guardIsPerfect = false
+            if wasPerfectGuard {
+                combatants[attackerIndex].stunTicks = 15
+                appendLog("\(combatants[targetIndex].name) parries perfectly, staggering \(attacker.name)!")
+            } else {
+                appendLog("\(combatants[targetIndex].name) blocks part of the blow!")
+            }
+        }
+
+        applyDamage(damage, to: targetIndex, attackerID: attacker.id, attackerName: attacker.name, attackerElement: attacker.element,
+                    wasGuarded: wasGuarded, wasPerfectGuard: wasPerfectGuard)
 
         if let ultimate = attacker.ultimate {
             combatants[attackerIndex].energy = min(ultimate.attacksToCharge, combatants[attackerIndex].energy + 1)
@@ -184,7 +398,10 @@ final class BattleEngine {
         return combatant.attack * (1 + bonus * (1 - combatant.hpFraction))
     }
 
-    private func applyDamage(_ damage: Double, to index: Int, attackerID: UUID, attackerName: String, attackerElement: Element) {
+    private func applyDamage(
+        _ damage: Double, to index: Int, attackerID: UUID, attackerName: String, attackerElement: Element,
+        wasGuarded: Bool = false, wasPerfectGuard: Bool = false
+    ) {
         var damage = damage
         if combatants[index].shieldCharges > 0 {
             damage *= 0.4
@@ -204,12 +421,44 @@ final class BattleEngine {
             combatants[index].currentHP = max(0, newHP)
         }
         let isAdvantage = attackerElement.multiplier(against: combatants[index].element) > 1.0
-        lastHit = HitEvent(attackerID: attackerID, targetID: combatants[index].id, amount: amount, attackerElement: attackerElement, isElementAdvantage: isAdvantage)
+        lastHit = HitEvent(attackerID: attackerID, targetID: combatants[index].id, amount: amount, attackerElement: attackerElement,
+                            isElementAdvantage: isAdvantage, wasGuarded: wasGuarded, wasPerfectGuard: wasPerfectGuard)
         appendLog("\(attackerName) hits \(combatants[index].name) for \(amount).")
         if !combatants[index].isAlive {
             appendLog("\(combatants[index].name) falls.")
         }
         triggerBossMechanicIfNeeded(at: index)
+        updateCombo(attackerID: attackerID, targetIndex: index)
+    }
+
+    /// Only player-caused hits (basic attacks, Skill, Ultimate, Chain Burst)
+    /// build momentum — an enemy landing its own attack never breaks or
+    /// grows it directly, so the meter reads purely as "how well is the
+    /// player pressing the advantage" rather than a shared tug-of-war.
+    private func updateCombo(attackerID: UUID, targetIndex: Int) {
+        guard let attacker = combatants.first(where: { $0.id == attackerID }), attacker.isPlayer else { return }
+
+        if elapsedTime - lastComboHitTime <= Self.comboWindow + Self.timingEpsilon {
+            comboCount += 1
+        } else {
+            comboCount = 1
+        }
+        lastComboHitTime = elapsedTime
+
+        if comboCount > 0, comboCount % Self.chainBurstInterval == 0 {
+            triggerChainBurst(against: targetIndex)
+        }
+    }
+
+    private func triggerChainBurst(against targetIndex: Int) {
+        guard combatants[targetIndex].isAlive else { return }
+        let allies = combatants.indices.filter { combatants[$0].isPlayer && combatants[$0].isAlive }
+        guard let casterIndex = allies.randomElement() else { return }
+
+        let damage = resolveDamage(attacker: combatants[casterIndex], defender: combatants[targetIndex], multiplier: Self.chainBurstMultiplier)
+        lastChainBurst = ChainBurstEvent(casterID: combatants[casterIndex].id)
+        appendLog("Chain Burst! \(combatants[casterIndex].name) joins the assault!")
+        applyDamage(damage, to: targetIndex, attackerID: combatants[casterIndex].id, attackerName: combatants[casterIndex].name, attackerElement: combatants[casterIndex].element)
     }
 
     // MARK: - Ultimates
@@ -223,20 +472,24 @@ final class BattleEngine {
               let ultimate = combatants[index].ultimate else { return false }
 
         combatants[index].energy = 0
-        lastUltimate = UltimateEvent(casterID: combatants[index].id)
-        appendLog("\(combatants[index].name) unleashes \(ultimate.name)!")
+        let isFinisher = comboCount >= Self.comboFinisherThreshold
+        let effectiveMultiplier = ultimate.damageMultiplier * (isFinisher ? Self.finisherMultiplier : 1.0)
+        lastUltimate = UltimateEvent(casterID: combatants[index].id, isFinisher: isFinisher)
+        appendLog(isFinisher
+            ? "\(combatants[index].name) unleashes \(ultimate.name) with the momentum of an unbroken assault!"
+            : "\(combatants[index].name) unleashes \(ultimate.name)!")
 
         switch combatants[index].role {
         case .healer:
-            healAllies(caster: combatants[index], multiplier: ultimate.damageMultiplier)
+            healAllies(caster: combatants[index], multiplier: effectiveMultiplier)
         case .support:
-            buffAllies(caster: combatants[index], multiplier: ultimate.damageMultiplier)
+            buffAllies(caster: combatants[index], multiplier: effectiveMultiplier)
         case .control:
-            strikeEnemyAndStun(from: index, multiplier: ultimate.damageMultiplier)
+            strikeEnemyAndStun(from: index, multiplier: effectiveMultiplier)
         case .tank, .damage:
-            strikeEnemy(from: index, multiplier: ultimate.damageMultiplier)
+            strikeEnemy(from: index, multiplier: effectiveMultiplier)
         case .guardian:
-            shieldAllies(caster: combatants[index], multiplier: ultimate.damageMultiplier)
+            shieldAllies(caster: combatants[index], multiplier: effectiveMultiplier)
         }
 
         resolveOutcomeIfNeeded()

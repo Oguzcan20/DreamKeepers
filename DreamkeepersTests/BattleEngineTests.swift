@@ -320,4 +320,196 @@ final class BattleEngineTests: XCTestCase {
 
         XCTAssertNil(engine.lastMechanicTrigger)
     }
+
+    // MARK: - Active Combat: tap-to-attack
+
+    func testTapAttackTooEarlyDoesNothingButFiresFeedback() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 100, attack: 50, speed: 50)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 500, attack: 0, defense: 0, speed: 0)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+
+        // Fresh combatant: attackProgress starts at 0, well below manualTapThreshold.
+        let quality = engine.tapAttack(for: hero.id)
+
+        XCTAssertEqual(quality, .tooEarly)
+        XCTAssertEqual(engine.lastTapFeedback?.quality, .tooEarly)
+        XCTAssertNil(engine.lastHit, "A too-early tap must not deal damage")
+    }
+
+    func testTapAttackGoodQualityAppliesBonusDamage() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 100, attack: 50, defense: 0, speed: 70)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 1000, attack: 0, defense: 0, speed: 0)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+        engine.varianceProvider = { 1.0 }
+
+        for _ in 0..<10 { engine.tick(dt: 0.1) } // progress = 10 * 0.1 * 70/100 = 0.7 exactly
+
+        let quality = engine.tapAttack(for: hero.id)
+
+        XCTAssertEqual(quality, .good)
+        XCTAssertEqual(engine.lastHit?.amount, 60, "50 attack * 1.2 Good multiplier, 0 defense")
+    }
+
+    func testTapAttackPerfectQualityAppliesBiggerBonusDamage() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 100, attack: 50, defense: 0, speed: 90)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 1000, attack: 0, defense: 0, speed: 0)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+        engine.varianceProvider = { 1.0 }
+
+        for _ in 0..<10 { engine.tick(dt: 0.1) } // progress = 10 * 0.1 * 90/100 = 0.9 exactly
+
+        let quality = engine.tapAttack(for: hero.id)
+
+        XCTAssertEqual(quality, .perfect)
+        XCTAssertEqual(engine.lastHit?.amount, 75, "50 attack * 1.5 Perfect multiplier, 0 defense")
+    }
+
+    // MARK: - Active Combat: enemy telegraph & Guard
+
+    func testEnemyTelegraphsBeforeLandingAnyDamage() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 500, attack: 0, defense: 0, speed: 1)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 500, attack: 100, defense: 0, speed: 100)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+        engine.varianceProvider = { 1.0 }
+
+        engine.tick(dt: 1.0) // enemy's progress jumps well past the 0.85 trigger
+
+        XCTAssertTrue(engine.enemyUnits.first?.isTelegraphing ?? false)
+        XCTAssertEqual(engine.enemyUnits.first?.telegraphTargetID, hero.id)
+        XCTAssertNil(engine.lastHit, "Committing to a wind-up must not deal damage yet")
+
+        engine.tick(dt: 1.0) // the 0.9s wind-up fully elapses
+
+        XCTAssertFalse(engine.enemyUnits.first?.isTelegraphing ?? true)
+        XCTAssertNotNil(engine.lastHit)
+        XCTAssertEqual(engine.lastHit?.amount, 100)
+    }
+
+    func testGuardHalvesATelegraphedHit() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 500, attack: 0, defense: 0, speed: 1)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 500, attack: 100, defense: 0, speed: 100)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+        engine.varianceProvider = { 1.0 }
+
+        engine.tick(dt: 1.0) // enemy commits to its wind-up against Hero
+        XCTAssertTrue(engine.activateGuard(for: hero.id))
+
+        engine.tick(dt: 1.0) // wind-up resolves
+
+        XCTAssertEqual(engine.lastHit?.wasGuarded, true)
+        XCTAssertEqual(engine.lastHit?.wasPerfectGuard, false)
+        XCTAssertEqual(engine.lastHit?.amount, 50, "Plain Guard halves the hit")
+    }
+
+    func testJustGuardNearlyNegatesHitAndStaggersAttacker() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 500, attack: 0, defense: 0, speed: 1)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 500, attack: 100, defense: 0, speed: 100)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+        engine.varianceProvider = { 1.0 }
+
+        engine.tick(dt: 1.0) // commits: telegraphRemaining = 0.9s
+        engine.tick(dt: 0.7) // telegraphRemaining = 0.2s — inside the Just Guard window
+        XCTAssertTrue(engine.activateGuard(for: hero.id))
+
+        engine.tick(dt: 0.3) // resolves
+
+        XCTAssertEqual(engine.lastHit?.wasGuarded, true)
+        XCTAssertEqual(engine.lastHit?.wasPerfectGuard, true)
+        XCTAssertEqual(engine.lastHit?.amount, 20, "Just Guard reduces the hit to a fifth")
+        XCTAssertEqual(engine.enemyUnits.first?.stunTicks, 15, "Just Guard staggers the attacker")
+    }
+
+    // MARK: - Active Combat: combo meter
+
+    func testComboIncrementsOnConsecutiveHitsWithinTheWindow() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 500, attack: 10, defense: 0, speed: 100)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 100_000, attack: 0, defense: 0, speed: 0)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+        engine.varianceProvider = { 1.0 }
+
+        for _ in 0..<10 { engine.tick(dt: 0.1) } // first auto-fire, at t=1.0s
+        XCTAssertEqual(engine.comboCount, 1)
+
+        for _ in 0..<10 { engine.tick(dt: 0.1) } // second auto-fire, 1.0s later — inside the 1.5s window
+        XCTAssertEqual(engine.comboCount, 2)
+
+        for _ in 0..<10 { engine.tick(dt: 0.1) } // third auto-fire, another 1.0s later
+        XCTAssertEqual(engine.comboCount, 3)
+    }
+
+    func testComboResetsAfterAGapLargerThanTheWindow() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 500, attack: 10, defense: 0, speed: 100)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 100_000, attack: 0, defense: 0, speed: 0)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+        engine.varianceProvider = { 1.0 }
+
+        for _ in 0..<10 { engine.tick(dt: 0.1) } // first auto-fire, at t=1.0s
+        XCTAssertEqual(engine.comboCount, 1)
+
+        // A single large tick (like the telegraph tests use) advances time by
+        // 2.0s and fires the recharged attack exactly once — a loop of small
+        // 0.1s ticks would instead complete two full 1.0s auto-fire cycles
+        // and legitimately grow the combo instead of testing a real gap.
+        engine.tick(dt: 2.0) // second auto-fire, 2.0s later — past the 1.5s window
+        XCTAssertEqual(engine.comboCount, 1, "A gap over comboWindow should restart the streak, not extend it")
+    }
+
+    func testEnemyHitsDoNotAffectTheComboMeter() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 500, attack: 0, defense: 0, speed: 0)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 500, attack: 50, defense: 0, speed: 100)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+        engine.varianceProvider = { 1.0 }
+
+        engine.tick(dt: 1.0) // enemy commits its wind-up
+        engine.tick(dt: 1.0) // and lands the hit
+
+        XCTAssertNotNil(engine.lastHit)
+        XCTAssertEqual(engine.comboCount, 0, "Only player-attributed hits should move the combo meter")
+    }
+
+    // MARK: - Active Combat: Chain Burst & Ultimate Finisher
+
+    func testChainBurstFiresOnceComboReachesAMultipleOfFive() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 500, attack: 10, defense: 0, speed: 100)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 100_000, attack: 0, defense: 0, speed: 0)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+        engine.varianceProvider = { 1.0 }
+
+        for _ in 0..<40 { engine.tick(dt: 0.1) } // four auto-fires, 1.0s apart — combo = 4
+        XCTAssertEqual(engine.comboCount, 4)
+        XCTAssertNil(engine.lastChainBurst, "No Chain Burst before the 5th consecutive hit")
+
+        for _ in 0..<10 { engine.tick(dt: 0.1) } // the 5th auto-fire
+        XCTAssertNotNil(engine.lastChainBurst, "A Chain Burst should fire the instant combo crosses a multiple of 5")
+        XCTAssertEqual(engine.lastChainBurst?.casterID, hero.id, "The lone Dreamkeeper is the only possible Chain Burst caster")
+    }
+
+    func testUltimateIsNotAFinisherBelowComboThreshold() {
+        let ultimate = UltimateSkill(name: "Blast", description: "", damageMultiplier: 2, attacksToCharge: 1)
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 500, attack: 10, defense: 0, speed: 100, ultimate: ultimate)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 100_000, attack: 0, defense: 0, speed: 0)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+        engine.varianceProvider = { 1.0 }
+
+        for _ in 0..<10 { engine.tick(dt: 0.1) } // one auto-fire charges the ultimate; combo is only 1
+        XCTAssertTrue(engine.activateUltimate(for: hero.id))
+        XCTAssertEqual(engine.lastUltimate?.isFinisher, false)
+    }
+
+    func testUltimateBecomesAFinisherAtComboTenPlus() {
+        let ultimate = UltimateSkill(name: "Blast", description: "", damageMultiplier: 2, attacksToCharge: 1)
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 500, attack: 10, defense: 0, speed: 100, ultimate: ultimate)
+        let enemy = makeUnit(name: "Enemy", isPlayer: false, hp: 100_000, attack: 0, defense: 0, speed: 0)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+        engine.varianceProvider = { 1.0 }
+
+        // ~10 auto-fires a second apart, plus the Chain Bursts they trigger
+        // along the way (each of which is itself a player-attributed hit),
+        // push the combo comfortably past the Finisher threshold.
+        for _ in 0..<100 { engine.tick(dt: 0.1) }
+        XCTAssertGreaterThanOrEqual(engine.comboCount, BattleEngine.comboFinisherThreshold)
+
+        XCTAssertTrue(engine.activateUltimate(for: hero.id))
+        XCTAssertEqual(engine.lastUltimate?.isFinisher, true)
+    }
 }
