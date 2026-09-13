@@ -39,7 +39,7 @@ struct BattleView: View {
 
             HStack(alignment: .top, spacing: 0) {
                 Spacer(minLength: 0)
-                VStack(spacing: 12) {
+                VStack(spacing: 8) {
                     if let enemy = engine.activeEnemy {
                         CombatantBanner(combatant: enemy, lastHit: engine.lastHit, lastMechanicTrigger: engine.lastMechanicTrigger)
                     }
@@ -52,13 +52,13 @@ struct BattleView: View {
                 Spacer(minLength: 0)
             }
             .padding(.horizontal, 20)
-            .padding(.top, 10)
+            .padding(.top, 6)
             .frame(maxHeight: .infinity)
 
             partyRow
                 .padding(.horizontal, 20)
-                .padding(.top, 6)
-                .padding(.bottom, 12)
+                .padding(.top, 4)
+                .padding(.bottom, 8)
         }
         .coordinateSpace(name: "battlefield")
         .modifier(ShakeEffect(animatableData: shakeAmount))
@@ -286,10 +286,10 @@ struct BattleView: View {
             Image(systemName: "flame.fill")
             Text("×\(engine.comboCount) COMBO")
         }
-        .font(.caption.weight(.heavy))
+        .font(.caption2.weight(.heavy))
         .foregroundStyle(engine.comboCount >= BattleEngine.comboFinisherThreshold ? Theme.gold : .white)
-        .padding(.horizontal, 10)
-        .padding(.vertical, 5)
+        .padding(.horizontal, 8)
+        .padding(.vertical, 3)
         .background(Capsule().fill(Color.black.opacity(0.45)))
         .overlay(
             Capsule().stroke(engine.comboCount >= BattleEngine.comboFinisherThreshold ? Theme.gold : Color.white.opacity(0.3), lineWidth: 1)
@@ -428,8 +428,10 @@ private struct CombatantBanner: View {
     /// Landscape leaves almost no vertical room to spare (see `battleBanner`'s
     /// own comment), so the portrait grows mainly by staying beside the name
     ////HP column rather than stacking above it — width is cheap in the
-    /// 300pt-wide sidebar, height is the scarce resource.
-    private var portraitSize: CGFloat { 120 }
+    /// 300pt-wide sidebar, height is the scarce resource. Active Combat's
+    /// telegraph ring and warning icon sit above the portrait too, so this
+    /// was trimmed from 120 to buy back the vertical room they now need.
+    private var portraitSize: CGFloat { 96 }
 
     /// Name to use for portrait art lookup — `portraitOverrideName` when set
     /// (Arena rivals, see its doc comment), otherwise the combatant's own
@@ -530,10 +532,10 @@ private struct CombatantBanner: View {
                                 .shadow(color: .orange.opacity(0.7), radius: 6)
                                 .animation(.linear(duration: 0.1), value: combatant.telegraphRemaining)
                             Image(systemName: "exclamationmark.triangle.fill")
-                                .font(.system(size: 20, weight: .bold))
+                                .font(.system(size: 15, weight: .bold))
                                 .foregroundStyle(.orange)
                                 .shadow(color: .black.opacity(0.5), radius: 3)
-                                .offset(y: -(portraitSize / 2) - 18)
+                                .offset(y: -(portraitSize / 2) - 10)
                         }
                     }
                     .scaleEffect(attackScale * recoilScale * (combatant.isBoss ? bossBreathe : 1))
@@ -1005,7 +1007,15 @@ private struct PartyMemberTile: View {
     @State private var chainBurstPulseScale: CGFloat = 1
     @State private var chainBurstPulseOpacity: Double = 0
 
-    private let portraitSize: CGFloat = 64
+    /// Mirrors `combatant.attackProgress` for the readiness ring, but only
+    /// the *forward* fill is animated. `attackProgress` itself resets to 0
+    /// the instant an attack fires (auto-fire or tap) — animating that
+    /// transition the same way as the fill would make the ring visibly
+    /// wind backward for 0.1s on every single attack, reading as a stutter
+    /// rather than "attack fired". A drop is snapped instantly instead.
+    @State private var displayedAttackProgress: CGFloat = 0
+
+    private let portraitSize: CGFloat = 52
 
     /// Below `BattleEngine.manualTapThreshold`, tapping does nothing but a
     /// "not yet" shake — the ring reads gray. From there to
@@ -1092,11 +1102,10 @@ private struct PartyMemberTile: View {
                         // threatened — the orange Guard ring below takes over
                         // that space so the two never compete for attention.
                         Circle()
-                            .trim(from: 0, to: max(0, min(1, combatant.attackProgress)))
+                            .trim(from: 0, to: max(0, min(1, displayedAttackProgress)))
                             .stroke(readinessRingColor, style: StrokeStyle(lineWidth: 3, lineCap: .round))
                             .frame(width: portraitSize + 10, height: portraitSize + 10)
                             .rotationEffect(.degrees(-90))
-                            .animation(.linear(duration: 0.1), value: combatant.attackProgress)
                     }
 
                     if let threatFraction {
@@ -1212,6 +1221,20 @@ private struct PartyMemberTile: View {
                 .blur(radius: 18)
         )
         .opacity(combatant.isAlive ? 1 : 0.4)
+        .onAppear { displayedAttackProgress = combatant.attackProgress }
+        .onChange(of: combatant.attackProgress) { oldValue, newValue in
+            if newValue < oldValue {
+                // The attack just fired (auto-fire or a tap) and the gauge
+                // restarted at 0 — snap instantly instead of animating the
+                // drop, or the ring would visibly wind backward for 0.1s on
+                // every single attack.
+                var transaction = Transaction()
+                transaction.disablesAnimations = true
+                withTransaction(transaction) { displayedAttackProgress = newValue }
+            } else {
+                withAnimation(.linear(duration: 0.1)) { displayedAttackProgress = newValue }
+            }
+        }
         .onChange(of: lastHit) { _, newValue in
             guard let hit = newValue else { return }
 
