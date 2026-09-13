@@ -20,6 +20,9 @@ struct BattleView: View {
     @State private var ultimateShowcase: Combatant?
     @State private var combatantFrames: [UUID: CGRect] = [:]
     @State private var attackProjectile: AttackProjectile?
+    @State private var impactBurst: ImpactBurst?
+    @State private var bossFlashColor: Color = .clear
+    @State private var bossFlashOpacity: Double = 0
 
     var body: some View {
         VStack(spacing: 0) {
@@ -62,6 +65,28 @@ struct BattleView: View {
             }
         }
         .overlay {
+            // Where the bolt actually lands: a shockwave ring (doubled for a
+            // boss hit or an elemental-advantage hit) so impact reads at the
+            // target too, not only as motion along the way there.
+            if let impactBurst {
+                ImpactBurstView(burst: impactBurst)
+                    .id(impactBurst.id)
+                    .allowsHitTesting(false)
+                    .zIndex(1.4)
+            }
+        }
+        .overlay {
+            // A boss landing its own blow gets a brief whole-screen tint in
+            // its element's color — the one cue that reads even if the
+            // player's eyes are on their own party's HP bars, not the boss's
+            // corner of the screen.
+            bossFlashColor
+                .opacity(bossFlashOpacity)
+                .ignoresSafeArea()
+                .allowsHitTesting(false)
+                .zIndex(1.3)
+        }
+        .overlay {
             if let caster = ultimateShowcase {
                 UltimateShowcaseView(combatant: caster)
                     .transition(.opacity)
@@ -101,8 +126,18 @@ struct BattleView: View {
             // landing a bigger blow instead of the same generic tap.
             guard let hit = newValue else { return }
             gameState.playSound(.attack)
-            let isBossHit = engine.combatants.first(where: { $0.id == hit.attackerID })?.isBoss ?? false
+            let attacker = engine.combatants.first(where: { $0.id == hit.attackerID })
+            let isBossHit = attacker?.isBoss ?? false
+            let attackerRole = attacker?.role ?? .damage
+            let isBig = hit.isElementAdvantage || isBossHit
             withAnimation(.linear(duration: isBossHit ? 0.24 : 0.15)) { shakeAmount += isBossHit ? 0.4 : 0.18 }
+
+            if isBossHit {
+                bossFlashColor = hit.attackerElement.color
+                bossFlashOpacity = 0
+                withAnimation(.easeOut(duration: 0.08)) { bossFlashOpacity = 0.22 }
+                withAnimation(.easeIn(duration: 0.32).delay(0.08)) { bossFlashOpacity = 0 }
+            }
 
             if let startFrame = combatantFrames[hit.attackerID], let endFrame = combatantFrames[hit.targetID] {
                 attackProjectile = AttackProjectile(
@@ -110,10 +145,23 @@ struct BattleView: View {
                     end: CGPoint(x: endFrame.midX, y: endFrame.midY),
                     color: hit.attackerElement.color,
                     symbol: hit.attackerElement.symbol,
-                    big: hit.isElementAdvantage || isBossHit
+                    big: isBig,
+                    role: attackerRole,
+                    isBoss: isBossHit
                 )
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.34) {
+                let flightDuration = isBossHit ? 0.34 : (attackerRole == .tank || attackerRole == .guardian ? 0.24 : 0.2)
+                DispatchQueue.main.asyncAfter(deadline: .now() + flightDuration) {
                     attackProjectile = nil
+                    impactBurst = ImpactBurst(
+                        point: CGPoint(x: endFrame.midX, y: endFrame.midY),
+                        color: hit.attackerElement.color,
+                        symbol: hit.attackerElement.symbol,
+                        big: isBig
+                    )
+                    let impactLife = isBossHit ? 0.5 : 0.34
+                    DispatchQueue.main.asyncAfter(deadline: .now() + impactLife) {
+                        impactBurst = nil
+                    }
                 }
             }
         }
@@ -298,6 +346,12 @@ private struct CombatantBanner: View {
     @State private var mechanicPulseOpacity: Double = 0
     @State private var mechanicLabel: MechanicEvent?
 
+    // Idle presence — a boss keeps visibly "alive" between its own attacks
+    // instead of sitting frozen while the party fights it, via a slow
+    // breathing scale and a slowly spinning dashed aura ring.
+    @State private var bossBreathe: CGFloat = 1
+    @State private var bossAuraRotation: Double = 0
+
     /// Landscape leaves almost no vertical room to spare (see `battleBanner`'s
     /// own comment), so the portrait grows mainly by staying beside the name
     ////HP column rather than stacking above it — width is cheap in the
@@ -382,8 +436,12 @@ private struct CombatantBanner: View {
                                 .scaleEffect(mechanicPulseScale)
                                 .opacity(mechanicPulseOpacity)
                         }
+
+                        if combatant.isBoss {
+                            RevealRing(diameter: portraitSize + 14, color: .red, lineWidth: 2, opacity: 0.5, rotation: bossAuraRotation, dashCount: 20)
+                        }
                     }
-                    .scaleEffect(attackScale * recoilScale)
+                    .scaleEffect(attackScale * recoilScale * (combatant.isBoss ? bossBreathe : 1))
                     .offset(y: attackOffsetY + recoilOffsetY)
                     .rotationEffect(.degrees(attackTilt))
 
@@ -537,6 +595,15 @@ private struct CombatantBanner: View {
                 mechanicPulseOpacity = 0
             }
         }
+        .onAppear {
+            guard combatant.isBoss else { return }
+            withAnimation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true)) {
+                bossBreathe = 1.045
+            }
+            withAnimation(.linear(duration: 6).repeatForever(autoreverses: false)) {
+                bossAuraRotation = 360
+            }
+        }
     }
 }
 
@@ -558,6 +625,8 @@ private struct AttackProjectile: Identifiable {
     let color: Color
     let symbol: String
     let big: Bool
+    let role: Role
+    let isBoss: Bool
 }
 
 /// A glowing bolt of the attacker's own element that visibly travels from
@@ -565,6 +634,13 @@ private struct AttackProjectile: Identifiable {
 /// other effect in this file lives on one portrait or the other — this is
 /// the only one that spans both, so it's the clearest possible answer to
 /// "who is attacking whom" regardless of how fast the fight moves.
+///
+/// The flight path itself is shaped by who's attacking rather than being
+/// one interchangeable straight line for every combatant: Tanks/Guardians
+/// (and the boss, always) throw a heavy overhead arc; Healers/Support lob a
+/// gentler curve; everyone else fires a tight, near-straight bolt. A boss's
+/// own bolt is bigger, slower, and trails a faint afterimage of itself, so
+/// its attacks read as something with real mass landing a real blow.
 private struct AttackProjectileView: View {
     let projectile: AttackProjectile
 
@@ -572,44 +648,168 @@ private struct AttackProjectileView: View {
     @State private var headOpacity: Double = 0
     @State private var trailOpacity: Double = 0
 
+    private enum Flight { case smash, wave, bolt }
+
+    private var flight: Flight {
+        if projectile.isBoss { return .smash }
+        switch projectile.role {
+        case .tank, .guardian: return .smash
+        case .healer, .support: return .wave
+        case .damage, .control: return .bolt
+        }
+    }
+
+    private var duration: Double {
+        switch flight {
+        case .smash: return projectile.isBoss ? 0.32 : 0.22
+        case .wave: return 0.24
+        case .bolt: return 0.16
+        }
+    }
+
+    /// The curve's control-point offset from the straight line, as a
+    /// fraction of the travel distance — 0 would just be the old line.
+    private var arcFraction: CGFloat {
+        switch flight {
+        case .smash: return projectile.isBoss ? 0.5 : 0.32
+        case .wave: return 0.22
+        case .bolt: return 0.08
+        }
+    }
+
+    private var control: CGPoint {
+        let start = projectile.start, end = projectile.end
+        let mid = CGPoint(x: (start.x + end.x) / 2, y: (start.y + end.y) / 2)
+        let dx = end.x - start.x, dy = end.y - start.y
+        let length = max(hypot(dx, dy), 1)
+        // Perpendicular unit vector, biased to arc upward on screen so a
+        // "smash" reads as an overhead swing rather than a sideways dip.
+        var perp = CGPoint(x: -dy / length, y: dx / length)
+        if perp.y > 0 { perp.x *= -1; perp.y *= -1 }
+        let height = length * arcFraction
+        return CGPoint(x: mid.x + perp.x * height, y: mid.y + perp.y * height)
+    }
+
+    private func curvePoint(_ t: CGFloat) -> CGPoint {
+        let mt = 1 - t
+        let start = projectile.start, end = projectile.end
+        let x = mt * mt * start.x + 2 * mt * t * control.x + t * t * end.x
+        let y = mt * mt * start.y + 2 * mt * t * control.y + t * t * end.y
+        return CGPoint(x: x, y: y)
+    }
+
+    private func heading(at t: CGFloat) -> Angle {
+        let mt = 1 - t
+        let start = projectile.start, end = projectile.end
+        let dx = 2 * mt * (control.x - start.x) + 2 * t * (end.x - control.x)
+        let dy = 2 * mt * (control.y - start.y) + 2 * t * (end.y - control.y)
+        return .radians(Double(atan2(dy, dx)))
+    }
+
     var body: some View {
-        let point = CGPoint(
-            x: projectile.start.x + (projectile.end.x - projectile.start.x) * progress,
-            y: projectile.start.y + (projectile.end.y - projectile.start.y) * progress
-        )
+        let head = curvePoint(progress)
+        let lineWidth: CGFloat = flight == .smash ? (projectile.isBoss ? 9 : 6) : (projectile.big ? 5 : 4)
 
         ZStack {
             Path { path in
+                let samples = 18
                 path.move(to: projectile.start)
-                path.addLine(to: point)
+                for i in 1...samples {
+                    let t = CGFloat(i) / CGFloat(samples) * progress
+                    path.addLine(to: curvePoint(t))
+                }
             }
             .stroke(
                 LinearGradient(
                     colors: [projectile.color.opacity(0), projectile.color.opacity(0.95)],
                     startPoint: .init(x: 0, y: 0.5), endPoint: .init(x: 1, y: 0.5)
                 ),
-                style: StrokeStyle(lineWidth: projectile.big ? 6 : 4, lineCap: .round)
+                style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
             )
             .opacity(trailOpacity)
+
+            if flight == .smash {
+                // A faint afterimage one beat behind the real head — the
+                // cheapest way to make something feel heavy rather than
+                // fast, without a second real hit or a longer flight.
+                Image(systemName: projectile.symbol)
+                    .font(.system(size: projectile.isBoss ? 32 : 24, weight: .bold))
+                    .foregroundStyle(projectile.color.opacity(0.35))
+                    .position(curvePoint(max(0, progress - 0.16)))
+                    .opacity(headOpacity)
+            }
 
             Image(systemName: projectile.symbol)
                 .font(.system(size: projectile.big ? 30 : 22, weight: .bold))
                 .foregroundStyle(projectile.color)
                 .shadow(color: projectile.color.opacity(0.9), radius: 10)
                 .scaleEffect(projectile.big ? 1.25 : 1)
-                .position(point)
+                .rotationEffect(flight == .bolt ? heading(at: progress) : .zero)
+                .position(head)
                 .opacity(headOpacity)
         }
         .onAppear {
             headOpacity = 1
             trailOpacity = 1
-            withAnimation(.easeIn(duration: 0.22)) {
+            withAnimation(.easeIn(duration: duration)) {
                 progress = 1
             }
-            withAnimation(.easeOut(duration: 0.14).delay(0.2)) {
+            withAnimation(.easeOut(duration: 0.14).delay(max(0, duration - 0.04))) {
                 headOpacity = 0
                 trailOpacity = 0
             }
+        }
+    }
+}
+
+private struct ImpactBurst: Identifiable {
+    let id = UUID()
+    let point: CGPoint
+    let color: Color
+    let symbol: String
+    let big: Bool
+}
+
+/// Where a bolt actually lands: an expanding ring (doubled for a big hit)
+/// plus the element's own icon flashing white-hot at the center — impact
+/// now reads at the target, not only as motion along the way there.
+private struct ImpactBurstView: View {
+    let burst: ImpactBurst
+
+    @State private var ringScale: CGFloat = 0.4
+    @State private var ringOpacity: Double = 0.9
+    @State private var iconScale: CGFloat = 0.3
+    @State private var iconOpacity: Double = 1
+
+    var body: some View {
+        ZStack {
+            Circle()
+                .stroke(burst.color.opacity(0.85), lineWidth: burst.big ? 5 : 3)
+                .frame(width: burst.big ? 92 : 58, height: burst.big ? 92 : 58)
+                .scaleEffect(ringScale)
+                .opacity(ringOpacity)
+            if burst.big {
+                Circle()
+                    .stroke(burst.color.opacity(0.45), lineWidth: 3)
+                    .frame(width: 138, height: 138)
+                    .scaleEffect(ringScale)
+                    .opacity(ringOpacity * 0.7)
+            }
+            Image(systemName: burst.symbol)
+                .font(.system(size: burst.big ? 26 : 18, weight: .bold))
+                .foregroundStyle(.white)
+                .shadow(color: burst.color.opacity(0.9), radius: 8)
+                .scaleEffect(iconScale)
+                .opacity(iconOpacity)
+        }
+        .position(burst.point)
+        .onAppear {
+            withAnimation(.easeOut(duration: burst.big ? 0.44 : 0.3)) {
+                ringScale = 1
+                ringOpacity = 0
+            }
+            withAnimation(.easeOut(duration: 0.14)) { iconScale = 1 }
+            withAnimation(.easeIn(duration: 0.2).delay(0.12)) { iconOpacity = 0 }
         }
     }
 }
