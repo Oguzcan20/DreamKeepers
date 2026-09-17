@@ -129,8 +129,9 @@ final class SummonSystemTests: XCTestCase {
         XCTAssertEqual(total, 1.0, accuracy: 0.0001)
     }
 
-    func testGoldOddsNeverIncludeExclusive() {
-        XCTAssertFalse(GoldSummonSystem.rarityOdds.contains { $0.0 == .exclusive })
+    func testGoldOddsCapAtEpic() {
+        XCTAssertTrue(GoldSummonSystem.rarityOdds.allSatisfy { $0.0 <= .epic })
+        XCTAssertEqual(GoldSummonSystem.rarityOdds.last?.0, .epic)
     }
 
     func testGoldLowRollPicksFirstRarityBucket() {
@@ -170,7 +171,7 @@ final class SummonSystemTests: XCTestCase {
         XCTAssertNil(state.performGoldMultiSummon())
     }
 
-    func testGoldSummonNeverGrantsExclusive() {
+    func testGoldSummonNeverExceedsEpic() {
         let saveSystem = InMemorySaveSystem()
         var seed = GameSave.newGame(starterDefinitionID: DreamkeeperCatalog.unlockOrder[0])
         seed.gold = 1_000_000
@@ -179,7 +180,7 @@ final class SummonSystemTests: XCTestCase {
 
         for _ in 0..<200 {
             guard state.canAffordGoldSummon, let result = state.performGoldSummon() else { break }
-            XCTAssertNotEqual(result.definition.rarity, .exclusive)
+            XCTAssertLessThanOrEqual(result.definition.rarity, .epic)
         }
     }
 }

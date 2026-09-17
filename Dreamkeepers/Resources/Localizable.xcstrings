@@ -3321,6 +3321,16 @@
         }
       }
     },
+    "Gold pulls top out at Epic — Legendary, Mythic, and Exclusive Dreamkeepers need Dream Gems or the Shop.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gold-Beschwörungen enden bei Episch – Legendär, Mythisch und exklusive Dreamkeeper gibt es nur mit Traum-Edelsteinen oder im Shop."
+          }
+        }
+      }
+    },
     "Gold ready to collect": {
       "localizations": {
         "de": {

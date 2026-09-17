@@ -1149,6 +1149,15 @@ struct SummoningShrineView: View {
                             .foregroundStyle(.white.opacity(0.6))
                     }
                 }
+                if isGold {
+                    // Without this, the odds table just looks like it happens
+                    // to stop at Epic — spell out that it's a hard cap, not a
+                    // rounding artifact, so players don't wonder where
+                    // Legendary, Mythic, and Igo/Ames went.
+                    Text("Gold pulls top out at Epic — Legendary, Mythic, and Exclusive Dreamkeepers need Dream Gems or the Shop.")
+                        .font(.caption2)
+                        .foregroundStyle(.white.opacity(0.5))
+                }
                 if !isGold {
                     // Pity is a real, always-on guarantee (see `SummonSystem`
                     // pity thresholds) — shown as plain progress rather than kept
