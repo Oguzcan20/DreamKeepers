@@ -121,4 +121,65 @@ final class SummonSystemTests: XCTestCase {
         let result = state.rollAndAddSummon(roll: 0.9999)
         XCTAssertEqual(result.definition.rarity, .mythic)
     }
+
+    // MARK: - Gold Summoning
+
+    func testGoldRarityOddsSumToOne() {
+        let total = GoldSummonSystem.rarityOdds.reduce(0.0) { $0 + $1.1 }
+        XCTAssertEqual(total, 1.0, accuracy: 0.0001)
+    }
+
+    func testGoldOddsNeverIncludeExclusive() {
+        XCTAssertFalse(GoldSummonSystem.rarityOdds.contains { $0.0 == .exclusive })
+    }
+
+    func testGoldLowRollPicksFirstRarityBucket() {
+        XCTAssertEqual(GoldSummonSystem.rollRarity(roll: 0.0), GoldSummonSystem.rarityOdds[0].0)
+    }
+
+    func testGoldHighRollPicksLastRarityBucket() {
+        XCTAssertEqual(GoldSummonSystem.rollRarity(roll: 0.9999), GoldSummonSystem.rarityOdds.last!.0)
+    }
+
+    func testPerformGoldSummonDeductsGoldAndBlocksWhenPoor() {
+        let saveSystem = InMemorySaveSystem()
+        var seed = GameSave.newGame(starterDefinitionID: DreamkeeperCatalog.unlockOrder[0])
+        seed.gold = GoldSummonSystem.cost
+        try? saveSystem.save(seed)
+        let state = GameState(platform: MockPlatformService(), saveSystem: saveSystem)
+        XCTAssertTrue(state.canAffordGoldSummon)
+
+        let result = state.performGoldSummon()
+        XCTAssertNotNil(result)
+        XCTAssertEqual(state.save.gold, 0)
+        XCTAssertFalse(state.canAffordGoldSummon)
+        XCTAssertNil(state.performGoldSummon())
+    }
+
+    func testPerformGoldMultiSummonGrantsElevenAndDeductsGold() {
+        let saveSystem = InMemorySaveSystem()
+        var seed = GameSave.newGame(starterDefinitionID: DreamkeeperCatalog.unlockOrder[0])
+        seed.gold = GoldSummonSystem.multiPullCost
+        try? saveSystem.save(seed)
+        let state = GameState(platform: MockPlatformService(), saveSystem: saveSystem)
+        XCTAssertTrue(state.canAffordGoldMultiSummon)
+
+        let results = state.performGoldMultiSummon()
+        XCTAssertEqual(results?.count, GoldSummonSystem.multiPullTotalCount)
+        XCTAssertEqual(state.save.gold, 0)
+        XCTAssertNil(state.performGoldMultiSummon())
+    }
+
+    func testGoldSummonNeverGrantsExclusive() {
+        let saveSystem = InMemorySaveSystem()
+        var seed = GameSave.newGame(starterDefinitionID: DreamkeeperCatalog.unlockOrder[0])
+        seed.gold = 1_000_000
+        try? saveSystem.save(seed)
+        let state = GameState(platform: MockPlatformService(), saveSystem: saveSystem)
+
+        for _ in 0..<200 {
+            guard state.canAffordGoldSummon, let result = state.performGoldSummon() else { break }
+            XCTAssertNotEqual(result.definition.rarity, .exclusive)
+        }
+    }
 }

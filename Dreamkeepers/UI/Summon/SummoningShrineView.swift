@@ -9,6 +9,17 @@ enum SummonKind: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
+/// Which currency the Dreamkeeper pull spends — Gems (the original,
+/// pity-backed premium banner) or Gold (a cheap alternative funded by
+/// currency players already earn from playing, with much stingier odds —
+/// see `GoldSummonSystem`). Only meaningful while `summonKind == .dreamkeeper`;
+/// Equipment Summoning has no Gold option.
+enum SummonCurrency: String, CaseIterable, Identifiable {
+    case gems = "Gems"
+    case gold = "Gold"
+    var id: String { rawValue }
+}
+
 /// Summoning Shrine (German: "Beschwörung"). The pull itself is
 /// resolved instantly server-side-equivalent (`GameState.performSummon`),
 /// but the reveal is staged as a tappable treasure chest: each tap escalates
@@ -25,6 +36,11 @@ struct SummoningShrineView: View {
     /// the existing, already-tuned flow changes for a player who never
     /// touches the new picker.
     @State private var summonKind: SummonKind = .dreamkeeper
+
+    /// Gems vs Gold for the Dreamkeeper flow — see `SummonCurrency`.
+    /// Defaults to Gems so nothing changes for a player who never touches
+    /// the new toggle.
+    @State private var dreamkeeperCurrency: SummonCurrency = .gems
 
     /// The last fully-revealed pull, shown in the side panel.
     @State private var lastResult: SummonResult?
@@ -79,6 +95,11 @@ struct SummoningShrineView: View {
     /// a big chunk of gems in a single mis-tap, so it gets a confirmation
     /// step the single 30-gem pull doesn't need.
     @State private var showMultiSummonConfirm = false
+
+    /// Gold's counterpart to `showMultiSummonConfirm` — same guard, since a
+    /// mis-tap can still burn 1,500 Gold in one go even though it's the
+    /// "cheap" banner.
+    @State private var showGoldMultiSummonConfirm = false
 
     /// Set when the player taps a Dreamkeeper's portrait anywhere in the
     /// summon flow (the result card or the full-screen showcase) — shows
@@ -417,6 +438,18 @@ struct SummoningShrineView: View {
         }
         .confirmationDialog(
             "Summon 10x?",
+            isPresented: $showGoldMultiSummonConfirm,
+            titleVisibility: .visible
+        ) {
+            Button("Summon · \(GoldSummonSystem.multiPullCost) Gold") {
+                goldMultiSummon()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This spends \(GoldSummonSystem.multiPullCost) Gold for \(GoldSummonSystem.multiPullTotalCount) Dreamkeepers.")
+        }
+        .confirmationDialog(
+            "Summon 10x?",
             isPresented: $showEquipmentMultiSummonConfirm,
             titleVisibility: .visible
         ) {
@@ -463,6 +496,9 @@ struct SummoningShrineView: View {
             } else if summonKind == .equipment, gameState.save.equipmentSummonTickets > 0 {
                 TicketPill(amount: gameState.save.equipmentSummonTickets, label: "Equipment Tickets")
             }
+            if summonKind == .dreamkeeper {
+                RollingGoldPill(amount: gameState.save.gold)
+            }
             RollingGemsPill(amount: gameState.save.dreamGems)
         }
         .padding(.horizontal, 20)
@@ -495,42 +531,88 @@ struct SummoningShrineView: View {
 
             if summonKind == .dreamkeeper {
                 if revealResult == nil {
-                    VStack(spacing: 6) {
-                        Button {
-                            summon()
-                        } label: {
-                            if gameState.hasMonsterSummonTicket {
-                                Label("Summon · 1 Ticket", systemImage: "ticket.fill")
-                            } else {
-                                Label("Summon · \(SummonSystem.cost) Gems", systemImage: "sparkle")
+                    VStack(spacing: 10) {
+                        Picker("Currency", selection: $dreamkeeperCurrency) {
+                            ForEach(SummonCurrency.allCases) { currency in
+                                Text(LocalizedStringKey(currency.rawValue)).tag(currency)
                             }
                         }
-                        .buttonStyle(PrimaryButtonStyle(tint: Theme.gold))
-                        .disabled(!gameState.canAffordSummon)
+                        .pickerStyle(.segmented)
+                        .frame(width: 200)
 
-                        Button {
-                            showMultiSummonConfirm = true
-                        } label: {
-                            HStack(spacing: 6) {
-                                Image(systemName: "sparkles")
-                                Text("10x Summon · \(SummonSystem.multiPullCost) Gems")
-                                Text("+\(SummonSystem.multiPullBonusCount)")
-                                    .font(.caption2.weight(.heavy))
-                                    .padding(.horizontal, 6)
-                                    .padding(.vertical, 2)
-                                    .background(Theme.gold.opacity(0.4))
-                                    .clipShape(Capsule())
+                        if dreamkeeperCurrency == .gems {
+                            VStack(spacing: 6) {
+                                Button {
+                                    summon()
+                                } label: {
+                                    if gameState.hasMonsterSummonTicket {
+                                        Label("Summon · 1 Ticket", systemImage: "ticket.fill")
+                                    } else {
+                                        Label("Summon · \(SummonSystem.cost) Gems", systemImage: "sparkle")
+                                    }
+                                }
+                                .buttonStyle(PrimaryButtonStyle(tint: Theme.gold))
+                                .disabled(!gameState.canAffordSummon)
+
+                                Button {
+                                    showMultiSummonConfirm = true
+                                } label: {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "sparkles")
+                                        Text("10x Summon · \(SummonSystem.multiPullCost) Gems")
+                                        Text("+\(SummonSystem.multiPullBonusCount)")
+                                            .font(.caption2.weight(.heavy))
+                                            .padding(.horizontal, 6)
+                                            .padding(.vertical, 2)
+                                            .background(Theme.gold.opacity(0.4))
+                                            .clipShape(Capsule())
+                                    }
+                                }
+                                .buttonStyle(PrimaryButtonStyle(tint: Theme.violet))
+                                .disabled(!gameState.canAffordMultiSummon)
+                            }
+                            .frame(width: 260)
+
+                            if !gameState.canAffordSummon {
+                                insufficientGemsHint("Not enough Dream Gems.")
+                            } else if !gameState.canAffordMultiSummon {
+                                insufficientGemsHint("Not enough Gems for 10x.")
+                            }
+                        } else {
+                            VStack(spacing: 6) {
+                                Button {
+                                    goldSummon()
+                                } label: {
+                                    Label("Summon · \(GoldSummonSystem.cost) Gold", systemImage: "circlebadge.fill")
+                                }
+                                .buttonStyle(PrimaryButtonStyle(tint: Theme.gold))
+                                .disabled(!gameState.canAffordGoldSummon)
+
+                                Button {
+                                    showGoldMultiSummonConfirm = true
+                                } label: {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "circlebadge.2.fill")
+                                        Text("10x Summon · \(GoldSummonSystem.multiPullCost) Gold")
+                                        Text("+\(GoldSummonSystem.multiPullBonusCount)")
+                                            .font(.caption2.weight(.heavy))
+                                            .padding(.horizontal, 6)
+                                            .padding(.vertical, 2)
+                                            .background(Theme.gold.opacity(0.4))
+                                            .clipShape(Capsule())
+                                    }
+                                }
+                                .buttonStyle(PrimaryButtonStyle(tint: Theme.violet))
+                                .disabled(!gameState.canAffordGoldMultiSummon)
+                            }
+                            .frame(width: 260)
+
+                            if !gameState.canAffordGoldSummon {
+                                insufficientGemsHint("Not enough Gold.", currency: .gold)
+                            } else if !gameState.canAffordGoldMultiSummon {
+                                insufficientGemsHint("Not enough Gold for 10x.", currency: .gold)
                             }
                         }
-                        .buttonStyle(PrimaryButtonStyle(tint: Theme.violet))
-                        .disabled(!gameState.canAffordMultiSummon)
-                    }
-                    .frame(width: 260)
-
-                    if !gameState.canAffordSummon {
-                        insufficientGemsHint("Not enough Dream Gems.")
-                    } else if !gameState.canAffordMultiSummon {
-                        insufficientGemsHint("Not enough Gems for 10x.")
                     }
                 } else if !chestOpened {
                     VStack(spacing: 6) {
@@ -619,9 +701,11 @@ struct SummoningShrineView: View {
     /// Shown in place of the summon buttons once the player can't afford
     /// them — a dead-end text label used to be the whole story; this adds
     /// an actual way out, straight to the Shop, instead of making the
-    /// player back out and find it themselves.
+    /// player back out and find it themselves. `currency` only changes the
+    /// CTA's label/accessibility text — the Shop sells both Gem packs and
+    /// Gold exchanges, so the same destination is correct either way.
     @ViewBuilder
-    private func insufficientGemsHint(_ text: LocalizedStringKey) -> some View {
+    private func insufficientGemsHint(_ text: LocalizedStringKey, currency: SummonCurrency = .gems) -> some View {
         VStack(spacing: 4) {
             Text(text)
                 .font(.caption2)
@@ -629,7 +713,7 @@ struct SummoningShrineView: View {
             Button {
                 navigate(.shop)
             } label: {
-                Label("Get Gems", systemImage: "cart.fill")
+                Label(currency == .gems ? "Get Gems" : "Get Gold", systemImage: "cart.fill")
                     .font(.caption2.weight(.semibold))
             }
             .buttonStyle(.plain)
@@ -638,7 +722,7 @@ struct SummoningShrineView: View {
             .padding(.vertical, 4)
             .background(Theme.gold.opacity(0.15))
             .clipShape(Capsule())
-            .accessibilityLabel("Go to Shop to buy more Dream Gems")
+            .accessibilityLabel(currency == .gems ? "Go to Shop to buy more Dream Gems" : "Go to Shop to get more Gold")
         }
     }
 
@@ -1039,12 +1123,18 @@ struct SummoningShrineView: View {
         // this card has to share the column with `resultCard`, so it's the
         // one that actually needs the saved height; before a pull, this card
         // has the whole column to itself and can afford the explainer.
-        GlassCard {
+        // `isGold` is the one branch point for this whole card — Gold pulls
+        // draw from `GoldSummonSystem.rarityOdds` (no `.exclusive` row, since
+        // that tier never appears there) and have no pity mechanic of their
+        // own, so the two pity rows are skipped entirely rather than shown
+        // at a permanently-zero, misleading progress.
+        let isGold = summonKind == .dreamkeeper && dreamkeeperCurrency == .gold
+        return GlassCard {
             VStack(alignment: .leading, spacing: 6) {
                 Text("Summon Odds")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.white)
-                ForEach(SummonSystem.rarityOdds, id: \.0) { rarity, weight in
+                ForEach(isGold ? GoldSummonSystem.rarityOdds : SummonSystem.rarityOdds, id: \.0) { rarity, weight in
                     HStack(spacing: 6) {
                         Circle()
                             .fill(rarity.primaryColor)
@@ -1059,20 +1149,22 @@ struct SummoningShrineView: View {
                             .foregroundStyle(.white.opacity(0.6))
                     }
                 }
-                // Pity is a real, always-on guarantee (see `SummonSystem`
-                // pity thresholds) — shown as plain progress rather than kept
-                // as a hidden mechanic, and shared by both summon types since
-                // they draw from the same pool.
-                pityProgressRow(
-                    label: "Epic+ pity",
-                    current: gameState.pullsSinceEpicSummon,
-                    threshold: SummonSystem.epicPityThreshold
-                )
-                pityProgressRow(
-                    label: "Legendary+ pity",
-                    current: gameState.pullsSinceLegendarySummon,
-                    threshold: SummonSystem.legendaryPityThreshold
-                )
+                if !isGold {
+                    // Pity is a real, always-on guarantee (see `SummonSystem`
+                    // pity thresholds) — shown as plain progress rather than kept
+                    // as a hidden mechanic, and shared by both summon types since
+                    // they draw from the same pool.
+                    pityProgressRow(
+                        label: "Epic+ pity",
+                        current: gameState.pullsSinceEpicSummon,
+                        threshold: SummonSystem.epicPityThreshold
+                    )
+                    pityProgressRow(
+                        label: "Legendary+ pity",
+                        current: gameState.pullsSinceLegendarySummon,
+                        threshold: SummonSystem.legendaryPityThreshold
+                    )
+                }
                 if summonKind == .dreamkeeper, lastResult == nil {
                     Text("Duplicate pulls join your Inventory — fuse them onto a Dreamkeeper to raise its stars.")
                         .font(.caption2)
@@ -1107,6 +1199,27 @@ struct SummoningShrineView: View {
         // Worst-to-best order so the strongest pull "arrives" last in the
         // staggered reveal — a bit of narrative build-up instead of the
         // best card landing at a random spot in the middle.
+        multiResults = results.sorted { $0.definition.rarity < $1.definition.rarity }
+        multiResultsSessionID = UUID()
+        showMultiResults = true
+    }
+
+    /// Gold's counterpart to `summon()` — feeds the exact same
+    /// `revealResult`/chest-tap pipeline, so the Gold pull gets the same
+    /// tap-escalation reveal as a Gems pull for free.
+    private func goldSummon() {
+        guard let result = gameState.performGoldSummon() else { return }
+        tapsSoFar = 0
+        chestOpened = false
+        gameState.playHaptic(.light)
+        revealResult = result
+    }
+
+    /// Gold's counterpart to `multiSummon()`.
+    private func goldMultiSummon() {
+        guard let results = gameState.performGoldMultiSummon() else { return }
+        gameState.playSound(.summon)
+        gameState.playHaptic(.levelUp)
         multiResults = results.sorted { $0.definition.rarity < $1.definition.rarity }
         multiResultsSessionID = UUID()
         showMultiResults = true
@@ -1496,6 +1609,39 @@ private struct RollingGemsPill: View {
         )
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(amount) Dream Gems")
+    }
+}
+
+/// Gold's counterpart to `RollingGemsPill` — same shape, coin icon, only
+/// shown on the Dreamkeeper tab since Gold Summoning has no Equipment
+/// counterpart.
+private struct RollingGoldPill: View {
+    var amount: Int
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "circlebadge.fill")
+                .foregroundStyle(Theme.gold)
+                .accessibilityHidden(true)
+            Text("\(amount)")
+                .font(.subheadline.monospacedDigit().weight(.semibold))
+                .foregroundStyle(.white)
+                .contentTransition(.numericText(value: Double(amount)))
+                .animation(.snappy(duration: 0.5), value: amount)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+        .background(.ultraThinMaterial)
+        .background(Color.white.opacity(0.06))
+        .clipShape(Capsule())
+        .overlay(
+            Capsule().stroke(
+                LinearGradient(colors: [.white.opacity(0.3), .white.opacity(0.05)], startPoint: .top, endPoint: .bottom),
+                lineWidth: 1
+            )
+        )
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(amount) Gold")
     }
 }
 

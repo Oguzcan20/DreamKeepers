@@ -361,6 +361,16 @@
         }
       }
     },
+    "10x Summon · %lld Gold": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10x Beschwören · %lld Gold"
+          }
+        }
+      }
+    },
     "15 extra Endless Trial attempts — better value for a serious climb.": {
       "localizations": {
         "de": {
@@ -2211,6 +2221,16 @@
         }
       }
     },
+    "Currency": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Währung"
+          }
+        }
+      }
+    },
     "Daily Login Bonus": {
       "localizations": {
         "de": {
@@ -3141,6 +3161,16 @@
         }
       }
     },
+    "Gems": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edelsteine"
+          }
+        }
+      }
+    },
     "Generates %lld gold/min while you're away · caps after 8h": {
       "localizations": {
         "de": {
@@ -3157,6 +3187,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Edelsteine holen"
+          }
+        }
+      }
+    },
+    "Get Gold": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gold holen"
           }
         }
       }
@@ -3207,6 +3247,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zum Shop, um mehr Traum-Edelsteine zu kaufen"
+          }
+        }
+      }
+    },
+    "Go to Shop to get more Gold": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zum Shop, um mehr Gold zu bekommen"
           }
         }
       }
@@ -4257,6 +4307,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nicht genug Edelsteine für 10x."
+          }
+        }
+      }
+    },
+    "Not enough Gold for 10x.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht genug Gold für 10x."
+          }
+        }
+      }
+    },
+    "Not enough Gold.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht genug Gold."
           }
         }
       }
@@ -5731,6 +5801,16 @@
         }
       }
     },
+    "Summon · %lld Gold": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschwören · %lld Gold"
+          }
+        }
+      }
+    },
     "Summon · 1 Ticket": {
       "localizations": {
         "de": {
@@ -6317,6 +6397,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Das kostet %lld Traum-Edelsteine für %lld Items."
+          }
+        }
+      }
+    },
+    "This spends %lld Gold for %lld Dreamkeepers.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dies verbraucht %lld Gold für %lld Dreamkeepers."
           }
         }
       }

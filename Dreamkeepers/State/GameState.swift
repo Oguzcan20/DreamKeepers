@@ -1342,6 +1342,67 @@ final class GameState {
         return results
     }
 
+    // MARK: - Gold Summoning
+
+    /// Mirrors `canAffordSummon`/`canAffordMultiSummon`, but against Gold
+    /// and `GoldSummonSystem`'s own cost — no ticket substitution, since
+    /// this is already the cheap option.
+    var canAffordGoldSummon: Bool { save.gold >= GoldSummonSystem.cost }
+    var canAffordGoldMultiSummon: Bool { save.gold >= GoldSummonSystem.multiPullCost }
+
+    /// Mirrors `rollAndAddSummon`, but rolls from `GoldSummonSystem`'s own,
+    /// much stingier odds table and skips the shared pity counters
+    /// entirely — this pull is meant to feel like a separate, worse-odds
+    /// tap, not a way to also creep the premium pity clock forward.
+    /// `.exclusive` never appears in `GoldSummonSystem.rarityOdds`, so
+    /// there's no fallback branch to handle here (contrast
+    /// `rollAndAddSummon`).
+    func rollAndAddGoldSummon(roll: Double = .random(in: 0..<1)) -> SummonResult {
+        let rarity = GoldSummonSystem.rollRarity(roll: roll)
+        let definition = SummonSystem.rollDefinition(from: catalog, rarity: rarity)
+        let isNew = !save.roster.contains { $0.definitionID == definition.id }
+        let instance = DreamkeeperInstance(definitionID: definition.id)
+        save.roster.append(instance)
+        if isNew, save.teams[activeTeamIndex].memberIDs.count < Team.maxSize {
+            save.teams[activeTeamIndex].memberIDs.append(instance.id)
+        }
+        return SummonResult(definition: definition, isNew: isNew)
+    }
+
+    /// Returns nil only when the player can't afford it — the UI should
+    /// keep the button disabled via `canAffordGoldSummon` so this is a
+    /// safety net.
+    @discardableResult
+    func performGoldSummon() -> SummonResult? {
+        guard canAffordGoldSummon else { return nil }
+        save.gold -= GoldSummonSystem.cost
+        let result = rollAndAddGoldSummon()
+        incrementMission(.performSummon)
+        incrementMission(.premiumBonusSummons)
+        incrementWeeklyMission(.performSummons)
+        persist()
+        checkAchievements()
+        return result
+    }
+
+    /// Pays for `GoldSummonSystem.multiPullPaidCount` pulls and returns
+    /// `GoldSummonSystem.multiPullTotalCount` results — the same "10+1
+    /// free" shape as the premium multi-pull, just in Gold. No Beginner's
+    /// Banner floor here; that guarantee belongs to a new player's first
+    /// premium pull, not this one.
+    @discardableResult
+    func performGoldMultiSummon() -> [SummonResult]? {
+        guard canAffordGoldMultiSummon else { return nil }
+        save.gold -= GoldSummonSystem.multiPullCost
+        let results = (0..<GoldSummonSystem.multiPullTotalCount).map { _ in rollAndAddGoldSummon() }
+        incrementMission(.performSummon, by: results.count)
+        incrementMission(.premiumBonusSummons, by: results.count)
+        incrementWeeklyMission(.performSummons, by: results.count)
+        persist()
+        checkAchievements()
+        return results
+    }
+
     // MARK: - Equipment Summoning
 
     /// Mirrors `hasMonsterSummonTicket`/`canAffordSummon` for Equipment

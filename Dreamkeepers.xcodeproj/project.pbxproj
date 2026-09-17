@@ -101,6 +101,7 @@
 		BB521E86D7E576AB434A26AC /* AccountLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560474C4F5B014C305416FC /* AccountLevelTests.swift */; };
 		BC1695A0403F53A97DAD3412 /* StarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F984AB60A044C4F945C4FDF /* StarRow.swift */; };
 		BDEDE1E775E28C0244C71FC0 /* EquipmentSummonSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0D94A0EA1ED53D55788070 /* EquipmentSummonSystem.swift */; };
+		4594DCE9E9FFB27CEC659052 /* GoldSummonSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7631FB1D92D9020F4EBFE3 /* GoldSummonSystem.swift */; };
 		C00CA3D6F7D1B308D69017A9 /* BattlePassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75412423D1050BFCC23711E /* BattlePassTests.swift */; };
 		C1B1A099E343E496DA58DA32 /* DreamkeeperCodexDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E03140D1CA6E39710CBF33F /* DreamkeeperCodexDetailView.swift */; };
 		C2609E3B3485BB86CA4C7036 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453A3EF81E745E4A8DB05342 /* ProfileView.swift */; };
@@ -225,6 +226,7 @@
 		7D643779840CB19EF195D392 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		7DA5AF7DB8476492DFBB1310 /* DreamkeeperCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamkeeperCard.swift; sourceTree = "<group>"; };
 		7F0D94A0EA1ED53D55788070 /* EquipmentSummonSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentSummonSystem.swift; sourceTree = "<group>"; };
+		2A7631FB1D92D9020F4EBFE3 /* GoldSummonSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoldSummonSystem.swift; sourceTree = "<group>"; };
 		7FECD2F3E8F37EB375EBD2E4 /* summon.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = summon.wav; sourceTree = "<group>"; };
 		823D253588676F918F746584 /* FusionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FusionPickerView.swift; sourceTree = "<group>"; };
 		86C3A3A1F6887B41216F9D21 /* ItemFusionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFusionPickerView.swift; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 				1634FA9347FD76FA6BC583CD /* EquipmentFactory.swift */,
 				7F0D94A0EA1ED53D55788070 /* EquipmentSummonSystem.swift */,
 				0A89305C0528B6C9C6360855 /* EquipmentUpgrade.swift */,
+				2A7631FB1D92D9020F4EBFE3 /* GoldSummonSystem.swift */,
 				07223F3E1BD28062A43C818B /* LevelSystem.swift */,
 				6C5C8673EF18A4F3EF4D6484 /* LoginRewardSystem.swift */,
 				4B8F01F6911B908A4DBE811F /* OfflineRewards.swift */,
@@ -924,6 +927,7 @@
 				B78BC0E7A0933EFD2A95072A /* EquipmentFactory.swift in Sources */,
 				50505E6DF74623232517EC77 /* EquipmentSheet.swift in Sources */,
 				BDEDE1E775E28C0244C71FC0 /* EquipmentSummonSystem.swift in Sources */,
+				4594DCE9E9FFB27CEC659052 /* GoldSummonSystem.swift in Sources */,
 				522B0B09CCBE29D5433B62F6 /* EquipmentUpgrade.swift in Sources */,
 				633573FEB194C9D23CA81D64 /* FriendsService.swift in Sources */,
 				745BD6B5ECB9BB8C05CD853A /* FusionPickerView.swift in Sources */,
