@@ -391,6 +391,16 @@
         }
       }
     },
+    "8-digit code": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "8-stelliger Code"
+          }
+        }
+      }
+    },
     "80 Gems": {
       "localizations": {
         "de": {
@@ -1187,6 +1197,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Werbung nicht verfügbar"
+          }
+        }
+      }
+    },
+    "Add": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hinzufügen"
+          }
+        }
+      }
+    },
+    "Add Friend": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Freund hinzufügen"
           }
         }
       }
@@ -2101,6 +2131,16 @@
         }
       }
     },
+    "Copy code": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code kopieren"
+          }
+        }
+      }
+    },
     "Cosmic islands and starlit temples at the very center of the Dream realm.": {
       "localizations": {
         "de": {
@@ -2127,6 +2167,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Team erstellen"
+          }
+        }
+      }
+    },
+    "Creating code…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code wird erstellt…"
           }
         }
       }
@@ -2977,6 +3027,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Freunde"
+          }
+        }
+      }
+    },
+    "Friends Aren't Set Up Yet": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Freunde sind noch nicht eingerichtet"
           }
         }
       }
@@ -4111,6 +4171,16 @@
         }
       }
     },
+    "No friends added yet.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Freunde hinzugefügt."
+          }
+        }
+      }
+    },
     "No gear yet. Clear a stage to find equipment to upgrade.": {
       "localizations": {
         "de": {
@@ -4221,6 +4291,16 @@
         }
       }
     },
+    "Offline": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offline"
+          }
+        }
+      }
+    },
     "Older than the abyss itself, or so the coral forest tells it.": {
       "localizations": {
         "de": {
@@ -4277,6 +4357,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Einmaliger Bonus für neue Traumhafen-Erbauer: Gold und Edelsteine, um dein Roster in Schwung zu bringen."
+          }
+        }
+      }
+    },
+    "Online": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Online"
           }
         }
       }
@@ -6201,6 +6291,16 @@
         }
       }
     },
+    "This feature needs a one-time Firebase project setup. Once that's done, you'll be able to add friends by code here.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Funktion braucht ein einmalig eingerichtetes Firebase-Projekt. Sobald das erledigt ist, kannst du hier Freunde per Code hinzufügen."
+          }
+        }
+      }
+    },
     "This spends %lld Dream Gems for %lld Dreamkeepers.": {
       "localizations": {
         "de": {
@@ -6837,6 +6937,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deine Stufe in der Endlosprüfung wird gegen %lld Seelenpunkte auf 1 zurückgesetzt. Dein Roster, deine Ausrüstung und dein Gold bleiben unverändert."
+          }
+        }
+      }
+    },
+    "Your Friend Code": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Freundescode"
           }
         }
       }

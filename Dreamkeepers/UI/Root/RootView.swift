@@ -20,6 +20,7 @@ enum AppRoute: Equatable {
     case dungeon
     case dungeonBattle(DungeonID)
     case dungeonResult(DungeonBattleResultSummary)
+    case friends
 }
 
 struct RootView: View {
@@ -27,6 +28,7 @@ struct RootView: View {
     @State private var accountState = AccountState()
     @State private var gameCenterService = GameCenterService()
     @State private var leaderboardService = LeaderboardService()
+    @State private var friendsService = FriendsService()
     @State private var route: AppRoute
     @State private var activeEngine: BattleEngine?
     @State private var activeArenaEngine: BattleEngine?
@@ -91,6 +93,7 @@ struct RootView: View {
         case "shop": _route = State(initialValue: .shop)
         case "settings": _route = State(initialValue: .settings)
         case "profile": _route = State(initialValue: .profile)
+        case "friends": _route = State(initialValue: .friends)
         case "observatory": _route = State(initialValue: .observatory)
         case "battlePass": _route = State(initialValue: .battlePass)
         case "codex": _route = State(initialValue: .codex)
@@ -188,6 +191,10 @@ struct RootView: View {
         }
         .onChange(of: gameState.currentStage) { _, newStage in
             leaderboardService.submitCampaignProgress(stage: newStage)
+            friendsService.updateMyProgress(playerLevel: gameState.save.playerLevel, currentStage: newStage)
+        }
+        .onChange(of: gameState.save.playerLevel) { _, newLevel in
+            friendsService.updateMyProgress(playerLevel: newLevel, currentStage: gameState.currentStage)
         }
         .onChange(of: gameCenterService.isAuthenticated) { _, isAuthenticated in
             if isAuthenticated {
@@ -238,6 +245,7 @@ struct RootView: View {
             if route != .mainMenu {
                 gameCenterService.authenticate()
             }
+            friendsService.start(playerLevel: gameState.save.playerLevel, currentStage: gameState.currentStage)
             if !hasRequestedTrackingThisLaunch {
                 hasRequestedTrackingThisLaunch = true
                 // A beat after the app is actually visible — firing this at
@@ -346,6 +354,10 @@ struct RootView: View {
             }
         case .profile:
             ProfileView(gameState: gameState) { destination in
+                navigate(to: destination)
+            }
+        case .friends:
+            FriendsView(friendsService: friendsService) { destination in
                 navigate(to: destination)
             }
         case .observatory:

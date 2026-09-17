@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // One document per player, keyed by their anonymous Firebase UID.
+    // Anyone signed in (anonymously) can read any profile (needed to show a
+    // friend's progress/online status), but can only create/fully edit
+    // their own document. A second, narrower rule lets any signed-in player
+    // append themselves to *another* player's friendIDs array only — that's
+    // what makes FriendsService.addFriend's mutual batch write legal
+    // without opening the rest of a stranger's profile to editing.
+    match /players/{playerID} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.auth.uid == playerID;
+      allow update: if request.auth != null && (
+        request.auth.uid == playerID ||
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['friendIDs'])
+      );
+      allow delete: if false;
+    }
+
+    // 8-digit code -> playerID lookup table. Anyone signed in can look a
+    // code up; only the owning player can create their own code mapping,
+    // and it's immutable afterwards (codes never change hands or get
+    // edited).
+    match /friendCodes/{code} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.resource.data.playerID == request.auth.uid;
+      allow update, delete: if false;
+    }
+  }
+}

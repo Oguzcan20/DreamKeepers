@@ -59,7 +59,16 @@ struct ProfileView: View {
                 .font(.title3.weight(.bold))
                 .foregroundStyle(.white)
             Spacer()
-            Color.clear.frame(width: 40, height: 40)
+            Button {
+                navigate(.friends)
+            } label: {
+                Image(systemName: "person.2.fill")
+                    .foregroundStyle(.white)
+                    .padding(10)
+                    .background(Color.white.opacity(0.08))
+                    .clipShape(Circle())
+            }
+            .accessibilityLabel("Friends")
         }
         .padding(.horizontal, 20)
         .padding(.top, 12)

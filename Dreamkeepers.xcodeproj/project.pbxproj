@@ -50,6 +50,7 @@
 		5E3A99FC16D5E6CF86B56EBC /* EquipmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9F4A79C8394DCF0614BCF6 /* EquipmentTests.swift */; };
 		5EA4114F9A0C5E049A09BF8C /* AccountState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF5E18B4D556779D1C6800 /* AccountState.swift */; };
 		62D0A34BFCCB0A71866379DC /* AchievementsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17B9BF433196993EAB6788F /* AchievementsSheet.swift */; };
+		29E1E6C113F95C0D173377E3 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126BB005A26804E0FC7A0736 /* FriendsView.swift */; };
 		62F27653724EDB9ED3BEC783 /* ArenaResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B330C5D75ABE803DAB500 /* ArenaResultView.swift */; };
 		6339EBD91985BA9AF24E3AA9 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3535BFA1FC6CC96ED29FDDA /* GameState.swift */; };
 		648A497F661125C119296107 /* LevelSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D783D28799D0AC884BDC8EA /* LevelSystemTests.swift */; };
@@ -83,6 +84,7 @@
 		A5BF8D85E044A6115C9E993D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD17F1F96EAA02ABD5208F7 /* LoadingView.swift */; };
 		A8F12C875B1BA85C921D79A7 /* DungeonResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71047854154D02A2B50B0325 /* DungeonResultView.swift */; };
 		AB25B9762CC4BDD6BA58DFDA /* GameCenterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B436AB5A46E3C56EB7DB382 /* GameCenterService.swift */; };
+		633573FEB194C9D23CA81D64 /* FriendsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325C2A9E727893ED7FF4C252 /* FriendsService.swift */; };
 		ACD99D11B8EE6D4D001BC44B /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D1B3C19147A237790C169F /* SettingsTests.swift */; };
 		AD2F4F2A60739682902C4A8D /* DailyMissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F36DC39C535A1750B487A7 /* DailyMissions.swift */; };
 		AD71F25C6B93AB80D94F0266 /* iOSPlatformService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF42AD3ACB7F022C90755BD6 /* iOSPlatformService.swift */; };
@@ -116,6 +118,9 @@
 		D4F8BA341807DC1466945ACF /* Rarity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572ABD29BE4B90827CC4543B /* Rarity.swift */; };
 		DA9CE960479D11CB8EA05641 /* DungeonSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70876F70541C73C8032FEB87 /* DungeonSystemTests.swift */; };
 		DB329FDA524F5A4F8A0F4591 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 09E56764278A7DCEDE634CA2 /* GoogleMobileAds */; };
+		1D55EB354EB66E5D6DBAC053 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 02B26193663F313D5679A557 /* FirebaseAuth */; };
+		520B673D1C8AEBB89EC4AE3C /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = BBC920BF5AD6AC130E596B1E /* FirebaseCore */; };
+		D73C958C2F9650A1F94B6974 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 29411F5E8C20CF87AED03C30 /* FirebaseFirestore */; };
 		DC1DFD9D8A142E350B7E90E3 /* reward.wav in Resources */ = {isa = PBXBuildFile; fileRef = 797E341E8315C563CFAE4388 /* reward.wav */; };
 		DD8EA7516E271C9F6A1D94F1 /* LoginRewardSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC01DEA66B8BBCE520D81158 /* LoginRewardSheet.swift */; };
 		DE179FF85073B3EA7D3489E2 /* MissionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B1738675C714F8F3BC2EB6 /* MissionsSheet.swift */; };
@@ -192,6 +197,7 @@
 		41D1B3C19147A237790C169F /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 		42AAAECE7E7F822276810983 /* OfflineRewardsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineRewardsTests.swift; sourceTree = "<group>"; };
 		453A3EF81E745E4A8DB05342 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		126BB005A26804E0FC7A0736 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		457F918124185EFC12E45D85 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		4732CF6FAFAFFEB817604353 /* Dreamkeepers.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Dreamkeepers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B8F01F6911B908A4DBE811F /* OfflineRewards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineRewards.swift; sourceTree = "<group>"; };
@@ -224,6 +230,7 @@
 		86C3A3A1F6887B41216F9D21 /* ItemFusionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFusionPickerView.swift; sourceTree = "<group>"; };
 		8A57010F2EBC53AA1335FC5B /* StarFusionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarFusionSystem.swift; sourceTree = "<group>"; };
 		8B436AB5A46E3C56EB7DB382 /* GameCenterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterService.swift; sourceTree = "<group>"; };
+		325C2A9E727893ED7FF4C252 /* FriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsService.swift; sourceTree = "<group>"; };
 		8F984AB60A044C4F945C4FDF /* StarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRow.swift; sourceTree = "<group>"; };
 		9061170C5E5457CD8D85B099 /* StarterOlfChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterOlfChoiceView.swift; sourceTree = "<group>"; };
 		9189623A986DA9F2626B04A3 /* DreamkeepersTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DreamkeepersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -291,6 +298,9 @@
 			files = (
 				DB329FDA524F5A4F8A0F4591 /* GoogleMobileAds in Frameworks */,
 				A121722B789672EECC24B916 /* GoogleUserMessagingPlatform in Frameworks */,
+				1D55EB354EB66E5D6DBAC053 /* FirebaseAuth in Frameworks */,
+				520B673D1C8AEBB89EC4AE3C /* FirebaseCore in Frameworks */,
+				D73C958C2F9650A1F94B6974 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				D17B9BF433196993EAB6788F /* AchievementsSheet.swift */,
+				126BB005A26804E0FC7A0736 /* FriendsView.swift */,
 				453A3EF81E745E4A8DB05342 /* ProfileView.swift */,
 			);
 			path = Profile;
@@ -437,6 +448,7 @@
 			isa = PBXGroup;
 			children = (
 				0ABF5E18B4D556779D1C6800 /* AccountState.swift */,
+				325C2A9E727893ED7FF4C252 /* FriendsService.swift */,
 				8B436AB5A46E3C56EB7DB382 /* GameCenterService.swift */,
 				A3535BFA1FC6CC96ED29FDDA /* GameState.swift */,
 				5F3DD16FF697D92EB4DED1A7 /* LeaderboardService.swift */,
@@ -760,6 +772,9 @@
 			packageProductDependencies = (
 				09E56764278A7DCEDE634CA2 /* GoogleMobileAds */,
 				78582115974DE82994DFDF0D /* GoogleUserMessagingPlatform */,
+				02B26193663F313D5679A557 /* FirebaseAuth */,
+				BBC920BF5AD6AC130E596B1E /* FirebaseCore */,
+				29411F5E8C20CF87AED03C30 /* FirebaseFirestore */,
 			);
 			productName = Dreamkeepers;
 			productReference = 4732CF6FAFAFFEB817604353 /* Dreamkeepers.app */;
@@ -797,6 +812,7 @@
 			packageReferences = (
 				9FE7E8118D9A7D912229DBD8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 				AA357291789D5BD139AEFF70 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */,
+				1A23895DFB7B284EEDB2C7F0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DE68FCABF94DD25BF45DF31E /* Products */;
@@ -870,6 +886,7 @@
 				5EA4114F9A0C5E049A09BF8C /* AccountState.swift in Sources */,
 				3EE49D3ED2E9A46E96195853 /* AchievementSystem.swift in Sources */,
 				62D0A34BFCCB0A71866379DC /* AchievementsSheet.swift in Sources */,
+				29E1E6C113F95C0D173377E3 /* FriendsView.swift in Sources */,
 				E2AB4A4E3D51AB206796F2ED /* AdDiagnostics.swift in Sources */,
 				304DC200C7EA3F2006C51EF9 /* AdMobRewardService.swift in Sources */,
 				E867DDDA57B922044FAFA11F /* AdRewardService.swift in Sources */,
@@ -908,6 +925,7 @@
 				50505E6DF74623232517EC77 /* EquipmentSheet.swift in Sources */,
 				BDEDE1E775E28C0244C71FC0 /* EquipmentSummonSystem.swift in Sources */,
 				522B0B09CCBE29D5433B62F6 /* EquipmentUpgrade.swift in Sources */,
+				633573FEB194C9D23CA81D64 /* FriendsService.swift in Sources */,
 				745BD6B5ECB9BB8C05CD853A /* FusionPickerView.swift in Sources */,
 				F7F05320B68B18B6EBE4365A /* GameCenterOverlay.swift in Sources */,
 				AB25B9762CC4BDD6BA58DFDA /* GameCenterService.swift in Sources */,
@@ -1221,6 +1239,14 @@
 				minimumVersion = 3.1.0;
 			};
 		};
+		1A23895DFB7B284EEDB2C7F0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1233,6 +1259,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA357291789D5BD139AEFF70 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */;
 			productName = GoogleUserMessagingPlatform;
+		};
+		02B26193663F313D5679A557 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A23895DFB7B284EEDB2C7F0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		BBC920BF5AD6AC130E596B1E /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A23895DFB7B284EEDB2C7F0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		29411F5E8C20CF87AED03C30 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A23895DFB7B284EEDB2C7F0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
