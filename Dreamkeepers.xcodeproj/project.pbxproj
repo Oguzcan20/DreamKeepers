@@ -46,6 +46,7 @@
 		5A9FED434EC81C6BC9704989 /* InterstitialAdSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A614278D58E8CA448B1051 /* InterstitialAdSheet.swift */; };
 		5C0A38DF677805A85CFEABCB /* CampaignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0301759EF7B189507CA678D /* CampaignView.swift */; };
 		5C703DDF996B916906EE7557 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F432356B9CB16BA9EF3312B7 /* Localizable.xcstrings */; };
+		EC0B4EF063F3A98B1449D806 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54B01ED9382E4420BE63EACB /* GoogleService-Info.plist */; };
 		5D171AD9648FEEB874678236 /* DreamkeeperCodexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAA88224DCAF0007E49A9 /* DreamkeeperCodexView.swift */; };
 		5E3A99FC16D5E6CF86B56EBC /* EquipmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9F4A79C8394DCF0614BCF6 /* EquipmentTests.swift */; };
 		5EA4114F9A0C5E049A09BF8C /* AccountState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF5E18B4D556779D1C6800 /* AccountState.swift */; };
@@ -159,6 +160,7 @@
 		04BCAA88224DCAF0007E49A9 /* DreamkeeperCodexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamkeeperCodexView.swift; sourceTree = "<group>"; };
 		07223F3E1BD28062A43C818B /* LevelSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSystem.swift; sourceTree = "<group>"; };
 		075CD6F25866B557999DC535 /* DreamkeepersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamkeepersApp.swift; sourceTree = "<group>"; };
+		54B01ED9382E4420BE63EACB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A89305C0528B6C9C6360855 /* EquipmentUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentUpgrade.swift; sourceTree = "<group>"; };
 		0ABF5E18B4D556779D1C6800 /* AccountState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountState.swift; sourceTree = "<group>"; };
 		0B9F5BF87BD2ECD8D7DBCD5D /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				075CD6F25866B557999DC535 /* DreamkeepersApp.swift */,
+				54B01ED9382E4420BE63EACB /* GoogleService-Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FDC0600CD684202183646E8 /* Assets.xcassets in Resources */,
+				EC0B4EF063F3A98B1449D806 /* GoogleService-Info.plist in Resources */,
 				5C703DDF996B916906EE7557 /* Localizable.xcstrings in Resources */,
 				446B5E95F23D431B2A4B51AE /* attack.wav in Resources */,
 				DFCA5C37C9FC753AAA866576 /* boss_encounter.wav in Resources */,
