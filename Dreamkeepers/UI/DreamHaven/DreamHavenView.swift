@@ -88,15 +88,12 @@ struct DreamHavenView: View {
                 Text("Dream Haven")
                     .font(.title2.weight(.bold))
                     .foregroundStyle(.white)
-                Button {
-                    navigate(.profile)
-                } label: {
-                    Text("Player Lv \(gameState.save.playerLevel)")
-                        .font(.caption)
-                        .foregroundStyle(.white.opacity(0.6))
-                }
+                Text("Player Lv \(gameState.save.playerLevel)")
+                    .font(.caption)
+                    .foregroundStyle(.white.opacity(0.6))
             }
             Spacer()
+            profileButton
             settingsButton
             shopButton
             missionsButton
@@ -117,6 +114,19 @@ struct DreamHavenView: View {
             )
             .frame(height: 1)
         }
+    }
+
+    private var profileButton: some View {
+        Button {
+            navigate(.profile)
+        } label: {
+            Image(systemName: "person.crop.circle.fill")
+                .foregroundStyle(.white)
+                .padding(10)
+                .background(Color.white.opacity(0.08))
+                .clipShape(Circle())
+        }
+        .accessibilityLabel("Profile")
     }
 
     private var settingsButton: some View {

@@ -2,11 +2,11 @@ import XCTest
 @testable import Dreamkeepers
 
 final class DreamkeeperCatalogTests: XCTestCase {
-    func testCatalogHasThirtyEightUniqueDefinitions() {
-        // 30 original + Igo/Ames (2) + Olf's 5 element variants + Ultimate Olf (1) = 38.
+    func testCatalogHasSixtyEightUniqueDefinitions() {
+        // 30 original + 30 second-wave + Igo/Ames (2) + Olf's 5 element variants + Ultimate Olf (1) = 68.
         let defs = DreamkeeperCatalog.starter.definitions
-        XCTAssertEqual(defs.count, 38)
-        XCTAssertEqual(Set(defs.map(\.id)).count, 38, "Definition ids must be unique")
+        XCTAssertEqual(defs.count, 68)
+        XCTAssertEqual(Set(defs.map(\.id)).count, 68, "Definition ids must be unique")
     }
 
     func testEveryRarityOddsEntryHasAReachableCatalogDefinition() {

@@ -60,6 +60,7 @@ struct BattleView: View {
                 .padding(.top, 4)
                 .padding(.bottom, 8)
         }
+        .background(battleBackdrop.ignoresSafeArea())
         .coordinateSpace(name: "battlefield")
         .modifier(ShakeEffect(animatableData: shakeAmount))
         .overlay {
@@ -198,26 +199,54 @@ struct BattleView: View {
         .onDisappear { timer?.invalidate() }
     }
 
-    /// Blurred so the concept art's own baked-in HUD text/numbers read as
-    /// abstract texture instead of competing with our real UI drawn below.
+    /// A full-bleed, heavily blurred wash of the same banner art behind the
+    /// whole battlefield, darkened so it reads as atmosphere rather than
+    /// picture — the thin `battleBanner` strip above stays the sharp, legible
+    /// version. Sits under the root `Theme.background` gradient so it never
+    /// competes with the flat backdrop that's still the base for every other
+    /// screen.
+    private var battleBackdrop: some View {
+        // Previously opacity 0.5 + a 0.4→0.85 dark overlay on top of a 28pt
+        // blur combined to nearly erase the key art — the battlefield read as
+        // a flat dark gradient with no visible scene. Brighter art and a
+        // lighter overlay keep the same "abstract backdrop, not a photo"
+        // read while the scene is actually recognizable behind the UI.
+        ZStack {
+            Theme.background
+            Image(engine.isBossStage ? "BossBattleBanner" : "BattleBanner")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .blur(radius: 20)
+                .opacity(0.85)
+                .clipped()
+            LinearGradient(colors: [Theme.deepNavy.opacity(0.15), Theme.deepNavy.opacity(0.6)], startPoint: .top, endPoint: .bottom)
+        }
+    }
+
     /// Landscape has almost no vertical room to spare, so this is a thin
-    /// accent strip with the stage title overlaid rather than a full banner.
+    /// title/controls row rather than a full banner.
+    ///
+    /// Previously this painted its own copy of the key art plus a
+    /// near-opaque gradient in a hard-edged 44pt box — sitting right on top
+    /// of `battleBackdrop`'s own (differently blurred) copy of the same art,
+    /// the seam read as an ugly pasted-on bar. Dropping the duplicate image
+    /// and fading the gradient to fully transparent by the bottom of the
+    /// strip lets the shared backdrop show through continuously — the title
+    /// and controls just float on the one scene instead of sitting in their
+    /// own box.
     private var battleBanner: some View {
-        Image(engine.isBossStage ? "BossBattleBanner" : "BattleBanner")
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(height: 44)
-            .frame(maxWidth: .infinity)
-            .clipped()
-            .blur(radius: 4)
-            .overlay(
-                LinearGradient(colors: [Theme.deepNavy.opacity(0.3), Theme.deepNavy.opacity(0.85)], startPoint: .top, endPoint: .bottom)
-            )
-            .overlay(alignment: .leading) {
-                stageHeader
-                    .padding(.horizontal, 20)
-            }
-            .ignoresSafeArea(edges: .top)
+        LinearGradient(
+            colors: [(engine.isBossStage ? Color.red.opacity(0.28) : Theme.deepNavy.opacity(0.5)), Theme.deepNavy.opacity(0)],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        .frame(height: 44)
+        .frame(maxWidth: .infinity)
+        .overlay(alignment: .leading) {
+            stageHeader
+                .padding(.horizontal, 20)
+        }
+        .ignoresSafeArea(edges: .top)
     }
 
     private var stageHeader: some View {

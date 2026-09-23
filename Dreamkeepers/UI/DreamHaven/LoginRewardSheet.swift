@@ -23,7 +23,13 @@ struct LoginRewardSheet: View {
     }
 
     var body: some View {
-        VStack(spacing: 18) {
+        // A plain fixed `VStack` here squeezed or clipped the Claim button
+        // off a short landscape `.medium`-detent sheet — reachable only by
+        // dragging the sheet taller, which reads as broken on a "collect
+        // your reward" screen. Keeping the header and the Claim button fixed
+        // and letting only the 7-day grid scroll (it rarely needs to) keeps
+        // Claim on-screen and tappable the instant the sheet opens.
+        VStack(spacing: 0) {
             VStack(spacing: 4) {
                 ZStack {
                     Circle().fill(Theme.gold.opacity(0.25)).frame(width: 64, height: 64)
@@ -42,13 +48,16 @@ struct LoginRewardSheet: View {
                     .font(.caption)
                     .foregroundStyle(.white.opacity(0.6))
             }
+            .padding(.bottom, 18)
 
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 4), spacing: 12) {
-                ForEach(LoginRewardSystem.days) { reward in
-                    LoginRewardDayCell(reward: reward, state: cellState(for: reward.day))
+            ScrollView {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 4), spacing: 12) {
+                    ForEach(LoginRewardSystem.days) { reward in
+                        LoginRewardDayCell(reward: reward, state: cellState(for: reward.day))
+                    }
                 }
+                .padding(.horizontal, 20)
             }
-            .padding(.horizontal, 20)
 
             Button {
                 gameState.claimLoginReward()
@@ -61,6 +70,7 @@ struct LoginRewardSheet: View {
             .buttonStyle(PrimaryButtonStyle(tint: isAvailable ? Theme.gold : Color.white.opacity(0.15)))
             .disabled(!isAvailable)
             .padding(.horizontal, 20)
+            .padding(.top, 14)
             .padding(.bottom, 24)
         }
         .background(Theme.background.ignoresSafeArea())

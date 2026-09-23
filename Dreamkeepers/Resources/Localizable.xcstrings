@@ -4261,6 +4261,16 @@
         }
       }
     },
+    "No special offers right now — check back soon.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Momentan keine Sonderangebote — schau bald wieder vorbei."
+          }
+        }
+      }
+    },
     "No team deployed": {
       "localizations": {
         "de": {
@@ -4367,6 +4377,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Benachrichtigungen"
+          }
+        }
+      }
+    },
+    "Offers": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angebote"
           }
         }
       }
@@ -5551,6 +5571,16 @@
         }
       }
     },
+    "Special Offers": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonderangebote"
+          }
+        }
+      }
+    },
     "Spend Dream Gems at the Summoning Shrine to recruit new Dreamkeepers. Odds are shown up front — no hidden mechanics. A 10x Summon always includes a bonus pull for free.": {
       "localizations": {
         "de": {
@@ -6427,6 +6457,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Diese Stufe kostet %lld Energie. Du hast %lld/%lld."
+          }
+        }
+      }
+    },
+    "Tickets & Gold": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tickets & Gold"
           }
         }
       }
