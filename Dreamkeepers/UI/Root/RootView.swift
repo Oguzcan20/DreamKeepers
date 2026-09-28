@@ -21,6 +21,9 @@ enum AppRoute: Equatable {
     case dungeonBattle(DungeonID)
     case dungeonResult(DungeonBattleResultSummary)
     case friends
+    case worldBoss
+    case worldBossBattle
+    case worldBossResult(WorldBossBattleResultSummary)
 }
 
 struct RootView: View {
@@ -29,11 +32,14 @@ struct RootView: View {
     @State private var gameCenterService = GameCenterService()
     @State private var leaderboardService = LeaderboardService()
     @State private var friendsService = FriendsService()
+    @State private var worldBossService = WorldBossLeaderboardService()
+    @State private var playerNameService = PlayerNameService()
     @State private var route: AppRoute
     @State private var activeEngine: BattleEngine?
     @State private var activeArenaEngine: BattleEngine?
     @State private var activeDungeonEngine: BattleEngine?
     @State private var activeDungeon: DungeonID?
+    @State private var activeWorldBossEngine: BattleEngine?
     @State private var isLoading: Bool
     @State private var activeAchievementPopup: Achievement?
     @State private var showLoginReward = false
@@ -100,6 +106,7 @@ struct RootView: View {
         case "battle": _route = State(initialValue: .battle)
         case "arena": _route = State(initialValue: .arena)
         case "dungeon": _route = State(initialValue: .dungeon)
+        case "worldBoss": _route = State(initialValue: .worldBoss)
         default: _route = State(initialValue: .mainMenu)
         }
     }
@@ -131,7 +138,7 @@ struct RootView: View {
     private var showsGlobalHomeButton: Bool {
         switch route {
         case .mainMenu, .battle, .result, .dreamHaven, .summon, .arenaBattle, .arenaResult, .codex,
-             .dungeonBattle, .dungeonResult:
+             .dungeonBattle, .dungeonResult, .worldBossBattle, .worldBossResult:
             return false
         default: return true
         }
@@ -246,6 +253,7 @@ struct RootView: View {
                 gameCenterService.authenticate()
             }
             friendsService.start(playerLevel: gameState.save.playerLevel, currentStage: gameState.currentStage)
+            worldBossService.start()
             if !hasRequestedTrackingThisLaunch {
                 hasRequestedTrackingThisLaunch = true
                 // A beat after the app is actually visible — firing this at
@@ -293,6 +301,18 @@ struct RootView: View {
         if route == .dreamHaven, gameState.hasSeenOnboarding, gameState.needsStarterOlfChoice {
             StarterOlfChoiceView { element in
                 gameState.chooseStarterOlf(element: element)
+            }
+            .transition(.opacity)
+            .zIndex(2)
+        }
+
+        // Right after the starter Olf choice resolves — locks in a
+        // globally-unique player name via `PlayerNameService`.
+        // `needsPlayerName` is naturally false for saves from before this
+        // feature existed, so it never appears for them.
+        if route == .dreamHaven, gameState.needsPlayerName {
+            PlayerNameChoiceView(playerNameService: playerNameService) { name in
+                gameState.setPlayerName(name)
             }
             .transition(.opacity)
             .zIndex(2)
@@ -465,6 +485,34 @@ struct RootView: View {
             } onDreamHaven: {
                 activeDungeonEngine = nil
                 activeDungeon = nil
+                navigate(to: .dreamHaven)
+            }
+        case .worldBoss:
+            WorldBossView(gameState: gameState, leaderboardService: worldBossService) { destination in
+                navigate(to: destination)
+            } onFight: {
+                guard let engine = gameState.makeWorldBossBattleEngine() else { return }
+                activeWorldBossEngine = engine
+                navigate(to: .worldBossBattle)
+            }
+        case .worldBossBattle:
+            if let engine = activeWorldBossEngine {
+                BattleView(engine: engine, gameState: gameState, isWorldBoss: true) { finishedEngine in
+                    let summary = gameState.applyWorldBossBattleResult(from: finishedEngine)
+                    worldBossService.submitDamage(
+                        weekID: WorldBossSystem.weekID(for: Date()),
+                        totalDamage: summary.totalDamageThisWeek,
+                        playerLevel: gameState.save.playerLevel
+                    )
+                    navigate(to: .worldBossResult(summary))
+                }
+            }
+        case .worldBossResult(let summary):
+            WorldBossResultView(summary: summary) {
+                activeWorldBossEngine = nil
+                navigate(to: .worldBoss)
+            } onDreamHaven: {
+                activeWorldBossEngine = nil
                 navigate(to: .dreamHaven)
             }
         }

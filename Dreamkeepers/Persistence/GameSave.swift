@@ -29,6 +29,21 @@ struct GameSave: Codable, Equatable {
     var weeklyMissionWeek: Date
     var weeklyMissionProgress: [String: Int]
     var claimedWeeklyMissionIDs: Set<String>
+    /// Monday 00:00 UTC of the World Boss week this player's attacks/damage
+    /// below belong to (see `WorldBossSystem.weekStart`) — once a new week's
+    /// Monday no longer matches, `GameState.ensureWorldBossWeekCurrent`
+    /// resets the three fields below for the new week.
+    var worldBossWeek: Date
+    /// Spent out of `WorldBossSystem.attacksPerWeek` so far this week.
+    var worldBossAttacksUsed: Int
+    /// Sum of `BattleEngine.totalDamageToEnemy` across every attack this
+    /// week — what gets reported to the Firestore leaderboard and what a
+    /// rank/reward is computed from once the week's window closes.
+    var worldBossDamageDealt: Int
+    /// `WorldBossSystem.weekID` values whose reward has already been
+    /// claimed — dedupes `GameState.claimWorldBossReward()` the same way
+    /// `claimedWeeklyMissionIDs` dedupes a weekly mission claim.
+    var worldBossClaimedWeeks: Set<String>
     var purchasedOneTimeOfferIDs: Set<String>
     var hapticsEnabled: Bool
     var soundEnabled: Bool
@@ -60,6 +75,17 @@ struct GameSave: Codable, Equatable {
     /// flag existed default to `true` in `init(from:)` so it never
     /// retroactively interrupts an existing player.
     var hasChosenStarterElement: Bool
+    /// True once the player has locked in a (globally-unique, Firestore-
+    /// reserved) player name — see `GameState.needsPlayerName`/
+    /// `PlayerNameService`. Separate from `playerName` itself so an old save
+    /// with no name yet (offline, or before this feature existed) isn't
+    /// retroactively interrupted: `newGame()` starts this at `false`; saves
+    /// from before this flag existed default to `true` in `init(from:)`.
+    var hasChosenPlayerName: Bool
+    /// The chosen name itself, in the exact casing the player typed —
+    /// `nil` until `hasChosenPlayerName` is `true`. Uniqueness is enforced
+    /// server-side (case-insensitively) by `PlayerNameService`, not here.
+    var playerName: String?
     /// Milestone IDs already unlocked (and already shown to the player) —
     /// see `AchievementSystem`. Persisted so a popup never fires twice.
     var unlockedAchievementIDs: Set<String>
@@ -181,6 +207,7 @@ struct GameSave: Codable, Equatable {
          claimedBattlePassRewardIDs: Set<String> = [], preferredLanguage: String? = nil,
          notificationsEnabled: Bool = false, hasSeenOnboarding: Bool = true,
          hasChosenStarterElement: Bool = true,
+         hasChosenPlayerName: Bool = true, playerName: String? = nil,
          unlockedAchievementIDs: Set<String> = [], loginStreakDay: Int = 0,
          lastLoginRewardClaimDate: Date = .distantPast, isVIP: Bool = false,
          lastRewardedAdClaimedAt: Date = .distantPast, rewardedAdWatchDay: Date = .distantPast,
@@ -193,7 +220,9 @@ struct GameSave: Codable, Equatable {
          arenaFloor: Int = 1, arenaTickets: Int = ArenaSystem.maxTicketsPerDay, arenaTicketDay: Date = .distantPast,
          arenaBonusTickets: Int = 0, soulPoints: Int = 0, soulUpgradeRanks: [String: Int] = [:],
          rebirthCount: Int = 0, dungeonKeys: Int = DungeonSystem.maxKeysPerDay, dungeonKeyDay: Date = .distantPast,
-         clearedDungeonIDs: Set<String> = [], monsterSummonTickets: Int = 0, equipmentSummonTickets: Int = 0) {
+         clearedDungeonIDs: Set<String> = [], monsterSummonTickets: Int = 0, equipmentSummonTickets: Int = 0,
+         worldBossWeek: Date = .distantPast, worldBossAttacksUsed: Int = 0, worldBossDamageDealt: Int = 0,
+         worldBossClaimedWeeks: Set<String> = []) {
         self.playerLevel = playerLevel
         self.playerExp = playerExp
         self.gold = gold
@@ -223,6 +252,8 @@ struct GameSave: Codable, Equatable {
         self.notificationsEnabled = notificationsEnabled
         self.hasSeenOnboarding = hasSeenOnboarding
         self.hasChosenStarterElement = hasChosenStarterElement
+        self.hasChosenPlayerName = hasChosenPlayerName
+        self.playerName = playerName
         self.unlockedAchievementIDs = unlockedAchievementIDs
         self.loginStreakDay = loginStreakDay
         self.lastLoginRewardClaimDate = lastLoginRewardClaimDate
@@ -253,6 +284,10 @@ struct GameSave: Codable, Equatable {
         self.clearedDungeonIDs = clearedDungeonIDs
         self.monsterSummonTickets = monsterSummonTickets
         self.equipmentSummonTickets = equipmentSummonTickets
+        self.worldBossWeek = worldBossWeek
+        self.worldBossAttacksUsed = worldBossAttacksUsed
+        self.worldBossDamageDealt = worldBossDamageDealt
+        self.worldBossClaimedWeeks = worldBossClaimedWeeks
     }
 
     /// Custom decode so saves written before the offline-building timestamps
@@ -307,6 +342,11 @@ struct GameSave: Codable, Equatable {
         // the feature existed) — treat as already chosen so it never
         // retroactively interrupts an existing player.
         hasChosenStarterElement = try container.decodeIfPresent(Bool.self, forKey: .hasChosenStarterElement) ?? true
+        // Missing key means this save predates the player-name feature —
+        // treat as already chosen so it never retroactively interrupts an
+        // existing player; `playerName` itself simply stays `nil`.
+        hasChosenPlayerName = try container.decodeIfPresent(Bool.self, forKey: .hasChosenPlayerName) ?? true
+        playerName = try container.decodeIfPresent(String.self, forKey: .playerName)
         unlockedAchievementIDs = try container.decodeIfPresent(Set<String>.self, forKey: .unlockedAchievementIDs) ?? []
         loginStreakDay = try container.decodeIfPresent(Int.self, forKey: .loginStreakDay) ?? 0
         lastLoginRewardClaimDate = try container.decodeIfPresent(Date.self, forKey: .lastLoginRewardClaimDate) ?? .distantPast
@@ -351,6 +391,14 @@ struct GameSave: Codable, Equatable {
         // yet (never a paid currency, so there's nothing to backfill).
         monsterSummonTickets = try container.decodeIfPresent(Int.self, forKey: .monsterSummonTickets) ?? 0
         equipmentSummonTickets = try container.decodeIfPresent(Int.self, forKey: .equipmentSummonTickets) ?? 0
+        // Missing keys mean this save predates the World Boss — start
+        // existing players at zero attacks used/damage dealt, same as a
+        // fresh save; `ensureWorldBossWeekCurrent` resets it properly the
+        // first time the current week doesn't match `.distantPast` anyway.
+        worldBossWeek = try container.decodeIfPresent(Date.self, forKey: .worldBossWeek) ?? .distantPast
+        worldBossAttacksUsed = try container.decodeIfPresent(Int.self, forKey: .worldBossAttacksUsed) ?? 0
+        worldBossDamageDealt = try container.decodeIfPresent(Int.self, forKey: .worldBossDamageDealt) ?? 0
+        worldBossClaimedWeeks = try container.decodeIfPresent(Set<String>.self, forKey: .worldBossClaimedWeeks) ?? []
     }
 
     func encode(to encoder: Encoder) throws {
@@ -384,6 +432,8 @@ struct GameSave: Codable, Equatable {
         try container.encode(notificationsEnabled, forKey: .notificationsEnabled)
         try container.encode(hasSeenOnboarding, forKey: .hasSeenOnboarding)
         try container.encode(hasChosenStarterElement, forKey: .hasChosenStarterElement)
+        try container.encode(hasChosenPlayerName, forKey: .hasChosenPlayerName)
+        try container.encodeIfPresent(playerName, forKey: .playerName)
         try container.encode(unlockedAchievementIDs, forKey: .unlockedAchievementIDs)
         try container.encode(loginStreakDay, forKey: .loginStreakDay)
         try container.encode(lastLoginRewardClaimDate, forKey: .lastLoginRewardClaimDate)
@@ -414,6 +464,10 @@ struct GameSave: Codable, Equatable {
         try container.encode(clearedDungeonIDs, forKey: .clearedDungeonIDs)
         try container.encode(monsterSummonTickets, forKey: .monsterSummonTickets)
         try container.encode(equipmentSummonTickets, forKey: .equipmentSummonTickets)
+        try container.encode(worldBossWeek, forKey: .worldBossWeek)
+        try container.encode(worldBossAttacksUsed, forKey: .worldBossAttacksUsed)
+        try container.encode(worldBossDamageDealt, forKey: .worldBossDamageDealt)
+        try container.encode(worldBossClaimedWeeks, forKey: .worldBossClaimedWeeks)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -421,9 +475,11 @@ struct GameSave: Codable, Equatable {
         case lastGoldCollectedAt, lastTrainingCollectedAt
         case dailyMissionDay, dailyMissionProgress, claimedMissionIDs, dailyMissionSelectedIDs
         case weeklyMissionWeek, weeklyMissionProgress, claimedWeeklyMissionIDs
+        case worldBossWeek, worldBossAttacksUsed, worldBossDamageDealt, worldBossClaimedWeeks
         case purchasedOneTimeOfferIDs, hapticsEnabled, soundEnabled, discoveredMonsters
         case battlePassXP, battlePassPremiumUnlocked, claimedBattlePassRewardIDs, preferredLanguage
         case notificationsEnabled, hasSeenOnboarding, hasChosenStarterElement, unlockedAchievementIDs
+        case hasChosenPlayerName, playerName
         case loginStreakDay, lastLoginRewardClaimDate
         case isVIP, lastRewardedAdClaimedAt
         case rewardedAdWatchDay, rewardedAdWatchCount
@@ -460,6 +516,7 @@ struct GameSave: Codable, Equatable {
             purchasedOneTimeOfferIDs: [],
             hasSeenOnboarding: false,
             hasChosenStarterElement: false,
+            hasChosenPlayerName: false,
             // A free ticket of each kind from the very first launch — a
             // brand new player can summon once before ever earning or
             // spending a single extra Dream Gem.

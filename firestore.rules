@@ -27,5 +27,34 @@ service cloud.firestore {
       allow create: if request.auth != null && request.resource.data.playerID == request.auth.uid;
       allow update, delete: if false;
     }
+
+    // Global player-name reservation: one doc per lowercased name ->
+    // { playerID, displayName, claimedAt } — see PlayerNameService. Anyone
+    // signed in can read (to check availability); only the claiming player
+    // may create or update their own reservation (an update is just this
+    // same player idempotently re-affirming a name they already own — the
+    // transaction client-side already refuses to touch anyone else's), and
+    // a name is never released once claimed.
+    match /playerNames/{name} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.resource.data.playerID == request.auth.uid;
+      allow update: if request.auth != null &&
+        resource.data.playerID == request.auth.uid &&
+        request.resource.data.playerID == request.auth.uid;
+      allow delete: if false;
+    }
+
+    // Weekly World Boss leaderboard: one entry per player per week, keyed by
+    // their anonymous Firebase UID under a weekID document (e.g.
+    // "2026-W39" — see WorldBossSystem.weekID). Anyone signed in can read
+    // every entry (that's the leaderboard itself); a player can only ever
+    // write their own entry, and only a running damage total, never anyone
+    // else's rank.
+    match /worldBossLeaderboard/{weekID}/entries/{playerID} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == playerID &&
+        request.resource.data.damage is int && request.resource.data.damage >= 0;
+      allow delete: if false;
+    }
   }
 }

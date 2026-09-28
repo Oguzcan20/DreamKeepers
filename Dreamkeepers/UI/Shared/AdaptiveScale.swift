@@ -77,6 +77,15 @@ struct AdaptiveScale: ViewModifier {
                 .scaleEffect(scale)
                 .frame(width: available.width, height: available.height)
         }
+        // `geo.size` above is a layout *proposal*, and SwiftUI shrinks that
+        // proposal when a text field's keyboard is up — without this, a
+        // screen that shows a keyboard (e.g. `PlayerNameChoiceView`) got
+        // treated as if it were on a much smaller phone and scaled way down
+        // the instant the keyboard appeared. Fixed layouts scaled by this
+        // modifier should hold their size regardless of keyboard state; a
+        // screen that needs its content to stay clear of the keyboard
+        // handles that itself (see `PlayerNameChoiceView`'s own offset).
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 

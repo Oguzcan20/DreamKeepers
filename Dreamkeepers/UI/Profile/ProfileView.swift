@@ -87,9 +87,18 @@ struct ProfileView: View {
                         .foregroundStyle(.white)
                 }
 
-                Text("Player Level \(gameState.save.playerLevel)")
-                    .font(.headline)
-                    .foregroundStyle(.white)
+                if let playerName = gameState.playerName {
+                    Text(playerName)
+                        .font(.title3.weight(.bold))
+                        .foregroundStyle(.white)
+                    Text("Player Level \(gameState.save.playerLevel)")
+                        .font(.subheadline)
+                        .foregroundStyle(.white.opacity(0.6))
+                } else {
+                    Text("Player Level \(gameState.save.playerLevel)")
+                        .font(.headline)
+                        .foregroundStyle(.white)
+                }
 
                 if isMaxLevel {
                     Text("Max level reached")

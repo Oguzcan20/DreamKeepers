@@ -512,4 +512,77 @@ final class BattleEngineTests: XCTestCase {
         XCTAssertTrue(engine.activateUltimate(for: hero.id))
         XCTAssertEqual(engine.lastUltimate?.isFinisher, true)
     }
+
+    // MARK: - World Boss: round limit & timeout
+
+    func testRoundLimitResolvesAsTimeoutWhenBothSidesSurvive() {
+        // High defense on both sides means every hit lands at the `max(1, ...)`
+        // damage floor — neither side can die within the tick budget, so only
+        // `roundLimit` being reached can end the fight.
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 100_000, attack: 5, defense: 1000, speed: 60)
+        let boss = makeUnit(name: "Boss", isPlayer: false, hp: 1_000_000, attack: 10, defense: 1000, speed: 60)
+        let engine = BattleEngine(playerUnits: [hero], enemy: boss, stage: 1, isBossStage: true, roundLimit: 3)
+        engine.varianceProvider = { 1.0 }
+
+        var iterations = 0
+        while engine.outcome == nil && iterations < 5000 {
+            engine.tick(dt: 0.1)
+            iterations += 1
+        }
+
+        XCTAssertEqual(engine.outcome, .timeout)
+        XCTAssertEqual(engine.roundsElapsed, 3)
+    }
+
+    func testVictoryStillWinsWhenAchievedBeforeRoundLimit() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 200, attack: 5000, speed: 100)
+        let boss = makeUnit(name: "Weak Boss", isPlayer: false, hp: 30, attack: 0, speed: 20)
+        let engine = BattleEngine(playerUnits: [hero], enemy: boss, stage: 1, isBossStage: true, roundLimit: 50)
+        engine.varianceProvider = { 1.0 }
+
+        var iterations = 0
+        while engine.outcome == nil && iterations < 2000 {
+            engine.tick(dt: 0.1)
+            iterations += 1
+        }
+
+        XCTAssertEqual(engine.outcome, .victory, "A real kill should still win outright, not wait for roundLimit")
+    }
+
+    func testDefeatStillLosesBeforeRoundLimitIsReached() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 10, attack: 0, defense: 0, speed: 20)
+        let boss = makeUnit(name: "Boss", isPlayer: false, hp: 100_000, attack: 500, defense: 0, speed: 80)
+        let engine = BattleEngine(playerUnits: [hero], enemy: boss, stage: 1, isBossStage: true, roundLimit: 50)
+        engine.varianceProvider = { 1.0 }
+
+        var iterations = 0
+        while engine.outcome == nil && iterations < 2000 {
+            engine.tick(dt: 0.1)
+            iterations += 1
+        }
+
+        XCTAssertEqual(engine.outcome, .defeat)
+    }
+
+    func testTotalDamageToEnemyAccumulatesAcrossMultipleHits() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 100_000, attack: 20, defense: 0, speed: 100)
+        let boss = makeUnit(name: "Boss", isPlayer: false, hp: 1_000_000, attack: 0, defense: 0, speed: 1)
+        let engine = BattleEngine(playerUnits: [hero], enemy: boss, stage: 1, isBossStage: true, roundLimit: 50)
+        engine.varianceProvider = { 1.0 }
+
+        for _ in 0..<10 { engine.tick(dt: 0.1) } // one hero attack lands
+        let afterOneHit = engine.totalDamageToEnemy
+        XCTAssertGreaterThan(afterOneHit, 0)
+
+        for _ in 0..<10 { engine.tick(dt: 0.1) } // second hero attack lands
+        XCTAssertGreaterThan(engine.totalDamageToEnemy, afterOneHit)
+    }
+
+    func testRoundLimitIsNilOutsideWorldBossFights() {
+        let hero = makeUnit(name: "Hero", isPlayer: true, hp: 200, attack: 40, speed: 80)
+        let enemy = makeUnit(name: "Weakling", isPlayer: false, hp: 30, attack: 2, speed: 20)
+        let engine = BattleEngine(playerUnits: [hero], enemy: enemy, stage: 1, isBossStage: false)
+
+        XCTAssertNil(engine.roundLimit)
+    }
 }

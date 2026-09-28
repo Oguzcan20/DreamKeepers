@@ -4,6 +4,10 @@ import Observation
 enum BattleOutcome: Equatable {
     case victory
     case defeat
+    /// `roundLimit` was reached with the player team still alive — only
+    /// possible in a World Boss fight (the only place `roundLimit` is set).
+    /// Never a loss: damage dealt still counts toward the weekly leaderboard.
+    case timeout
 }
 
 struct BattleLogEntry: Identifiable, Equatable {
@@ -132,6 +136,22 @@ final class BattleEngine {
     /// `1.0` for a battle with no Soul upgrades bought.
     let playerDamageMultiplier: Double
 
+    /// World Boss only: caps the fight at this many enemy attack cycles
+    /// (see `resolveTelegraphedAttack`, the only place `roundsElapsed`
+    /// advances) rather than fighting to the death — reaching it with the
+    /// team still standing resolves as `.timeout`, not a loss. `nil` for
+    /// every other battle mode, which fights until victory or defeat as
+    /// always.
+    let roundLimit: Int?
+    private(set) var roundsElapsed: Int = 0
+
+    /// Running total of damage landed on the (always single, in a World
+    /// Boss fight) enemy side — the figure `GameState.applyWorldBossBattleResult`
+    /// reports to the weekly leaderboard. Tracked here rather than summed
+    /// from `log`/`lastHit` after the fact since those aren't guaranteed to
+    /// retain every hit (`log` caps at 40 entries).
+    private(set) var totalDamageToEnemy: Int = 0
+
     /// Enemies still waiting to enter the fight after the current one(s) die
     /// — a Dungeon run's remaining waves. Empty for an ordinary single-enemy
     /// battle (Campaign/Arena).
@@ -192,7 +212,7 @@ final class BattleEngine {
 
     init(
         playerUnits: [Combatant], enemy: Combatant, stage: Int, isBossStage: Bool,
-        reinforcements: [Combatant] = [], playerDamageMultiplier: Double = 1.0
+        reinforcements: [Combatant] = [], playerDamageMultiplier: Double = 1.0, roundLimit: Int? = nil
     ) {
         self.combatants = playerUnits + [enemy]
         self.stage = stage
@@ -200,6 +220,7 @@ final class BattleEngine {
         self.pendingWaves = reinforcements
         self.totalWaves = 1 + reinforcements.count
         self.playerDamageMultiplier = playerDamageMultiplier
+        self.roundLimit = roundLimit
     }
 
     var playerUnits: [Combatant] { combatants.filter(\.isPlayer) }
@@ -347,6 +368,10 @@ final class BattleEngine {
         }
         combatants[attackerIndex].telegraphTargetID = nil
         combatants[attackerIndex].attackProgress = 0
+        // Only enemies ever telegraph (see `tick(dt:)`), so every call here
+        // is one enemy attack cycle — the natural "round" unit for a World
+        // Boss fight's `roundLimit`.
+        roundsElapsed += 1
         guard let targetIndex else { return }
 
         var damage = resolveDamage(attacker: attacker, defender: combatants[targetIndex])
@@ -417,6 +442,9 @@ final class BattleEngine {
         }
 
         let amount = Int(damage.rounded())
+        if !combatants[index].isPlayer {
+            totalDamageToEnemy += amount
+        }
         let newHP = combatants[index].currentHP - damage
         if newHP <= 0, combatants[index].isPlayer, let reviveFraction = combatants[index].reviveHPFraction, !combatants[index].hasUsedRevive {
             combatants[index].currentHP = combatants[index].maxHP * reviveFraction
@@ -682,6 +710,9 @@ final class BattleEngine {
         } else if playerUnits.allSatisfy({ !$0.isAlive }) {
             outcome = .defeat
             appendLog("Defeat...")
+        } else if let roundLimit, roundsElapsed >= roundLimit {
+            outcome = .timeout
+            appendLog("Time's up!")
         }
     }
 

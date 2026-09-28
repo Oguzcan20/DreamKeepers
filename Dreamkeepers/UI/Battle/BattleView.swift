@@ -20,6 +20,12 @@ struct BattleView: View {
     /// name plus a live wave counter (`engine.currentWave`/`totalWaves`)
     /// instead of a stage or floor number.
     var dungeonName: String? = nil
+    /// True only for a World Boss attempt — swaps the banner for a round
+    /// counter (`engine.roundsElapsed`/`roundLimit`) and, in `OutcomeOverlay`,
+    /// swaps the victory/defeat framing for damage-dealt framing, since a
+    /// World Boss fight is never actually won or lost in the way every other
+    /// battle mode is (see `BattleOutcome.timeout`'s doc comment).
+    var isWorldBoss: Bool = false
     var onFinished: (BattleEngine) -> Void
 
     @State private var timer: Timer?
@@ -108,7 +114,7 @@ struct BattleView: View {
         }
         .overlay {
             if showOutcomeOverlay, let outcome = engine.outcome {
-                OutcomeOverlay(outcome: outcome) {
+                OutcomeOverlay(outcome: outcome, isWorldBoss: isWorldBoss) {
                     onFinished(engine)
                 }
             }
@@ -252,7 +258,9 @@ struct BattleView: View {
     private var stageHeader: some View {
         HStack {
             Group {
-                if let dungeonName {
+                if isWorldBoss {
+                    Text("World Boss · Round \(engine.roundsElapsed)/\(engine.roundLimit ?? WorldBossSystem.roundLimit)")
+                } else if let dungeonName {
                     if engine.currentWave == engine.totalWaves {
                         Text("\(dungeonName) · Boss")
                     } else {
@@ -1643,17 +1651,36 @@ private struct HPBar: View {
 
 private struct OutcomeOverlay: View {
     let outcome: BattleOutcome
+    /// See `BattleView.isWorldBoss`'s doc comment — a World Boss attempt is
+    /// never really "won" or "lost" the way every other mode is, so this
+    /// swaps the headline/tint for neutral, damage-dealt framing instead of
+    /// Victory/Defeat, while `.timeout` (round limit reached, team still
+    /// standing) is treated like the good outcome it is everywhere.
+    var isWorldBoss: Bool = false
     var onContinue: () -> Void
 
     @State private var sparkleFall: CGFloat = 0
     @State private var sparkleOpacity: Double = 0
     @State private var vignetteOpacity: Double = 0
 
+    private var isGoodOutcome: Bool { outcome == .victory || outcome == .timeout }
+
+    private var headline: LocalizedStringKey {
+        if isWorldBoss {
+            switch outcome {
+            case .victory: return "Boss Defeated!"
+            case .timeout: return "Time's Up!"
+            case .defeat: return "Team Down!"
+            }
+        }
+        return outcome == .victory ? "Victory!" : "Defeat..."
+    }
+
     var body: some View {
         ZStack {
             Color.black.opacity(0.55).ignoresSafeArea()
 
-            if outcome == .victory {
+            if isGoodOutcome {
                 VictorySparkleRain(fall: sparkleFall, opacity: sparkleOpacity)
                     .allowsHitTesting(false)
             } else {
@@ -1665,25 +1692,19 @@ private struct OutcomeOverlay: View {
             }
 
             VStack(spacing: 20) {
-                Group {
-                    if outcome == .victory {
-                        Text("Victory!")
-                    } else {
-                        Text("Defeat...")
-                    }
-                }
+                Text(headline)
                     .font(.largeTitle.weight(.heavy))
-                    .foregroundStyle(outcome == .victory ? Theme.gold : .red)
-                    .shadow(color: (outcome == .victory ? Theme.gold : .red).opacity(0.6), radius: 12)
+                    .foregroundStyle(isGoodOutcome ? Theme.gold : .red)
+                    .shadow(color: (isGoodOutcome ? Theme.gold : .red).opacity(0.6), radius: 12)
 
                 Button("Continue") { onContinue() }
-                    .buttonStyle(PrimaryButtonStyle(tint: outcome == .victory ? Theme.violet : .gray))
+                    .buttonStyle(PrimaryButtonStyle(tint: isGoodOutcome ? Theme.violet : .gray))
                     .frame(width: 200)
             }
             .transition(.scale.combined(with: .opacity))
         }
         .onAppear {
-            if outcome == .victory {
+            if isGoodOutcome {
                 sparkleOpacity = 1
                 withAnimation(.easeOut(duration: 1.4)) {
                     sparkleFall = 1

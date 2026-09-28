@@ -88,7 +88,7 @@ struct DreamHavenView: View {
                 Text("Dream Haven")
                     .font(.title2.weight(.bold))
                     .foregroundStyle(.white)
-                Text("Player Lv \(gameState.save.playerLevel)")
+                Text("Lv \(gameState.save.playerLevel)")
                     .font(.caption)
                     .foregroundStyle(.white.opacity(0.6))
             }
@@ -424,6 +424,18 @@ struct DreamHavenView: View {
                     accent: Theme.violet
                 ) {
                     navigate(.dungeon)
+                }
+                BuildingCard(
+                    icon: "eye.trianglebadge.exclamationmark.fill", name: "World Boss",
+                    status: gameState.isWorldBossActive
+                        ? "\(gameState.worldBossAttacksRemaining) Attacks left"
+                        : (gameState.hasUnclaimedWorldBossReward ? "Reward ready!" : "Fri 19:00 – Sun 19:00"),
+                    isActive: true,
+                    isReady: (gameState.isWorldBossActive && gameState.worldBossAttacksRemaining > 0) || gameState.hasUnclaimedWorldBossReward,
+                    delay: 0.21,
+                    accent: .red
+                ) {
+                    navigate(.worldBoss)
                 }
                 if gameState.isRewardedAdAvailable {
                     BuildingCard(

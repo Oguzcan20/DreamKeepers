@@ -56,6 +56,17 @@ struct DungeonBattleResultSummary: Equatable {
     var isFirstClear: Bool
 }
 
+/// Result of one World Boss attempt — deliberately not folded into
+/// `BattleResultSummary`: a World Boss fight never grants gold/EXP/loot and
+/// can end in `.timeout` (round limit reached, team still alive), which
+/// isn't a win or a loss. What matters here is only the damage dealt.
+struct WorldBossBattleResultSummary: Equatable {
+    var outcome: BattleOutcome
+    var damageDealtThisAttempt: Int
+    var totalDamageThisWeek: Int
+    var attacksRemaining: Int
+}
+
 struct BattleResultSummary: Equatable {
     var outcome: BattleOutcome
     var stage: Int
@@ -1670,6 +1681,107 @@ final class GameState {
         persist()
     }
 
+    // MARK: - World Boss
+
+    /// Live Friday 19:00 UTC through Sunday 19:00 UTC — see `WorldBossSystem`
+    /// for why this is UTC-fixed rather than device-locale-based.
+    var isWorldBossActive: Bool { WorldBossSystem.isActive() }
+
+    var worldBossWindow: (start: Date, end: Date) { WorldBossSystem.window(for: Date()) }
+
+    /// `save.worldBossWeek`/`worldBossAttacksUsed`/`worldBossDamageDealt`
+    /// only ever get reset the moment the player actually starts a new
+    /// week's first attack (see `makeWorldBossBattleEngine`), never merely
+    /// by the calendar rolling over — so a still-unclaimed previous week's
+    /// reward is never silently wiped out by opening the app after its
+    /// window closed. These two computed properties read "as of the current
+    /// week" without mutating anything, falling back to a full allotment /
+    /// zero damage when `save.worldBossWeek` is stale.
+    var worldBossAttacksRemaining: Int {
+        guard save.worldBossWeek == WorldBossSystem.weekStart(for: Date()) else { return WorldBossSystem.attacksPerWeek }
+        return max(0, WorldBossSystem.attacksPerWeek - save.worldBossAttacksUsed)
+    }
+
+    var worldBossDamageDealtThisWeek: Int {
+        guard save.worldBossWeek == WorldBossSystem.weekStart(for: Date()) else { return 0 }
+        return save.worldBossDamageDealt
+    }
+
+    /// True once the week `save.worldBossWeek` belongs to has closed
+    /// (Sunday 19:00 UTC), the player dealt at least some damage that week,
+    /// and its reward hasn't been claimed yet — the gold-dot badge condition
+    /// for the Dream Haven entry point.
+    var hasUnclaimedWorldBossReward: Bool {
+        guard save.worldBossDamageDealt > 0 else { return false }
+        let weekID = WorldBossSystem.weekID(for: save.worldBossWeek)
+        guard !save.worldBossClaimedWeeks.contains(weekID) else { return false }
+        return Date() >= WorldBossSystem.window(for: save.worldBossWeek).end
+    }
+
+    func canAttackWorldBoss() -> Bool {
+        isWorldBossActive && worldBossAttacksRemaining > 0 && !deployedTeam.isEmpty
+    }
+
+    /// Spends one of the week's attacks up front (same pattern as an Arena
+    /// ticket in `makeArenaBattleEngine`) and builds a fresh solo fight
+    /// against this week's boss. Every player fights the exact same boss
+    /// stats — see `WorldBossSystem.bossCombatant` for why that's what makes
+    /// the cross-player leaderboard fair despite each fight running entirely
+    /// client-side with no shared server state.
+    func makeWorldBossBattleEngine() -> BattleEngine? {
+        let currentWeekStart = WorldBossSystem.weekStart(for: Date())
+        if save.worldBossWeek != currentWeekStart {
+            save.worldBossWeek = currentWeekStart
+            save.worldBossAttacksUsed = 0
+            save.worldBossDamageDealt = 0
+        }
+        guard canAttackWorldBoss() else { return nil }
+        let playerCombatants = makePlayerCombatants(from: deployedTeam)
+        guard !playerCombatants.isEmpty else { return nil }
+        save.worldBossAttacksUsed += 1
+        persist()
+        return BattleEngine(
+            playerUnits: playerCombatants, enemy: WorldBossSystem.bossCombatant(),
+            stage: save.currentStage, isBossStage: true,
+            playerDamageMultiplier: soulDamageMult, roundLimit: WorldBossSystem.roundLimit
+        )
+    }
+
+    /// Only tallies damage — a World Boss fight never grants gold/EXP/loot
+    /// regardless of `engine.outcome` (`.victory`, `.defeat`, or `.timeout`
+    /// all just stop the attempt; what's kept is `totalDamageToEnemy`).
+    @discardableResult
+    func applyWorldBossBattleResult(from engine: BattleEngine) -> WorldBossBattleResultSummary {
+        let dealt = engine.totalDamageToEnemy
+        save.worldBossDamageDealt += dealt
+        persist()
+        return WorldBossBattleResultSummary(
+            outcome: engine.outcome ?? .timeout,
+            damageDealtThisAttempt: dealt,
+            totalDamageThisWeek: save.worldBossDamageDealt,
+            attacksRemaining: worldBossAttacksRemaining
+        )
+    }
+
+    /// `rank` is supplied by the caller (`WorldBossView`, via
+    /// `WorldBossLeaderboardService`) rather than looked up here — `GameState`
+    /// stays free of any Firebase dependency, same boundary `FriendsService`
+    /// is kept on the other side of today. A `nil`-reward rank (201+) still
+    /// marks the week claimed so the badge clears, it just pays out nothing.
+    @discardableResult
+    func claimWorldBossReward(rank: Int) -> Bool {
+        guard save.worldBossDamageDealt > 0, Date() >= WorldBossSystem.window(for: save.worldBossWeek).end else { return false }
+        let weekID = WorldBossSystem.weekID(for: save.worldBossWeek)
+        guard !save.worldBossClaimedWeeks.contains(weekID) else { return false }
+        if let reward = WorldBossSystem.reward(forRank: rank) {
+            save.gold += reward.gold
+            save.dreamGems += reward.gems
+        }
+        save.worldBossClaimedWeeks.insert(weekID)
+        persist()
+        return true
+    }
+
     // MARK: - Shop
 
     func isPurchased(_ item: ShopItem) -> Bool {
@@ -2111,6 +2223,31 @@ final class GameState {
         save.hasChosenStarterElement = true
         persist()
         return true
+    }
+
+    /// True while the player hasn't locked in a player name yet — i.e. the
+    /// post-Olf-choice "choose your name" screen still needs to run. Only
+    /// evaluated once onboarding and the starter Olf choice are both done,
+    /// so the three post-account-creation overlays never stack. Naturally
+    /// `false` for saves from before this feature existed (see
+    /// `GameSave.hasChosenPlayerName`'s doc comment), so it never
+    /// retroactively interrupts an existing player.
+    var needsPlayerName: Bool {
+        hasSeenOnboarding && !needsStarterOlfChoice && !save.hasChosenPlayerName
+    }
+
+    var playerName: String? { save.playerName }
+
+    /// Persists a name already successfully claimed via
+    /// `PlayerNameService.claim(_:)` — the actual global-uniqueness check
+    /// happens server-side (a Firestore transaction) before this is ever
+    /// called; this just locks in the local save so `needsPlayerName` never
+    /// resurfaces. A no-op once already chosen.
+    func setPlayerName(_ name: String) {
+        guard !save.hasChosenPlayerName else { return }
+        save.playerName = name
+        save.hasChosenPlayerName = true
+        persist()
     }
 
     /// Wipes all progress and starts over from a fresh save. Irreversible —

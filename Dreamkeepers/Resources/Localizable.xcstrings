@@ -4261,6 +4261,16 @@
         }
       }
     },
+    "No reward past rank 200": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Belohnung ab Rang 200"
+          }
+        }
+      }
+    },
     "No special offers right now — check back soon.": {
       "localizations": {
         "de": {
@@ -4531,6 +4541,16 @@
         }
       }
     },
+    "Paid out at the end of each week, by leaderboard rank": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird am Ende jeder Woche nach Bestenlisten-Rang ausgezahlt"
+          }
+        }
+      }
+    },
     "Passive": {
       "localizations": {
         "de": {
@@ -4717,6 +4737,56 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rang %lld/%lld"
+          }
+        }
+      }
+    },
+    "Rank 1": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rang 1"
+          }
+        }
+      }
+    },
+    "Rank 2-10": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rang 2-10"
+          }
+        }
+      }
+    },
+    "Rank 11-50": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rang 11-50"
+          }
+        }
+      }
+    },
+    "Rank 51-100": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rang 51-100"
+          }
+        }
+      }
+    },
+    "Rank 101-200": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rang 101-200"
           }
         }
       }
@@ -4967,6 +5037,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Belohnung abgeholt!"
+          }
+        }
+      }
+    },
+    "Rewards": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Belohnungen"
           }
         }
       }
